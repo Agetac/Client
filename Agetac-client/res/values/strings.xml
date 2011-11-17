@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="hello">Hello World, MainActivity!</string>
     <string name="app_name">Agetac-client</string>
+    <string name="login">Identifiant</string>
+    <string name="password">Mot de passe</string>
+    <string name="connection">Connexion</string>
+    <string name="soei">SOEI</string>
+    <string name="sitac">SITAC</string>
+    <string name="moyen">Moyen</string>
+    <string name="tab4">Tab4</string>
+    <string name="tab5">Tab5</string>
 
 </resources>
