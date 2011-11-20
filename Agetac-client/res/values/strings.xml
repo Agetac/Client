@@ -5,10 +5,19 @@
     <string name="login">Identifiant</string>
     <string name="password">Mot de passe</string>
     <string name="connection">Connexion</string>
-    <string name="soei">SOEI</string>
+    <string name="progress_title_connection">Veuillez patienter</string>
+    <string name="progress_connection">Connexion...</string>
+        
+    <string name="soeic">SOEIC</string>
     <string name="sitac">SITAC</string>
-    <string name="moyen">Moyen</string>
-    <string name="tab4">Tab4</string>
-    <string name="tab5">Tab5</string>
+    <string name="moyens">Moyens</string>
+    <string name="messages">Messages</string>
+    <string name="crm">CRM</string>
+    
+    <string name="je_suis">Je suis</string>
+    <string name="je_vois">Je vois</string>
+    <string name="je_prevois">Je prévois</string>
+    <string name="je_procede">Je procède</string>
+    <string name="je_demande">Je demande</string>
 
 </resources>

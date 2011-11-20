@@ -2,17 +2,18 @@ package org.agetac;
 
 import android.app.TabActivity;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.widget.TabHost;
+import android.widget.TabWidget;
 
 public class TabsActivity extends TabActivity {
 	
 	private static final String TAB_SITAC = "tab_sitac";
-	private static final String TAB_SOEI = "tab_soei";
-	private static final String TAB_MOYEN = "tab_moyen";
-	private static final String TAB_TAB4 = "tab_tab4";
-	private static final String TAB_TAB5 = "tab_tab5";
-
+	private static final String TAB_SOEIC = "tab_soeic";
+	private static final String TAB_MOYENS = "tab_moyens";
+	private static final String TAB_MESSAGES = "tab_messages";
+	private static final String TAB_CRM = "tab_crm";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -21,39 +22,47 @@ public class TabsActivity extends TabActivity {
 		
 		TabHost tHost = getTabHost();
 		TabHost.TabSpec spec;
+		Resources res = getResources();
 		Intent tabIntent;
-		
 		
 	    // Initialize a TabSpec for each tab and add it to the TabHost
 		tabIntent = new Intent().setClass(this, SITACActivity.class);
-	    spec = tHost.newTabSpec(TAB_SITAC).setIndicator(getString(R.string.sitac),
-	                      getResources().getDrawable(R.drawable.ic_tab_sitac))
-	                  .setContent(tabIntent);
+	    spec = tHost.newTabSpec(TAB_SITAC);
+	    spec.setIndicator(getString(R.string.sitac), res.getDrawable(R.drawable.ic_tab_sitac));
+	    spec.setContent(tabIntent);
 	    tHost.addTab(spec);
 	    
-	    tabIntent = new Intent().setClass(this, SOEIActivity.class);
-	    spec = tHost.newTabSpec(TAB_SOEI).setIndicator(getString(R.string.soei),
-                getResources().getDrawable(R.drawable.ic_tab_soei))
-            .setContent(tabIntent);
+	    tabIntent = new Intent().setClass(this, SOEICActivity.class);
+	    spec = tHost.newTabSpec(TAB_SOEIC);
+	    spec.setIndicator(getString(R.string.soeic), res.getDrawable(R.drawable.ic_tab_soeic));
+        spec.setContent(tabIntent);
 	    tHost.addTab(spec);
 	    
-	    tabIntent = new Intent().setClass(this, MoyenActivity.class);
-	    spec = tHost.newTabSpec(TAB_MOYEN).setIndicator(getString(R.string.moyen),
-                getResources().getDrawable(R.drawable.ic_tab_moyen))
-            .setContent(tabIntent);
+	    tabIntent = new Intent().setClass(this, MoyensActivity.class);
+	    spec = tHost.newTabSpec(TAB_MOYENS);
+	    spec.setIndicator(getString(R.string.moyens), res.getDrawable(R.drawable.ic_tab_moyens));
+        spec.setContent(tabIntent);
 	    tHost.addTab(spec);
 	    
-	    tabIntent = new Intent().setClass(this, Tab4Activity.class);
-	    spec = tHost.newTabSpec(TAB_TAB4).setIndicator(getString(R.string.tab4),
-                getResources().getDrawable(R.drawable.ic_tab_tab4))
-            .setContent(tabIntent);
+	    tabIntent = new Intent().setClass(this, MessagesActivity.class);
+	    spec = tHost.newTabSpec(TAB_MESSAGES);
+	    spec.setIndicator(getString(R.string.messages), res.getDrawable(R.drawable.ic_tab_messages));
+        spec.setContent(tabIntent);
 	    tHost.addTab(spec);
 	    
-	    tabIntent = new Intent().setClass(this, Tab5Activity.class);
-	    spec = tHost.newTabSpec(TAB_TAB5).setIndicator(getString(R.string.tab5),
-                getResources().getDrawable(R.drawable.ic_tab_tab5))
-            .setContent(tabIntent);
+	    tabIntent = new Intent().setClass(this, CRMActivity.class);
+	    spec = tHost.newTabSpec(TAB_CRM);
+	    spec.setIndicator(getString(R.string.crm), res.getDrawable(R.drawable.ic_tab_crm));
+        spec.setContent(tabIntent);
 	    tHost.addTab(spec);
+	    
+	    // on fait en sorte que les onglets prennent tout l'espace dispo en largeur
+		TabWidget tWidget = tHost.getTabWidget();
+		int nbTabs = tWidget.getChildCount();
+		int tabMaxWidth = getWindowManager().getDefaultDisplay().getWidth()/nbTabs;
+		for (int i=0; i<nbTabs; i++) {
+			tWidget.getChildAt(i).getLayoutParams().width = tabMaxWidth;
+		}
 	    
 	    tHost.setCurrentTab(0);
 	}

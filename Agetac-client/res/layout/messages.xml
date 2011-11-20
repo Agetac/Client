@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
+
+  <LinearLayout
+    android:id="@+id/field_titles"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:layout_marginRight="10px"
+    android:orientation="vertical">
+        
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          android:layout_weight="0.2"
+          android:text="@string/je_suis"/>
+      
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          android:layout_weight="0.2"
+          android:text="@string/je_vois"/>
+        
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          android:layout_weight="0.2"
+          android:text="@string/je_prevois"/>
+        
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          android:layout_weight="0.2"
+          android:text="@string/je_procede"/>
+        
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          android:layout_weight="0.2"
+          android:text="@string/je_demande"/>
+      
+  </LinearLayout>
+  
+	<LinearLayout
+	  android:layout_toRightOf="@id/field_titles"
+	  android:layout_width="match_parent"
+	  android:layout_height="match_parent"
+	  android:orientation="vertical">
+	  
+	  <EditText
+	      android:id="@+id/edittext_je_suis"
+	      android:layout_width="match_parent"
+	      android:layout_height="match_parent"
+	      android:layout_weight="0.2"
+	      android:gravity="top"/>
+	  
+	  <EditText
+	      android:id="@+id/edittext_je_vois"
+	      android:layout_width="match_parent"
+	      android:layout_height="match_parent"
+	      android:layout_weight="0.2"
+	      android:gravity="top"/>
+	  
+	  <EditText
+	      android:id="@+id/edittext_je_prevois"
+	      android:layout_width="match_parent"
+	      android:layout_height="match_parent"
+	      android:layout_weight="0.2"
+	      android:gravity="top"/>
+	    
+	  <EditText
+	      android:id="@+id/edittext_je_procede"
+	      android:layout_width="match_parent"
+	      android:layout_height="match_parent"
+	      android:layout_weight="0.2"
+	      android:gravity="top"/>
+	  
+	  <EditText
+	      android:id="@+id/edittext_je_demande"
+	      android:layout_width="match_parent"
+	      android:layout_height="match_parent"
+	      android:layout_weight="0.2"
+	      android:gravity="top"/>
+	    
+	</LinearLayout>
+    
+</RelativeLayout>
