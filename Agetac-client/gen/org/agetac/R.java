@@ -11,47 +11,63 @@ public final class R {
     public static final class attr {
     }
     public static final class drawable {
-        public static final int ic_launcher=0x7f020000;
-        public static final int ic_tab_crm=0x7f020001;
-        public static final int ic_tab_messages=0x7f020002;
-        public static final int ic_tab_moyens=0x7f020003;
-        public static final int ic_tab_sitac=0x7f020004;
-        public static final int ic_tab_soeic=0x7f020005;
+        public static final int firetruck=0x7f020000;
+        public static final int ic_launcher=0x7f020001;
+        public static final int ic_tab_crm=0x7f020002;
+        public static final int ic_tab_messages=0x7f020003;
+        public static final int ic_tab_moyens=0x7f020004;
+        public static final int ic_tab_sitac=0x7f020005;
+        public static final int ic_tab_soeic=0x7f020006;
     }
     public static final class id {
-        public static final int connectBtn=0x7f050000;
-        public static final int edittext_je_demande=0x7f050006;
-        public static final int edittext_je_prevois=0x7f050004;
-        public static final int edittext_je_procede=0x7f050005;
-        public static final int edittext_je_suis=0x7f050002;
-        public static final int edittext_je_vois=0x7f050003;
-        public static final int field_titles=0x7f050001;
+        public static final int addVehicule=0x7f05000a;
+        public static final int connectBtn=0x7f050001;
+        public static final int edittext_je_demande=0x7f050007;
+        public static final int edittext_je_prevois=0x7f050005;
+        public static final int edittext_je_procede=0x7f050006;
+        public static final int edittext_je_suis=0x7f050003;
+        public static final int edittext_je_vois=0x7f050004;
+        public static final int field_titles=0x7f050002;
+        public static final int gridview=0x7f050008;
+        public static final int nbCurrentVehicule=0x7f05000b;
+        public static final int nbFuturVehicule=0x7f05000c;
+        public static final int sitac_actions_panel=0x7f050009;
+        public static final int vehicule_name=0x7f050000;
+        public static final int vehicules_listview=0x7f05000d;
     }
     public static final class layout {
         public static final int crm=0x7f030000;
-        public static final int main=0x7f030001;
-        public static final int messages=0x7f030002;
-        public static final int moyens=0x7f030003;
-        public static final int sitac=0x7f030004;
-        public static final int soeic=0x7f030005;
-        public static final int tabs=0x7f030006;
+        public static final int gridview_item=0x7f030001;
+        public static final int main=0x7f030002;
+        public static final int messages=0x7f030003;
+        public static final int moyens=0x7f030004;
+        public static final int sitac=0x7f030005;
+        public static final int soeic=0x7f030006;
+        public static final int tabs=0x7f030007;
     }
     public static final class string {
         public static final int app_name=0x7f040000;
         public static final int connection=0x7f040003;
-        public static final int crm=0x7f04000a;
-        public static final int je_demande=0x7f04000f;
-        public static final int je_prevois=0x7f04000d;
-        public static final int je_procede=0x7f04000e;
-        public static final int je_suis=0x7f04000b;
-        public static final int je_vois=0x7f04000c;
+        public static final int crm=0x7f040011;
+        public static final int dialog_confirmexit=0x7f04000a;
+        public static final int dialog_deletevehicule=0x7f04000c;
+        public static final int dialog_title_confirmexit=0x7f040009;
+        public static final int dialog_title_deletevehicule=0x7f04000b;
+        public static final int je_demande=0x7f040016;
+        public static final int je_prevois=0x7f040014;
+        public static final int je_procede=0x7f040015;
+        public static final int je_suis=0x7f040012;
+        public static final int je_vois=0x7f040013;
         public static final int login=0x7f040001;
-        public static final int messages=0x7f040009;
-        public static final int moyens=0x7f040008;
+        public static final int messages=0x7f040010;
+        public static final int moyens=0x7f04000f;
+        public static final int no=0x7f040005;
         public static final int password=0x7f040002;
-        public static final int progress_connection=0x7f040005;
-        public static final int progress_title_connection=0x7f040004;
-        public static final int sitac=0x7f040007;
-        public static final int soeic=0x7f040006;
+        public static final int progress_connection=0x7f040007;
+        public static final int progress_loading=0x7f040008;
+        public static final int progress_title_connection=0x7f040006;
+        public static final int sitac=0x7f04000e;
+        public static final int soeic=0x7f04000d;
+        public static final int yes=0x7f040004;
     }
 }

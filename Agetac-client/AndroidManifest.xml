@@ -19,12 +19,12 @@
             </intent-filter>
         </activity>
         
-        <activity android:name=".TabsActivity" />
-        <activity android:name=".SITACActivity" />
-        <activity android:name=".SOEICActivity" />
-        <activity android:name=".MoyensActivity" />
-        <activity android:name=".MessagesActivity" />
-        <activity android:name=".CRMActivity" />
+        <activity android:name="TabsActivity" />
+        <activity android:name=".tabs.SITACActivity" />
+        <activity android:name=".tabs.SOEICActivity" />
+        <activity android:name=".tabs.MoyensActivity" />
+        <activity android:name=".tabs.MessagesActivity" />
+        <activity android:name=".tabs.CRMActivity" />
     </application>
 
 </manifest>

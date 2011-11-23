@@ -8,6 +8,9 @@ import android.view.View;
 import android.widget.Button;
 
 public class MainActivity extends Activity {
+	
+	private ProgressDialog connectionDialog;
+	
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -19,8 +22,8 @@ public class MainActivity extends Activity {
 			public void onClick(View v) {
 				String title = getString(R.string.progress_title_connection);
 				String message = getString(R.string.progress_connection);
-				final ProgressDialog progressDialog = ProgressDialog.show(MainActivity.this, title, message);
-				progressDialog.isIndeterminate();
+				connectionDialog = ProgressDialog.show(MainActivity.this, title, message);
+				connectionDialog.isIndeterminate();
 				
 				new Thread(new Runnable() {
 					@Override
@@ -29,7 +32,7 @@ public class MainActivity extends Activity {
 						// demander une connexion au serveur
 
 						// supprimer le progress dialog 
-						progressDialog.dismiss();
+						connectionDialog.dismiss();
 						
 						// si la connexion est valide, lancer l'activitée
 						startActivity(new Intent(MainActivity.this, TabsActivity.class));
@@ -38,4 +41,12 @@ public class MainActivity extends Activity {
 			}
 		});
     }
+    
+	@Override
+	protected void onPause() {
+		super.onPause();
+		// fuite si on ne détruit pas manuellement le dialog
+		// quand l'activitée est mise en pause
+		if (connectionDialog != null) connectionDialog.dismiss();
+	}
 }

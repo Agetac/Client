@@ -2,6 +2,11 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="match_parent"
   android:layout_height="match_parent">
+  
+  <!-- Hack permettant d'empêcher EditText d'avoir le focus au lancement -->
+  <LinearLayout
+    android:focusable="true" android:focusableInTouchMode="true"
+    android:layout_width="0px" android:layout_height="0px"/>
 
   <LinearLayout
     android:id="@+id/field_titles"

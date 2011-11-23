@@ -5,8 +5,17 @@
     <string name="login">Identifiant</string>
     <string name="password">Mot de passe</string>
     <string name="connection">Connexion</string>
+    <string name="yes">Oui</string>
+    <string name="no">Non</string>
+    
     <string name="progress_title_connection">Veuillez patienter</string>
     <string name="progress_connection">Connexion...</string>
+    <string name="progress_loading">Chargement...</string>
+    
+    <string name="dialog_title_confirmexit">Quitter</string>
+    <string name="dialog_confirmexit">Êtes-vous sûr de vouloir vous déconnecter ?</string>
+    <string name="dialog_title_deletevehicule">Confirmer suppression</string>
+    <string name="dialog_deletevehicule">Voulez-vous supprimer ce véhicule ?</string>
         
     <string name="soeic">SOEIC</string>
     <string name="sitac">SITAC</string>

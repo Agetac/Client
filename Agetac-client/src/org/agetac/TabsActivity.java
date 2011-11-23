@@ -1,5 +1,12 @@
 package org.agetac;
 
+import org.agetac.model.Intervention;
+import org.agetac.tabs.CRMActivity;
+import org.agetac.tabs.MessagesActivity;
+import org.agetac.tabs.MoyensActivity;
+import org.agetac.tabs.SITACActivity;
+import org.agetac.tabs.SOEICActivity;
+
 import android.app.TabActivity;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -18,7 +25,7 @@ public class TabsActivity extends TabActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.tabs);
+		setContentView(R.layout.tabs);		
 		
 		TabHost tHost = getTabHost();
 		TabHost.TabSpec spec;
