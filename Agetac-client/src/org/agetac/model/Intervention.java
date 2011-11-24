@@ -2,7 +2,7 @@ package org.agetac.model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
+import java.util.Observer;
 import java.util.Random;
 
 import org.agetac.observer.MyObservable;
@@ -57,12 +57,11 @@ public class Intervention {
 	}
 	
 	/**
-	 * Ajouter ça aux observers pour qu'ils soient notifiés
-	 * de tout changement sur l'intervention
-	 * @return observable MyObservable object
+	 * Ajoute un observeur à l'intervention
+	 * @param obs un observeur
 	 */
-	public Observable getObservable() {
-		return observable;
+	public void addObserver(Observer obs) {
+		observable.addObserver(obs);
 	}
 	
 	public void update() {

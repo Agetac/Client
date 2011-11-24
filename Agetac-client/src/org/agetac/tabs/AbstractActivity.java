@@ -22,8 +22,14 @@ public abstract class AbstractActivity extends Activity implements Observer {
 		System.out.println("FUCK ME");
 		// l'activité observe l'intervention
 		intervention = Intervention.getIntervention();
-		intervention.getObservable().addObserver(this);
-	}	
+		intervention.addObserver(this);
+	}
+	
+	@Override
+	protected void onStart() {
+		super.onStart();
+		intervention.update();
+	}
 	
 	/**
 	 * Ne pas redifinir cette méthode sans appeler super.onBackPressed()

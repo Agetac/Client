@@ -14,8 +14,6 @@ public class MessagesActivity extends AbstractActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.messages);
-		
-		intervention.update();
 	}
 
 	@Override

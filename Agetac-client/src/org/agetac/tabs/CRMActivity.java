@@ -16,7 +16,6 @@ public class CRMActivity extends AbstractActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.crm);
-		intervention.update();
 	}
 
 	@Override

@@ -44,8 +44,6 @@ public class SITACActivity extends AbstractActivity implements OnClickListener, 
 		
 		vehiculeList = (ListView) findViewById(R.id.vehicules_listview);
 		vehiculeList.setOnItemClickListener(this);
-		
-		intervention.update();
 	}
 
 	@Override

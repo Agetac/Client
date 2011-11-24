@@ -14,7 +14,6 @@ public class SOEICActivity extends AbstractActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.soeic);
-		intervention.update();
 	}
 
 	@Override

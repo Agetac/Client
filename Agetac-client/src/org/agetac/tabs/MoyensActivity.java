@@ -33,8 +33,6 @@ public class MoyensActivity extends AbstractActivity implements OnItemClickListe
 	    gridview.setOnItemClickListener(this);
 	    itemAdapter = new ItemAdapter();
 	    gridview.setAdapter(itemAdapter);
-	    
-	    intervention.update();
 	}
 	
 	@Override
