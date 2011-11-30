@@ -9,21 +9,21 @@ import org.agetac.observer.MyObservable;
 
 public class Intervention {
 
-	private List<Vehicule> vehicules;
+	private List<Entity> entities;
 	private MyObservable observable;
 	private static Intervention intervention;
 	
 	private Intervention() {
 		observable = new MyObservable();
-		vehicules = new ArrayList<Vehicule>();
+		entities = new ArrayList<Entity>();
 		Random gen = new Random();
-		int size = gen.nextInt(3);
+		int size = gen.nextInt(3)+1;
 		for (int i=0; i<size; i++) {
-			vehicules.add(new Vehicule("Vehicule de base "+i, true));
+			entities.add(new Vehicule("Vehicule de base "+i, true));
 		}
 	}
 	
-	public static Intervention getIntervention() {
+	public static Intervention getInstance() {
 		if (intervention == null) intervention = new Intervention();
 		return intervention;
 	}
@@ -33,26 +33,26 @@ public class Intervention {
 	}
 	
 	/**
-	 * Ajoute un vehicule à l'intervention
-	 * @param vehicule à ajouter; ne fait rien si null
+	 * Ajoute une entitée à l'intervention
+	 * @param entitée à ajouter; ne fait rien si null
 	 */
-	public void addVehicule(Vehicule vehicule) {
-		if (vehicule != null) {
-			vehicules.add(vehicule);
+	public void addEntity(Entity entity) {
+		if (entity != null) {
+			entities.add(entity);
 			observable.setChanged();
-			observable.notifyObservers(vehicules);
+			observable.notifyObservers(entities);
 		}
 	}
 	
 	/**
-	 * Retire un véhicule de l'intervention
-	 * @param vehicule à supprimer; ne fait rien si null
+	 * Retire une entitée de l'intervention
+	 * @param entity à supprimer; ne fait rien si null
 	 */
-	public void removeVehicule(Vehicule vehicule) {
-		boolean isRemoved = vehicules.remove(vehicule);
+	public void removeEntity(Entity entity) {
+		boolean isRemoved = entities.remove(entity);
 		if (isRemoved) {
 			observable.setChanged();
-			observable.notifyObservers(vehicules);
+			observable.notifyObservers(entities);
 		}
 	}
 	
@@ -64,10 +64,10 @@ public class Intervention {
 		observable.addObserver(obs);
 	}
 	
-	public void update() {
-		if (!vehicules.isEmpty()) {
+	public void callUpdate() {
+		if (!entities.isEmpty()) {
 			observable.setChanged();
-			observable.notifyObservers(vehicules);
+			observable.notifyObservers(entities);
 		}
 	}
 }

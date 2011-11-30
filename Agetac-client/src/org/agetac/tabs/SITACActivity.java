@@ -2,11 +2,12 @@ package org.agetac.tabs;
 
 import java.util.List;
 import java.util.Observable;
-import java.util.Observer;
 import java.util.Random;
 
 import org.agetac.R;
-import org.agetac.model.Intervention;
+import org.agetac.command.AddEntityCommand;
+import org.agetac.command.RemoveEntityCommand;
+import org.agetac.model.Entity;
 import org.agetac.model.Vehicule;
 
 import android.app.AlertDialog;
@@ -14,7 +15,6 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnLongClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
@@ -53,7 +53,9 @@ public class SITACActivity extends AbstractActivity implements OnClickListener, 
 		switch (v.getId()) {
 		
 			case R.id.addVehicule:
-				intervention.addVehicule(new Vehicule("Vehicule "+(gen.nextInt(41)+1), false));
+				Entity e = new Vehicule("Vehicule "+(gen.nextInt(41)+1), false);
+				controller.setLastEntity(e);
+				controller.getCommands().get(AddEntityCommand.NAME).execute();
 				break;
 		}
 	}
@@ -70,7 +72,8 @@ public class SITACActivity extends AbstractActivity implements OnClickListener, 
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					ArrayAdapter<Vehicule> vehicules = (ArrayAdapter) adapter.getAdapter();
-					intervention.removeVehicule(vehicules.getItem(position));
+					controller.setLastEntity(vehicules.getItem(position));
+					controller.getCommands().get(RemoveEntityCommand.NAME).execute();
 				}
 			});
 			confirmDelete.setNegativeButton(R.string.no, null);

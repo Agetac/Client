@@ -3,39 +3,38 @@ package org.agetac.tabs;
 import java.util.Observer;
 
 import org.agetac.R;
+import org.agetac.controller.Controller;
+import org.agetac.model.Entity;
 import org.agetac.model.Intervention;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
 public abstract class AbstractActivity extends Activity implements Observer {
 	
 	protected Intervention intervention;
+	protected Controller controller;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		System.out.println("FUCK ME");
 		// l'activité observe l'intervention
-		intervention = Intervention.getIntervention();
+		intervention = Intervention.getInstance();
 		intervention.addObserver(this);
+		
+		// on crée le controlleur
+		controller = Controller.getInstance(intervention);
 	}
 	
 	@Override
 	protected void onStart() {
 		super.onStart();
-		intervention.update();
+		intervention.callUpdate();
 	}
 	
-	/**
-	 * Ne pas redifinir cette méthode sans appeler super.onBackPressed()
-	 * car elle définit déjà un moyen dans AbstractActivity de confirmer
-	 * la fermeture de l'activitée en cours. cf. AbstractFactory.java
-	 */
 	@Override
 	public void onBackPressed() {
 		AlertDialog.Builder confirmExitDialog = new AlertDialog.Builder(this);

@@ -1,6 +1,6 @@
 package org.agetac;
 
-import org.agetac.model.Intervention;
+import org.agetac.controller.Controller;
 import org.agetac.tabs.CRMActivity;
 import org.agetac.tabs.MessagesActivity;
 import org.agetac.tabs.MoyensActivity;
@@ -25,7 +25,7 @@ public class TabsActivity extends TabActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.tabs);		
+		setContentView(R.layout.tabs);
 		
 		TabHost tHost = getTabHost();
 		TabHost.TabSpec spec;

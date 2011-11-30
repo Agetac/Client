@@ -2,10 +2,10 @@ package org.agetac.tabs;
 
 import java.util.List;
 import java.util.Observable;
-import java.util.Observer;
 
 import org.agetac.R;
-import org.agetac.model.Intervention;
+import org.agetac.command.RemoveEntityCommand;
+import org.agetac.model.Entity;
 import org.agetac.model.Vehicule;
 
 import android.app.AlertDialog;
@@ -15,7 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.TextView;
@@ -47,7 +46,8 @@ public class MoyensActivity extends AbstractActivity implements OnItemClickListe
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					ItemAdapter itemAdpt = (ItemAdapter) adapter.getAdapter();
-					intervention.removeVehicule((Vehicule) itemAdpt.getItem(position));
+					controller.setLastEntity((Entity) itemAdpt.getItem(position));
+					controller.getCommands().get(RemoveEntityCommand.NAME).execute();
 				}
 			});
 			confirmDelete.setNegativeButton(R.string.no, null);
@@ -60,8 +60,8 @@ public class MoyensActivity extends AbstractActivity implements OnItemClickListe
 	public void update(Observable observable, Object data) {
 		try {
 			
-			List<Vehicule> vehicules = (List<Vehicule>) data;
-			itemAdapter.setVehicules(vehicules);
+			List<Entity> entities = (List<Entity>) data;
+			itemAdapter.setItems(entities);
 			itemAdapter.notifyDataSetChanged();
 			
 		} catch (ClassCastException e) {}
@@ -69,24 +69,24 @@ public class MoyensActivity extends AbstractActivity implements OnItemClickListe
 	
 	public class ItemAdapter extends BaseAdapter {
 
-		private List<Vehicule> vehicules;
+		private List<Entity> entities;
 
-	    public void setVehicules(List<Vehicule> vehicules) {
-			this.vehicules = vehicules;
+	    public void setItems(List<Entity> entities) {
+			this.entities = entities;
 		}
 
 		public int getCount() {
-	        if (vehicules == null) {
+	        if (entities == null) {
 	        	return 0;
 	        }
-	        return vehicules.size();
+	        return entities.size();
 	    }
 
 	    public Object getItem(int position) {
-	        if (vehicules == null) {
+	        if (entities == null) {
 	        	return null;
 	        }
-	        return vehicules.get(position);
+	        return entities.get(position);
 	    }
 
 	    public long getItemId(int position) {
@@ -96,8 +96,7 @@ public class MoyensActivity extends AbstractActivity implements OnItemClickListe
 	    // create a new View for each item referenced by the Adapter
 	    public View getView(int position, View convertView, ViewGroup parent) {
 	        View itemView = getLayoutInflater().inflate(R.layout.gridview_item, null);
-	        ((TextView) itemView.findViewById(R.id.vehicule_name)).setText(vehicules.get(position).getName());
-	        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>< "+vehicules.get(position).getName());
+	        ((TextView) itemView.findViewById(R.id.vehicule_name)).setText(entities.get(position).getName());
 	        return itemView;
 	    }
 	}
