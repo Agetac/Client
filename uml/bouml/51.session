@@ -1,0 +1,16 @@
+window_sizes 1440 838 337 1013 600 82
+diagrams
+  active  sequencediagram_ref 128051 // sequence_diag
+    1097 682 100 0 0 0
+end
+show_stereotypes
+selected class_ref 128554 // AddEntityCommand
+open
+  classview_ref 128170 // agetac
+  classview_ref 128426 // command
+  classview_ref 128682 // model
+  classview_ref 128810 // controller
+  classview_ref 129066 // tabs
+  usecaseview_ref 128051 // use_case_view
+end
+end
