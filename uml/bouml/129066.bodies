@@ -1,0 +1,33 @@
+class Intervention
+!!!130986.java!!!	Intervention()
+		observable = new MyObservable();
+		entities = new ArrayList<Entity>();
+		Random gen = new Random();
+		int size = gen.nextInt(3)+1;
+		for (int i=0; i<size; i++) {
+			entities.add(new Vehicule("Vehicule de base "+i, true));
+		}
+!!!131114.java!!!	getInstance() : Intervention
+		if (intervention == null) intervention = new Intervention();
+		return intervention;
+!!!131242.java!!!	destroy() : void
+		intervention = null;
+!!!131370.java!!!	addEntity(inout entity : Entity) : void
+		if (entity != null) {
+			entities.add(entity);
+			observable.setChanged();
+			observable.notifyObservers(entities);
+		}
+!!!131498.java!!!	removeEntity(inout entity : Entity) : void
+		boolean isRemoved = entities.remove(entity);
+		if (isRemoved) {
+			observable.setChanged();
+			observable.notifyObservers(entities);
+		}
+!!!131626.java!!!	addObserver(inout obs : Observer) : void
+		observable.addObserver(obs);
+!!!131754.java!!!	callUpdate() : void
+		if (!entities.isEmpty()) {
+			observable.setChanged();
+			observable.notifyObservers(entities);
+		}

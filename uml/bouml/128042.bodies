@@ -1,0 +1,33 @@
+class MainActivity
+!!!128042.java!!!	onCreate(inout savedInstanceState : Bundle) : void
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.main);
+        
+        ((Button) findViewById(R.id.connectBtn)).setOnClickListener(new View.OnClickListener() {
+			
+			public void onClick(View v) {
+				String title = getString(R.string.progress_title_connection);
+				String message = getString(R.string.progress_connection);
+				connectionDialog = ProgressDialog.show(MainActivity.this, title, message);
+				connectionDialog.isIndeterminate();
+				
+				new Thread(new Runnable() {
+					@Override
+					public void run() {
+						// TODO
+						// demander une connexion au serveur
+
+						// supprimer le progress dialog 
+						connectionDialog.dismiss();
+						
+						// si la connexion est valide, lancer l'activitée
+						startActivity(new Intent(MainActivity.this, TabsActivity.class));
+					}
+				}).start();
+			}
+		});
+!!!128170.java!!!	onPause() : void
+		super.onPause();
+		// fuite si on ne détruit pas manuellement le dialog
+		// quand l'activitée est mise en pause
+		if (connectionDialog != null) connectionDialog.dismiss();

@@ -1,0 +1,7 @@
+class SOEICActivity
+!!!134954.java!!!	onCreate(inout savedInstanceState : Bundle) : void
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.soeic);
+!!!135082.java!!!	update(inout observable : Observable, inout data : Object) : void
+		// TODO Auto-generated method stub
+		

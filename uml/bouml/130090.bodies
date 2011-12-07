@@ -1,0 +1,27 @@
+class AbstractActivity
+!!!132522.java!!!	onCreate(inout savedInstanceState : Bundle) : void
+		super.onCreate(savedInstanceState);
+
+		// l'activité observe l'intervention
+		intervention = Intervention.getInstance();
+		intervention.addObserver(this);
+		
+		// on crée le controlleur
+		controller = Controller.getInstance(intervention);
+!!!132650.java!!!	onStart() : void
+		super.onStart();
+		intervention.callUpdate();
+!!!132778.java!!!	onBackPressed() : void
+		AlertDialog.Builder confirmExitDialog = new AlertDialog.Builder(this);
+		confirmExitDialog.setTitle(R.string.dialog_title_confirmexit);
+		confirmExitDialog.setMessage(R.string.dialog_confirmexit);
+		confirmExitDialog.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				Intervention.destroy();
+				setResult(RESULT_OK);
+				finish();
+			}
+		});
+		confirmExitDialog.setNegativeButton(R.string.no, null);
+		confirmExitDialog.show();

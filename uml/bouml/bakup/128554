@@ -1,0 +1,385 @@
+format 76
+"command" // src::org::agetac::command
+  revision 1
+  modified_by 42 "leiko"
+  // class settings
+  //class diagram settings
+  draw_all_relations default hide_attributes default hide_operations default hide_getset_operations default show_members_full_definition default show_members_visibility default show_members_stereotype default show_members_context default show_members_multiplicity default show_members_initialization default show_attribute_modifiers default member_max_width 0 show_parameter_dir default show_parameter_name default package_name_in_tab default class_drawing_mode default drawing_language default show_context_mode default auto_label_position default show_relation_modifiers default show_relation_visibility default show_infonote default shadow default show_stereotype_properties default
+  //use case diagram settings
+  package_name_in_tab default show_context default auto_label_position default draw_all_relations default class_drawing_mode default shadow default show_stereotype_properties default
+  //sequence diagram settings
+  show_full_operations_definition default write_horizontally default class_drawing_mode default drawing_language default draw_all_relations default shadow default show_stereotype_properties default show_class_context_mode default show_msg_context_mode default
+  //collaboration diagram settings
+  show_full_operations_definition default show_hierarchical_rank default write_horizontally default class_drawing_mode default drawing_language default package_name_in_tab default show_context default show_msg_context default draw_all_relations default shadow default show_stereotype_properties default
+  //object diagram settings
+   write_horizontally default package_name_in_tab default show_context default auto_label_position default draw_all_relations default shadow default show_stereotype_properties default
+  //component diagram settings
+  package_name_in_tab default show_context default auto_label_position default draw_all_relations default shadow default
+  draw_component_as_icon default show_component_req_prov default show_component_rea default show_stereotype_properties default
+  //deployment diagram settings
+  package_name_in_tab default show_context default write_horizontally default auto_label_position default draw_all_relations default shadow default
+  draw_component_as_icon default show_component_req_prov default show_component_rea default show_stereotype_properties default
+  //state diagram settings
+  package_name_in_tab default show_context default auto_label_position default write_trans_label_horizontally default show_trans_definition default draw_all_relations default shadow default
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  //activity diagram settings
+  package_name_in_tab default show_context default show_opaque_action_definition default auto_label_position default write_flow_label_horizontally default draw_all_relations default shadow default
+  show_infonote default drawing_language default show_stereotype_properties default
+  
+  java_dir "/home/leiko/Documents/M1/AGETAC/Client/Agetac-client/src/org/agetac/command/"
+  java_package "org.agetac.command"
+  classview 128426 "command"
+    //class diagram settings
+    draw_all_relations default hide_attributes default hide_operations default hide_getset_operations default show_members_full_definition default show_members_visibility default show_members_stereotype default show_members_context default show_members_multiplicity default show_members_initialization default show_attribute_modifiers default member_max_width 0 show_parameter_dir default show_parameter_name default package_name_in_tab default class_drawing_mode default drawing_language default show_context_mode default auto_label_position default show_relation_modifiers default show_relation_visibility default show_infonote default shadow default show_stereotype_properties default
+    //collaboration diagram settings
+    show_full_operations_definition default show_hierarchical_rank default write_horizontally default class_drawing_mode default drawing_language default package_name_in_tab default show_context default show_msg_context default draw_all_relations default shadow default show_stereotype_properties default
+    //object diagram settings
+     write_horizontally default package_name_in_tab default show_context default auto_label_position default draw_all_relations default shadow default show_stereotype_properties default
+    //sequence diagram settings
+    show_full_operations_definition default write_horizontally default class_drawing_mode default drawing_language default draw_all_relations default shadow default show_stereotype_properties default show_class_context_mode default show_msg_context_mode default
+    //state diagram settings
+    package_name_in_tab default show_context default auto_label_position default write_trans_label_horizontally default show_trans_definition default draw_all_relations default shadow default
+    show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+    //class settings
+    //activity diagram settings
+    package_name_in_tab default show_context default show_opaque_action_definition default auto_label_position default write_flow_label_horizontally default draw_all_relations default shadow default
+    show_infonote default drawing_language default show_stereotype_properties default
+    class 128554 "AddEntityCommand"
+      visibility public 
+      cpp_decl ""
+      java_decl "${comment}${@}${visibility}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+      classrelation 128426 // <realization>
+	relation 128426 -_-|>
+	  a public
+	    java "${type}"
+	    classrelation_ref 128426 // <realization>
+	  b parent class_ref 128682 // IRecordableCommand
+      end
+
+      attribute 128810 "NAME"
+	class_attribute const_attribute public explicit_type "String"
+	init_value " \"AddEntity\""
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+      end
+
+      classrelation 128554 // intervention (<unidirectional association>)
+	relation 128554 --->
+	  a role_name "intervention" private
+	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	    classrelation_ref 128554 // intervention (<unidirectional association>)
+	  b parent class_ref 129066 // Intervention
+      end
+
+      classrelation 128682 // controller (<unidirectional association>)
+	relation 128682 --->
+	  a role_name "controller" private
+	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	    classrelation_ref 128682 // controller (<unidirectional association>)
+	  b parent class_ref 129194 // Controller
+      end
+
+      operation 128810 "AddEntityCommand"
+	public explicit_return_type ""
+	nparams 2
+	  param inout name "intervention" type class_ref 129066 // Intervention
+	  param inout name "controller" type class_ref 129194 // Controller
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${synchronized}${name}${(}${t0} ${p0}, ${t1} ${p1}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+
+      operation 128938 "execute"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Override
+"
+	
+	
+	
+      end
+
+      operation 129066 "saveMemento"
+	public return_type class_ref 128938 // IMemento
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Override
+"
+	
+	
+	
+      end
+
+      operation 129194 "restoreMemento"
+	public explicit_return_type "void"
+	nparams 1
+	  param inout name "mem" type class_ref 128938 // IMemento
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Override
+"
+	
+	
+	
+      end
+    end
+
+    class 128682 "IRecordableCommand"
+      visibility public stereotype "interface"
+      cpp_decl ""
+      java_decl "${comment}${@}${visibility}interface ${name}${extends} {
+${members}}
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+      classrelation 128298 // <generalisation>
+	relation 128298 ---|>
+	  a public
+	    java "${type}"
+	    classrelation_ref 128298 // <generalisation>
+	  b parent class_ref 128810 // ICommand
+      end
+
+      operation 128554 "saveMemento"
+	public return_type class_ref 128938 // IMemento
+	nparams 0
+	
+	java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+
+      operation 128682 "restoreMemento"
+	public explicit_return_type "void"
+	nparams 1
+	  param inout name "mem" type class_ref 128938 // IMemento
+	
+	java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+    end
+
+    class 128810 "ICommand"
+      visibility public stereotype "interface"
+      cpp_decl ""
+      java_decl "${comment}${@}${visibility}interface ${name}${extends} {
+${members}}
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+      operation 128426 "execute"
+	public explicit_return_type "void"
+	nparams 0
+	
+	java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+    end
+
+    class 129322 "RemoveEntityCommand"
+      visibility public 
+      cpp_decl ""
+      java_decl "${comment}${@}${visibility}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+      classrelation 128810 // <realization>
+	relation 128810 -_-|>
+	  a public
+	    java "${type}"
+	    classrelation_ref 128810 // <realization>
+	  b parent class_ref 128682 // IRecordableCommand
+      end
+
+      attribute 128938 "NAME"
+	class_attribute const_attribute public explicit_type "String"
+	init_value " \"RemoveEntity\""
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+      end
+
+      classrelation 128938 // intervention (<unidirectional association>)
+	relation 128938 --->
+	  a role_name "intervention" private
+	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	    classrelation_ref 128938 // intervention (<unidirectional association>)
+	  b parent class_ref 129066 // Intervention
+      end
+
+      classrelation 129066 // controller (<unidirectional association>)
+	relation 129066 --->
+	  a role_name "controller" private
+	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	    classrelation_ref 129066 // controller (<unidirectional association>)
+	  b parent class_ref 129194 // Controller
+      end
+
+      operation 129322 "RemoveEntityCommand"
+	public explicit_return_type ""
+	nparams 2
+	  param inout name "intervention" type class_ref 129066 // Intervention
+	  param inout name "controller" type class_ref 129194 // Controller
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${synchronized}${name}${(}${t0} ${p0}, ${t1} ${p1}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+
+      operation 129450 "execute"
+	public explicit_return_type "void"
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Override
+"
+	
+	
+	
+      end
+
+      operation 129578 "saveMemento"
+	public return_type class_ref 128938 // IMemento
+	nparams 0
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Override
+"
+	
+	
+	
+      end
+
+      operation 129706 "restoreMemento"
+	public explicit_return_type "void"
+	nparams 1
+	  param inout name "mem" type class_ref 128938 // IMemento
+	
+	preserve_java_body_indent java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	java_annotation "@Override
+"
+	
+	
+	
+      end
+    end
+  end
+
+  deploymentview 128170 "command"
+    //deployment diagram settings
+    package_name_in_tab default show_context default write_horizontally default auto_label_position default draw_all_relations default shadow default
+    draw_component_as_icon default show_component_req_prov default show_component_rea default show_stereotype_properties default
+    artifact 128298 "ICommand"
+      stereotype "source"
+      java_src "${comment}
+${package}
+${imports}
+${definition}"
+      associated_classes
+	class_ref 128810 // ICommand
+      end
+    end
+
+    artifact 128426 "IRecordableCommand"
+      stereotype "source"
+      java_src "${comment}
+${package}
+${imports}
+import org.agetac.memento.IMemento;
+${definition}"
+      associated_classes
+	class_ref 128682 // IRecordableCommand
+      end
+    end
+
+    artifact 128554 "AddEntityCommand"
+      stereotype "source"
+      java_src "${comment}
+${package}
+${imports}
+import org.agetac.controller.Controller;
+import org.agetac.memento.AddEntityMemento;
+import org.agetac.memento.IMemento;
+import org.agetac.model.Intervention;
+${definition}"
+      associated_classes
+	class_ref 128554 // AddEntityCommand
+      end
+    end
+
+    artifact 128682 "RemoveEntityCommand"
+      stereotype "source"
+      java_src "${comment}
+${package}
+${imports}
+import org.agetac.controller.Controller;
+import org.agetac.memento.IMemento;
+import org.agetac.model.Intervention;
+${definition}"
+      associated_classes
+	class_ref 129322 // RemoveEntityCommand
+      end
+    end
+  end
+end

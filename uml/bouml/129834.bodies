@@ -1,0 +1,10 @@
+class Vehicule
+!!!131882.java!!!	Vehicule(in name : String, inout deBase : boolean)
+		this.name = name;
+		this.deBase = deBase;
+!!!132010.java!!!	getName() : String
+		return name;
+!!!132138.java!!!	toString() : String
+		return name;
+!!!132266.java!!!	isDeBase() : boolean
+		return deBase;

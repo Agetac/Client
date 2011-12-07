@@ -1,0 +1,7 @@
+class MessagesActivity
+!!!133162.java!!!	onCreate(inout savedInstanceState : Bundle) : void
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.messages);
+!!!133290.java!!!	update(inout observable : Observable, inout data : Object) : void
+		// TODO Auto-generated method stub
+		

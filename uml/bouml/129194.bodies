@@ -1,0 +1,18 @@
+class Controller
+!!!129834.java!!!	Controller(inout intervention : Intervention)
+		this.intervention = intervention;
+		initCommands();
+!!!129962.java!!!	initCommands() : void
+		commands = new Hashtable<String, ICommand>();
+		if (intervention == null) System.out.println("INTERVENTION NULL DANS INIT COMMANDS");
+		commands.put(AddEntityCommand.NAME, new AddEntityCommand(intervention, this));
+		commands.put(RemoveEntityCommand.NAME, new RemoveEntityCommand(intervention, this));
+!!!130090.java!!!	getInstance(inout intervention : Intervention) : Controller
+		if (controller == null) controller = new Controller(intervention);
+		return controller;
+!!!130218.java!!!	getLastEntity() : Entity
+		return lastEntity;
+!!!130346.java!!!	setLastEntity(inout e : Entity) : void
+		lastEntity = e;
+!!!130474.java!!!	getCommands() : ICommand
+		return commands;

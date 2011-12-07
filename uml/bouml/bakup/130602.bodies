@@ -1,0 +1,36 @@
+class MoyensActivity
+!!!133418.java!!!	onCreate(inout savedInstanceState : Bundle) : void
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.moyens);
+		
+	    GridView gridview = (GridView) findViewById(R.id.gridview);
+	    gridview.setOnItemClickListener(this);
+	    itemAdapter = new ItemAdapter();
+	    gridview.setAdapter(itemAdapter);
+!!!133546.java!!!	onItemClick(inout adpt : AdapterView<?>, inout v : View, in index : int, in l : long) : void
+		try {
+			final AdapterView adapter = adpt;
+			final int position = index;
+			AlertDialog.Builder confirmDelete = new AlertDialog.Builder(this);
+			confirmDelete.setTitle(R.string.dialog_title_deletevehicule);
+			confirmDelete.setMessage(R.string.dialog_deletevehicule);
+			confirmDelete.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					ItemAdapter itemAdpt = (ItemAdapter) adapter.getAdapter();
+					controller.setLastEntity((Entity) itemAdpt.getItem(position));
+					controller.getCommands().get(RemoveEntityCommand.NAME).execute();
+				}
+			});
+			confirmDelete.setNegativeButton(R.string.no, null);
+			confirmDelete.show();
+			
+		} catch (ClassCastException e) {}
+!!!133674.java!!!	update(inout observable : Observable, inout data : Object) : void
+		try {
+			
+			List<Entity> entities = (List<Entity>) data;
+			itemAdapter.setItems(entities);
+			itemAdapter.notifyDataSetChanged();
+			
+		} catch (ClassCastException e) {}

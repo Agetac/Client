@@ -1,0 +1,3 @@
+class MyObservable
+!!!132394.java!!!	setChanged() : void
+		super.setChanged();

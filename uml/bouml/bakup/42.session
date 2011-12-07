@@ -1,0 +1,18 @@
+window_sizes 1230 1000 196 1028 926 0
+diagrams
+  active  classdiagram_ref 128042 // class_diagram
+    1028 926 100 0 0 0
+end
+show_stereotypes
+selected class_ref 129578 // AddEntityMemento
+open
+  classview_ref 128042 // class_view
+  classview_ref 128170 // agetac
+  classview_ref 128426 // command
+  classview_ref 128554 // memento
+  classview_ref 128682 // model
+  classview_ref 128810 // controller
+  classview_ref 128938 // observer
+  classview_ref 129066 // tabs
+end
+end

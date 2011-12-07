@@ -1,0 +1,12 @@
+class AddEntityCommand
+!!!128810.java!!!	AddEntityCommand(inout intervention : Intervention, inout controller : Controller)
+		this.intervention = intervention;
+		this.controller = controller;
+!!!128938.java!!!	execute() : void
+		intervention.addEntity(controller.getLastEntity());
+!!!129066.java!!!	saveMemento() : IMemento
+		// TODO Auto-generated method stub
+		return null;
+!!!129194.java!!!	restoreMemento(inout mem : IMemento) : void
+		// TODO Auto-generated method stub
+

@@ -1,0 +1,19 @@
+class ItemAdapter
+!!!133802.java!!!	setItems(inout entities : List<Entity>) : void
+			this.entities = entities;
+!!!133930.java!!!	getCount() : int
+	        if (entities == null) {
+	        	return 0;
+	        }
+	        return entities.size();
+!!!134058.java!!!	getItem(in position : int) : Object
+	        if (entities == null) {
+	        	return null;
+	        }
+	        return entities.get(position);
+!!!134186.java!!!	getItemId(in position : int) : long
+	        return 0;
+!!!134314.java!!!	getView(in position : int, inout convertView : View, inout parent : ViewGroup) : View
+	        View itemView = getLayoutInflater().inflate(R.layout.gridview_item, null);
+	        ((TextView) itemView.findViewById(R.id.vehicule_name)).setText(entities.get(position).getName());
+	        return itemView;

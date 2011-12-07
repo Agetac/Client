@@ -1,0 +1,69 @@
+class SITACActivity
+!!!134442.java!!!	onCreate(inout savedInstanceState : Bundle) : void
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.sitac);
+		
+		addVehiculeBtn = (Button) findViewById(R.id.addVehicule);
+		addVehiculeBtn.setOnClickListener(this);
+		
+		nbCurrentVehiculeView = (TextView) findViewById(R.id.nbCurrentVehicule);
+		nbFuturVehiculeView = (TextView) findViewById(R.id.nbFuturVehicule);
+		
+		vehiculeList = (ListView) findViewById(R.id.vehicules_listview);
+		vehiculeList.setOnItemClickListener(this);
+!!!134570.java!!!	onClick(inout v : View) : void
+		Random gen = new Random();
+		
+		switch (v.getId()) {
+		
+			case R.id.addVehicule:
+				Entity e = new Vehicule("Vehicule "+(gen.nextInt(41)+1), false);
+				controller.setLastEntity(e);
+				controller.getCommands().get(AddEntityCommand.NAME).execute();
+				break;
+		}
+!!!134698.java!!!	onItemClick(inout adpt : AdapterView<?>, inout v : View, in index : int, in l : long) : void
+		try {
+			final AdapterView adapter = adpt;
+			final int position = index;
+			AlertDialog.Builder confirmDelete = new AlertDialog.Builder(this);
+			confirmDelete.setTitle(R.string.dialog_title_deletevehicule);
+			confirmDelete.setMessage(R.string.dialog_deletevehicule);
+			confirmDelete.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					ArrayAdapter<Vehicule> vehicules = (ArrayAdapter) adapter.getAdapter();
+					controller.setLastEntity(vehicules.getItem(position));
+					controller.getCommands().get(RemoveEntityCommand.NAME).execute();
+				}
+			});
+			confirmDelete.setNegativeButton(R.string.no, null);
+			confirmDelete.show();
+			
+		} catch (ClassCastException e) {}
+!!!134826.java!!!	update(inout observable : Observable, inout data : Object) : void
+		try {
+			
+			List<Vehicule> vehicules = (List<Vehicule>) data;
+			ArrayAdapter<Vehicule> adapter = new ArrayAdapter<Vehicule>(
+					this,
+					android.R.layout.simple_list_item_1,
+					vehicules
+			);
+			vehiculeList.setAdapter(adapter);
+			adapter.notifyDataSetChanged();
+			
+			nbCurrentVehicule = 0;
+			nbFuturVehicule = 0;
+			
+			for (int i=0; i<vehicules.size(); i++) {
+				if (vehicules.get(i).isDeBase()) {
+					nbCurrentVehicule++;
+				} else {
+					nbFuturVehicule++;
+				}
+			}
+			nbCurrentVehiculeView.setText(String.valueOf(nbCurrentVehicule));
+			nbFuturVehiculeView.setText(String.valueOf(nbFuturVehicule));
+			
+		} catch (ClassCastException e) {}

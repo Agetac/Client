@@ -1,0 +1,5 @@
+class AddEntityMemento
+!!!130602.java!!!	setEntity(inout e : Entity) : void
+		entity = e;
+!!!130730.java!!!	getEntity() : Entity
+		return entity;

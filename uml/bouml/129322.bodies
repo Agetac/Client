@@ -1,0 +1,12 @@
+class RemoveEntityCommand
+!!!129322.java!!!	RemoveEntityCommand(inout intervention : Intervention, inout controller : Controller)
+		this.intervention = intervention;
+		this.controller = controller;
+!!!129450.java!!!	execute() : void
+		intervention.removeEntity(controller.getLastEntity());
+!!!129578.java!!!	saveMemento() : IMemento
+		// TODO Auto-generated method stub
+		return null;
+!!!129706.java!!!	restoreMemento(inout mem : IMemento) : void
+		// TODO Auto-generated method stub
+

@@ -1,0 +1,12 @@
+window_sizes 1230 1000 196 1028 926 0
+diagrams
+  active  classdiagram_ref 128042 // class_diagram
+    1028 926 90 0 0 0
+end
+show_stereotypes
+open
+  
+  package_ref 128170 // org
+  classview_ref 129066 // class_view
+end
+end
