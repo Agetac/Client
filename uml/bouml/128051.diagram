@@ -1,0 +1,153 @@
+format 76
+
+classinstance 128947 class_ref 131114 // SITACActivity
+  name "sitacTab"   xyz 13 7 2000 life_line_z 2000
+classinstance 130611 class_ref 129194 // Controller
+  name "controller"   xyz 352 7 2000 life_line_z 2000
+classinstance 130995 class_ref 129066 // Intervention
+  name "intervention"   xyz 185 7 2000 life_line_z 2000
+classinstance 131763 class_ref 129834 // Vehicule
+  name "v"   xyz 496 286 2000 life_line_z 2000
+classinstance 133683 class_ref 128554 // AddEntityCommand
+  name ""   xyz 607 7 2000 life_line_z 2000
+durationcanvas 130355 classinstance_ref 128947 // sitacTab:SITACActivity
+  xyzwh 73 68 2010 11 203
+end
+durationcanvas 130739 classinstance_ref 130611 // controller:Controller
+  xyzwh 406 210 2010 11 47
+end
+durationcanvas 131123 classinstance_ref 130995 // intervention:Intervention
+  xyzwh 250 132 2010 11 50
+end
+durationcanvas 132403 classinstance_ref 128947 // sitacTab:SITACActivity
+  xyzwh 73 307 2010 11 311
+end
+durationcanvas 132659 classinstance_ref 131763 // v:Vehicule
+  xyzwh 524 336 2010 11 49
+end
+durationcanvas 133043 classinstance_ref 130611 // controller:Controller
+  xyzwh 406 418 2010 11 25
+end
+durationcanvas 133299 classinstance_ref 130611 // controller:Controller
+  xyzwh 406 469 2010 11 47
+end
+durationcanvas 133811 classinstance_ref 133683 // :AddEntityCommand
+  xyzwh 663 544 2010 11 130
+end
+durationcanvas 134067 classinstance_ref 130995 // intervention:Intervention
+  xyzwh 250 650 2010 11 92
+  overlappingdurationcanvas 134707
+    xyzwh 256 678 2020 11 25
+  end
+end
+durationcanvas 134323 classinstance_ref 130611 // controller:Controller
+  xyzwh 406 573 2010 11 46
+end
+durationcanvas 134963 classinstance_ref 128947 // sitacTab:SITACActivity
+  xyzwh 73 724 2010 11 27
+end
+reflexivemsg 130483 asynchronous
+  to durationcanvas_ref 130355
+  yz 75 2015 msg operation_ref 134442 // "onCreate(inout savedInstanceState : Bundle) : void"
+  show_full_operations_definition default drawing_language default show_context_mode default
+  label_xy 87 88
+msg 130867 asynchronous
+  from durationcanvas_ref 130355
+  to durationcanvas_ref 130739
+  yz 210 3005 msg operation_ref 130090 // "getInstance(inout intervention : Intervention) : Controller"
+  show_full_operations_definition default drawing_language default show_context_mode default
+  args "intervention"
+  label_xy 167 196
+msg 131251 asynchronous
+  from durationcanvas_ref 130355
+  to durationcanvas_ref 131123
+  yz 137 2015 msg operation_ref 131114 // "getInstance() : Intervention"
+  show_full_operations_definition default drawing_language default show_context_mode default
+  label_xy 122 122
+msg 131379 return
+  from durationcanvas_ref 131123
+  to durationcanvas_ref 130355
+  yz 170 2015 explicitmsg "intervention"
+  show_full_operations_definition default drawing_language default show_context_mode default
+  label_xy 127 155
+msg 131507 return
+  from durationcanvas_ref 130739
+  to durationcanvas_ref 130355
+  yz 242 2015 explicitmsg "controller"
+  show_full_operations_definition default drawing_language default show_context_mode default
+  label_xy 190 232
+reflexivemsg 132531 asynchronous
+  to durationcanvas_ref 132403
+  yz 307 2015 msg operation_ref 134570 // "onClick(inout v : View) : void"
+  show_full_operations_definition default drawing_language default show_context_mode default
+  args "addVehiculeBtn"
+  label_xy 86 293
+msg 132787 asynchronous
+  from durationcanvas_ref 132403
+  to durationcanvas_ref 132659
+  yz 337 2020 explicitmsg "new Vehicule()"
+  show_full_operations_definition default drawing_language default show_context_mode default
+  label_xy 268 325
+msg 132915 return
+  from durationcanvas_ref 132659
+  to durationcanvas_ref 132403
+  yz 373 2015 explicitmsg "v"
+  show_full_operations_definition default drawing_language default show_context_mode default
+  label_xy 292 358
+msg 133171 asynchronous
+  from durationcanvas_ref 132403
+  to durationcanvas_ref 133043
+  yz 418 2015 msg operation_ref 130346 // "setLastEntity(inout e : Entity) : void"
+  show_full_operations_definition default drawing_language default show_context_mode default
+  args "v"
+  label_xy 264 404
+msg 133427 asynchronous
+  from durationcanvas_ref 132403
+  to durationcanvas_ref 133299
+  yz 469 2015 msg operation_ref 130474 // "getCommands() : ICommand"
+  show_full_operations_definition default drawing_language default show_context_mode default
+  label_xy 154 458
+msg 133555 return
+  from durationcanvas_ref 133299
+  to durationcanvas_ref 132403
+  yz 503 2015 explicitmsg "commands"
+  show_full_operations_definition default drawing_language default show_context_mode default
+  label_xy 172 491
+msg 133939 asynchronous
+  from durationcanvas_ref 132403
+  to durationcanvas_ref 133811
+  yz 544 2015 msg operation_ref 128938 // "execute() : void"
+  show_full_operations_definition default drawing_language default show_context_mode default
+  label_xy 289 532
+msg 134195 asynchronous
+  from durationcanvas_ref 133811
+  to durationcanvas_ref 134067
+  yz 657 2015 msg operation_ref 131370 // "addEntity(inout entity : Entity) : void"
+  show_full_operations_definition default drawing_language default show_context_mode default
+  args "entity"
+  label_xy 419 642
+msg 134451 asynchronous
+  from durationcanvas_ref 133811
+  to durationcanvas_ref 134323
+  yz 573 2015 msg operation_ref 130218 // "getLastEntity() : Entity"
+  show_full_operations_definition default drawing_language default show_context_mode default
+  label_xy 501 558
+msg 134579 return
+  from durationcanvas_ref 134323
+  to durationcanvas_ref 133811
+  yz 608 2015 explicitmsg "entity"
+  show_full_operations_definition default drawing_language default show_context_mode default
+  label_xy 534 593
+reflexivemsg 134835 asynchronous
+  to durationcanvas_ref 134707
+  yz 679 2025 explicitmsg "observable.setChanged()"
+  show_full_operations_definition default drawing_language default show_context_mode default
+  label_xy 268 690
+msg 135091 asynchronous
+  from durationcanvas_ref 134067
+  to durationcanvas_ref 134963
+  yz 724 2015 msg operation_ref 134826 // "update(inout observable : Observable, inout data : Object) : void"
+  show_full_operations_definition default drawing_language default show_context_mode default
+  args "observable, entities"
+  label_xy 91 712
+end
