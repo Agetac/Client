@@ -4,60 +4,17 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   android:orientation="horizontal">
-    
-	<LinearLayout
-	    android:id="@+id/sitac_actions_panel"
-	    android:layout_width="match_parent"
-	    android:layout_height="match_parent"
-	    android:orientation="vertical"
-	    android:layout_weight="1">
-	    
-	  <Button
-	    android:id="@+id/addVehicule"
-	    android:layout_width="wrap_content"  
-	    android:layout_height="wrap_content"
-	    android:text="Ajouter véhicule"/>
-	  
-    <LinearLayout
+  
+  <Button
       android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:orientation="horizontal">
-        
-      <TextView
-	      android:layout_width="wrap_content"
-	      android:layout_height="wrap_content"
-	      android:text="Nombre de véhicule(s) présent: "/>
-      
-      <TextView
-        android:id="@+id/nbCurrentVehicule"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-        
-    </LinearLayout>
+      android:layout_height="match_parent"
+      android:text="Test"/>
     
-    <LinearLayout
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:orientation="horizontal">
-	  
-		  <TextView
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    android:text="Nombre de véhicule(s) en attente: "/>
-		  
-      <TextView
-        android:id="@+id/nbFuturVehicule"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-		  
-		</LinearLayout>
-	    
-	</LinearLayout>
-	
-	<ListView
-    android:id="@+id/vehicules_listview"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_weight="1"/>
+	<com.google.android.maps.MapView
+	  android:id="@+id/mapview"
+	  android:layout_width="fill_parent"
+	  android:layout_height="fill_parent"
+	  android:clickable="true"
+	  android:apiKey="02qDR_q7kDVCB7xmOzRpfGZrIg4iAtCPGhhF3ow"/>
     
 </LinearLayout>

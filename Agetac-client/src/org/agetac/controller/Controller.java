@@ -23,7 +23,6 @@ public class Controller {
 	
 	private void initCommands() {
 		commands = new Hashtable<String, ICommand>();
-		if (intervention == null) System.out.println("INTERVENTION NULL DANS INIT COMMANDS");
 		commands.put(AddEntityCommand.NAME, new AddEntityCommand(intervention, this));
 		commands.put(RemoveEntityCommand.NAME, new RemoveEntityCommand(intervention, this));
 	}
