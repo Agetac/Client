@@ -12,9 +12,9 @@ public class AddEntityCommand implements IRecordableCommand {
 	private Intervention intervention;
 	private Controller controller;
 
-	public AddEntityCommand(Intervention intervention, Controller controller) {
-		this.intervention = intervention;
+	public AddEntityCommand(Controller controller) {
 		this.controller = controller;
+		this.intervention = controller.getIntervention();
 	}
 
 	@Override

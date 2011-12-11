@@ -16,11 +16,6 @@ public class Intervention {
 	private Intervention() {
 		observable = new MyObservable();
 		entities = new ArrayList<Entity>();
-		Random gen = new Random();
-		int size = gen.nextInt(3)+1;
-		for (int i=0; i<size; i++) {
-			entities.add(new Vehicule("Vehicule de base "+i, true));
-		}
 	}
 	
 	public static Intervention getInstance() {
@@ -33,26 +28,26 @@ public class Intervention {
 	}
 	
 	/**
-	 * Ajoute une entitée à l'intervention
-	 * @param entitée à ajouter; ne fait rien si null
+	 * Ajoute une entité à l'intervention
+	 * @param entité à ajouter; ne fait rien si null
 	 */
 	public void addEntity(Entity entity) {
 		if (entity != null) {
 			entities.add(entity);
 			observable.setChanged();
-			observable.notifyObservers(entities);
+			observable.notifyObservers(this);
 		}
 	}
 	
 	/**
-	 * Retire une entitée de l'intervention
+	 * Retire une entité de l'intervention
 	 * @param entity à supprimer; ne fait rien si null
 	 */
 	public void removeEntity(Entity entity) {
 		boolean isRemoved = entities.remove(entity);
 		if (isRemoved) {
 			observable.setChanged();
-			observable.notifyObservers(entities);
+			observable.notifyObservers(this);
 		}
 	}
 	
@@ -64,10 +59,10 @@ public class Intervention {
 		observable.addObserver(obs);
 	}
 	
-	public void callUpdate() {
-		if (!entities.isEmpty()) {
-			observable.setChanged();
-			observable.notifyObservers(entities);
-		}
+	/**
+	 * @return la liste d'entité
+	 */
+	public List<Entity> getEntities() {
+		return entities;
 	}
 }

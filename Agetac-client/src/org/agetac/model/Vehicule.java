@@ -10,16 +10,18 @@ public class Vehicule implements Entity {
 		this.deBase = deBase;
 	}
 	
+	@Override
 	public String getName() {
 		return name;
 	}
 	
 	@Override
-	public String toString() {
-		return name;
-	}
-	
 	public boolean isDeBase() {
 		return deBase;
+	}
+	
+	@Override
+	public String toString() {
+		return name;
 	}
 }

@@ -1,15 +1,16 @@
 package org.agetac.tabs;
 
 import java.util.List;
-import java.util.Observable;
 import java.util.Random;
 
 import org.agetac.R;
-import org.agetac.command.AddEntityCommand;
-import org.agetac.command.RemoveEntityCommand;
+import org.agetac.controller.Controller;
+import org.agetac.model.ActionFlag;
 import org.agetac.model.Entity;
 import org.agetac.model.Vehicule;
+import org.agetac.observer.MyObservable;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -22,28 +23,37 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class SOEICActivity extends AbstractActivity implements OnClickListener, OnItemClickListener {
+public class SOEICActivity extends Activity implements ITabActivity, OnClickListener, OnItemClickListener {
 	
-	private Button addVehiculeBtn;
-	private TextView nbCurrentVehiculeView;
-	private int nbCurrentVehicule;
-	private TextView nbFuturVehiculeView;
-	private int nbFuturVehicule;
+	private Controller controller;
+	private MyObservable observable;
+	private Button addEntityBtn;
+	private TextView nbCurrentEntityView;
+	private int nbCurrentEntity;
+	private TextView nbFuturEntityView;
+	private int nbFuturEntity;
 	private ListView vehiculeList;
+	private ActionFlag flag;
+	private Entity touchedEntity;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.soeic);
 		
-		addVehiculeBtn = (Button) findViewById(R.id.addVehicule);
-		addVehiculeBtn.setOnClickListener(this);
+		addEntityBtn = (Button) findViewById(R.id.addEntity);
+		addEntityBtn.setOnClickListener(this);
 		
-		nbCurrentVehiculeView = (TextView) findViewById(R.id.nbCurrentVehicule);
-		nbFuturVehiculeView = (TextView) findViewById(R.id.nbFuturVehicule);
+		nbCurrentEntityView = (TextView) findViewById(R.id.nbCurrentEntity);
+		nbFuturEntityView = (TextView) findViewById(R.id.nbFuturEntity);
 		
 		vehiculeList = (ListView) findViewById(R.id.vehicules_listview);
 		vehiculeList.setOnItemClickListener(this);
+		
+		controller = Controller.getInstance();
+		controller.addTabActivity(this);
+		observable = new MyObservable();
+		observable.addObserver(controller);
 	}
 
 	@Override
@@ -52,10 +62,11 @@ public class SOEICActivity extends AbstractActivity implements OnClickListener, 
 		
 		switch (v.getId()) {
 		
-			case R.id.addVehicule:
-				Entity e = new Vehicule("Vehicule "+(gen.nextInt(41)+1), false);
-				controller.setLastEntity(e);
-				controller.getCommands().get(AddEntityCommand.NAME).execute();
+			case R.id.addEntity:
+				flag = ActionFlag.ADD;
+				touchedEntity = new Vehicule("Entity "+(gen.nextInt(41)+1), false);
+				observable.setChanged();
+				observable.notifyObservers(SOEICActivity.this);
 				break;
 		}
 	}
@@ -71,9 +82,11 @@ public class SOEICActivity extends AbstractActivity implements OnClickListener, 
 			confirmDelete.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
-					ArrayAdapter<Vehicule> vehicules = (ArrayAdapter) adapter.getAdapter();
-					controller.setLastEntity(vehicules.getItem(position));
-					controller.getCommands().get(RemoveEntityCommand.NAME).execute();
+					ArrayAdapter<Entity> vehicules = (ArrayAdapter) adapter.getAdapter();
+					touchedEntity = vehicules.getItem(position);
+					flag = ActionFlag.REMOVE;
+					observable.setChanged();
+					observable.notifyObservers(SOEICActivity.this);
 				}
 			});
 			confirmDelete.setNegativeButton(R.string.no, null);
@@ -83,31 +96,37 @@ public class SOEICActivity extends AbstractActivity implements OnClickListener, 
 	}
 
 	@Override
-	public void update(Observable observable, Object data) {
-		try {
-			
-			List<Vehicule> vehicules = (List<Vehicule>) data;
-			ArrayAdapter<Vehicule> adapter = new ArrayAdapter<Vehicule>(
-					this,
-					android.R.layout.simple_list_item_1,
-					vehicules
-			);
-			vehiculeList.setAdapter(adapter);
-			adapter.notifyDataSetChanged();
-			
-			nbCurrentVehicule = 0;
-			nbFuturVehicule = 0;
-			
-			for (int i=0; i<vehicules.size(); i++) {
-				if (vehicules.get(i).isDeBase()) {
-					nbCurrentVehicule++;
-				} else {
-					nbFuturVehicule++;
-				}
+	public ActionFlag getActionFlag() {
+		return flag;
+	}
+
+	@Override
+	public Entity getTouchedEntity() {
+		return touchedEntity;
+	}
+
+	@Override
+	public void update() {
+		List<Entity> entities = controller.getIntervention().getEntities();
+		ArrayAdapter<Entity> adapter = new ArrayAdapter<Entity>(
+				this,
+				android.R.layout.simple_list_item_1,
+				entities
+		);
+		vehiculeList.setAdapter(adapter);
+		adapter.notifyDataSetChanged();
+		
+		nbCurrentEntity = 0;
+		nbFuturEntity = 0;
+		
+		for (int i=0; i<entities.size(); i++) {
+			if (entities.get(i).isDeBase()) {
+				nbCurrentEntity++;
+			} else {
+				nbFuturEntity++;
 			}
-			nbCurrentVehiculeView.setText(String.valueOf(nbCurrentVehicule));
-			nbFuturVehiculeView.setText(String.valueOf(nbFuturVehicule));
-			
-		} catch (ClassCastException e) {}
+		}
+		nbCurrentEntityView.setText(String.valueOf(nbCurrentEntity));
+		nbFuturEntityView.setText(String.valueOf(nbFuturEntity));
 	}
 }

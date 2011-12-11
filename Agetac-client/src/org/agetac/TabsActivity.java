@@ -1,6 +1,5 @@
 package org.agetac;
 
-import org.agetac.controller.Controller;
 import org.agetac.tabs.CRMActivity;
 import org.agetac.tabs.MessagesActivity;
 import org.agetac.tabs.MoyensActivity;

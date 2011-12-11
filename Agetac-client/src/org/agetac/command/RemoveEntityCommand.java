@@ -11,9 +11,9 @@ public class RemoveEntityCommand implements IRecordableCommand {
 	private Intervention intervention;
 	private Controller controller;
 	
-	public RemoveEntityCommand(Intervention intervention, Controller controller) {
-		this.intervention = intervention;
+	public RemoveEntityCommand(Controller controller) {
 		this.controller = controller;
+		this.intervention = controller.getIntervention();
 	}
 	
 	@Override

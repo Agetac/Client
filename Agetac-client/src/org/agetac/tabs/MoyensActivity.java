@@ -1,13 +1,14 @@
 package org.agetac.tabs;
 
 import java.util.List;
-import java.util.Observable;
 
 import org.agetac.R;
-import org.agetac.command.RemoveEntityCommand;
+import org.agetac.controller.Controller;
+import org.agetac.model.ActionFlag;
 import org.agetac.model.Entity;
-import org.agetac.model.Vehicule;
+import org.agetac.observer.MyObservable;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -19,9 +20,13 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.TextView;
 
-public class MoyensActivity extends AbstractActivity implements OnItemClickListener {
+public class MoyensActivity extends Activity implements ITabActivity, OnItemClickListener {
 	
+	private Controller controller;
+	private MyObservable observable;
 	private ItemAdapter itemAdapter;
+	private ActionFlag flag;
+	private Entity touchedEntity;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +37,11 @@ public class MoyensActivity extends AbstractActivity implements OnItemClickListe
 	    gridview.setOnItemClickListener(this);
 	    itemAdapter = new ItemAdapter();
 	    gridview.setAdapter(itemAdapter);
+		
+		controller = Controller.getInstance();
+		controller.addTabActivity(this);
+		observable = new MyObservable();
+		observable.addObserver(controller);
 	}
 	
 	@Override
@@ -46,8 +56,10 @@ public class MoyensActivity extends AbstractActivity implements OnItemClickListe
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					ItemAdapter itemAdpt = (ItemAdapter) adapter.getAdapter();
-					controller.setLastEntity((Entity) itemAdpt.getItem(position));
-					controller.getCommands().get(RemoveEntityCommand.NAME).execute();
+					flag = ActionFlag.REMOVE;
+					touchedEntity = (Entity) itemAdpt.getItem(position);
+					observable.setChanged();
+					observable.notifyObservers(MoyensActivity.this);
 				}
 			});
 			confirmDelete.setNegativeButton(R.string.no, null);
@@ -55,16 +67,22 @@ public class MoyensActivity extends AbstractActivity implements OnItemClickListe
 			
 		} catch (ClassCastException e) {}
 	}
-
+	
 	@Override
-	public void update(Observable observable, Object data) {
-		try {
-			
-			List<Entity> entities = (List<Entity>) data;
-			itemAdapter.setItems(entities);
-			itemAdapter.notifyDataSetChanged();
-			
-		} catch (ClassCastException e) {}
+	public ActionFlag getActionFlag() {
+		return flag;
+	}
+	
+	@Override
+	public Entity getTouchedEntity() {
+		return touchedEntity;
+	}
+	
+	@Override
+	public void update() {
+		List<Entity> entities = controller.getIntervention().getEntities();
+		itemAdapter.setItems(entities);
+		itemAdapter.notifyDataSetChanged();
 	}
 	
 	public class ItemAdapter extends BaseAdapter {
