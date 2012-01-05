@@ -1,6 +1,6 @@
 package org.agetac.model;
 
-public class Vehicule implements Entity {
+public class Vehicule implements IEntity {
 
 	private String name;
 	private boolean deBase;

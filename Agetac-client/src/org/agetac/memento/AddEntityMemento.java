@@ -1,16 +1,16 @@
 package org.agetac.memento;
 
-import org.agetac.model.Entity;
+import org.agetac.model.IEntity;
 
 public class AddEntityMemento implements IMemento {
 
-	public Entity entity;
+	public IEntity entity;
 	
-	public void setEntity(Entity e) {
+	public void setEntity(IEntity e) {
 		entity = e;
 	}
 	
-	public Entity getEntity() {
+	public IEntity getEntity() {
 		return entity;
 	}
 }

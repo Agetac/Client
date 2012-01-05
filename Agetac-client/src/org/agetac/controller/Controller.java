@@ -11,9 +11,11 @@ import java.util.Random;
 import org.agetac.command.AddEntityCommand;
 import org.agetac.command.ICommand;
 import org.agetac.command.RemoveEntityCommand;
-import org.agetac.model.Entity;
+import org.agetac.model.Agent;
+import org.agetac.model.IEntity;
 import org.agetac.model.Intervention;
 import org.agetac.model.Vehicule;
+import org.agetac.network.ServerManager;
 import org.agetac.tabs.CRMActivity;
 import org.agetac.tabs.ITabActivity;
 import org.agetac.tabs.MessagesActivity;
@@ -23,8 +25,8 @@ import org.agetac.tabs.SOEICActivity;
 
 public class Controller implements Observer {
 
-	private Entity lastEntity;
-	private static Controller controller;
+	private IEntity lastEntity;
+	private static Controller controller = new Controller();
 	private Map<String, ICommand> commands;
 	private ISubController moyensCtrl, sitacCtrl, soeicCtrl, messagesCtrl, crmCtrl;
 	private List<ITabActivity> tabs;
@@ -54,6 +56,10 @@ public class Controller implements Observer {
 		for (int i=0; i<size; i++) {
 			intervention.addEntity(new Vehicule("Entité de base "+i, true));
 		}
+		
+		// XXX test récup agent via serv
+		Agent agent = ServerManager.getInstance().getAgent("ag0");
+		System.out.println(">>>> AGENT: "+agent.toString());
 	}
 	
 	private void initSubControllers() {
@@ -71,7 +77,6 @@ public class Controller implements Observer {
 	}
 	
 	public static Controller getInstance() {
-		if (controller == null) controller = new Controller();
 		return controller;
 	}
 	
@@ -81,11 +86,11 @@ public class Controller implements Observer {
 		act.update();
 	}
 	
-	public Entity getLastEntity() {
+	public IEntity getLastEntity() {
 		return lastEntity;
 	}
 	
-	public void setLastEntity(Entity e) {
+	public void setLastEntity(IEntity e) {
 		lastEntity = e;
 	}
 
