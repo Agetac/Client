@@ -59,9 +59,9 @@ public class Controller implements Observer {
 			intervention.addEntity(new Vehicule("Entité de base "+i, true));
 		}
 		
-		// XXX test récup agent via serv
-		Agent agent = ServerManager.getInstance().getAgent("ag0");
-		System.out.println(">>>> AGENT: "+agent.toString());
+//		// XXX test récup agent via serv
+//		Agent agent = ServerManager.getInstance().getAgent("ag0");
+//		System.out.println(">>>> AGENT: "+agent.toString());
 	}
 	
 	private void initSubControllers() {

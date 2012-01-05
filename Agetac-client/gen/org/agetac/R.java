@@ -20,25 +20,7 @@ public final class R {
         public static final int ic_tab_soeic=0x7f020006;
     }
     public static final class id {
-<<<<<<< HEAD
-        public static final int addEntity=0x7f05000c;
-        public static final int connectBtn=0x7f050001;
-        public static final int edittext_je_demande=0x7f050007;
-        public static final int edittext_je_prevois=0x7f050005;
-        public static final int edittext_je_procede=0x7f050006;
-        public static final int edittext_je_suis=0x7f050003;
-        public static final int edittext_je_vois=0x7f050004;
-        public static final int field_titles=0x7f050002;
-        public static final int gridview=0x7f050008;
-        public static final int mapview=0x7f05000a;
-        public static final int menuBtn=0x7f050009;
-        public static final int nbCurrentEntity=0x7f05000d;
-        public static final int nbFuturEntity=0x7f05000e;
-        public static final int sitac_actions_panel=0x7f05000b;
-        public static final int vehicule_name=0x7f050000;
-        public static final int vehicules_listview=0x7f05000f;
-=======
-        public static final int addEntity=0x7f05000d;
+        public static final int addEntity=0x7f05000e;
         public static final int connectBtn=0x7f050003;
         public static final int edittext_je_demande=0x7f050009;
         public static final int edittext_je_prevois=0x7f050007;
@@ -48,14 +30,14 @@ public final class R {
         public static final int field_titles=0x7f050004;
         public static final int gridview=0x7f05000a;
         public static final int loginField=0x7f050001;
-        public static final int mapview=0x7f05000b;
-        public static final int nbCurrentEntity=0x7f05000e;
-        public static final int nbFuturEntity=0x7f05000f;
+        public static final int mapview=0x7f05000c;
+        public static final int menuBtn=0x7f05000b;
+        public static final int nbCurrentEntity=0x7f05000f;
+        public static final int nbFuturEntity=0x7f050010;
         public static final int passField=0x7f050002;
-        public static final int sitac_actions_panel=0x7f05000c;
+        public static final int sitac_actions_panel=0x7f05000d;
         public static final int vehicule_name=0x7f050000;
-        public static final int vehicules_listview=0x7f050010;
->>>>>>> 7bf7986360c65c5d9dd79fee5d8ace7589246761
+        public static final int vehicules_listview=0x7f050011;
     }
     public static final class layout {
         public static final int crm=0x7f030000;
