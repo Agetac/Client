@@ -5,7 +5,7 @@ import java.util.List;
 import org.agetac.R;
 import org.agetac.controller.Controller;
 import org.agetac.model.ActionFlag;
-import org.agetac.model.Entity;
+import org.agetac.model.IEntity;
 import org.agetac.observer.MyObservable;
 
 import android.app.Activity;
@@ -28,7 +28,7 @@ public class MoyensActivity extends Activity implements ITabActivity, OnItemClic
 	private MyObservable observable;
 	private ItemAdapter itemAdapter;
 	private ActionFlag flag;
-	private Entity touchedEntity;
+	private IEntity touchedEntity;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +59,7 @@ public class MoyensActivity extends Activity implements ITabActivity, OnItemClic
 				public void onClick(DialogInterface dialog, int which) {
 					ItemAdapter itemAdpt = (ItemAdapter) adapter.getAdapter();
 					flag = ActionFlag.REMOVE;
-					touchedEntity = (Entity) itemAdpt.getItem(position);
+					touchedEntity = (IEntity) itemAdpt.getItem(position);
 					observable.setChanged();
 					observable.notifyObservers(MoyensActivity.this);
 				}
@@ -78,22 +78,22 @@ public class MoyensActivity extends Activity implements ITabActivity, OnItemClic
 	}
 	
 	@Override
-	public Entity getTouchedEntity() {
+	public IEntity getTouchedEntity() {
 		return touchedEntity;
 	}
 	
 	@Override
 	public void update() {
-		List<Entity> entities = controller.getIntervention().getEntities();
+		List<IEntity> entities = controller.getIntervention().getEntities();
 		itemAdapter.setItems(entities);
 		itemAdapter.notifyDataSetChanged();
 	}
 	
 	public class ItemAdapter extends BaseAdapter {
 
-		private List<Entity> entities;
+		private List<IEntity> entities;
 
-	    public void setItems(List<Entity> entities) {
+	    public void setItems(List<IEntity> entities) {
 			this.entities = entities;
 		}
 

@@ -6,7 +6,7 @@ import java.util.Random;
 import org.agetac.R;
 import org.agetac.controller.Controller;
 import org.agetac.model.ActionFlag;
-import org.agetac.model.Entity;
+import org.agetac.model.IEntity;
 import org.agetac.model.Vehicule;
 import org.agetac.observer.MyObservable;
 
@@ -34,7 +34,7 @@ public class SOEICActivity extends Activity implements ITabActivity, OnClickList
 	private int nbFuturEntity;
 	private ListView vehiculeList;
 	private ActionFlag flag;
-	private Entity touchedEntity;
+	private IEntity touchedEntity;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +82,7 @@ public class SOEICActivity extends Activity implements ITabActivity, OnClickList
 			confirmDelete.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
-					ArrayAdapter<Entity> vehicules = (ArrayAdapter) adapter.getAdapter();
+					ArrayAdapter<IEntity> vehicules = (ArrayAdapter) adapter.getAdapter();
 					touchedEntity = vehicules.getItem(position);
 					flag = ActionFlag.REMOVE;
 					observable.setChanged();
@@ -101,14 +101,14 @@ public class SOEICActivity extends Activity implements ITabActivity, OnClickList
 	}
 
 	@Override
-	public Entity getTouchedEntity() {
+	public IEntity getTouchedEntity() {
 		return touchedEntity;
 	}
 
 	@Override
 	public void update() {
-		List<Entity> entities = controller.getIntervention().getEntities();
-		ArrayAdapter<Entity> adapter = new ArrayAdapter<Entity>(
+		List<IEntity> entities = controller.getIntervention().getEntities();
+		ArrayAdapter<IEntity> adapter = new ArrayAdapter<IEntity>(
 				this,
 				android.R.layout.simple_list_item_1,
 				entities

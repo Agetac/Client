@@ -3,7 +3,7 @@ package org.agetac.tabs;
 import org.agetac.R;
 import org.agetac.controller.Controller;
 import org.agetac.model.ActionFlag;
-import org.agetac.model.Entity;
+import org.agetac.model.IEntity;
 import org.agetac.observer.MyObservable;
 
 import android.os.Bundle;
@@ -51,7 +51,7 @@ public class SITACActivity extends MapActivity implements ITabActivity, OnClickL
 	}
 
 	@Override
-	public Entity getTouchedEntity() {
+	public IEntity getTouchedEntity() {
 		// TODO Auto-generated method stub
 		return null;
 	}

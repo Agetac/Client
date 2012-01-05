@@ -10,15 +10,20 @@
 	    android:orientation="vertical">
 		    
 	    <EditText
+	    	android:id="@+id/loginField"
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
 	        android:inputType="textNoSuggestions"
+	        android:imeOptions="actionNext"
 	        android:hint="@string/login" />
 	    
 	    <EditText
+	    	android:id="@+id/passField"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:inputType="textPassword|textNoSuggestions"
+	        android:password="true"
+	        android:imeOptions="actionGo"
 	        android:hint="@string/password" />
 	    
 	    <Button

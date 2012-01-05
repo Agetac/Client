@@ -9,13 +9,13 @@ import org.agetac.observer.MyObservable;
 
 public class Intervention {
 
-	private List<Entity> entities;
+	private List<IEntity> entities;
 	private MyObservable observable;
 	private static Intervention intervention;
 	
 	private Intervention() {
 		observable = new MyObservable();
-		entities = new ArrayList<Entity>();
+		entities = new ArrayList<IEntity>();
 	}
 	
 	public static Intervention getInstance() {
@@ -31,7 +31,7 @@ public class Intervention {
 	 * Ajoute une entité à l'intervention
 	 * @param entité à ajouter; ne fait rien si null
 	 */
-	public void addEntity(Entity entity) {
+	public void addEntity(IEntity entity) {
 		if (entity != null) {
 			entities.add(entity);
 			observable.setChanged();
@@ -43,7 +43,7 @@ public class Intervention {
 	 * Retire une entité de l'intervention
 	 * @param entity à supprimer; ne fait rien si null
 	 */
-	public void removeEntity(Entity entity) {
+	public void removeEntity(IEntity entity) {
 		boolean isRemoved = entities.remove(entity);
 		if (isRemoved) {
 			observable.setChanged();
@@ -62,7 +62,7 @@ public class Intervention {
 	/**
 	 * @return la liste d'entité
 	 */
-	public List<Entity> getEntities() {
+	public List<IEntity> getEntities() {
 		return entities;
 	}
 }
