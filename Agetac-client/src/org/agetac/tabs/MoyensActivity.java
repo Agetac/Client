@@ -22,6 +22,8 @@ import android.widget.TextView;
 
 public class MoyensActivity extends Activity implements ITabActivity, OnItemClickListener {
 	
+	private static final String TAG = "MoyensActivity";
+	
 	private Controller controller;
 	private MyObservable observable;
 	private ItemAdapter itemAdapter;
@@ -47,7 +49,7 @@ public class MoyensActivity extends Activity implements ITabActivity, OnItemClic
 	@Override
 	public void onItemClick(AdapterView<?> adpt, View v, int index, long l) {
 		try {
-			final AdapterView adapter = adpt;
+			final AdapterView<?> adapter = adpt;
 			final int position = index;
 			AlertDialog.Builder confirmDelete = new AlertDialog.Builder(this);
 			confirmDelete.setTitle(R.string.dialog_title_deletevehicule);
@@ -65,7 +67,9 @@ public class MoyensActivity extends Activity implements ITabActivity, OnItemClic
 			confirmDelete.setNegativeButton(R.string.no, null);
 			confirmDelete.show();
 			
-		} catch (ClassCastException e) {}
+		} catch (ClassCastException e) {
+			android.util.Log.e(TAG, e.getMessage());
+		}
 	}
 	
 	@Override

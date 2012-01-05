@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  android:orientation="horizontal">
+  android:layout_height="match_parent">
   
   <Button
+      android:id="@+id/menuBtn"
       android:layout_width="wrap_content"
       android:layout_height="match_parent"
-      android:text="Test"/>
+      android:layout_margin="0px"
+      android:text="Menu"/>
     
 	<com.google.android.maps.MapView
 	  android:id="@+id/mapview"
 	  android:layout_width="fill_parent"
 	  android:layout_height="fill_parent"
+	  android:layout_toRightOf="@id/menuBtn"
 	  android:clickable="true"
 	  android:apiKey="02qDR_q7kDVCB7xmOzRpfGZrIg4iAtCPGhhF3ow"/>
     
-</LinearLayout>
+</RelativeLayout>

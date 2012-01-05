@@ -9,11 +9,13 @@ import org.agetac.observer.MyObservable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapView;
 
-public class SITACActivity extends MapActivity implements ITabActivity {
+public class SITACActivity extends MapActivity implements ITabActivity, OnClickListener {
 	
 	private Controller controller;
 	private MyObservable observable;
@@ -23,6 +25,8 @@ public class SITACActivity extends MapActivity implements ITabActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.sitac);
+		
+		((Button) findViewById(R.id.menuBtn)).setOnClickListener(this);
 		
 		mapView = (MapView) findViewById(R.id.mapview);
 		mapView.setBuiltInZoomControls(true);
@@ -56,5 +60,14 @@ public class SITACActivity extends MapActivity implements ITabActivity {
 	public void update() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+			case R.id.menuBtn:
+				Toast.makeText(this, "TODO: Ouvrir le menu...", Toast.LENGTH_SHORT).show();
+				break;
+		}
 	}
 }

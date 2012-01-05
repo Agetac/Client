@@ -22,6 +22,8 @@ import org.agetac.tabs.SITACActivity;
 import org.agetac.tabs.SOEICActivity;
 
 public class Controller implements Observer {
+	
+	private static final String TAG = "Controller";
 
 	private Entity lastEntity;
 	private static Controller controller;
@@ -100,7 +102,7 @@ public class Controller implements Observer {
 	@Override
 	public void update(Observable observable, Object data) {
 		if (data instanceof Intervention) {
-			System.out.println("update venant d'Intervention");
+			android.util.Log.d(TAG, "update venant d'Intervention");
 			// faire des updates sur toutes les vues (tabActivity)
 			for (ITabActivity tab : tabs) {
 				tab.update();
@@ -110,31 +112,31 @@ public class Controller implements Observer {
 			ITabActivity act = (ITabActivity) data;
 			
 			if (data instanceof SITACActivity) {
-				System.out.println("update venant de SITACActivity");
+				android.util.Log.d(TAG, "update venant de SITACActivity");
 				sitacCtrl.processUpdate(act);
 				
 			} else if (data instanceof SOEICActivity) {
-				System.out.println("update venant de SOEICActivity");
+				android.util.Log.d(TAG, "update venant de SOEICActivity");
 				soeicCtrl.processUpdate(act);
 				
 			} else if (data instanceof MoyensActivity) {
-				System.out.println("update venant de MoyensActivity");
+				android.util.Log.d(TAG, "update venant de MoyensActivity");
 				moyensCtrl.processUpdate(act);
 				
 			} else if (data instanceof MessagesActivity) {
-				System.out.println("update venant de MessagesActivity");
+				android.util.Log.d(TAG, "update venant de MessagesActivity");
 				messagesCtrl.processUpdate(act);
 			
 			} else if (data instanceof CRMActivity) {
-				System.out.println("update venant de CRMActivity");
+				android.util.Log.d(TAG, "update venant de CRMActivity");
 				crmCtrl.processUpdate(act);
 			
 			} else {
-				System.out.println("[Controller] update non pris en charge! act="+act.toString());	
+				android.util.Log.d(TAG, "update non pris en charge! act="+act.toString());	
 			}
 			
 		} else {
-			System.out.println("[Controller] update non pris en charge! data="+data.toString());
+			android.util.Log.d(TAG, "update non pris en charge! data="+data.toString());
 		}
 	}
 }
