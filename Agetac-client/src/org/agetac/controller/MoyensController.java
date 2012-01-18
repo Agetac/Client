@@ -1,7 +1,8 @@
 package org.agetac.controller;
 
 import org.agetac.command.RemoveEntityCommand;
-import org.agetac.tabs.ITabActivity;
+import org.agetac.controller.sign.ISubController;
+import org.agetac.tabs.sign.ITabActivity;
 
 public class MoyensController implements ISubController {
 	

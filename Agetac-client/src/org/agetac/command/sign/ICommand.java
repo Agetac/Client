@@ -1,4 +1,4 @@
-package org.agetac.command;
+package org.agetac.command.sign;
 
 public interface ICommand {
 

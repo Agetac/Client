@@ -1,4 +1,4 @@
-package org.agetac.model;
+package org.agetac.model.sign;
 
 public interface IEntity {
 

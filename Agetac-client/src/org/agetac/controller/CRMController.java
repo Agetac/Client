@@ -1,8 +1,7 @@
 package org.agetac.controller;
 
-import org.agetac.tabs.ITabActivity;
-
-import android.app.Activity;
+import org.agetac.controller.sign.ISubController;
+import org.agetac.tabs.sign.ITabActivity;
 
 public class CRMController implements ISubController {
 

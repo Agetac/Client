@@ -1,6 +1,6 @@
-package org.agetac.command;
+package org.agetac.command.sign;
 
-import org.agetac.memento.IMemento;
+import org.agetac.memento.sign.IMemento;
 
 public interface IRecordableCommand extends ICommand {
 
