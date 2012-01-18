@@ -7,26 +7,36 @@ import org.agetac.model.IEntity;
 import org.agetac.observer.MyObservable;
 
 import android.os.Bundle;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.Toast;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapView;
 
-public class SITACActivity extends MapActivity implements ITabActivity, OnClickListener {
+public class SITACActivity extends MapActivity implements ITabActivity {
 	
 	private Controller controller;
 	private MyObservable observable;
 	private MapView mapView;
+	private String[] data = {
+			"Pictogramme 1",
+			"Pictogramme 2",
+			"Pictogramme 3",
+			"Pictogramme 4",
+			"Pictogramme 5",
+			"Pictogramme 6",
+			"Pictogramme 7",
+			"Pictogramme 8",
+			"Pictogramme 9",
+			"Pictogramme 10"};
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.sitac);
 		
-		((Button) findViewById(R.id.menuBtn)).setOnClickListener(this);
+		ListView listView = (ListView) findViewById(R.id.menu);
+		listView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, data));
 		
 		mapView = (MapView) findViewById(R.id.mapview);
 		mapView.setBuiltInZoomControls(true);
@@ -60,14 +70,5 @@ public class SITACActivity extends MapActivity implements ITabActivity, OnClickL
 	public void update() {
 		// TODO Auto-generated method stub
 		
-	}
-
-	@Override
-	public void onClick(View v) {
-		switch (v.getId()) {
-			case R.id.menuBtn:
-				Toast.makeText(this, "TODO: Ouvrir le menu...", Toast.LENGTH_SHORT).show();
-				break;
-		}
 	}
 }

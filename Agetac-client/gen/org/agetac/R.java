@@ -31,7 +31,7 @@ public final class R {
         public static final int gridview=0x7f05000a;
         public static final int loginField=0x7f050001;
         public static final int mapview=0x7f05000c;
-        public static final int menuBtn=0x7f05000b;
+        public static final int menu=0x7f05000b;
         public static final int nbCurrentEntity=0x7f05000f;
         public static final int nbFuturEntity=0x7f050010;
         public static final int passField=0x7f050002;
@@ -43,11 +43,12 @@ public final class R {
         public static final int crm=0x7f030000;
         public static final int gridview_item=0x7f030001;
         public static final int main=0x7f030002;
-        public static final int messages=0x7f030003;
-        public static final int moyens=0x7f030004;
-        public static final int sitac=0x7f030005;
-        public static final int soeic=0x7f030006;
-        public static final int tabs=0x7f030007;
+        public static final int menu_item=0x7f030003;
+        public static final int messages=0x7f030004;
+        public static final int moyens=0x7f030005;
+        public static final int sitac=0x7f030006;
+        public static final int soeic=0x7f030007;
+        public static final int tabs=0x7f030008;
     }
     public static final class string {
         public static final int app_name=0x7f040000;

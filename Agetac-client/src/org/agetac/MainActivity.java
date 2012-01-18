@@ -16,6 +16,7 @@ import android.widget.EditText;
 public class MainActivity extends Activity implements OnClickListener {
 	
 	private ProgressDialog connectionDialog;
+	private InputMethodManager imm;
 	
     /** Called when the activity is first created. */
     @Override
@@ -24,6 +25,7 @@ public class MainActivity extends Activity implements OnClickListener {
         setContentView(R.layout.main);
         
         ((Button) findViewById(R.id.connectBtn)).setOnClickListener(this);
+        imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         
 		final EditText passField = (EditText) findViewById(R.id.passField);
 		passField.setOnKeyListener(new OnKeyListener() {
@@ -31,7 +33,6 @@ public class MainActivity extends Activity implements OnClickListener {
 				// If the event is a key-down event on the "enter" button
 				if ((event.getAction() == KeyEvent.ACTION_DOWN)
 						&& (keyCode == KeyEvent.KEYCODE_ENTER)) {
-					InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
 					imm.hideSoftInputFromWindow(passField.getWindowToken(), 0);
 					startTabHostActivity();
 					return true;
@@ -39,6 +40,12 @@ public class MainActivity extends Activity implements OnClickListener {
 				return false;
 			}
 		});
+    }
+    
+    @Override
+    protected void onStart() {
+    	super.onStart();
+//        imm.hideSoftInputFromWindow(((EditText) findViewById(R.id.loginField)).getWindowToken(), 0);
     }
     
 	@Override
@@ -68,12 +75,12 @@ public class MainActivity extends Activity implements OnClickListener {
 			public void run() {
 				// TODO
 				// demander une connexion au serveur
-
-				// supprimer le progress dialog 
-				if (connectionDialog != null) connectionDialog.dismiss();
 				
 				// si la connexion est valide, lancer l'activitée
 				startActivity(new Intent(MainActivity.this, TabsActivity.class));
+				
+				// supprimer le progress dialog 
+				if (connectionDialog != null) connectionDialog.dismiss();
 			}
 		}).start();
 	}
