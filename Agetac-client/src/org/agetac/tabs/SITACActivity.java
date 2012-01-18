@@ -14,6 +14,7 @@ import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapView;
 
 public class SITACActivity extends MapActivity implements ITabActivity {
+	// Overlay en implements
 	
 	private Controller controller;
 	private MyObservable observable;
