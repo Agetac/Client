@@ -1,17 +1,14 @@
-package org.agetac.tabs;
+package org.agetac.tabs.impl;
 
 import java.util.List;
 import java.util.Random;
 
 import org.agetac.R;
-import org.agetac.controller.Controller;
 import org.agetac.model.ActionFlag;
 import org.agetac.model.Vehicule;
 import org.agetac.model.sign.IEntity;
-import org.agetac.observer.MyObservable;
-import org.agetac.tabs.sign.ITabActivity;
+import org.agetac.tabs.MyActivity;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -24,10 +21,8 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class SOEICActivity extends Activity implements ITabActivity, OnClickListener, OnItemClickListener {
+public class SOEICActivity extends MyActivity implements OnClickListener, OnItemClickListener {
 	
-	private Controller controller;
-	private MyObservable observable;
 	private Button addEntityBtn;
 	private TextView nbCurrentEntityView;
 	private int nbCurrentEntity;
@@ -50,11 +45,6 @@ public class SOEICActivity extends Activity implements ITabActivity, OnClickList
 		
 		vehiculeList = (ListView) findViewById(R.id.vehicules_listview);
 		vehiculeList.setOnItemClickListener(this);
-		
-		controller = Controller.getInstance();
-		controller.addTabActivity(this);
-		observable = new MyObservable();
-		observable.addObserver(controller);
 	}
 
 	@Override

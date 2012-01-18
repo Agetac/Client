@@ -1,29 +1,18 @@
-package org.agetac.tabs;
+package org.agetac.tabs.impl;
 
 import org.agetac.R;
-import org.agetac.controller.Controller;
 import org.agetac.model.ActionFlag;
 import org.agetac.model.sign.IEntity;
-import org.agetac.observer.MyObservable;
-import org.agetac.tabs.sign.ITabActivity;
+import org.agetac.tabs.MyActivity;
 
-import android.app.Activity;
 import android.os.Bundle;
 
-public class CRMActivity extends Activity implements ITabActivity {
+public class MessagesActivity extends MyActivity {
 
-	private Controller controller;
-	private MyObservable observable;
-	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.crm);
-		
-		controller = Controller.getInstance();
-		controller.addTabActivity(this);
-		observable = new MyObservable();
-		observable.addObserver(controller);
+		setContentView(R.layout.messages);
 	}
 
 	@Override

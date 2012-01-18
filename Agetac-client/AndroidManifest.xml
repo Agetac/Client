@@ -20,11 +20,11 @@
         </activity>
         
         <activity android:name="TabsActivity" />
-        <activity android:name=".tabs.SITACActivity" />
-        <activity android:name=".tabs.SOEICActivity" />
-        <activity android:name=".tabs.MoyensActivity" />
-        <activity android:name=".tabs.MessagesActivity" />
-        <activity android:name=".tabs.CRMActivity" />
+        <activity android:name=".tabs.impl.SITACActivity" />
+        <activity android:name=".tabs.impl.SOEICActivity" />
+        <activity android:name=".tabs.impl.MoyensActivity" />
+        <activity android:name=".tabs.impl.MessagesActivity" />
+        <activity android:name=".tabs.impl.CRMActivity" />
         
         <uses-library android:name="com.google.android.maps" />
     </application>

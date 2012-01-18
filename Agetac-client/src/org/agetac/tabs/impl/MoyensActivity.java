@@ -1,15 +1,12 @@
-package org.agetac.tabs;
+package org.agetac.tabs.impl;
 
 import java.util.List;
 
 import org.agetac.R;
-import org.agetac.controller.Controller;
 import org.agetac.model.ActionFlag;
 import org.agetac.model.sign.IEntity;
-import org.agetac.observer.MyObservable;
-import org.agetac.tabs.sign.ITabActivity;
+import org.agetac.tabs.MyActivity;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -21,12 +18,10 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.TextView;
 
-public class MoyensActivity extends Activity implements ITabActivity, OnItemClickListener {
+public class MoyensActivity extends MyActivity implements OnItemClickListener {
 	
 	private static final String TAG = "MoyensActivity";
 	
-	private Controller controller;
-	private MyObservable observable;
 	private ItemAdapter itemAdapter;
 	private ActionFlag flag;
 	private IEntity touchedEntity;
@@ -40,11 +35,6 @@ public class MoyensActivity extends Activity implements ITabActivity, OnItemClic
 	    gridview.setOnItemClickListener(this);
 	    itemAdapter = new ItemAdapter();
 	    gridview.setAdapter(itemAdapter);
-		
-		controller = Controller.getInstance();
-		controller.addTabActivity(this);
-		observable = new MyObservable();
-		observable.addObserver(controller);
 	}
 	
 	@Override

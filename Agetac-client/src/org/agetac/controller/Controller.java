@@ -15,11 +15,11 @@ import org.agetac.controller.sign.ISubController;
 import org.agetac.model.Intervention;
 import org.agetac.model.Vehicule;
 import org.agetac.model.sign.IEntity;
-import org.agetac.tabs.CRMActivity;
-import org.agetac.tabs.MessagesActivity;
-import org.agetac.tabs.MoyensActivity;
-import org.agetac.tabs.SITACActivity;
-import org.agetac.tabs.SOEICActivity;
+import org.agetac.tabs.impl.CRMActivity;
+import org.agetac.tabs.impl.MessagesActivity;
+import org.agetac.tabs.impl.MoyensActivity;
+import org.agetac.tabs.impl.SITACActivity;
+import org.agetac.tabs.impl.SOEICActivity;
 import org.agetac.tabs.sign.ITabActivity;
 
 public class Controller implements Observer {
