@@ -9,19 +9,18 @@ import java.util.Observer;
 import java.util.Random;
 
 import org.agetac.command.AddEntityCommand;
-import org.agetac.command.ICommand;
 import org.agetac.command.RemoveEntityCommand;
-import org.agetac.model.Agent;
-import org.agetac.model.IEntity;
+import org.agetac.command.sign.ICommand;
+import org.agetac.controller.sign.ISubController;
 import org.agetac.model.Intervention;
 import org.agetac.model.Vehicule;
-import org.agetac.network.ServerManager;
+import org.agetac.model.sign.IEntity;
 import org.agetac.tabs.CRMActivity;
-import org.agetac.tabs.ITabActivity;
 import org.agetac.tabs.MessagesActivity;
 import org.agetac.tabs.MoyensActivity;
 import org.agetac.tabs.SITACActivity;
 import org.agetac.tabs.SOEICActivity;
+import org.agetac.tabs.sign.ITabActivity;
 
 public class Controller implements Observer {
 	

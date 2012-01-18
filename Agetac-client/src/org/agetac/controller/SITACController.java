@@ -2,7 +2,8 @@ package org.agetac.controller;
 
 import org.agetac.command.AddEntityCommand;
 import org.agetac.command.RemoveEntityCommand;
-import org.agetac.tabs.ITabActivity;
+import org.agetac.controller.sign.ISubController;
+import org.agetac.tabs.sign.ITabActivity;
 
 public class SITACController implements ISubController {
 	
@@ -16,7 +17,7 @@ public class SITACController implements ISubController {
 
 	@Override
 	public void processUpdate(ITabActivity act) {
-
+		
 	}
 
 }

@@ -1,5 +1,7 @@
 package org.agetac.model;
 
+import org.agetac.model.sign.IEntity;
+
 public class Vehicule implements IEntity {
 
 	private String name;

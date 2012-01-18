@@ -1,6 +1,7 @@
 package org.agetac.controller;
 
-import org.agetac.tabs.ITabActivity;
+import org.agetac.controller.sign.ISubController;
+import org.agetac.tabs.sign.ITabActivity;
 
 public class MessagesController implements ISubController {
 	

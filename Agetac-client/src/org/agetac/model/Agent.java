@@ -2,6 +2,7 @@ package org.agetac.model;
 
 import java.util.List;
 
+import org.agetac.model.sign.IEntity;
 import org.json.JSONException;
 import org.json.JSONObject;
 

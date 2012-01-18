@@ -11,12 +11,10 @@
     android:layout_height="match_parent"
     android:layout_weight=".8"/>
     
-	<com.google.android.maps.MapView
+	<org.osmdroid.views.MapView
 	  android:id="@+id/mapview"
 	  android:layout_width="match_parent"
 	  android:layout_height="match_parent"
-	  android:layout_weight=".2"
-	  android:clickable="true"
-	  android:apiKey="02qDR_q7kDVCB7xmOzRpfGZrIg4iAtCPGhhF3ow"/>
+	  android:layout_weight=".2" />
     
 </LinearLayout>

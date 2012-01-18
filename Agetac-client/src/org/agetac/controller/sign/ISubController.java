@@ -1,6 +1,6 @@
-package org.agetac.controller;
+package org.agetac.controller.sign;
 
-import org.agetac.tabs.ITabActivity;
+import org.agetac.tabs.sign.ITabActivity;
 
 public interface ISubController {
 

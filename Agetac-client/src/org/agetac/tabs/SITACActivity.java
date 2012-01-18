@@ -3,21 +3,26 @@ package org.agetac.tabs;
 import org.agetac.R;
 import org.agetac.controller.Controller;
 import org.agetac.model.ActionFlag;
-import org.agetac.model.IEntity;
+import org.agetac.model.sign.IEntity;
 import org.agetac.observer.MyObservable;
+import org.agetac.tabs.sign.ITabActivity;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.google.android.maps.MapActivity;
-import com.google.android.maps.MapView;
+import org.osmdroid.util.GeoPoint;
+import org.osmdroid.views.MapController;
+import org.osmdroid.views.MapView;
 
-public class SITACActivity extends MapActivity implements ITabActivity {
+public class SITACActivity extends Activity implements ITabActivity {
+	// Overlay en implements
 	
 	private Controller controller;
 	private MyObservable observable;
 	private MapView mapView;
+	private MapController mapCtrl;
 	private String[] data = {
 			"Pictogramme 1",
 			"Pictogramme 2",
@@ -39,19 +44,16 @@ public class SITACActivity extends MapActivity implements ITabActivity {
 		listView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, data));
 		
 		mapView = (MapView) findViewById(R.id.mapview);
+		mapCtrl = mapView.getController();
+		GeoPoint geoP = new GeoPoint(48096397, -1743137);
+		mapCtrl.setCenter(geoP);
+		mapCtrl.setZoom(16);
 		mapView.setBuiltInZoomControls(true);
-		mapView.setSatellite(true);
 		
 		controller = Controller.getInstance();
 		controller.addTabActivity(this);
 		observable = new MyObservable();
 		observable.addObserver(controller);
-	}
-
-	@Override
-	protected boolean isRouteDisplayed() {
-		// TODO Auto-generated method stub
-		return false;
 	}
 
 	@Override

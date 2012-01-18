@@ -4,7 +4,7 @@ import java.text.MessageFormat;
 
 import org.agetac.common.Configuration;
 import org.agetac.model.Agent;
-import org.agetac.model.IEntity;
+import org.agetac.model.sign.IEntity;
 import org.restlet.ext.json.JsonRepresentation;
 import org.restlet.resource.ClientResource;
 

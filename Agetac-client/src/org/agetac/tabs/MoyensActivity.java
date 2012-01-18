@@ -5,8 +5,9 @@ import java.util.List;
 import org.agetac.R;
 import org.agetac.controller.Controller;
 import org.agetac.model.ActionFlag;
-import org.agetac.model.IEntity;
+import org.agetac.model.sign.IEntity;
 import org.agetac.observer.MyObservable;
+import org.agetac.tabs.sign.ITabActivity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
