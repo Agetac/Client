@@ -12,6 +12,8 @@ import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import org.osmdroid.util.GeoPoint;
+import org.osmdroid.views.MapController;
 import org.osmdroid.views.MapView;
 
 public class SITACActivity extends Activity implements ITabActivity {
@@ -20,6 +22,7 @@ public class SITACActivity extends Activity implements ITabActivity {
 	private Controller controller;
 	private MyObservable observable;
 	private MapView mapView;
+	private MapController mapCtrl;
 	private String[] data = {
 			"Pictogramme 1",
 			"Pictogramme 2",
@@ -41,7 +44,11 @@ public class SITACActivity extends Activity implements ITabActivity {
 		listView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, data));
 		
 		mapView = (MapView) findViewById(R.id.mapview);
-//		mapView.setBuiltInZoomControls(true);
+		mapCtrl = mapView.getController();
+		GeoPoint geoP = new GeoPoint(48096397, -1743137);
+		mapCtrl.setCenter(geoP);
+		mapCtrl.setZoom(16);
+		mapView.setBuiltInZoomControls(true);
 		
 		controller = Controller.getInstance();
 		controller.addTabActivity(this);
