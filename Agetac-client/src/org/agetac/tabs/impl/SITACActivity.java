@@ -57,11 +57,6 @@ public class SITACActivity extends MyActivity implements IOnMenuEventListener {
 		openedMenuFrag.setOnMenuEventListener(this);
 		hiddenMenuFrag = (HiddenMenuFragment) fManager.findFragmentById(R.id.fragment_menu_hidden);
 		hiddenMenuFrag.setOnMenuEventListener(this);
-	}
-	
-	@Override
-	protected void onResume() {
-		super.onResume();
 		fManager.beginTransaction().hide(hiddenMenuFrag).commit();
 	}
 
@@ -93,10 +88,10 @@ public class SITACActivity extends MyActivity implements IOnMenuEventListener {
 
 	@Override
 	public void onShowMenu() {
-		System.out.println("onShowMenu called");
 		FragmentTransaction fTransac = fManager.beginTransaction();
 		fTransac.hide(hiddenMenuFrag);
 		fTransac.show(openedMenuFrag);
 		fTransac.commit();
+		openedMenuFrag.startShowMenuAnim();
 	}
 }

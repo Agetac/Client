@@ -19,7 +19,25 @@ import android.widget.ImageButton;
 public class OpenedMenuFragment extends Fragment implements IMenuFragment, OnClickListener {
 
 	private Animation hideMenuAnim;
+	private Animation showMenuAnim;
 	private IOnMenuEventListener listener;
+	
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		hideMenuAnim = AnimationUtils.loadAnimation(getActivity(), R.anim.scroll_left);
+		hideMenuAnim.setAnimationListener(new AnimationListener() {
+			@Override
+			public void onAnimationStart(Animation animation) {}
+			@Override
+			public void onAnimationRepeat(Animation animation) {}
+			@Override
+			public void onAnimationEnd(Animation animation) {
+				if (listener != null) listener.onHideMenu();
+			}
+		});
+		showMenuAnim = AnimationUtils.loadAnimation(getActivity(), R.anim.scroll_right);
+	}
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -31,20 +49,7 @@ public class OpenedMenuFragment extends Fragment implements IMenuFragment, OnCli
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		((ImageButton) getActivity().findViewById(R.id.btn_hide_menu)).setOnClickListener(this);
-		hideMenuAnim = AnimationUtils.loadAnimation(getActivity(), R.anim.scroll_left);
-		hideMenuAnim.setAnimationListener(new AnimationListener() {
-			@Override
-			public void onAnimationStart(Animation animation) {}
-			@Override
-			public void onAnimationRepeat(Animation animation) {}
-			@Override
-			public void onAnimationEnd(Animation animation) {
-				if (listener != null) {
-					System.out.println("will call onHideMenu");
-					listener.onHideMenu();
-				}
-			}
-		});
+		getView().startAnimation(showMenuAnim);
 	}
 
 	@Override
@@ -54,6 +59,10 @@ public class OpenedMenuFragment extends Fragment implements IMenuFragment, OnCli
 			getView().startAnimation(hideMenuAnim);
 			break;
 		}
+	}
+	
+	public void startShowMenuAnim() {
+		getView().startAnimation(showMenuAnim);
 	}
 
 	@Override

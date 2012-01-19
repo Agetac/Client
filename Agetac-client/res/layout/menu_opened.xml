@@ -19,6 +19,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignWithParentIfMissing="true"
         android:src="@drawable/hide_show_menu"
-        android:background="#000000" />
+        android:background="#000000"
+        android:scaleType="fitXY"/>
 
 </RelativeLayout>

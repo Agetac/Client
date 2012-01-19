@@ -17,7 +17,6 @@ import android.widget.ImageButton;
 
 public class HiddenMenuFragment extends Fragment implements IMenuFragment, OnClickListener {
 
-	private Animation showMenuAnim;
 	private IOnMenuEventListener listener;
 	
 	@Override
@@ -30,20 +29,6 @@ public class HiddenMenuFragment extends Fragment implements IMenuFragment, OnCli
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		((ImageButton) getActivity().findViewById(R.id.btn_show_menu)).setOnClickListener(this);
-		showMenuAnim = AnimationUtils.loadAnimation(getActivity(), R.anim.scroll_right);
-		showMenuAnim.setAnimationListener(new AnimationListener() {
-			@Override
-			public void onAnimationStart(Animation animation) {}
-			@Override
-			public void onAnimationRepeat(Animation animation) {}
-			@Override
-			public void onAnimationEnd(Animation animation) {
-				if (listener != null) {
-					System.out.println("will call onShowMenu");
-					listener.onShowMenu();
-				}
-			}
-		});
 	}
 	
 	
@@ -52,7 +37,7 @@ public class HiddenMenuFragment extends Fragment implements IMenuFragment, OnCli
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.btn_show_menu:
-			getView().startAnimation(showMenuAnim);
+			if (listener != null) listener.onShowMenu();
 			break;
 		}
 	}

@@ -10,6 +10,7 @@
 	    android:layout_width="wrap_content"
 	    android:layout_height="match_parent"
 	    android:background="#000000"
-	    android:src="@drawable/hide_show_menu"/>
+	    android:src="@drawable/hide_show_menu"
+	    android:scaleType="fitXY"/>
     
 </LinearLayout>
