@@ -25,25 +25,11 @@ public class SITACActivity extends MyActivity implements IOnMenuEventListener {
 	private FragmentManager fManager;
 	private OpenedMenuFragment openedMenuFrag;
 	private HiddenMenuFragment hiddenMenuFrag;
-	private String[] data = {
-			"Pictogramme 1",
-			"Pictogramme 2",
-			"Pictogramme 3",
-			"Pictogramme 4",
-			"Pictogramme 5",
-			"Pictogramme 6",
-			"Pictogramme 7",
-			"Pictogramme 8",
-			"Pictogramme 9",
-			"Pictogramme 10"};
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.sitac);
-		
-		ListView listView = (ListView) findViewById(R.id.menu);
-		listView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, data));
 		
 		mapView = (MapView) findViewById(R.id.mapview);
 		mapCtrl = mapView.getController();

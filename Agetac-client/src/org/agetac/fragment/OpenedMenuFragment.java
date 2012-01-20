@@ -4,7 +4,6 @@ import org.agetac.R;
 import org.agetac.fragment.sign.IMenuFragment;
 import org.agetac.listener.IOnMenuEventListener;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,13 +13,26 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
+import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.ListView;
 
 public class OpenedMenuFragment extends Fragment implements IMenuFragment, OnClickListener {
 
 	private Animation hideMenuAnim;
 	private Animation showMenuAnim;
 	private IOnMenuEventListener listener;
+	private String[] data = {
+			"Pictogramme 1",
+			"Pictogramme 2",
+			"Pictogramme 3",
+			"Pictogramme 4",
+			"Pictogramme 5",
+			"Pictogramme 6",
+			"Pictogramme 7",
+			"Pictogramme 8",
+			"Pictogramme 9",
+			"Pictogramme 10"};
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -49,6 +61,8 @@ public class OpenedMenuFragment extends Fragment implements IMenuFragment, OnCli
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		((ImageButton) getActivity().findViewById(R.id.btn_hide_menu)).setOnClickListener(this);
+		ListView listView = (ListView) getActivity().findViewById(R.id.menu);
+		listView.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, data));
 		getView().startAnimation(showMenuAnim);
 	}
 
