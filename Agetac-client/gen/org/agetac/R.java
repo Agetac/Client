@@ -23,6 +23,23 @@ public final class R {
         public static final int ic_tab_moyens=0x7f020005;
         public static final int ic_tab_sitac=0x7f020006;
         public static final int ic_tab_soeic=0x7f020007;
+        public static final int picto_blue_down=0x7f020008;
+        public static final int picto_blue_grp=0x7f020009;
+        public static final int picto_blue_grps=0x7f02000a;
+        public static final int picto_blue_single=0x7f02000b;
+        public static final int picto_blue_up=0x7f02000c;
+        public static final int picto_green_down=0x7f02000d;
+        public static final int picto_green_grp=0x7f02000e;
+        public static final int picto_green_grps=0x7f02000f;
+        public static final int picto_green_single=0x7f020010;
+        public static final int picto_green_up=0x7f020011;
+        public static final int picto_red_dotted_grp=0x7f020012;
+        public static final int picto_red_dotted_single=0x7f020013;
+        public static final int picto_red_down=0x7f020014;
+        public static final int picto_red_grp=0x7f020015;
+        public static final int picto_red_grps=0x7f020016;
+        public static final int picto_red_single=0x7f020017;
+        public static final int picto_red_up=0x7f020018;
     }
     public static final class id {
         public static final int addEntity=0x7f060013;

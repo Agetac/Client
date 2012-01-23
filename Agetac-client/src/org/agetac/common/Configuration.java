@@ -7,5 +7,4 @@ public class Configuration {
 	private static final String CONTEXT_ROOT = "agetacserver";
 	
 	public static final String BASE_URL = HOST+":"+PORT+"/"+CONTEXT_ROOT;
-	
 }
