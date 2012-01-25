@@ -3,7 +3,7 @@ package org.agetac.overlay;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.agetac.common.Utils;
+import org.agetac.listener.IOnOverlayEventListener;
 import org.agetac.overlay.sign.IOverlayItem;
 import org.osmdroid.api.IGeoPoint;
 import org.osmdroid.views.MapView;
@@ -23,6 +23,8 @@ public class MapOverlay extends Overlay {
 	
 	private List<IOverlayItem> items;
 	private Paint itemPaint;
+	private IOnOverlayEventListener listener;
+	private int precision;
 
 	public MapOverlay(Context context) {
 		super(context);
@@ -30,19 +32,20 @@ public class MapOverlay extends Overlay {
 		itemPaint = new Paint();
 		itemPaint.setColor(Color.RED);
 		itemPaint.setAntiAlias(true);
+		
+		// TODO permettre à l'utilisateur de pouvoir modifier la precision dans
+		// les paramètres de l'application
+		precision = 5;
 	}
 	
 	@Override
 	public boolean onLongPress(MotionEvent e, MapView mapView) {
 		IGeoPoint clickedP = mapView.getProjection().fromPixels(e.getX(), e.getY());
-		IGeoPoint itemGeoP;
-		double distance;
 		
 		for (int i=0; i<items.size(); i++) {
-			itemGeoP = items.get(i).getGeoPoint();
-//			d = R * (Pi/2 - ArcSin( sin(destLat) * sin(sourceLat) + cos(destLong - sourceLong) * cos(destLat) * cos(sourceLat)))
-			distance = Utils.getDistanceInMeter(clickedP, itemGeoP);
-			
+			if (items.get(i).isCloseTo(clickedP, precision)) {
+				if (listener != null) listener.onItemLongPressed(items.get(i));
+			}
 		}
 		
 		return false;
@@ -59,7 +62,6 @@ public class MapOverlay extends Overlay {
 			p = mapV.getProjection().toMapPixels(item.getGeoPoint(), null);
 			bmp = items.get(i).getPictogram().getBitmap();
 			canvas.drawBitmap(bmp, p.x-(bmp.getWidth()/2), p.y-(bmp.getHeight()/2), null);
-			
 		}
 	}
 	
@@ -67,5 +69,11 @@ public class MapOverlay extends Overlay {
 		items.add(item);
 	}
 	
+	public void setOnOverlayEventListener(IOnOverlayEventListener listener) {
+		this.listener = listener;
+	}
 	
+	public void removeOnOverlayEventListener() {
+		this.listener = null;
+	}
 }

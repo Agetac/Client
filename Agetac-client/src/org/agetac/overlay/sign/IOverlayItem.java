@@ -8,6 +8,6 @@ public interface IOverlayItem {
 	public IGeoPoint getGeoPoint();
 	
 	public IPictogram getPictogram();
-
-	public boolean isCloseTo(IGeoPoint geoP);
+	
+	public boolean isCloseTo(IGeoPoint pt, int precision);
 }

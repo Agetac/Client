@@ -1,5 +1,6 @@
 package org.agetac.overlay;
 
+import org.agetac.common.Utils;
 import org.agetac.overlay.sign.IOverlayItem;
 import org.agetac.pictogram.sign.IPictogram;
 import org.osmdroid.api.IGeoPoint;
@@ -40,26 +41,9 @@ public class OverlayItem implements IOverlayItem {
 	}
 
 	@Override
-	public boolean isCloseTo(IGeoPoint geoP) {
-		boolean ret = false;
-		
-		// TODO permettre à l'utilisateur de modifier la précision
-		// TODO via les paramètres de l'appli
-//		int tolerance = 5;
-//		
-//		int lat1, lat2, lat3, lat4;
-//		int long1, long2, long3, long4;
-//		lat1 = latitude-5;
-//		long1 = longitude-5;
-//		lat2 = latitude+5;
-//		long2 = longitude-5;
-//		lat3 = latitude-5;
-//		long3 = longitude+5;
-//		lat4 = latitude+5;
-//		long4 = longitude+5;
-		
-		
-		
-		return ret;
+	public boolean isCloseTo(IGeoPoint pt, int precision) {
+		double distance = Utils.getDistanceInMeter(geoP, pt);
+		if (distance <= precision) return true;
+		return false;
 	}
 }

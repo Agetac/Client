@@ -4,10 +4,12 @@ import org.agetac.R;
 import org.agetac.fragment.HiddenMenuFragment;
 import org.agetac.fragment.OpenedMenuFragment;
 import org.agetac.listener.IOnMenuEventListener;
+import org.agetac.listener.IOnOverlayEventListener;
 import org.agetac.model.ActionFlag;
 import org.agetac.model.sign.IEntity;
 import org.agetac.overlay.MapOverlay;
 import org.agetac.overlay.OverlayItem;
+import org.agetac.overlay.sign.IOverlayItem;
 import org.agetac.pictogram.sign.IPictogram;
 import org.agetac.tabs.MyActivity;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
@@ -21,8 +23,9 @@ import android.os.Bundle;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
-public class SITACActivity extends MyActivity implements IOnMenuEventListener {
+public class SITACActivity extends MyActivity implements IOnMenuEventListener, IOnOverlayEventListener {
 	
 	private static final String TAG = "SITACACtivity";
 	
@@ -58,6 +61,7 @@ public class SITACActivity extends MyActivity implements IOnMenuEventListener {
 		fManager.beginTransaction().hide(hiddenMenuFrag).commit();
 		
 		mapOverlay = new MapOverlay(this);
+		mapOverlay.setOnOverlayEventListener(this);
 		mapView.getOverlays().add(mapOverlay);
 		
 		mapView.setBuiltInZoomControls(false);
@@ -122,5 +126,18 @@ public class SITACActivity extends MyActivity implements IOnMenuEventListener {
 	public void onPictogramSelected(IPictogram p) {
 		currentPicto = p;
 		android.util.Log.d(TAG, "onPictogramSelected= "+p.toString());
+	}
+
+	@Override
+	public void onItemLongPressed(IOverlayItem item) {
+		// TODO changer ça
+		runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				Toast.makeText(SITACActivity.this,
+						"Item sélectionné -- TODO proposer delete/modif",
+						Toast.LENGTH_SHORT).show();
+			}
+		});
 	}
 }
