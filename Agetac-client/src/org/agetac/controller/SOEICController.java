@@ -31,6 +31,6 @@ public class SOEICController implements ISubController {
 			default:
 				android.util.Log.w(TAG, "FLAG inconnu!");
 				break;
-	}
+		}
 	}
 }

@@ -3,6 +3,7 @@ package org.agetac.overlay;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.agetac.common.Utils;
 import org.agetac.overlay.sign.IOverlayItem;
 import org.osmdroid.api.IGeoPoint;
 import org.osmdroid.views.MapView;
@@ -33,14 +34,17 @@ public class MapOverlay extends Overlay {
 	
 	@Override
 	public boolean onLongPress(MotionEvent e, MapView mapView) {
-		android.util.Log.d(TAG, "onLongPress(Overlay): "+e.getX()+", "+e.getY());
-		IGeoPoint geoP = mapView.getProjection().fromPixels(e.getX(), e.getY());
+		IGeoPoint clickedP = mapView.getProjection().fromPixels(e.getX(), e.getY());
+		IGeoPoint itemGeoP;
+		double distance;
+		
 		for (int i=0; i<items.size(); i++) {
-			if (items.get(i).isCloseTo(geoP)) {
-				// ask for delete
-				android.util.Log.d(TAG, "ASK FOR DELETE");
-			}
+			itemGeoP = items.get(i).getGeoPoint();
+//			d = R * (Pi/2 - ArcSin( sin(destLat) * sin(sourceLat) + cos(destLong - sourceLong) * cos(destLat) * cos(sourceLat)))
+			distance = Utils.getDistanceInMeter(clickedP, itemGeoP);
+			
 		}
+		
 		return false;
 	}
 
@@ -55,10 +59,13 @@ public class MapOverlay extends Overlay {
 			p = mapV.getProjection().toMapPixels(item.getGeoPoint(), null);
 			bmp = items.get(i).getPictogram().getBitmap();
 			canvas.drawBitmap(bmp, p.x-(bmp.getWidth()/2), p.y-(bmp.getHeight()/2), null);
+			
 		}
 	}
 	
 	public void addItem(IOverlayItem item) {
 		items.add(item);
 	}
+	
+	
 }

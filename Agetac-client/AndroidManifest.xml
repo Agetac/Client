@@ -26,7 +26,6 @@
         <activity android:name=".tabs.impl.MessagesActivity" />
         <activity android:name=".tabs.impl.CRMActivity" />
         
-        <uses-library android:name="com.google.android.maps" />
     </application>
     
     <uses-permission android:name="android.permission.INTERNET"/>

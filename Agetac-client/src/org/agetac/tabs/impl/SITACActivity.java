@@ -8,7 +8,6 @@ import org.agetac.model.ActionFlag;
 import org.agetac.model.sign.IEntity;
 import org.agetac.overlay.MapOverlay;
 import org.agetac.overlay.OverlayItem;
-import org.agetac.pictogram.impl.Pictogram;
 import org.agetac.pictogram.sign.IPictogram;
 import org.agetac.tabs.MyActivity;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
