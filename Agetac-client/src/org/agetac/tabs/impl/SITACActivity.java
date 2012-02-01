@@ -141,7 +141,7 @@ public class SITACActivity extends MyActivity implements IOnMenuEventListener, I
 			
 			
 			flag = ActionFlag.ADD;
-			touchedEntity = new Vehicule("FTP Janze",true,m,currentPicto); //TODO vrai relation picto-Entity
+			touchedEntity = new Vehicule("FPT Janze",true,m,currentPicto); //TODO vrai relation picto-Entity
 			observable.setChanged();
 			observable.notifyObservers(SITACActivity.this);
 		}
