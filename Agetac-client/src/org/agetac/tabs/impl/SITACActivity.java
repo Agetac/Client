@@ -20,9 +20,7 @@ import org.osmdroid.views.MapView;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
-import android.view.GestureDetector;
 import android.view.MotionEvent;
-import android.view.View;
 import android.widget.Toast;
 
 public class SITACActivity extends MyActivity implements IOnMenuEventListener, IOnOverlayEventListener {
@@ -35,7 +33,6 @@ public class SITACActivity extends MyActivity implements IOnMenuEventListener, I
 	private FragmentManager fManager;
 	private OpenedMenuFragment openedMenuFrag;
 	private HiddenMenuFragment hiddenMenuFrag;
-	private GestureDetector gestureDetector;
 	private IPictogram currentPicto;
 
 	@Override
@@ -45,7 +42,6 @@ public class SITACActivity extends MyActivity implements IOnMenuEventListener, I
 		
 		mapView = (MapView) findViewById(R.id.mapview);
 		mapView.setTileSource(TileSourceFactory.MAPNIK);
-		mapView.setBuiltInZoomControls(true);
 		
 		mapCtrl = mapView.getController();
 		mapCtrl.setZoom(18); // you must call setZoom before setCenter
@@ -65,26 +61,6 @@ public class SITACActivity extends MyActivity implements IOnMenuEventListener, I
 		mapView.getOverlays().add(mapOverlay);
 		
 		mapView.setBuiltInZoomControls(false);
-		
-		gestureDetector = new GestureDetector(new GestureDetector.SimpleOnGestureListener() {			
-			@Override
-			public boolean onDoubleTap(MotionEvent e) {
-				if (currentPicto != null) {
-					GeoPoint m = (GeoPoint) mapView.getProjection().fromPixels(e.getX(), e.getY());
-					mapOverlay.addItem(new OverlayItem(currentPicto, m.getLatitudeE6(), m.getLongitudeE6()));
-					mapView.invalidate();
-					return true;
-				}
-				return false;
-			}
-		});
-		
-		mapView.setOnTouchListener(new View.OnTouchListener() {
-			@Override
-			public boolean onTouch(View v, MotionEvent event) {
-				return gestureDetector.onTouchEvent(event);
-			}
-		});
 	}
 
 	@Override
@@ -124,20 +100,28 @@ public class SITACActivity extends MyActivity implements IOnMenuEventListener, I
 
 	@Override
 	public void onPictogramSelected(IPictogram p) {
-		currentPicto = p;
-		android.util.Log.d(TAG, "onPictogramSelected= "+p.toString());
+		this.currentPicto = p;
 	}
 
 	@Override
-	public void onItemLongPressed(IOverlayItem item) {
+	public void onItemLongPressed(final IOverlayItem item) {
 		// TODO changer ça
 		runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
 				Toast.makeText(SITACActivity.this,
-						"Item sélectionné -- TODO proposer delete/modif",
+						"Item sélectionné -- "+item.getPictogram().getBitmap().toString(),
 						Toast.LENGTH_SHORT).show();
 			}
 		});
+	}
+	
+	@Override
+	public void onOverlayLongPressed(MotionEvent e, MapView mapView) {
+		if (currentPicto != null) {
+			GeoPoint m = (GeoPoint) mapView.getProjection().fromPixels(e.getX(), e.getY());
+			mapOverlay.addItem(new OverlayItem(currentPicto, m.getLatitudeE6(), m.getLongitudeE6()));
+			mapView.invalidate();
+		}
 	}
 }

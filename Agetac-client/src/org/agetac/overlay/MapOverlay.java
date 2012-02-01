@@ -6,6 +6,7 @@ import java.util.List;
 import org.agetac.listener.IOnOverlayEventListener;
 import org.agetac.overlay.sign.IOverlayItem;
 import org.osmdroid.api.IGeoPoint;
+import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Overlay;
 
@@ -44,8 +45,16 @@ public class MapOverlay extends Overlay {
 		
 		for (int i=0; i<items.size(); i++) {
 			if (items.get(i).isCloseTo(clickedP, precision)) {
-				if (listener != null) listener.onItemLongPressed(items.get(i));
+				if (listener != null) {
+					listener.onItemLongPressed(items.get(i));
+					return true;
+				}
 			}
+		}
+		
+		if (listener != null) {
+			listener.onOverlayLongPressed(e, mapView);
+			return true;
 		}
 		
 		return false;
