@@ -87,7 +87,15 @@ public class SITACActivity extends MyActivity implements IOnMenuEventListener, I
 
 	@Override
 	public void update() {
-		List<IEntity> l = controller.getIntervention().getEntities();
+		List<IEntity> entities = controller.getIntervention().getEntities();
+		for (IEntity e : entities){
+			GeoPoint m = e.getLocation();
+			IPictogram p = e.getPicto();
+			if (m != null && p!= null) {
+				mapOverlay.addItem(new OverlayItem(p, m.getLatitudeE6(), m.getLongitudeE6()));
+			}
+		}
+		mapView.invalidate();
 	}
 
 	@Override
@@ -130,11 +138,10 @@ public class SITACActivity extends MyActivity implements IOnMenuEventListener, I
 	public void onOverlayLongPressed(MotionEvent e, MapView mapView) {
 		if (currentPicto != null) {
 			GeoPoint m = (GeoPoint) mapView.getProjection().fromPixels(e.getX(), e.getY());
-			mapOverlay.addItem(new OverlayItem(currentPicto, m.getLatitudeE6(), m.getLongitudeE6()));
-			mapView.invalidate();
+			
 			
 			flag = ActionFlag.ADD;
-			touchedEntity = new Vehicule("FPT Janze",true); //TODO vrai relation picto-Entity
+			touchedEntity = new Vehicule("FTP Janze",true,m,currentPicto); //TODO vrai relation picto-Entity
 			observable.setChanged();
 			observable.notifyObservers(SITACActivity.this);
 		}

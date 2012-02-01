@@ -30,36 +30,30 @@ public class MoyensActivity extends MyActivity implements OnItemClickListener {
 	private ActionFlag flag;
 	private IEntity touchedEntity;
 	
-	private ListView maListViewPerso;
+	private ListView listView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.moyens);
-	    maListViewPerso = (ListView) findViewById(R.id.malistview);
-	    maListViewPerso.setOnItemClickListener(this);
+	    listView = (ListView) findViewById(R.id.malistview);
+	    listView.setOnItemClickListener(this);
 	    itemAdapter = new ItemAdapter();
-	    maListViewPerso.setAdapter(itemAdapter);
+	    listView.setAdapter(itemAdapter);
 	    
-	  //Création de la ArrayList qui nous permettra de remplire la listView
+	    //Creation de la ArrayList qui nous permettra de remplir la listView
         List<HashMap<String, String>> listItem = new ArrayList<HashMap<String, String>>();
  
-        //On déclare la HashMap qui contiendra les informations pour un item
+        //On declare la HashMap qui contiendra les informations pour un item
         HashMap<String, String> map;
  
-        //Création d'une HashMap pour insérer les informations du premier item de notre listView
-        map = new HashMap<String, String>();
-        //on insère un élément titre que l'on récupérera dans le textView titre créé dans le fichier affichageitem.xml
+        //Creation d'une HashMap pour insérer les informations du premier item de notre listView
+        map = new HashMap<String, String>();        
         map.put("titre", "VSAV Cleunay");
-        //on insère un élément description que l'on récupérera dans le textView description créé dans le fichier affichageitem.xml
         map.put("description", "VSAV Rouge?");
-        //on insère la référence à l'image (convertit en String car normalement c'est un int) que l'on récupérera dans l'imageView créé dans le fichier affichageitem.xml
         map.put("img", String.valueOf(R.drawable.firetruck));
-        //enfin on ajoute cette hashMap dans la arrayList
         listItem.add(map);
- 
-        //On refait la manip plusieurs fois avec des données différentes pour former les items de notre ListView
- 
+  
         map = new HashMap<String, String>();
         map.put("titre", "FTP Janzé");
         map.put("description", "Arrivée: 0915");
@@ -72,14 +66,11 @@ public class MoyensActivity extends MyActivity implements OnItemClickListener {
         map.put("img", String.valueOf(R.drawable.firetruck));
         listItem.add(map);
  
-        //Création d'un SimpleAdapter qui se chargera de mettre les items présent dans notre list (listItem) dans la vue affichageitem
+        //Creation d'un SimpleAdapter qui se chargera de mettre les items present dans notre list (listItem) dans la vue moyens_list_item
         SimpleAdapter mSchedule = new SimpleAdapter (this.getBaseContext(), listItem, R.layout.moyens_list_item,
                new String[] {"img", "titre", "description"}, new int[] {R.id.img, R.id.titre, R.id.description});
- 
-        //On attribut à notre listView l'adapter que l'on vient de créer
-        maListViewPerso.setAdapter(mSchedule);
- 
-	    
+        listView.setAdapter(mSchedule);
+     
 	}
 	
 	@Override
@@ -155,7 +146,9 @@ public class MoyensActivity extends MyActivity implements OnItemClickListener {
 
 	    // create a new View for each item referenced by the Adapter
 	    public View getView(int position, View convertView, ViewGroup parent) {
-	        View itemView = getLayoutInflater().inflate(R.layout.gridview_item, null);
+	        View itemView = getLayoutInflater().inflate(R.layout.moyens_list_item, null);
+	        //View itemView = getLayoutInflater().inflate(R.layout.gridview_item, null);
+
 	        ((TextView) itemView.findViewById(R.id.vehicule_name)).setText(entities.get(position).getName());
 	        return itemView;
 	    }
