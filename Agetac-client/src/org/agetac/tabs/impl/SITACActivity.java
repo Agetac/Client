@@ -60,7 +60,7 @@ public class SITACActivity extends MyActivity implements IOnMenuEventListener, I
 		mapOverlay.setOnOverlayEventListener(this);
 		mapView.getOverlays().add(mapOverlay);
 		
-		mapView.setBuiltInZoomControls(false);
+		mapView.setBuiltInZoomControls(true);
 	}
 
 	@Override

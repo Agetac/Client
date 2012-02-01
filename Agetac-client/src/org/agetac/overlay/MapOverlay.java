@@ -42,7 +42,7 @@ public class MapOverlay extends Overlay {
 	@Override
 	public boolean onLongPress(MotionEvent e, MapView mapView) {
 		IGeoPoint clickedP = mapView.getProjection().fromPixels(e.getX(), e.getY());
-		
+
 		for (int i=0; i<items.size(); i++) {
 			if (items.get(i).isCloseTo(clickedP, precision)) {
 				if (listener != null) {
