@@ -3,8 +3,10 @@ package org.agetac.model;
 import java.util.List;
 
 import org.agetac.model.sign.IEntity;
+import org.agetac.pictogram.sign.IPictogram;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.osmdroid.util.GeoPoint;
 
 public class Agent implements IEntity {
 
@@ -139,6 +141,18 @@ public class Agent implements IEntity {
 	public boolean isDeBase() {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public GeoPoint getLocation() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public IPictogram getPicto() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

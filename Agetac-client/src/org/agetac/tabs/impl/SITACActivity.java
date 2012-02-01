@@ -1,5 +1,7 @@
 package org.agetac.tabs.impl;
 
+import java.util.List;
+
 import org.agetac.R;
 import org.agetac.fragment.HiddenMenuFragment;
 import org.agetac.fragment.OpenedMenuFragment;
@@ -80,8 +82,15 @@ public class SITACActivity extends MyActivity implements IOnMenuEventListener, I
 
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
-		
+		List<IEntity> entities = controller.getIntervention().getEntities();
+		for (IEntity e : entities){
+			GeoPoint m = e.getLocation();
+			IPictogram p = e.getPicto();
+			if (m != null && p!= null) {
+				mapOverlay.addItem(new OverlayItem(p, m.getLatitudeE6(), m.getLongitudeE6()));
+			}
+		}
+		mapView.invalidate();
 	}
 
 	@Override
@@ -123,11 +132,10 @@ public class SITACActivity extends MyActivity implements IOnMenuEventListener, I
 	public void onOverlayLongPressed(MotionEvent e, MapView mapView) {
 		if (currentPicto != null) {
 			GeoPoint m = (GeoPoint) mapView.getProjection().fromPixels(e.getX(), e.getY());
-			mapOverlay.addItem(new OverlayItem(currentPicto, m.getLatitudeE6(), m.getLongitudeE6()));
-			mapView.invalidate();
+			
 			
 			flag = ActionFlag.ADD;
-			touchedEntity = new Vehicule("FTP Janze",true); //TODO vrai relation picto-Entity
+			touchedEntity = new Vehicule("FTP Janze",true,m,currentPicto); //TODO vrai relation picto-Entity
 			observable.setChanged();
 			observable.notifyObservers(SITACActivity.this);
 			
