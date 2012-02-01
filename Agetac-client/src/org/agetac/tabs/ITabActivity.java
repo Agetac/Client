@@ -9,5 +9,7 @@ public interface ITabActivity {
 	
 	public IEntity getTouchedEntity();
 	
+	public String getMessage();
+	
 	public void update();
 }

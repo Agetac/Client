@@ -1,11 +1,18 @@
 package org.agetac.model;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Observer;
 import java.util.Random;
 
+import org.agetac.command.EnvoyerMessageCommand;
+import org.agetac.common.Message;
 import org.agetac.observer.MyObservable;
+
+
+
+
 
 public class Intervention {
 
@@ -65,4 +72,43 @@ public class Intervention {
 	public List<IEntity> getEntities() {
 		return entities;
 	}
+	
+	
+	public String getGroupeHoraire(){
+		
+		
+		Date d = new Date();
+		String res="";
+		
+		int minutes = d.getMinutes();
+		int heures = d.getHours();
+		
+		if(heures < 10 ) {res = "0" + heures;}
+		else {res = "" + heures;}
+		
+		if (minutes < 10) {res = res +"0" + minutes;}
+		else { res = res + minutes;}
+		
+		return res;
+	
+	}
+	
+	public Message EnvoyerMessage(String message){
+		
+		String date = getGroupeHoraire();
+		
+		String id = "" + EnvoyerMessageCommand.idMessage;
+		
+		Message mess = new Message (id , message, date);
+		
+		System.out.println("Message : " + id + ", " + message + ", " + date);
+
+		
+		return mess;
+		
+		
+	
+	}
+	
+	
 }

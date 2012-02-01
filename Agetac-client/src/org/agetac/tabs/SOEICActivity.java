@@ -129,4 +129,10 @@ public class SOEICActivity extends Activity implements ITabActivity, OnClickList
 		nbCurrentEntityView.setText(String.valueOf(nbCurrentEntity));
 		nbFuturEntityView.setText(String.valueOf(nbFuturEntity));
 	}
+
+	@Override
+	public String getMessage() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

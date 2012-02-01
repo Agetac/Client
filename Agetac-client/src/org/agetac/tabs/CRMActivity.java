@@ -42,4 +42,10 @@ public class CRMActivity extends Activity implements ITabActivity {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public String getMessage() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

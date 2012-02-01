@@ -122,4 +122,10 @@ public class MoyensActivity extends Activity implements ITabActivity, OnItemClic
 	        return itemView;
 	    }
 	}
+
+	@Override
+	public String getMessage() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

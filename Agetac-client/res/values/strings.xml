@@ -28,5 +28,6 @@
     <string name="je_prevois">Je prévois</string>
     <string name="je_procede">Je procède</string>
     <string name="je_demande">Je demande</string>
+    <string name="Message">Message</string>
 
 </resources>

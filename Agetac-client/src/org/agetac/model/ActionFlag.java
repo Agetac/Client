@@ -2,5 +2,9 @@ package org.agetac.model;
 
 public enum ActionFlag {
 	ADD,
-	REMOVE	
+	REMOVE,
+	SENDMESSAGE,
+	SENDMESSAGEAMB,
+
+	
 }

@@ -9,6 +9,7 @@ import java.util.Observer;
 import java.util.Random;
 
 import org.agetac.command.AddEntityCommand;
+import org.agetac.command.EnvoyerMessageCommand;
 import org.agetac.command.ICommand;
 import org.agetac.command.RemoveEntityCommand;
 import org.agetac.model.Agent;
@@ -33,6 +34,7 @@ public class Controller implements Observer {
 	private ISubController moyensCtrl, sitacCtrl, soeicCtrl, messagesCtrl, crmCtrl;
 	private List<ITabActivity> tabs;
 	private Intervention intervention;
+	private String message;
 	
 	/**
 	 * Constructeur privé pour pattern Singleton.
@@ -76,6 +78,7 @@ public class Controller implements Observer {
 		commands = new Hashtable<String, ICommand>();
 		commands.put(AddEntityCommand.NAME, new AddEntityCommand(this));
 		commands.put(RemoveEntityCommand.NAME, new RemoveEntityCommand(this));
+		commands.put(EnvoyerMessageCommand.NAME, new EnvoyerMessageCommand(this)); 
 	}
 	
 	public static Controller getInstance() {
@@ -103,6 +106,17 @@ public class Controller implements Observer {
 	public Intervention getIntervention() {
 		return intervention;
 	}
+	
+	public void setMessage(String m){
+		
+		message = m;
+	}
+	
+	public String getMessage() {
+		
+		return message;
+	}
+	
 
 	@Override
 	public void update(Observable observable, Object data) {
