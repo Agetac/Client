@@ -34,7 +34,7 @@ public class OpenedMenuFragment extends Fragment implements IMenuFragment, OnCli
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		hideMenuAnim = AnimationUtils.loadAnimation(getActivity(), R.anim.scroll_left);
+		hideMenuAnim = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_out_left);
 		hideMenuAnim.setAnimationListener(new AnimationListener() {
 			@Override
 			public void onAnimationStart(Animation animation) {}
@@ -45,7 +45,7 @@ public class OpenedMenuFragment extends Fragment implements IMenuFragment, OnCli
 				if (listener != null) listener.onHideMenu();
 			}
 		});
-		showMenuAnim = AnimationUtils.loadAnimation(getActivity(), R.anim.scroll_right);
+		showMenuAnim = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_in_left);
 		PictogramFactory pFactory = PictogramFactory.getInstance(getActivity());
 		pictos = pFactory.getPictograms();
 		pictoNames = pFactory.getPictogramNames();

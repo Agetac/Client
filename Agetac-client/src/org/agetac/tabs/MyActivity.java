@@ -8,7 +8,7 @@ import org.agetac.tabs.sign.ITabActivity;
 
 import android.app.Activity;
 
-public class MyActivity extends Activity implements ITabActivity {
+public abstract class MyActivity extends Activity implements ITabActivity {
 
 	protected Controller controller;
 	protected MyObservable observable;
@@ -39,5 +39,4 @@ public class MyActivity extends Activity implements ITabActivity {
 		// TODO Auto-generated method stub
 		
 	}
-
 }

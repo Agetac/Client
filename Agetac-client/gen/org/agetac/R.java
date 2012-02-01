@@ -9,8 +9,8 @@ package org.agetac;
 
 public final class R {
     public static final class anim {
-        public static final int scroll_left=0x7f040000;
-        public static final int scroll_right=0x7f040001;
+        public static final int slide_in_left=0x7f040000;
+        public static final int slide_out_left=0x7f040001;
     }
     public static final class attr {
     }
@@ -74,14 +74,13 @@ public final class R {
         public static final int gridview_item=0x7f030001;
         public static final int main=0x7f030002;
         public static final int menu_hidden=0x7f030003;
-        public static final int menu_item=0x7f030004;
-        public static final int menu_opened=0x7f030005;
-        public static final int messages=0x7f030006;
-        public static final int moyens=0x7f030007;
-        public static final int moyens_list_item=0x7f030008;
-        public static final int sitac=0x7f030009;
-        public static final int soeic=0x7f03000a;
-        public static final int tabs=0x7f03000b;
+        public static final int menu_opened=0x7f030004;
+        public static final int messages=0x7f030005;
+        public static final int moyens=0x7f030006;
+        public static final int moyens_list_item=0x7f030007;
+        public static final int sitac=0x7f030008;
+        public static final int soeic=0x7f030009;
+        public static final int tabs=0x7f03000a;
     }
     public static final class string {
         public static final int app_name=0x7f050000;
