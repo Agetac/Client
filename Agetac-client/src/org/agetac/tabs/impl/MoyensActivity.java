@@ -45,21 +45,28 @@ public class MoyensActivity extends MyActivity implements OnItemClickListener {
         HashMap<String, String> map;
  
         //Creation d'une HashMap pour insérer les informations du premier item de notre listView
+        
+        map = new HashMap<String, String>();        
+        map.put("titre", "Type du véhicule");
+        map.put("description", "Arrivée");
+        //map.put("img", String.valueOf(R.drawable.firetruck));
+        listItem.add(map);
+        
         map = new HashMap<String, String>();        
         map.put("titre", "VSAV Cleunay");
-        map.put("description", "VSAV Rouge?");
+        map.put("description", "0950");
         map.put("img", String.valueOf(R.drawable.firetruck));
         listItem.add(map);
   
         map = new HashMap<String, String>();
-        map.put("titre", "FTP Janzé");
-        map.put("description", "Arrivée: 0915");
+        map.put("titre", "FPT Janzé");
+        map.put("description", "0915");
         map.put("img", String.valueOf(R.drawable.firetruck));
         listItem.add(map);
  
         map = new HashMap<String, String>();
-        map.put("titre", "FTP xxxx");
-        map.put("description", "Arrivée: 0950");
+        map.put("titre", "FPT xxxx");
+        map.put("description", "0950");
         map.put("img", String.valueOf(R.drawable.firetruck));
         listItem.add(map);
  
