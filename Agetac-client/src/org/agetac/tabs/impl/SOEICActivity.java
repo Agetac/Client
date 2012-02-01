@@ -43,8 +43,8 @@ public class SOEICActivity extends MyActivity implements OnClickListener, OnItem
 		nbCurrentEntityView = (TextView) findViewById(R.id.nbCurrentEntity);
 		nbFuturEntityView = (TextView) findViewById(R.id.nbFuturEntity);
 		
-//		vehiculeList = (ListView) findViewById(R.id.vehicules_listview);
-//		vehiculeList.setOnItemClickListener(this);
+		vehiculeList = (ListView) findViewById(R.id.vehicules_listview);
+		vehiculeList.setOnItemClickListener(this);
 	}
 
 	@Override
