@@ -1,7 +1,8 @@
 package org.agetac.command;
 
+import org.agetac.command.sign.IRecordableCommand;
 import org.agetac.controller.Controller;
-import org.agetac.memento.IMemento;
+import org.agetac.memento.sign.IMemento;
 import org.agetac.model.Intervention;
 
 public class EnvoyerMessageCommand implements IRecordableCommand {
@@ -20,7 +21,7 @@ public class EnvoyerMessageCommand implements IRecordableCommand {
 	
 	public void execute() {
 		
-		intervention.EnvoyerMessage(controller.getMessage());
+//		intervention.erMessage(controller.getMessage());
 		idMessage++;
 	}
 

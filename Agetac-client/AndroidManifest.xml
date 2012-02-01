@@ -20,15 +20,23 @@
         </activity>
         
         <activity android:name="TabsActivity" />
-        <activity android:name=".tabs.SITACActivity" />
-        <activity android:name=".tabs.SOEICActivity" />
-        <activity android:name=".tabs.MoyensActivity" />
-        <activity android:name=".tabs.MessagesActivity" />
-        <activity android:name=".tabs.CRMActivity" />
+        <activity android:name=".tabs.impl.SITACActivity" />
+        <activity android:name=".tabs.impl.SOEICActivity" />
+        <activity android:name=".tabs.impl.MoyensActivity" />
+        <activity android:name=".tabs.impl.MessagesActivity" />
+        <activity android:name=".tabs.impl.CRMActivity" />
         
-        <uses-library android:name="com.google.android.maps" />
     </application>
     
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <uses-feature android:name="android.hardware.location.network" />
+    <uses-feature android:name="android.hardware.location.gps" />
+    <uses-feature android:name="android.hardware.telephony" />
+    <uses-feature android:name="android.hardware.wifi" />
 
 </manifest>

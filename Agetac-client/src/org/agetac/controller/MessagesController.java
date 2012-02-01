@@ -1,7 +1,8 @@
 package org.agetac.controller;
 
 import org.agetac.command.EnvoyerMessageCommand;
-import org.agetac.tabs.ITabActivity;
+import org.agetac.controller.sign.ISubController;
+import org.agetac.tabs.sign.ITabActivity;
 
 public class MessagesController implements ISubController {
 	
@@ -16,17 +17,14 @@ public class MessagesController implements ISubController {
 	public void processUpdate(ITabActivity act) {
 		switch(act.getActionFlag()){
 		
-		case SENDMESSAGE :
-			parent.setMessage(act.getMessage());
-			parent.getCommands().get(EnvoyerMessageCommand.NAME).execute();
-			
-			break;
-			
-		default:
-			android.util.Log.w(TAG, "FLAG inconnu!");
-			break;
-		
-		
+			case SEND_MESSAGE:
+				parent.setMessage(act.getMessage());
+				parent.getCommands().get(EnvoyerMessageCommand.NAME).execute();
+				break;
+					
+			default:
+				android.util.Log.w(TAG, "FLAG inconnu!");
+				break;
 		}
 
 	}

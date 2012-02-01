@@ -2,7 +2,8 @@ package org.agetac.controller;
 
 import org.agetac.command.AddEntityCommand;
 import org.agetac.command.RemoveEntityCommand;
-import org.agetac.tabs.ITabActivity;
+import org.agetac.controller.sign.ISubController;
+import org.agetac.tabs.sign.ITabActivity;
 
 public class SOEICController implements ISubController {
 	
@@ -30,6 +31,6 @@ public class SOEICController implements ISubController {
 			default:
 				android.util.Log.w(TAG, "FLAG inconnu!");
 				break;
-	}
+		}
 	}
 }

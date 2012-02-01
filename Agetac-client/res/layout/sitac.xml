@@ -1,22 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  android:orientation="horizontal">
-      
-  <ListView
-    android:id="@+id/menu"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_weight=".8"/>
+  android:layout_height="match_parent">
     
-	<com.google.android.maps.MapView
+	<org.osmdroid.views.MapView
 	  android:id="@+id/mapview"
 	  android:layout_width="match_parent"
-	  android:layout_height="match_parent"
-	  android:layout_weight=".2"
-	  android:clickable="true"
-	  android:apiKey="02qDR_q7kDVCB7xmOzRpfGZrIg4iAtCPGhhF3ow"/>
+	  android:layout_height="match_parent"/>
+      
+  <fragment
+    android:name="org.agetac.fragment.OpenedMenuFragment"
+    android:id="@+id/fragment_menu_opened"
+    android:layout_width="250dp"
+    android:layout_height="match_parent"/>
+  
+  <fragment
+    android:name="org.agetac.fragment.HiddenMenuFragment"
+    android:id="@+id/fragment_menu_hidden"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"/>	
     
-</LinearLayout>
+</RelativeLayout>

@@ -4,15 +4,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Observer;
-import java.util.Random;
 
 import org.agetac.command.EnvoyerMessageCommand;
 import org.agetac.common.Message;
+import org.agetac.model.sign.IEntity;
 import org.agetac.observer.MyObservable;
-
-
-
-
 
 public class Intervention {
 
@@ -93,7 +89,7 @@ public class Intervention {
 	
 	}
 	
-	public Message EnvoyerMessage(String message){
+	public Message sendMessage(String message){
 		
 		String date = getGroupeHoraire();
 		

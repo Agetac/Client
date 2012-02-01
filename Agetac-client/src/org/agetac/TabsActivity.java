@@ -1,10 +1,10 @@
 package org.agetac;
 
-import org.agetac.tabs.CRMActivity;
-import org.agetac.tabs.MessagesActivity;
-import org.agetac.tabs.MoyensActivity;
-import org.agetac.tabs.SITACActivity;
-import org.agetac.tabs.SOEICActivity;
+import org.agetac.tabs.impl.CRMActivity;
+import org.agetac.tabs.impl.MessagesActivity;
+import org.agetac.tabs.impl.MoyensActivity;
+import org.agetac.tabs.impl.SITACActivity;
+import org.agetac.tabs.impl.SOEICActivity;
 
 import android.app.TabActivity;
 import android.content.Intent;

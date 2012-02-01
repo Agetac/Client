@@ -1,8 +1,8 @@
 package org.agetac.controller;
 
-import org.agetac.command.AddEntityCommand;
-import org.agetac.command.RemoveEntityCommand;
-import org.agetac.tabs.ITabActivity;
+import org.agetac.command.*;
+import org.agetac.controller.sign.ISubController;
+import org.agetac.tabs.sign.ITabActivity;
 
 public class SITACController implements ISubController {
 	
@@ -16,7 +16,22 @@ public class SITACController implements ISubController {
 
 	@Override
 	public void processUpdate(ITabActivity act) {
-
+		switch (act.getActionFlag()) {
+		
+		case ADD:
+			parent.setLastEntity(act.getTouchedEntity());
+			parent.getCommands().get(AddEntityCommand.NAME).execute(); 
+			break;
+		
+		case REMOVE:
+			parent.setLastEntity(act.getTouchedEntity());
+			parent.getCommands().get(RemoveEntityCommand.NAME).execute();
+			break;
+		
+		default : 
+			android.util.Log.w(TAG, "FLAG inconnu!");
+			break;
+		}
 	}
 
 }
