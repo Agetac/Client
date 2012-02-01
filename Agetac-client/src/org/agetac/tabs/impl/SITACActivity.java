@@ -6,6 +6,7 @@ import org.agetac.fragment.OpenedMenuFragment;
 import org.agetac.listener.IOnMenuEventListener;
 import org.agetac.listener.IOnOverlayEventListener;
 import org.agetac.model.ActionFlag;
+import org.agetac.model.Vehicule;
 import org.agetac.model.sign.IEntity;
 import org.agetac.overlay.MapOverlay;
 import org.agetac.overlay.OverlayItem;
@@ -34,6 +35,10 @@ public class SITACActivity extends MyActivity implements IOnMenuEventListener, I
 	private OpenedMenuFragment openedMenuFrag;
 	private HiddenMenuFragment hiddenMenuFrag;
 	private IPictogram currentPicto;
+	
+	private ActionFlag flag;
+	private IEntity touchedEntity;
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -65,14 +70,12 @@ public class SITACActivity extends MyActivity implements IOnMenuEventListener, I
 
 	@Override
 	public ActionFlag getActionFlag() {
-		// TODO Auto-generated method stub
-		return null;
+		return flag;
 	}
 
 	@Override
 	public IEntity getTouchedEntity() {
-		// TODO Auto-generated method stub
-		return null;
+		return touchedEntity;
 	}
 
 	@Override
@@ -122,6 +125,12 @@ public class SITACActivity extends MyActivity implements IOnMenuEventListener, I
 			GeoPoint m = (GeoPoint) mapView.getProjection().fromPixels(e.getX(), e.getY());
 			mapOverlay.addItem(new OverlayItem(currentPicto, m.getLatitudeE6(), m.getLongitudeE6()));
 			mapView.invalidate();
+			
+			flag = ActionFlag.ADD;
+			touchedEntity = new Vehicule("FTP Janze",true); //TODO vrai relation picto-Entity
+			observable.setChanged();
+			observable.notifyObservers(SITACActivity.this);
+			
 		}
 	}
 }
