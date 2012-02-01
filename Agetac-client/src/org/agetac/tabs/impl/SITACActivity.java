@@ -1,5 +1,7 @@
 package org.agetac.tabs.impl;
 
+import java.util.List;
+
 import org.agetac.R;
 import org.agetac.fragment.HiddenMenuFragment;
 import org.agetac.fragment.OpenedMenuFragment;
@@ -21,7 +23,12 @@ import org.osmdroid.views.MapView;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
+import android.view.View;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.Toast;
 
 public class SITACActivity extends MyActivity implements IOnMenuEventListener, IOnOverlayEventListener {
@@ -80,8 +87,7 @@ public class SITACActivity extends MyActivity implements IOnMenuEventListener, I
 
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
-		
+		List<IEntity> l = controller.getIntervention().getEntities();
 	}
 
 	@Override
@@ -108,6 +114,7 @@ public class SITACActivity extends MyActivity implements IOnMenuEventListener, I
 
 	@Override
 	public void onItemLongPressed(final IOverlayItem item) {
+		android.util.Log.d(TAG, "longPress on an item !");
 		// TODO changer ça
 		runOnUiThread(new Runnable() {
 			@Override
@@ -127,10 +134,28 @@ public class SITACActivity extends MyActivity implements IOnMenuEventListener, I
 			mapView.invalidate();
 			
 			flag = ActionFlag.ADD;
-			touchedEntity = new Vehicule("FTP Janze",true); //TODO vrai relation picto-Entity
+			touchedEntity = new Vehicule("FPT Janze",true); //TODO vrai relation picto-Entity
 			observable.setChanged();
 			observable.notifyObservers(SITACActivity.this);
-			
 		}
+	}
+	
+	@Override
+	public void onCreateContextMenu(ContextMenu menu, View v,
+			ContextMenuInfo menuInfo) {
+		super.onCreateContextMenu(menu, v, menuInfo);
+		MenuInflater inflater = new MenuInflater(this);
+		inflater.inflate(R.menu.sitac_context_menu, menu);
+		android.util.Log.d(TAG, "onCreateContextMenu");
+	}
+	
+	@Override
+	public boolean onContextItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+			case R.id.delete_overlay_item:
+				android.util.Log.d(TAG, "onContextItemSelected _ delete item");
+				break;
+		}
+		return super.onContextItemSelected(item);
 	}
 }

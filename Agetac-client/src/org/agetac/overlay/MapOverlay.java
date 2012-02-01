@@ -6,7 +6,6 @@ import java.util.List;
 import org.agetac.listener.IOnOverlayEventListener;
 import org.agetac.overlay.sign.IOverlayItem;
 import org.osmdroid.api.IGeoPoint;
-import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Overlay;
 

@@ -18,12 +18,12 @@ public class SITACController implements ISubController {
 	public void processUpdate(ITabActivity act) {
 		switch (act.getActionFlag()) {
 		
-		case ADD : 
+		case ADD:
 			parent.setLastEntity(act.getTouchedEntity());
 			parent.getCommands().get(AddEntityCommand.NAME).execute(); 
 			break;
 		
-		case REMOVE : 
+		case REMOVE:
 			parent.setLastEntity(act.getTouchedEntity());
 			parent.getCommands().get(RemoveEntityCommand.NAME).execute();
 			break;

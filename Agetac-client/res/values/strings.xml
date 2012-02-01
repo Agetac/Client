@@ -7,6 +7,7 @@
     <string name="connection">Connexion</string>
     <string name="yes">Oui</string>
     <string name="no">Non</string>
+    <string name="delete">Supprimer</string>
     
     <string name="progress_title_connection">Veuillez patienter</string>
     <string name="progress_connection">Connexion...</string>
