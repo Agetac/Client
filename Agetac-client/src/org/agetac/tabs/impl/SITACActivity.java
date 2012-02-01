@@ -1,5 +1,6 @@
 package org.agetac.tabs.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.agetac.R;
@@ -88,13 +89,15 @@ public class SITACActivity extends MyActivity implements IOnMenuEventListener, I
 	@Override
 	public void update() {
 		List<IEntity> entities = controller.getIntervention().getEntities();
+		List<IOverlayItem> items = new ArrayList<IOverlayItem>();
 		for (IEntity e : entities){
 			GeoPoint m = e.getLocation();
 			IPictogram p = e.getPicto();
-			if (m != null && p!= null) {
-				mapOverlay.addItem(new OverlayItem(p, m.getLatitudeE6(), m.getLongitudeE6()));
+			if (m != null && p != null) {
+				items.add(new OverlayItem(p, m.getLatitudeE6(), m.getLongitudeE6()));
 			}
 		}
+		mapOverlay.addItems(items);
 		mapView.invalidate();
 	}
 

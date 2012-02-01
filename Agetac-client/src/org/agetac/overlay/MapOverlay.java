@@ -77,6 +77,11 @@ public class MapOverlay extends Overlay {
 		items.add(item);
 	}
 	
+	public void addItems(List<IOverlayItem> newItems) {
+		items.clear();
+		items.addAll(newItems);
+	}
+	
 	public void setOnOverlayEventListener(IOnOverlayEventListener listener) {
 		this.listener = listener;
 	}
