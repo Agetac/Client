@@ -1,6 +1,7 @@
-package org.agetac.controller;
+package org.agetac.controller.impl;
 
-import org.agetac.command.SendMessageCommand;
+import org.agetac.command.impl.SendMessageCommand;
+import org.agetac.controller.Controller;
 import org.agetac.controller.sign.ISubController;
 import org.agetac.tabs.sign.ITabActivity;
 

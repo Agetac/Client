@@ -1,25 +1,28 @@
-package org.agetac.command;
+package org.agetac.command.impl;
 
 import org.agetac.command.sign.IRecordableCommand;
 import org.agetac.controller.Controller;
 import org.agetac.memento.sign.IMemento;
 import org.agetac.model.impl.Intervention;
 
-public class RemoveEntityCommand implements IRecordableCommand {
+public class SendMessageCommand implements IRecordableCommand {
+	public static final String NAME = "EnvoyerMessage";
+	public static int idMessage = 0;
 
-	public static final String NAME = "RemoveEntity";
-	
+
 	private Intervention intervention;
 	private Controller controller;
-	
-	public RemoveEntityCommand(Controller controller) {
+
+	public SendMessageCommand(Controller controller) {
 		this.controller = controller;
 		this.intervention = controller.getIntervention();
+
 	}
 	
-	@Override
 	public void execute() {
-		intervention.removeEntity(controller.getLastEntity());
+		
+//		intervention.erMessage(controller.getMessage());
+		idMessage++;
 	}
 
 	@Override
@@ -31,7 +34,6 @@ public class RemoveEntityCommand implements IRecordableCommand {
 	@Override
 	public void restoreMemento(IMemento mem) {
 		// TODO Auto-generated method stub
-
+		
 	}
-
 }

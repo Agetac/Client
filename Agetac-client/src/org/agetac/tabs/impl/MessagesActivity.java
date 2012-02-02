@@ -5,7 +5,7 @@ import org.agetac.common.ActionFlag;
 import org.agetac.controller.Controller;
 import org.agetac.entity.sign.IEntity;
 import org.agetac.observer.MyObservable;
-import org.agetac.tabs.MyActivity;
+import org.agetac.tabs.sign.AbstractActivity;
 import org.agetac.tabs.sign.ITabActivity;
 
 import android.os.Bundle;
@@ -13,7 +13,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
 
-public class MessagesActivity extends MyActivity implements OnClickListener {
+public class MessagesActivity extends AbstractActivity implements OnClickListener {
 
 	private ActionFlag flag;
 	private String message;

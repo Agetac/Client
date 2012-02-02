@@ -15,10 +15,10 @@ import org.agetac.listener.IOnOverlayEventListener;
 import org.agetac.model.impl.Position;
 import org.agetac.model.impl.Vehicule;
 import org.agetac.overlay.MapOverlay;
-import org.agetac.overlay.OverlayItem;
+import org.agetac.overlay.impl.OverlayItem;
 import org.agetac.overlay.sign.IOverlayItem;
 import org.agetac.pictogram.sign.IPictogram;
-import org.agetac.tabs.MyActivity;
+import org.agetac.tabs.sign.AbstractActivity;
 import org.osmdroid.api.IGeoPoint;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
@@ -36,7 +36,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
-public class SITACActivity extends MyActivity implements IOnMenuEventListener, IOnOverlayEventListener {
+public class SITACActivity extends AbstractActivity implements IOnMenuEventListener, IOnOverlayEventListener {
 	
 	private static final String TAG = "SITACACtivity";
 	

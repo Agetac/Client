@@ -7,7 +7,7 @@ import org.agetac.R;
 import org.agetac.common.ActionFlag;
 import org.agetac.entity.sign.IEntity;
 import org.agetac.model.impl.Vehicule;
-import org.agetac.tabs.MyActivity;
+import org.agetac.tabs.sign.AbstractActivity;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -21,7 +21,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class SOEICActivity extends MyActivity implements OnClickListener, OnItemClickListener {
+public class SOEICActivity extends AbstractActivity implements OnClickListener, OnItemClickListener {
 	
 	private Button addEntityBtn;
 	private TextView nbCurrentEntityView;

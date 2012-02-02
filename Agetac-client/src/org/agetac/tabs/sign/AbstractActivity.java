@@ -1,12 +1,11 @@
-package org.agetac.tabs;
+package org.agetac.tabs.sign;
 
 import org.agetac.controller.Controller;
 import org.agetac.observer.MyObservable;
-import org.agetac.tabs.sign.ITabActivity;
 
 import android.app.Activity;
 
-public abstract class MyActivity extends Activity implements ITabActivity {
+public abstract class AbstractActivity extends Activity implements ITabActivity {
 
 	protected Controller controller;
 	protected MyObservable observable;

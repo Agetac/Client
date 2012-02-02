@@ -7,7 +7,7 @@ import java.util.List;
 import org.agetac.R;
 import org.agetac.common.ActionFlag;
 import org.agetac.entity.sign.IEntity;
-import org.agetac.tabs.MyActivity;
+import org.agetac.tabs.sign.AbstractActivity;
 
 import android.os.Bundle;
 import android.view.View;
@@ -19,7 +19,7 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
-public class MoyensActivity extends MyActivity implements OnItemClickListener {
+public class MoyensActivity extends AbstractActivity implements OnItemClickListener {
 	
 	private static final String TAG = "MoyensActivity";
 	

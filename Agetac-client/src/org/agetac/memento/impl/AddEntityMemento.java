@@ -1,4 +1,4 @@
-package org.agetac.memento;
+package org.agetac.memento.impl;
 
 import org.agetac.entity.sign.IEntity;
 import org.agetac.memento.sign.IMemento;

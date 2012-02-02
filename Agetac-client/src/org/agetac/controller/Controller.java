@@ -6,10 +6,15 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
-import org.agetac.command.AddEntityCommand;
-import org.agetac.command.RemoveEntityCommand;
-import org.agetac.command.SendMessageCommand;
+import org.agetac.command.impl.AddEntityCommand;
+import org.agetac.command.impl.RemoveEntityCommand;
+import org.agetac.command.impl.SendMessageCommand;
 import org.agetac.command.sign.ICommand;
+import org.agetac.controller.impl.CRMController;
+import org.agetac.controller.impl.MessagesController;
+import org.agetac.controller.impl.MoyensController;
+import org.agetac.controller.impl.SITACController;
+import org.agetac.controller.impl.SOEICController;
 import org.agetac.controller.sign.ISubController;
 import org.agetac.entity.sign.IEntity;
 import org.agetac.model.impl.Intervention;

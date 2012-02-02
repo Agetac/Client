@@ -1,7 +1,8 @@
-package org.agetac.controller;
+package org.agetac.controller.impl;
 
-import org.agetac.command.AddEntityCommand;
-import org.agetac.command.RemoveEntityCommand;
+import org.agetac.command.impl.AddEntityCommand;
+import org.agetac.command.impl.RemoveEntityCommand;
+import org.agetac.controller.Controller;
 import org.agetac.controller.sign.ISubController;
 import org.agetac.tabs.sign.ITabActivity;
 

@@ -3,11 +3,11 @@ package org.agetac.tabs.impl;
 import org.agetac.R;
 import org.agetac.common.ActionFlag;
 import org.agetac.entity.sign.IEntity;
-import org.agetac.tabs.MyActivity;
+import org.agetac.tabs.sign.AbstractActivity;
 
 import android.os.Bundle;
 
-public class CRMActivity extends MyActivity {
+public class CRMActivity extends AbstractActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
