@@ -1,4 +1,4 @@
-package org.agetac.model;
+package org.agetac.common;
 
 public enum ActionFlag {
 	ADD,

@@ -1,7 +1,7 @@
 package org.agetac.tabs.sign;
 
-import org.agetac.model.ActionFlag;
-import org.agetac.model.sign.IEntity;
+import org.agetac.common.ActionFlag;
+import org.agetac.entity.sign.IEntity;
 
 public interface ITabActivity {
 

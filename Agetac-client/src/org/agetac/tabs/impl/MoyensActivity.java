@@ -5,8 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.agetac.R;
-import org.agetac.model.ActionFlag;
-import org.agetac.model.sign.IEntity;
+import org.agetac.common.ActionFlag;
+import org.agetac.entity.sign.IEntity;
 import org.agetac.tabs.MyActivity;
 
 import android.os.Bundle;
@@ -44,11 +44,11 @@ public class MoyensActivity extends MyActivity implements OnItemClickListener {
         //On declare la HashMap qui contiendra les informations pour un item
         HashMap<String, String> map;
  
-        //Creation d'une HashMap pour insérer les informations du premier item de notre listView
+        //Creation d'une HashMap pour insï¿½rer les informations du premier item de notre listView
         
         map = new HashMap<String, String>();        
-        map.put("titre", "Type du véhicule");
-        map.put("description", "Arrivée");
+        map.put("titre", "Type du vï¿½hicule");
+        map.put("description", "Arrivï¿½e");
         //map.put("img", String.valueOf(R.drawable.firetruck));
         listItem.add(map);
         
@@ -59,7 +59,7 @@ public class MoyensActivity extends MyActivity implements OnItemClickListener {
         listItem.add(map);
   
         map = new HashMap<String, String>();
-        map.put("titre", "FPT Janzé");
+        map.put("titre", "FPT Janzï¿½");
         map.put("description", "0915");
         map.put("img", String.valueOf(R.drawable.firetruck));
         listItem.add(map);
@@ -153,7 +153,7 @@ public class MoyensActivity extends MyActivity implements OnItemClickListener {
 	        View itemView = getLayoutInflater().inflate(R.layout.moyens_list_item, null);
 	        //View itemView = getLayoutInflater().inflate(R.layout.gridview_item, null);
 
-	        ((TextView) itemView.findViewById(R.id.vehicule_name)).setText(entities.get(position).getName());
+	        ((TextView) itemView.findViewById(R.id.vehicule_name)).setText(entities.get(position).getModel().getName());
 	        return itemView;
 	    }
 	}

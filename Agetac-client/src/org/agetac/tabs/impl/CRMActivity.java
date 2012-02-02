@@ -1,8 +1,8 @@
 package org.agetac.tabs.impl;
 
 import org.agetac.R;
-import org.agetac.model.ActionFlag;
-import org.agetac.model.sign.IEntity;
+import org.agetac.common.ActionFlag;
+import org.agetac.entity.sign.IEntity;
 import org.agetac.tabs.MyActivity;
 
 import android.os.Bundle;

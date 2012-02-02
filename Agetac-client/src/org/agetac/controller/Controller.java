@@ -1,21 +1,18 @@
 package org.agetac.controller;
 
-import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.Hashtable;
-import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.Random;
 
 import org.agetac.command.AddEntityCommand;
-import org.agetac.command.EnvoyerMessageCommand;
 import org.agetac.command.RemoveEntityCommand;
+import org.agetac.command.SendMessageCommand;
 import org.agetac.command.sign.ICommand;
 import org.agetac.controller.sign.ISubController;
-import org.agetac.model.Intervention;
-import org.agetac.model.Vehicule;
-import org.agetac.model.sign.IEntity;
+import org.agetac.entity.sign.IEntity;
+import org.agetac.model.impl.Intervention;
 import org.agetac.tabs.impl.CRMActivity;
 import org.agetac.tabs.impl.MessagesActivity;
 import org.agetac.tabs.impl.MoyensActivity;
@@ -31,7 +28,7 @@ public class Controller implements Observer {
 	private static Controller controller = new Controller();
 	private Map<String, ICommand> commands;
 	private ISubController moyensCtrl, sitacCtrl, soeicCtrl, messagesCtrl, crmCtrl;
-	private List<ITabActivity> tabs;
+	private Hashtable<String, ITabActivity> tabs;
 	private Intervention intervention;
 	private String message;
 	
@@ -47,18 +44,14 @@ public class Controller implements Observer {
 	 * - Crée toutes les commandes concrètes
 	 */
 	private Controller() {
-		tabs = new ArrayList<ITabActivity>();
-		intervention = Intervention.getInstance();
+		tabs = new Hashtable<String, ITabActivity>();
+//		intervention = Intervention.getInstance();
+		intervention = new Intervention("inter");
 		
 		initSubControllers();
 		initCommands();
 		
 		intervention.addObserver(this);
-		Random gen = new Random();
-		int size = gen.nextInt(3)+1;
-		for (int i=0; i<size; i++) {
-			intervention.addEntity(new Vehicule("Entité de base "+i, true));
-		}
 		
 //		// XXX test récup agent via serv
 //		Agent agent = ServerManager.getInstance().getAgent("ag0");
@@ -77,15 +70,16 @@ public class Controller implements Observer {
 		commands = new Hashtable<String, ICommand>();
 		commands.put(AddEntityCommand.NAME, new AddEntityCommand(this));
 		commands.put(RemoveEntityCommand.NAME, new RemoveEntityCommand(this));
-		commands.put(EnvoyerMessageCommand.NAME, new EnvoyerMessageCommand(this)); 
+		commands.put(SendMessageCommand.NAME, new SendMessageCommand(this)); 
 	}
 	
 	public static Controller getInstance() {
 		return controller;
 	}
 	
-	public void addTabActivity(ITabActivity act) {
-		tabs.add(act);
+	public void addTabActivity(String tag, ITabActivity act) {
+		tabs.put(tag, act);
+		android.util.Log.d(TAG, tabs.toString());
 		// on demande à la vue de se mettre à jour
 		act.update();
 	}
@@ -107,12 +101,10 @@ public class Controller implements Observer {
 	}
 	
 	public void setMessage(String m){
-		
 		message = m;
 	}
 	
 	public String getMessage() {
-		
 		return message;
 	}
 	
@@ -122,8 +114,9 @@ public class Controller implements Observer {
 		if (data instanceof Intervention) {
 			android.util.Log.d(TAG, "update venant d'Intervention");
 			// faire des updates sur toutes les vues (tabActivity)
-			for (ITabActivity tab : tabs) {
-				tab.update();
+			Enumeration<ITabActivity> enumeration = tabs.elements();
+			while (enumeration.hasMoreElements()) {
+				enumeration.nextElement().update();
 			}
 			
 		} else if (data instanceof ITabActivity) {
@@ -150,11 +143,11 @@ public class Controller implements Observer {
 				crmCtrl.processUpdate(act);
 			
 			} else {
-				android.util.Log.d(TAG, "update non pris en charge! act="+act.toString());	
+				android.util.Log.d(TAG, "update non pris en charge! ITabActivity unknown");	
 			}
 			
 		} else {
-			android.util.Log.d(TAG, "update non pris en charge! data="+data.toString());
+			android.util.Log.d(TAG, "update non pris en charge! ni une Intervention ni une ITabActivity");
 		}
 	}
 }

@@ -4,18 +4,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.agetac.R;
+import org.agetac.common.ActionFlag;
+import org.agetac.common.EtatVehicule;
+import org.agetac.entity.impl.VehiculeEntity;
+import org.agetac.entity.sign.IEntity;
 import org.agetac.fragment.HiddenMenuFragment;
 import org.agetac.fragment.OpenedMenuFragment;
 import org.agetac.listener.IOnMenuEventListener;
 import org.agetac.listener.IOnOverlayEventListener;
-import org.agetac.model.ActionFlag;
-import org.agetac.model.Vehicule;
-import org.agetac.model.sign.IEntity;
+import org.agetac.model.impl.Position;
+import org.agetac.model.impl.Vehicule;
 import org.agetac.overlay.MapOverlay;
 import org.agetac.overlay.OverlayItem;
 import org.agetac.overlay.sign.IOverlayItem;
 import org.agetac.pictogram.sign.IPictogram;
 import org.agetac.tabs.MyActivity;
+import org.osmdroid.api.IGeoPoint;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapController;
@@ -25,11 +29,11 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.Toast;
 
 public class SITACActivity extends MyActivity implements IOnMenuEventListener, IOnOverlayEventListener {
@@ -91,8 +95,8 @@ public class SITACActivity extends MyActivity implements IOnMenuEventListener, I
 		List<IEntity> entities = controller.getIntervention().getEntities();
 		List<IOverlayItem> items = new ArrayList<IOverlayItem>();
 		for (IEntity e : entities){
-			GeoPoint m = e.getLocation();
-			IPictogram p = e.getPicto();
+			IGeoPoint m = e.getGeoPoint();
+			IPictogram p = e.getPictogram();
 			if (m != null && p != null) {
 				items.add(new OverlayItem(p, m.getLatitudeE6(), m.getLongitudeE6()));
 			}
@@ -141,10 +145,10 @@ public class SITACActivity extends MyActivity implements IOnMenuEventListener, I
 	public void onOverlayLongPressed(MotionEvent e, MapView mapView) {
 		if (currentPicto != null) {
 			GeoPoint m = (GeoPoint) mapView.getProjection().fromPixels(e.getX(), e.getY());
-			
-			
+			Position p = new Position(m.getLongitudeE6(), m.getLatitudeE6());
 			flag = ActionFlag.ADD;
-			touchedEntity = new Vehicule("FPT Janze",true,m,currentPicto); //TODO vrai relation picto-Entity
+			Vehicule v = new Vehicule("42", "FPT Janze", p, null, EtatVehicule.PARTIS, null);
+			touchedEntity = new VehiculeEntity(v, currentPicto); //TODO vrai relation picto-Entity
 			observable.setChanged();
 			observable.notifyObservers(SITACActivity.this);
 		}

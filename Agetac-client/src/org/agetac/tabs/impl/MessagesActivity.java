@@ -1,9 +1,9 @@
 package org.agetac.tabs.impl;
 
 import org.agetac.R;
+import org.agetac.common.ActionFlag;
 import org.agetac.controller.Controller;
-import org.agetac.model.ActionFlag;
-import org.agetac.model.sign.IEntity;
+import org.agetac.entity.sign.IEntity;
 import org.agetac.observer.MyObservable;
 import org.agetac.tabs.MyActivity;
 import org.agetac.tabs.sign.ITabActivity;
@@ -15,8 +15,6 @@ import android.widget.EditText;
 
 public class MessagesActivity extends MyActivity implements OnClickListener {
 
-	private Controller controller;
-	private MyObservable observable;
 	private ActionFlag flag;
 	private String message;
 

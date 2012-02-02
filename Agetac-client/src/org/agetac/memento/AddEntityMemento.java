@@ -1,7 +1,7 @@
 package org.agetac.memento;
 
+import org.agetac.entity.sign.IEntity;
 import org.agetac.memento.sign.IMemento;
-import org.agetac.model.sign.IEntity;
 
 public class AddEntityMemento implements IMemento {
 

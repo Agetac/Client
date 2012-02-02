@@ -2,9 +2,8 @@ package org.agetac.command;
 
 import org.agetac.command.sign.IRecordableCommand;
 import org.agetac.controller.Controller;
-import org.agetac.memento.AddEntityMemento;
 import org.agetac.memento.sign.IMemento;
-import org.agetac.model.Intervention;
+import org.agetac.model.impl.Intervention;
 
 public class AddEntityCommand implements IRecordableCommand {
 	

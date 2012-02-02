@@ -4,9 +4,9 @@ import java.util.List;
 import java.util.Random;
 
 import org.agetac.R;
-import org.agetac.model.ActionFlag;
-import org.agetac.model.Vehicule;
-import org.agetac.model.sign.IEntity;
+import org.agetac.common.ActionFlag;
+import org.agetac.entity.sign.IEntity;
+import org.agetac.model.impl.Vehicule;
 import org.agetac.tabs.MyActivity;
 
 import android.app.AlertDialog;
@@ -54,10 +54,10 @@ public class SOEICActivity extends MyActivity implements OnClickListener, OnItem
 		switch (v.getId()) {
 		
 			case R.id.addEntity:
-				flag = ActionFlag.ADD;
-				touchedEntity = new Vehicule("Entity "+(gen.nextInt(41)+1), false);
-				observable.setChanged();
-				observable.notifyObservers(SOEICActivity.this);
+//				flag = ActionFlag.ADD;
+//				touchedEntity = new Vehicule("Entity "+(gen.nextInt(41)+1), false);
+//				observable.setChanged();
+//				observable.notifyObservers(SOEICActivity.this);
 				break;
 		}
 	}
@@ -110,13 +110,13 @@ public class SOEICActivity extends MyActivity implements OnClickListener, OnItem
 		nbCurrentEntity = 0;
 		nbFuturEntity = 0;
 		
-		for (int i=0; i<entities.size(); i++) {
-			if (entities.get(i).isDeBase()) {
-				nbCurrentEntity++;
-			} else {
-				nbFuturEntity++;
-			}
-		}
+//		for (int i=0; i<entities.size(); i++) {
+//			if (entities.get(i).isDeBase()) {
+//				nbCurrentEntity++;
+//			} else {
+//				nbFuturEntity++;
+//			}
+//		}
 		nbCurrentEntityView.setText(String.valueOf(nbCurrentEntity));
 		nbFuturEntityView.setText(String.valueOf(nbFuturEntity));
 	}

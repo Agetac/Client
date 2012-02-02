@@ -38,11 +38,11 @@ public class TabsActivity extends TabActivity {
 	    spec.setContent(tabIntent);
 	    tHost.addTab(spec);
 	    
-	    tabIntent = new Intent().setClass(this, SOEICActivity.class);
-	    spec = tHost.newTabSpec(TAB_SOEIC);
-	    spec.setIndicator(getString(R.string.soeic), res.getDrawable(R.drawable.ic_tab_soeic));
-        spec.setContent(tabIntent);
-	    tHost.addTab(spec);
+//	    tabIntent = new Intent().setClass(this, SOEICActivity.class);
+//	    spec = tHost.newTabSpec(TAB_SOEIC);
+//	    spec.setIndicator(getString(R.string.soeic), res.getDrawable(R.drawable.ic_tab_soeic));
+//        spec.setContent(tabIntent);
+//	    tHost.addTab(spec);
 	    
 	    tabIntent = new Intent().setClass(this, MoyensActivity.class);
 	    spec = tHost.newTabSpec(TAB_MOYENS);
@@ -56,11 +56,11 @@ public class TabsActivity extends TabActivity {
         spec.setContent(tabIntent);
 	    tHost.addTab(spec);
 	    
-	    tabIntent = new Intent().setClass(this, CRMActivity.class);
-	    spec = tHost.newTabSpec(TAB_CRM);
-	    spec.setIndicator(getString(R.string.crm), res.getDrawable(R.drawable.ic_tab_crm));
-        spec.setContent(tabIntent);
-	    tHost.addTab(spec);
+//	    tabIntent = new Intent().setClass(this, CRMActivity.class);
+//	    spec = tHost.newTabSpec(TAB_CRM);
+//	    spec.setIndicator(getString(R.string.crm), res.getDrawable(R.drawable.ic_tab_crm));
+//        spec.setContent(tabIntent);
+//	    tHost.addTab(spec);
 	    
 	    // on fait en sorte que les onglets prennent tout l'espace dispo en largeur
 		TabWidget tWidget = tHost.getTabWidget();

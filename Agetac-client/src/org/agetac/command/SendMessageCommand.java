@@ -3,9 +3,9 @@ package org.agetac.command;
 import org.agetac.command.sign.IRecordableCommand;
 import org.agetac.controller.Controller;
 import org.agetac.memento.sign.IMemento;
-import org.agetac.model.Intervention;
+import org.agetac.model.impl.Intervention;
 
-public class EnvoyerMessageCommand implements IRecordableCommand {
+public class SendMessageCommand implements IRecordableCommand {
 	public static final String NAME = "EnvoyerMessage";
 	public static int idMessage = 0;
 
@@ -13,7 +13,7 @@ public class EnvoyerMessageCommand implements IRecordableCommand {
 	private Intervention intervention;
 	private Controller controller;
 
-	public EnvoyerMessageCommand(Controller controller) {
+	public SendMessageCommand(Controller controller) {
 		this.controller = controller;
 		this.intervention = controller.getIntervention();
 

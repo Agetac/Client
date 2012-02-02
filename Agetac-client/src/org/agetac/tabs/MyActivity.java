@@ -1,8 +1,6 @@
 package org.agetac.tabs;
 
 import org.agetac.controller.Controller;
-import org.agetac.model.ActionFlag;
-import org.agetac.model.sign.IEntity;
 import org.agetac.observer.MyObservable;
 import org.agetac.tabs.sign.ITabActivity;
 
@@ -19,24 +17,6 @@ public abstract class MyActivity extends Activity implements ITabActivity {
 		controller = Controller.getInstance();
 		observable = new MyObservable();
 		observable.addObserver(controller);
-		controller.addTabActivity(this);
-	}
-		
-	@Override
-	public ActionFlag getActionFlag() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public IEntity getTouchedEntity() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void update() {
-		// TODO Auto-generated method stub
-		
+		controller.addTabActivity(getClass().getSimpleName(), this);
 	}
 }
