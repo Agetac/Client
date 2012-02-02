@@ -53,7 +53,6 @@ public class Controller implements Observer {
 //		intervention = Intervention.getInstance();
 		intervention = new Intervention("inter");
 		
-		initSubControllers();
 		initCommands();
 		
 		intervention.addObserver(this);
@@ -61,14 +60,6 @@ public class Controller implements Observer {
 //		// XXX test récup agent via serv
 //		Agent agent = ServerManager.getInstance().getAgent("ag0");
 //		System.out.println(">>>> AGENT: "+agent.toString());
-	}
-	
-	private void initSubControllers() {
-		moyensCtrl = new MoyensController(this);
-		sitacCtrl = new SITACController(this);
-		soeicCtrl = new SOEICController(this);
-		messagesCtrl = new MessagesController(this);
-		crmCtrl = new CRMController(this);
 	}
 	
 	private void initCommands() {
@@ -84,7 +75,23 @@ public class Controller implements Observer {
 	
 	public void addTabActivity(String tag, ITabActivity act) {
 		tabs.put(tag, act);
-		android.util.Log.d(TAG, tabs.toString());
+		
+		if (act instanceof SITACActivity) {
+			sitacCtrl = new SITACController(this);
+			
+		} else if (act instanceof SOEICActivity) {
+			soeicCtrl = new SOEICController(this);
+			
+		} else if (act instanceof MoyensActivity) {
+			moyensCtrl = new MoyensController(this);
+			
+		} else if (act instanceof MessagesActivity) {
+			messagesCtrl = new MessagesController(this);
+			
+		} else if (act instanceof CRMActivity) {
+			crmCtrl = new CRMController(this);
+		}
+		
 		// on demande à la vue de se mettre à jour
 		act.update();
 	}
