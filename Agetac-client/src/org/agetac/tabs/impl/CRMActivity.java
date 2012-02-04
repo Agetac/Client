@@ -1,8 +1,6 @@
 package org.agetac.tabs.impl;
 
 import org.agetac.R;
-import org.agetac.common.ActionFlag;
-import org.agetac.entity.sign.IEntity;
 import org.agetac.tabs.sign.AbstractActivity;
 
 import android.os.Bundle;
@@ -16,26 +14,8 @@ public class CRMActivity extends AbstractActivity {
 	}
 
 	@Override
-	public ActionFlag getActionFlag() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public IEntity getTouchedEntity() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public void update() {
 		// TODO Auto-generated method stub
 		
-	}
-
-	@Override
-	public String getMessage() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }

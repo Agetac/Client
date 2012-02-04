@@ -6,7 +6,6 @@ import java.util.Random;
 import org.agetac.R;
 import org.agetac.common.ActionFlag;
 import org.agetac.entity.sign.IEntity;
-import org.agetac.model.impl.Vehicule;
 import org.agetac.tabs.sign.AbstractActivity;
 
 import android.app.AlertDialog;
@@ -29,8 +28,6 @@ public class SOEICActivity extends AbstractActivity implements OnClickListener, 
 	private TextView nbFuturEntityView;
 	private int nbFuturEntity;
 	private ListView vehiculeList;
-	private ActionFlag flag;
-	private IEntity touchedEntity;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -84,16 +81,6 @@ public class SOEICActivity extends AbstractActivity implements OnClickListener, 
 			confirmDelete.show();
 			
 		} catch (ClassCastException e) {}
-	}
-
-	@Override
-	public ActionFlag getActionFlag() {
-		return flag;
-	}
-
-	@Override
-	public IEntity getTouchedEntity() {
-		return touchedEntity;
 	}
 
 	@Override

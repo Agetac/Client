@@ -15,7 +15,6 @@ import android.widget.EditText;
 
 public class MessagesActivity extends AbstractActivity implements OnClickListener {
 
-	private ActionFlag flag;
 	private String message;
 
 	@Override
@@ -26,17 +25,6 @@ public class MessagesActivity extends AbstractActivity implements OnClickListene
 		findViewById(R.id.buttonEnvoyer).setOnClickListener(this);
 		findViewById(R.id.buttonAnnuler).setOnClickListener(this);
 		findViewById(R.id.buttonRetMess).setOnClickListener(this);
-	}
-
-	@Override
-	public ActionFlag getActionFlag() {
-		return flag;
-	}
-
-	@Override
-	public IEntity getTouchedEntity() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override

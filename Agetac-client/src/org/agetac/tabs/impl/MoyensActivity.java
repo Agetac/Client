@@ -24,9 +24,6 @@ public class MoyensActivity extends AbstractActivity implements OnItemClickListe
 	private static final String TAG = "MoyensActivity";
 	
 	private ItemAdapter itemAdapter;
-	private ActionFlag flag;
-	private IEntity touchedEntity;
-	
 	private ListView listView;
 
 	@Override
@@ -106,16 +103,6 @@ public class MoyensActivity extends AbstractActivity implements OnItemClickListe
 	}
 	
 	@Override
-	public ActionFlag getActionFlag() {
-		return flag;
-	}
-	
-	@Override
-	public IEntity getTouchedEntity() {
-		return touchedEntity;
-	}
-	
-	@Override
 	public void update() {
 		List<IEntity> entities = controller.getIntervention().getEntities();
 		itemAdapter.setItems(entities);
@@ -156,11 +143,5 @@ public class MoyensActivity extends AbstractActivity implements OnItemClickListe
 	        ((TextView) itemView.findViewById(R.id.vehicule_name)).setText(entities.get(position).getModel().getName());
 	        return itemView;
 	    }
-	}
-
-	@Override
-	public String getMessage() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }

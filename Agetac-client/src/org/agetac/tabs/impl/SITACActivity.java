@@ -27,16 +27,21 @@ import org.osmdroid.views.MapView;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AbsoluteLayout.LayoutParams;
+import android.widget.PopupMenu;
+import android.widget.PopupMenu.OnMenuItemClickListener;
 import android.widget.Toast;
 
-public class SITACActivity extends AbstractActivity implements IOnMenuEventListener, IOnOverlayEventListener {
+public class SITACActivity extends AbstractActivity implements IOnMenuEventListener, IOnOverlayEventListener, OnMenuItemClickListener {
 	
 	private static final String TAG = "SITACACtivity";
 	
@@ -47,9 +52,7 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 	private OpenedMenuFragment openedMenuFrag;
 	private HiddenMenuFragment hiddenMenuFrag;
 	private IPictogram currentPicto;
-	
-	private ActionFlag flag;
-	private IEntity touchedEntity;
+	private PopupMenu popupMenu;
 
 
 	@Override
@@ -78,16 +81,12 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 		mapView.getOverlays().add(mapOverlay);
 		
 		mapView.setBuiltInZoomControls(true);
-	}
-
-	@Override
-	public ActionFlag getActionFlag() {
-		return flag;
-	}
-
-	@Override
-	public IEntity getTouchedEntity() {
-		return touchedEntity;
+		
+		popupMenu = new PopupMenu(SITACActivity.this, findViewById(R.id.menu_anchor));
+		Menu menu = popupMenu.getMenu();
+		MenuInflater inflater = popupMenu.getMenuInflater();
+		inflater.inflate(R.menu.sitac_context_menu, menu);
+		popupMenu.setOnMenuItemClickListener(this);
 	}
 
 	@Override
@@ -129,14 +128,10 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 
 	@Override
 	public void onItemLongPressed(final IOverlayItem item) {
-		android.util.Log.d(TAG, "longPress on an item !");
-		// TODO changer ça
 		runOnUiThread(new Runnable() {
 			@Override
-			public void run() {
-				Toast.makeText(SITACActivity.this,
-						"Item sélectionné -- "+item.getPictogram().getBitmap().toString(),
-						Toast.LENGTH_SHORT).show();
+			public void run() {				
+				popupMenu.show();
 			}
 		});
 	}
@@ -153,29 +148,20 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 			observable.notifyObservers(SITACActivity.this);
 		}
 	}
-	
-	@Override
-	public void onCreateContextMenu(ContextMenu menu, View v,
-			ContextMenuInfo menuInfo) {
-		super.onCreateContextMenu(menu, v, menuInfo);
-		MenuInflater inflater = new MenuInflater(this);
-		inflater.inflate(R.menu.sitac_context_menu, menu);
-		android.util.Log.d(TAG, "onCreateContextMenu");
-	}
-	
-	@Override
-	public boolean onContextItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-			case R.id.delete_overlay_item:
-				android.util.Log.d(TAG, "onContextItemSelected _ delete item");
-				break;
-		}
-		return super.onContextItemSelected(item);
-	}
 
 	@Override
-	public String getMessage() {
-		// TODO Auto-generated method stub
-		return null;
+	public boolean onMenuItemClick(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.menu_item_delete:
+			android.util.Log.d(TAG, "TODO: supprimer l'item");
+			Toast.makeText(this, "TODO: supprimer l'item", Toast.LENGTH_SHORT).show();
+			break;
+			
+		case R.id.menu_item_edit:
+			Toast.makeText(this, "TODO: modification de l'item", Toast.LENGTH_SHORT).show();
+			android.util.Log.d(TAG, "TODO: modification des items");
+			break;
+	}
+	return super.onContextItemSelected(item);
 	}
 }

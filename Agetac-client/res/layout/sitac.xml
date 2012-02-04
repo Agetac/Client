@@ -8,7 +8,14 @@
 	  android:id="@+id/mapview"
 	  android:layout_width="match_parent"
 	  android:layout_height="match_parent"/>
-      
+	
+	<LinearLayout
+	    android:id="@+id/menu_anchor"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentRight="true"
+	    android:layout_alignParentTop="true"/>
+	      
   <fragment
     android:name="org.agetac.fragment.OpenedMenuFragment"
     android:id="@+id/fragment_menu_opened"
@@ -19,6 +26,6 @@
     android:name="org.agetac.fragment.HiddenMenuFragment"
     android:id="@+id/fragment_menu_hidden"
     android:layout_width="wrap_content"
-    android:layout_height="match_parent"/>	
+    android:layout_height="match_parent"/>
     
 </RelativeLayout>
