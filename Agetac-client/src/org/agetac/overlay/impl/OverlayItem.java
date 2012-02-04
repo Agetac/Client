@@ -1,6 +1,7 @@
 package org.agetac.overlay.impl;
 
 import org.agetac.common.Utils;
+import org.agetac.entity.sign.IEntity;
 import org.agetac.overlay.sign.IOverlayItem;
 import org.agetac.pictogram.sign.IPictogram;
 import org.osmdroid.api.IGeoPoint;
@@ -12,15 +13,18 @@ public class OverlayItem implements IOverlayItem {
 	private int longitude;
 	private IGeoPoint geoP;
 	private IPictogram picto;
+	private IEntity entity;
 	
-	public OverlayItem(IPictogram picto, final int latE6, final int longE6) {
+	public OverlayItem(IEntity entity, IPictogram picto, final int latE6, final int longE6) {
+		this.entity = entity;
 		this.latitude = latE6;
 		this.longitude = longE6;
 		this.picto = picto;
 		defineGeoPoint();
 	}
 
-	public OverlayItem(IPictogram picto, final double lat, final double lon) {
+	public OverlayItem(IEntity entity, IPictogram picto, final double lat, final double lon) {
+		this.entity = entity;
 		this.latitude = (int) (lat * 1E6);
 		this.longitude = (int) (lon * 1E6);
 		this.picto = picto;
@@ -31,6 +35,7 @@ public class OverlayItem implements IOverlayItem {
 		 this.geoP = new GeoPoint(latitude, longitude);
 	}
 	
+	@Override
 	public IGeoPoint getGeoPoint() {
 		return geoP;
 	}
@@ -38,6 +43,11 @@ public class OverlayItem implements IOverlayItem {
 	@Override
 	public IPictogram getPictogram() {
 		return picto;
+	}
+	
+	@Override
+	public IEntity getEntity() {
+		return entity;
 	}
 
 	@Override

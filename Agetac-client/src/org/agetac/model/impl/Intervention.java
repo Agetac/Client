@@ -196,4 +196,13 @@ public class Intervention extends AbstractModel {
 		entities.add(entity);
 		notifyObservers();
 	}
+
+	public void editEntity(IEntity lastEntity, String entityName) {
+		for (IEntity e : entities) {
+			if (e.equals(lastEntity)) {
+				e.getModel().setName(entityName);
+				return;
+			}
+		}
+	}
 }

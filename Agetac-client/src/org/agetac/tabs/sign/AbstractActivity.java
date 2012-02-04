@@ -6,13 +6,25 @@ import org.agetac.entity.sign.IEntity;
 import org.agetac.observer.MyObservable;
 
 import android.app.Activity;
+import android.os.Bundle;
 
 public abstract class AbstractActivity extends Activity implements ITabActivity {
 
+	private static final String TOUCHED_ENTITY = "touched_entity";
+	
 	protected Controller controller;
 	protected MyObservable observable;
 	protected ActionFlag flag;
 	protected IEntity touchedEntity;
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		
+		if (savedInstanceState != null) {
+			touchedEntity = (IEntity) savedInstanceState.getSerializable(TOUCHED_ENTITY);
+		}
+	}
 	
 	@Override
 	protected void onResume() {
@@ -36,5 +48,13 @@ public abstract class AbstractActivity extends Activity implements ITabActivity 
 	@Override
 	public String getMessage() {
 		return null;
+	}
+	
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		if (touchedEntity != null) {
+			outState.putSerializable(TOUCHED_ENTITY, touchedEntity);
+		}
 	}
 }

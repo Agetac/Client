@@ -25,18 +25,19 @@ import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapController;
 import org.osmdroid.views.MapView;
 
+import android.app.AlertDialog;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.graphics.Point;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
-import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.AbsoluteLayout.LayoutParams;
+import android.widget.EditText;
 import android.widget.PopupMenu;
 import android.widget.PopupMenu.OnMenuItemClickListener;
 import android.widget.Toast;
@@ -44,6 +45,7 @@ import android.widget.Toast;
 public class SITACActivity extends AbstractActivity implements IOnMenuEventListener, IOnOverlayEventListener, OnMenuItemClickListener {
 	
 	private static final String TAG = "SITACACtivity";
+	private static final String EDIT_ITEM = "edit_item";
 	
 	private MapView mapView;
 	private MapOverlay mapOverlay;
@@ -53,7 +55,7 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 	private HiddenMenuFragment hiddenMenuFrag;
 	private IPictogram currentPicto;
 	private PopupMenu popupMenu;
-
+	private AlertDialog editItemDialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +89,12 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 		MenuInflater inflater = popupMenu.getMenuInflater();
 		inflater.inflate(R.menu.sitac_context_menu, menu);
 		popupMenu.setOnMenuItemClickListener(this);
+		
+		if (savedInstanceState != null) {
+			if (savedInstanceState.getBoolean(EDIT_ITEM, false)) {
+				showEditItemDialog();
+			}
+		}
 	}
 
 	@Override
@@ -97,7 +105,7 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 			IGeoPoint m = e.getGeoPoint();
 			IPictogram p = e.getPictogram();
 			if (m != null && p != null) {
-				items.add(new OverlayItem(p, m.getLatitudeE6(), m.getLongitudeE6()));
+				items.add(new OverlayItem(e, p, m.getLatitudeE6(), m.getLongitudeE6()));
 			}
 		}
 		mapOverlay.addItems(items);
@@ -130,7 +138,8 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 	public void onItemLongPressed(final IOverlayItem item) {
 		runOnUiThread(new Runnable() {
 			@Override
-			public void run() {				
+			public void run() {
+				touchedEntity = item.getEntity();
 				popupMenu.show();
 			}
 		});
@@ -153,15 +162,52 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 	public boolean onMenuItemClick(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.menu_item_delete:
-			android.util.Log.d(TAG, "TODO: supprimer l'item");
-			Toast.makeText(this, "TODO: supprimer l'item", Toast.LENGTH_SHORT).show();
+			flag = ActionFlag.REMOVE;
+			observable.setChanged();
+			observable.notifyObservers(SITACActivity.this);
 			break;
 			
 		case R.id.menu_item_edit:
-			Toast.makeText(this, "TODO: modification de l'item", Toast.LENGTH_SHORT).show();
-			android.util.Log.d(TAG, "TODO: modification des items");
+			showEditItemDialog();
 			break;
 	}
 	return super.onContextItemSelected(item);
+	}
+	
+	private void showEditItemDialog() {
+			AlertDialog.Builder builder = new AlertDialog.Builder(SITACActivity.this);
+			builder.setTitle(getString(R.string.dialog_title_edit_item, touchedEntity.getModel().getName()));
+			LayoutInflater inflater = getLayoutInflater();
+			final View dialogView = inflater.inflate(R.layout.edit_item_dialog, null);
+			builder.setView(dialogView);
+			final EditText nameField = (EditText) dialogView.findViewById(R.id.name);
+			nameField.setHint(touchedEntity.getModel().getName());
+			
+			builder.setPositiveButton(R.string.save, new OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					
+					flag = ActionFlag.REMOVE;
+					observable.setChanged();
+					observable.notifyObservers(SITACActivity.this);
+					
+					touchedEntity.getModel().setName(nameField.getText().toString().trim());
+					flag = ActionFlag.ADD;
+					observable.setChanged();
+					observable.notifyObservers(SITACActivity.this);
+				}
+			});
+			builder.setNegativeButton(R.string.cancel, null);
+			editItemDialog = builder.create();
+			editItemDialog.show();
+	}
+	
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		if (editItemDialog != null && editItemDialog.isShowing()) {
+			outState.putBoolean(EDIT_ITEM, true);
+			editItemDialog.dismiss();
+		}
 	}
 }

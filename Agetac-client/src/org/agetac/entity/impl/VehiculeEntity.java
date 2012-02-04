@@ -9,6 +9,8 @@ import org.osmdroid.util.GeoPoint;
 
 public class VehiculeEntity implements IEntity {
 
+	private static final long serialVersionUID = 1L;
+	
 	private Vehicule model;
 	private IGeoPoint geoP;
 	private IPictogram pictogram;
