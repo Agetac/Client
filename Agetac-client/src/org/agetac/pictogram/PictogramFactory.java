@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.agetac.R;
+import org.agetac.pictogram.impl.Color;
 import org.agetac.pictogram.impl.Pictogram;
 import org.agetac.pictogram.sign.IPictogram;
 
@@ -14,7 +15,7 @@ import android.graphics.BitmapFactory.Options;
 
 
 public class PictogramFactory {
-
+	
 	private static final String PICTO_RED_UP = "red_up";
 	private static final String PICTO_RED_DOWN = "red_down";
 	private static final String PICTO_GREEN_UP = "green_up";
