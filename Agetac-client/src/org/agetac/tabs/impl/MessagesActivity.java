@@ -25,6 +25,7 @@ public class MessagesActivity extends AbstractActivity implements OnClickListene
 		findViewById(R.id.buttonEnvoyer).setOnClickListener(this);
 		findViewById(R.id.buttonAnnuler).setOnClickListener(this);
 		findViewById(R.id.buttonRetMess).setOnClickListener(this);
+		findViewById(R.id.buttonConsMess).setOnClickListener(this);
 	}
 
 	@Override
@@ -74,14 +75,14 @@ public class MessagesActivity extends AbstractActivity implements OnClickListene
 			String jeProcede = TexteJeProcede.getText().toString();
 			EditText TexteJeDemande = (EditText)findViewById(R.id.edittext_je_demande);
 			String jeDemande = TexteJeDemande.getText().toString();
-			
+
 			message = "Je suis : " + jeSuis + "/n" + 
 					"Je vois : " + jeVois + "/n" +
 					"Je prevois : " + jePrevois + "/n" +
 					"Je procede : " + jeProcede + "/n" +
 					"Je demande : " + jeDemande + "/n";
-					
-	
+
+
 
 			flag = ActionFlag.SEND_MESSAGE;
 
@@ -90,7 +91,7 @@ public class MessagesActivity extends AbstractActivity implements OnClickListene
 			TexteJePrevois.setText("");
 			TexteJeProcede.setText("");
 			TexteJeDemande.setText("");
-			
+
 			observable.setChanged();
 			observable.notifyObservers(MessagesActivity.this);		
 			break;
@@ -116,6 +117,7 @@ public class MessagesActivity extends AbstractActivity implements OnClickListene
 			findViewById(R.id.buttonEnvoyer).setOnClickListener(this);
 			findViewById(R.id.buttonAnnuler).setOnClickListener(this);
 			findViewById(R.id.buttonRetMess).setOnClickListener(this);
+			findViewById(R.id.buttonConsMess).setOnClickListener(this);
 			break;
 
 
@@ -125,6 +127,17 @@ public class MessagesActivity extends AbstractActivity implements OnClickListene
 			findViewById(R.id.messEnvoyer).setOnClickListener(this);
 			findViewById(R.id.messAnnuler).setOnClickListener(this);
 			findViewById(R.id.retMessAmb).setOnClickListener(this);
+			findViewById(R.id.buttonConsMess).setOnClickListener(this);
+			break;
+
+
+
+		case R.id.buttonConsMess : 
+
+			setContentView(R.layout.reception_mess);
+			findViewById(R.id.retMessAmb).setOnClickListener(this);
+			findViewById(R.id.buttonRetMess).setOnClickListener(this);
+
 			break;
 
 		}
