@@ -2,24 +2,24 @@ package org.agetac.command.impl;
 
 import org.agetac.command.sign.IRecordableCommand;
 import org.agetac.controller.Controller;
+import org.agetac.engine.sign.IInterventionEngine;
 import org.agetac.memento.sign.IMemento;
-import org.agetac.model.impl.Intervention;
 
 public class RemoveEntityCommand implements IRecordableCommand {
 
 	public static final String NAME = "RemoveEntity";
 	
-	private Intervention intervention;
+	private IInterventionEngine engine;
 	private Controller controller;
 	
 	public RemoveEntityCommand(Controller controller) {
 		this.controller = controller;
-		this.intervention = controller.getIntervention();
+		this.engine = controller.getInterventionEngine();
 	}
 	
 	@Override
 	public void execute() {
-		intervention.removeEntity(controller.getLastEntity());
+		engine.removeEntity(controller.getLastEntity());
 	}
 
 	@Override

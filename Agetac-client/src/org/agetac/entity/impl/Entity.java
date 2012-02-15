@@ -1,5 +1,6 @@
 package org.agetac.entity.impl;
 
+import org.agetac.common.Utils;
 import org.agetac.entity.sign.IEntity;
 import org.agetac.model.sign.IModel;
 import org.agetac.pictogram.sign.IPictogram;
@@ -40,5 +41,11 @@ public class Entity<T extends IModel> implements IEntity {
 	@Override
 	public IEntity clone() {
 		return new Entity<T>(model, picto);
+	}
+
+	@Override
+	public boolean isCloseTo(IGeoPoint pt, int precision) {
+		double distance = Utils.getDistanceInMeter(geoP, pt);
+		return (distance <= precision);
 	}
 }

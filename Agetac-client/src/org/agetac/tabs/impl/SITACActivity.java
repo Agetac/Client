@@ -1,11 +1,9 @@
 package org.agetac.tabs.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.agetac.R;
 import org.agetac.common.ActionFlag;
-import org.agetac.common.EtatVehicule;
 import org.agetac.entity.impl.Entity;
 import org.agetac.entity.sign.IEntity;
 import org.agetac.fragment.HiddenMenuFragment;
@@ -14,12 +12,10 @@ import org.agetac.listener.IOnMenuEventListener;
 import org.agetac.listener.IOnOverlayEventListener;
 import org.agetac.model.impl.Position;
 import org.agetac.model.impl.Vehicule;
+import org.agetac.model.impl.Vehicule.EtatVehicule;
 import org.agetac.overlay.MapOverlay;
-import org.agetac.overlay.impl.OverlayItem;
-import org.agetac.overlay.sign.IOverlayItem;
 import org.agetac.pictogram.sign.IPictogram;
 import org.agetac.tabs.sign.AbstractActivity;
-import org.osmdroid.api.IGeoPoint;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapController;
@@ -98,16 +94,8 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 
 	@Override
 	public void update() {
-		List<IEntity> entities = controller.getIntervention().getEntities();
-		List<IOverlayItem> items = new ArrayList<IOverlayItem>();
-		for (IEntity e : entities){
-			IGeoPoint m = e.getGeoPoint();
-			IPictogram p = e.getPictogram();
-			if (m != null && p != null) {
-				items.add(new OverlayItem(e, p, m.getLatitudeE6(), m.getLongitudeE6()));
-			}
-		}
-		mapOverlay.addItems(items);
+		List<IEntity> entities = controller.getInterventionEngine().getEntities();
+		mapOverlay.addEntities(entities);
 		mapView.invalidate();
 	}
 
@@ -134,11 +122,11 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 	}
 
 	@Override
-	public void onItemLongPressed(final IOverlayItem item) {
+	public void onEntityLongPressed(final IEntity entity) {
 		runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
-				touchedEntity = item.getEntity();
+				touchedEntity = entity;
 				popupMenu.show();
 			}
 		});

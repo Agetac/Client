@@ -1,6 +1,5 @@
 package org.agetac.controller;
 
-import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Map;
 import java.util.Observable;
@@ -10,12 +9,12 @@ import org.agetac.command.impl.AddEntityCommand;
 import org.agetac.command.impl.RemoveEntityCommand;
 import org.agetac.command.impl.SendMessageCommand;
 import org.agetac.command.sign.ICommand;
-import org.agetac.controller.impl.CRMController;
 import org.agetac.controller.impl.MessagesController;
 import org.agetac.controller.impl.MoyensController;
 import org.agetac.controller.impl.SITACController;
-import org.agetac.controller.impl.SOEICController;
 import org.agetac.controller.sign.ISubController;
+import org.agetac.engine.InterventionEngine;
+import org.agetac.engine.sign.IInterventionEngine;
 import org.agetac.entity.sign.IEntity;
 import org.agetac.model.impl.Intervention;
 import org.agetac.tabs.impl.CRMActivity;
@@ -34,7 +33,7 @@ public class Controller implements Observer {
 	private Map<String, ICommand> commands;
 	private ISubController moyensCtrl, sitacCtrl, soeicCtrl, messagesCtrl, crmCtrl;
 	private ITabActivity currentActivity;
-	private Intervention intervention;
+	private IInterventionEngine interventionEngine;
 	private String message;
 	
 	/**
@@ -42,20 +41,19 @@ public class Controller implements Observer {
 	 * Empêche la création d'un nouveau controlleur lorsque
 	 * celui-ci a déjà été crée une première fois.
 	 * 
-	 * - Récupère l'unique instance d'Intervention
+	 * - Crée un moteur d'intervention avec l'intervention récupérée sur le serveur
 	 * - Crée la liste de ITabActivity qui contiendra les
 	 *   différents onglets de l'application.
 	 * - Crée les différents controlleurs associés aux onglets
 	 * - Crée toutes les commandes concrètes
 	 */
 	private Controller() {
-//		intervention = Intervention.getInstance();
-		intervention = new Intervention("inter");
+		interventionEngine = new InterventionEngine(new Intervention("42"));
 		
 		initCommands();
 		initControllers();
 		
-		intervention.addObserver(this);
+		interventionEngine.addObserver(this);
 		
 //		// XXX test récup agent via serv
 //		Agent agent = ServerManager.getInstance().getAgent("ag0");
@@ -99,8 +97,8 @@ public class Controller implements Observer {
 		return commands;
 	}
 	
-	public Intervention getIntervention() {
-		return intervention;
+	public IInterventionEngine getInterventionEngine() {
+		return interventionEngine;
 	}
 	
 	public void setMessage(String m){

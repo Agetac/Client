@@ -85,7 +85,7 @@ public class SOEICActivity extends AbstractActivity implements OnClickListener, 
 
 	@Override
 	public void update() {
-		List<IEntity> entities = controller.getIntervention().getEntities();
+		List<IEntity> entities = controller.getInterventionEngine().getEntities();
 		ArrayAdapter<IEntity> adapter = new ArrayAdapter<IEntity>(
 				this,
 				android.R.layout.simple_list_item_1,

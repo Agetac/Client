@@ -3,8 +3,8 @@ package org.agetac.overlay;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.agetac.entity.sign.IEntity;
 import org.agetac.listener.IOnOverlayEventListener;
-import org.agetac.overlay.sign.IOverlayItem;
 import org.osmdroid.api.IGeoPoint;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Overlay;
@@ -21,14 +21,14 @@ public class MapOverlay extends Overlay {
 	
 	private static final String TAG = "MapOverlay";
 	
-	private List<IOverlayItem> items;
+	private List<IEntity> items;
 	private Paint itemPaint;
 	private IOnOverlayEventListener listener;
 	private int precision;
 
 	public MapOverlay(Context context) {
 		super(context);
-		items = new ArrayList<IOverlayItem>();
+		items = new ArrayList<IEntity>();
 		itemPaint = new Paint();
 		itemPaint.setColor(Color.RED);
 		itemPaint.setAntiAlias(true);
@@ -45,7 +45,7 @@ public class MapOverlay extends Overlay {
 		for (int i=0; i<items.size(); i++) {
 			if (items.get(i).isCloseTo(clickedP, precision)) {
 				if (listener != null) {
-					listener.onItemLongPressed(items.get(i));
+					listener.onEntityLongPressed(items.get(i));
 					return true;
 				}
 			}
@@ -61,7 +61,7 @@ public class MapOverlay extends Overlay {
 
 	@Override
 	protected void draw(Canvas canvas, MapView mapV, boolean shadow) {
-		IOverlayItem item;
+		IEntity item;
 		Point p;
 		Bitmap bmp;
 		
@@ -73,13 +73,13 @@ public class MapOverlay extends Overlay {
 		}
 	}
 	
-	public void addItem(IOverlayItem item) {
-		items.add(item);
+	public void addEntities(List<IEntity> entities) {
+		items.clear();
+		items.addAll(entities);
 	}
 	
-	public void addItems(List<IOverlayItem> newItems) {
-		items.clear();
-		items.addAll(newItems);
+	public void addEntity(IEntity entity) {
+		items.add(entity);
 	}
 	
 	public void setOnOverlayEventListener(IOnOverlayEventListener listener) {

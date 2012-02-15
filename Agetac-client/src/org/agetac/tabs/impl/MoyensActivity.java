@@ -5,31 +5,26 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.agetac.R;
-import org.agetac.common.ActionFlag;
-import org.agetac.common.EtatVehicule;
 import org.agetac.entity.sign.IEntity;
 import org.agetac.model.impl.Agent;
-import org.agetac.model.impl.Caserne;
 import org.agetac.model.impl.Groupe;
 import org.agetac.model.impl.Position;
 import org.agetac.model.impl.Vehicule;
+import org.agetac.model.impl.Vehicule.EtatVehicule;
 import org.agetac.tabs.sign.AbstractActivity;
 
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
-import android.content.DialogInterface;
-import android.content.Entity;
-import android.view.View.OnClickListener;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.AdapterView.OnItemClickListener;
 
 public class MoyensActivity extends AbstractActivity implements OnClickListener, OnItemClickListener {
 	
@@ -127,7 +122,7 @@ public class MoyensActivity extends AbstractActivity implements OnClickListener,
 	
 	@Override
 	public void update() {
-		List<IEntity> entities = controller.getIntervention().getEntities();
+		List<IEntity> entities = controller.getInterventionEngine().getEntities();
 		itemAdapter.setItems(entities);
 		itemAdapter.notifyDataSetChanged();
 	}

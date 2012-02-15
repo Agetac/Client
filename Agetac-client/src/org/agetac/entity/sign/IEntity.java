@@ -14,5 +14,7 @@ public interface IEntity extends Serializable {
 
 	public IGeoPoint getGeoPoint();
 	
+	public boolean isCloseTo(IGeoPoint pt, int precision);
+	
 	public IEntity clone();
 }
