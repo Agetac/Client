@@ -34,5 +34,7 @@
     <string name="je_procede">Je procède</string>
     <string name="je_demande">Je demande</string>
     <string name="Message">Message</string>
+    
+    <string name="demande_moyen">Je demande</string>
 
 </resources>
