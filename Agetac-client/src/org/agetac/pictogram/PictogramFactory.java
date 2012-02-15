@@ -1,7 +1,6 @@
 package org.agetac.pictogram;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import org.agetac.R;
 import org.agetac.pictogram.impl.Color;
@@ -36,7 +35,7 @@ public class PictogramFactory {
 	
 	private static PictogramFactory instance;
 	private Resources res;
-	private List<IPictogram> pictos;
+	private ArrayList<IPictogram> pictos;
 	
 	private PictogramFactory(Context context) {
 		this.res = context.getResources();
@@ -70,7 +69,7 @@ public class PictogramFactory {
 		return instance;
 	}
 
-	public List<IPictogram> getPictograms() {
+	public ArrayList<IPictogram> getPictograms() {
 		return pictos;
 	}
 	
