@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class MenuExpandableListView extends BaseExpandableListAdapter {
@@ -38,6 +39,7 @@ public class MenuExpandableListView extends BaseExpandableListAdapter {
 	@Override
 	public View getChildView(int groupPosition, int childPosition,
 			boolean isLastChild, View convertView, ViewGroup parent) {
+		// Pictogramme correspondant à l'item récupéré par la méthode
 		final Pictogram picto = (Pictogram) getChild(groupPosition, childPosition);
 		
 		ChildViewHolder childView;
@@ -45,8 +47,8 @@ public class MenuExpandableListView extends BaseExpandableListAdapter {
 			childView = new ChildViewHolder();
 			
 			convertView = inflater.inflate(R.layout.menu_sitac_childs, null);
-			//childView.imgChild = (Bitmap) convertView.findViewById(id)(R.id.img);
-			childView.textViewChild = (TextView) convertView.findViewById(R.id.sitac_child);
+			childView.imgChild = (ImageView) convertView.findViewById(R.id.menu_child_img);
+			childView.textViewChild = (TextView) convertView.findViewById(R.id.menu_child_text);
 
 			
 			convertView.setTag(childView);
@@ -54,6 +56,7 @@ public class MenuExpandableListView extends BaseExpandableListAdapter {
 		else {
 			childView = (ChildViewHolder) convertView.getTag();
 		}
+		childView.imgChild.setImageBitmap(picto.getBitmap());
 		childView.textViewChild.setText(picto.getName());
 		
 		return convertView;
@@ -102,23 +105,27 @@ public class MenuExpandableListView extends BaseExpandableListAdapter {
 
 	@Override
 	public boolean hasStableIds() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public boolean isChildSelectable(int groupPosition, int childPosition) {
-		// TODO Auto-generated method stub
 		return true;
 	}
 	
 
+	/*
+	 * Representation d'un groupe dans le menu (le nom du groupe)
+	 */
     class GroupViewHolder {
         public TextView textViewGroup;
     }
     
+    /*
+     * Representation d'un item dans le menu (le pictogramme et son nom)
+     */
     class ChildViewHolder {
+    	public ImageView imgChild;
         public TextView textViewChild;
-        //public Bitmap imgChild;
     }
 }
