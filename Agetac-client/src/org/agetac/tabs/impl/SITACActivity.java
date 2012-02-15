@@ -6,7 +6,7 @@ import java.util.List;
 import org.agetac.R;
 import org.agetac.common.ActionFlag;
 import org.agetac.common.EtatVehicule;
-import org.agetac.entity.impl.VehiculeEntity;
+import org.agetac.entity.impl.Entity;
 import org.agetac.entity.sign.IEntity;
 import org.agetac.fragment.HiddenMenuFragment;
 import org.agetac.fragment.OpenedMenuFragment;
@@ -40,7 +40,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.PopupMenu;
 import android.widget.PopupMenu.OnMenuItemClickListener;
-import android.widget.Toast;
 
 public class SITACActivity extends AbstractActivity implements IOnMenuEventListener, IOnOverlayEventListener, OnMenuItemClickListener {
 	
@@ -152,7 +151,7 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 			Position p = new Position(m.getLongitudeE6(), m.getLatitudeE6());
 			flag = ActionFlag.ADD;
 			Vehicule v = new Vehicule("42", "FPT Janze", p, null, EtatVehicule.PARTIS, null);
-			touchedEntity = new VehiculeEntity(v, currentPicto); //TODO vrai relation picto-Entity
+			touchedEntity = new Entity<Vehicule>(v, currentPicto); //TODO vrai relation picto-Entity
 			observable.setChanged();
 			observable.notifyObservers(SITACActivity.this);
 		}

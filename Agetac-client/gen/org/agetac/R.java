@@ -44,7 +44,8 @@ public final class R {
         public static final int picto_red_up=0x7f02001a;
     }
     public static final class id {
-        public static final int addEntity=0x7f070020;
+        public static final int addEntity=0x7f070023;
+        public static final int arrivee=0x7f07001c;
         public static final int btn_hide_menu=0x7f070008;
         public static final int btn_hide_show_menu=0x7f070007;
         public static final int btn_show_menu=0x7f070005;
@@ -52,36 +53,38 @@ public final class R {
         public static final int buttonConsMess=0x7f07000b;
         public static final int buttonEnvoyer=0x7f070015;
         public static final int buttonRetMess=0x7f07000f;
+        public static final int caserne=0x7f070019;
         public static final int connectBtn=0x7f070004;
-        public static final int description=0x7f07001a;
+        public static final int demande=0x7f07001b;
+        public static final int depart=0x7f07001d;
         public static final int edittext_je_demande=0x7f070014;
         public static final int edittext_je_prevois=0x7f070012;
         public static final int edittext_je_procede=0x7f070013;
         public static final int edittext_je_suis=0x7f070010;
         public static final int edittext_je_vois=0x7f070011;
         public static final int edittext_message_normal=0x7f07000c;
+        public static final int etat=0x7f07001a;
         public static final int field_titles=0x7f070009;
-        public static final int fragment_menu_hidden=0x7f07001e;
-        public static final int fragment_menu_opened=0x7f07001d;
+        public static final int fragment_menu_hidden=0x7f070021;
+        public static final int fragment_menu_opened=0x7f070020;
         public static final int img=0x7f070018;
         public static final int loginField=0x7f070002;
         public static final int malistview=0x7f070017;
-        public static final int mapview=0x7f07001b;
+        public static final int mapview=0x7f07001e;
         public static final int menu=0x7f070006;
-        public static final int menu_anchor=0x7f07001c;
-        public static final int menu_item_delete=0x7f070025;
-        public static final int menu_item_edit=0x7f070024;
+        public static final int menu_anchor=0x7f07001f;
+        public static final int menu_item_delete=0x7f070028;
+        public static final int menu_item_edit=0x7f070027;
         public static final int messAnnuler=0x7f07000e;
         public static final int messEnvoyer=0x7f07000d;
         public static final int name=0x7f070000;
-        public static final int nbCurrentEntity=0x7f070021;
-        public static final int nbFuturEntity=0x7f070022;
+        public static final int nbCurrentEntity=0x7f070024;
+        public static final int nbFuturEntity=0x7f070025;
         public static final int passField=0x7f070003;
         public static final int retMessAmb=0x7f07000a;
-        public static final int sitac_actions_panel=0x7f07001f;
-        public static final int titre=0x7f070019;
+        public static final int sitac_actions_panel=0x7f070022;
         public static final int vehicule_name=0x7f070001;
-        public static final int vehicules_listview=0x7f070023;
+        public static final int vehicules_listview=0x7f070026;
     }
     public static final class layout {
         public static final int crm=0x7f030000;
