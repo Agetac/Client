@@ -33,7 +33,7 @@ public class Controller implements Observer {
 	private static Controller controller = new Controller();
 	private Map<String, ICommand> commands;
 	private ISubController moyensCtrl, sitacCtrl, soeicCtrl, messagesCtrl, crmCtrl;
-	private Hashtable<String, ITabActivity> tabs;
+	private ITabActivity currentActivity;
 	private Intervention intervention;
 	private String message;
 	
@@ -49,11 +49,11 @@ public class Controller implements Observer {
 	 * - Crée toutes les commandes concrètes
 	 */
 	private Controller() {
-		tabs = new Hashtable<String, ITabActivity>();
 //		intervention = Intervention.getInstance();
 		intervention = new Intervention("inter");
 		
 		initCommands();
+		initControllers();
 		
 		intervention.addObserver(this);
 		
@@ -69,29 +69,20 @@ public class Controller implements Observer {
 		commands.put(SendMessageCommand.NAME, new SendMessageCommand(this)); 
 	}
 	
+	private void initControllers() {
+		sitacCtrl = new SITACController(this);
+		moyensCtrl = new MoyensController(this);
+		messagesCtrl = new MessagesController(this);
+//		crmCtrl = new CRMController(this);
+//		soeicCtrl = new SOEICController(this);
+	}
+	
 	public static Controller getInstance() {
 		return controller;
 	}
 	
-	public void addTabActivity(String tag, ITabActivity act) {
-		tabs.put(tag, act);
-		
-		if (act instanceof SITACActivity) {
-			sitacCtrl = new SITACController(this);
-			
-		} else if (act instanceof SOEICActivity) {
-			soeicCtrl = new SOEICController(this);
-			
-		} else if (act instanceof MoyensActivity) {
-			moyensCtrl = new MoyensController(this);
-			
-		} else if (act instanceof MessagesActivity) {
-			messagesCtrl = new MessagesController(this);
-			
-		} else if (act instanceof CRMActivity) {
-			crmCtrl = new CRMController(this);
-		}
-		
+	public void setCurrentActivity(ITabActivity act) {
+		this.currentActivity = act;		
 		// on demande à la vue de se mettre à jour
 		act.update();
 	}
@@ -125,11 +116,7 @@ public class Controller implements Observer {
 	public void update(Observable observable, Object data) {
 		if (data instanceof Intervention) {
 			android.util.Log.d(TAG, "update venant d'Intervention");
-			// faire des updates sur toutes les vues (tabActivity)
-			Enumeration<ITabActivity> enumeration = tabs.elements();
-			while (enumeration.hasMoreElements()) {
-				enumeration.nextElement().update();
-			}
+			if (currentActivity != null) currentActivity.update();
 			
 		} else if (data instanceof ITabActivity) {
 			ITabActivity act = (ITabActivity) data;
