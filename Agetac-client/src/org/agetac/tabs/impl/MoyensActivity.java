@@ -44,7 +44,7 @@ public class MoyensActivity extends AbstractActivity implements OnItemClickListe
         //Creation d'une HashMap pour ins�rer les informations du premier item de notre listView
         
         map = new HashMap<String, String>();        
-        map.put("titre", "Type du v�hicule");
+        map.put("titre", "Type du vehicule");
         map.put("description", "Arriv�e");
         //map.put("img", String.valueOf(R.drawable.firetruck));
         listItem.add(map);
