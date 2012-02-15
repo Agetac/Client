@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.agetac.R;
+import org.agetac.common.ActionFlag;
 import org.agetac.entity.sign.IEntity;
 import org.agetac.tabs.sign.AbstractActivity;
 
@@ -12,10 +13,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
-import android.widget.AdapterView.OnItemClickListener;
 
 public class MoyensActivity extends AbstractActivity implements OnItemClickListener {
 	
@@ -42,7 +44,7 @@ public class MoyensActivity extends AbstractActivity implements OnItemClickListe
         //Creation d'une HashMap pour ins�rer les informations du premier item de notre listView
         
         map = new HashMap<String, String>();        
-        map.put("titre", "Type du vehicule");
+        map.put("titre", "Type du v�hicule");
         map.put("description", "Arriv�e");
         //map.put("img", String.valueOf(R.drawable.firetruck));
         listItem.add(map);
@@ -66,9 +68,9 @@ public class MoyensActivity extends AbstractActivity implements OnItemClickListe
         listItem.add(map);
  
         //Creation d'un SimpleAdapter qui se chargera de mettre les items present dans notre list (listItem) dans la vue moyens_list_item
-//        SimpleAdapter mSchedule = new SimpleAdapter (this.getBaseContext(), listItem, R.layout.moyens_list_item,
-//               new String[] {"img", "titre", "description"}, new int[] {R.id.img, R.id.titre, R.id.description});
-//        listView.setAdapter(mSchedule);
+        SimpleAdapter mSchedule = new SimpleAdapter (this.getBaseContext(), listItem, R.layout.moyens_list_item,
+               new String[] {"img", "titre", "description"}, new int[] {R.id.img, R.id.titre, R.id.description});
+        listView.setAdapter(mSchedule);
      
 	}
 	
