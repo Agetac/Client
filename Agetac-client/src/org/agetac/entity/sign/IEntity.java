@@ -13,4 +13,6 @@ public interface IEntity extends Serializable {
 	public IPictogram getPictogram();
 
 	public IGeoPoint getGeoPoint();
+	
+	public IEntity clone();
 }

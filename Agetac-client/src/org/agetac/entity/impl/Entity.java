@@ -1,31 +1,25 @@
 package org.agetac.entity.impl;
 
 import org.agetac.entity.sign.IEntity;
-import org.agetac.model.impl.Vehicule;
 import org.agetac.model.sign.IModel;
 import org.agetac.pictogram.sign.IPictogram;
 import org.osmdroid.api.IGeoPoint;
 import org.osmdroid.util.GeoPoint;
 
-public class VehiculeEntity implements IEntity {
+public class Entity<T extends IModel> implements IEntity {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 9102938L;
 	
-	private Vehicule model;
+	private T model;
+	private IPictogram picto;
 	private IGeoPoint geoP;
-	private IPictogram pictogram;
 	
-	public VehiculeEntity(Vehicule model, IPictogram picto) {
+	public Entity(T model, IPictogram picto) {
 		this.model = model;
-		this.pictogram = picto;
+		this.picto = picto;
 		int latE6 = (int) model.getPosition().getLatitude();
 		int longE6 = (int) model.getPosition().getLongitude();
 		this.geoP = new GeoPoint(latE6, longE6);
-	}
-	
-	@Override
-	public IModel getModel() {
-		return model;
 	}
 	
 	@Override
@@ -34,7 +28,17 @@ public class VehiculeEntity implements IEntity {
 	}
 
 	@Override
+	public IModel getModel() {
+		return model;
+	}
+
+	@Override
 	public IPictogram getPictogram() {
-		return pictogram;
+		return picto;
+	}
+
+	@Override
+	public IEntity clone() {
+		return new Entity<T>(model, picto);
 	}
 }

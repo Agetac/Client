@@ -7,7 +7,6 @@ import java.util.List;
 import org.agetac.R;
 import org.agetac.common.ActionFlag;
 import org.agetac.common.EtatVehicule;
-import org.agetac.entity.impl.VehiculeEntity;
 import org.agetac.entity.sign.IEntity;
 import org.agetac.model.impl.Agent;
 import org.agetac.model.impl.Caserne;
@@ -118,7 +117,7 @@ public class MoyensActivity extends AbstractActivity implements OnClickListener,
 			}
 			
 		
-//		Vehicule nouveau = new Vehicule("uid", "test", new Position(31.2, 44.1), null, EtatVehicule.ALERTE, new Groupe(new Agent(), null, null));		
+		Vehicule nouveau = new Vehicule("uid", "test", new Position(31.2, 44.1), null, EtatVehicule.ALERTE, new Groupe(new Agent(), null, null));		
 ////		update();
 //		List<IEntity> list_veh = new ArrayList<IEntity>();
 //		list_veh.add(new VehiculeEntity(nouveau, null));
