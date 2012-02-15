@@ -2,11 +2,7 @@ package org.agetac.tabs.impl;
 
 import org.agetac.R;
 import org.agetac.common.ActionFlag;
-import org.agetac.controller.Controller;
-import org.agetac.entity.sign.IEntity;
-import org.agetac.observer.MyObservable;
 import org.agetac.tabs.sign.AbstractActivity;
-import org.agetac.tabs.sign.ITabActivity;
 
 import android.os.Bundle;
 import android.view.View;

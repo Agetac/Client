@@ -32,7 +32,7 @@ public abstract class AbstractActivity extends Activity implements ITabActivity 
 		controller = Controller.getInstance();
 		observable = new MyObservable();
 		observable.addObserver(controller);
-		controller.addTabActivity(getClass().getSimpleName(), this);
+		controller.setCurrentActivity(this);
 	}
 	
 	@Override
