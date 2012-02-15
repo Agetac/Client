@@ -57,12 +57,6 @@ public class OpenedMenuFragment extends Fragment implements IMenuFragment, OnCli
 	
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
-		/*super.onActivityCreated(savedInstanceState);
-		((ImageButton) getActivity().findViewById(R.id.btn_hide_menu)).setOnClickListener(this);
-		ListView listView = (ListView) getActivity().findViewById(R.id.menu);
-		listView.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, pictoNames));
-		listView.setOnItemClickListener(this);
-		getView().startAnimation(showMenuAnim);*/
 		
 		super.onActivityCreated(savedInstanceState);
 		((ImageButton) getActivity().findViewById(R.id.btn_hide_menu)).setOnClickListener(this);
@@ -125,16 +119,9 @@ public class OpenedMenuFragment extends Fragment implements IMenuFragment, OnCli
 		this.listener = null;
 	}
 
-//	@Override
-//	public void onItemClick(AdapterView<?> adptr, View v, int i, long l) {
-//		android.util.Log.d("OpenedMenuFragment", "onItemClick: "+v.toString()+" id:"+i);
-//		if (listener != null) listener.onPictogramSelected(pictos.get(i));
-//	}
-
 	@Override
 	public boolean onChildClick(ExpandableListView parent, View v,
 			int groupPosition, int childPosition, long id) {
-		System.out.println("cette fois ça va marcher ?");
 		if (listener != null) listener.onPictogramSelected(pictos.get(childPosition));
 		return true;
 	}

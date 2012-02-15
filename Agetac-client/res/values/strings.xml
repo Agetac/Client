@@ -35,6 +35,8 @@
     <string name="je_demande">Je demande</string>
     <string name="Message">Message</string>
     
+    <string name="empty_text"></string>
+    <string name="menu_img_desc">Pictogramme correspondant à un moyen ou une action</string>
     <string name="demande_moyen">Je demande</string>
 
 </resources>
