@@ -2,8 +2,13 @@ package org.agetac.tabs.impl;
 
 import org.agetac.R;
 import org.agetac.common.ActionFlag;
+import org.agetac.controller.Controller;
+import org.agetac.entity.sign.IEntity;
+import org.agetac.observer.MyObservable;
 import org.agetac.tabs.sign.AbstractActivity;
+import org.agetac.tabs.sign.ITabActivity;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -55,7 +60,16 @@ public class MessagesActivity extends AbstractActivity implements OnClickListene
 
 			texteAEnvoyer.setText("");
 			observable.setChanged();
-			observable.notifyObservers(MessagesActivity.this);		
+			observable.notifyObservers(MessagesActivity.this);
+			
+			AlertDialog.Builder confirmSend = new AlertDialog.Builder(this);
+
+			confirmSend.setMessage("Message envoye");
+
+			confirmSend.setNeutralButton("OK", null);
+
+			confirmSend.show();
+			
 			break;
 
 
@@ -89,7 +103,16 @@ public class MessagesActivity extends AbstractActivity implements OnClickListene
 			TexteJeDemande.setText("");
 
 			observable.setChanged();
-			observable.notifyObservers(MessagesActivity.this);		
+			observable.notifyObservers(MessagesActivity.this);	
+			
+			AlertDialog.Builder confirmSendAmb = new AlertDialog.Builder(this);
+
+			confirmSendAmb.setMessage("Message envoye");
+
+			confirmSendAmb.setNeutralButton("OK", null);
+
+			confirmSendAmb.show();
+
 			break;
 
 		case R.id.buttonAnnuler : 
