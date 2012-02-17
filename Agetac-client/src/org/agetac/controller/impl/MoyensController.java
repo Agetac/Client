@@ -1,5 +1,6 @@
 package org.agetac.controller.impl;
 
+import org.agetac.command.impl.AddEntityCommand;
 import org.agetac.command.impl.RemoveEntityCommand;
 import org.agetac.controller.Controller;
 import org.agetac.controller.sign.ISubController;
@@ -21,6 +22,11 @@ public class MoyensController implements ISubController {
 			case REMOVE:
 				parent.setLastEntity(act.getTouchedEntity());
 				parent.getCommands().get(RemoveEntityCommand.NAME).execute();
+				break;
+				
+			case ADD:
+				parent.setLastEntity(act.getTouchedEntity());
+				parent.getCommands().get(AddEntityCommand.NAME).execute();
 				break;
 				
 			default:

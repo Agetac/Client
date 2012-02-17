@@ -5,12 +5,16 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.agetac.R;
+import org.agetac.common.ActionFlag;
+import org.agetac.entity.impl.Entity;
 import org.agetac.entity.sign.IEntity;
 import org.agetac.model.impl.Agent;
 import org.agetac.model.impl.Groupe;
 import org.agetac.model.impl.Position;
 import org.agetac.model.impl.Vehicule;
 import org.agetac.model.impl.Vehicule.EtatVehicule;
+import org.agetac.pictogram.PictogramFactory;
+import org.agetac.pictogram.sign.IPictogram;
 import org.agetac.tabs.sign.AbstractActivity;
 
 import android.app.AlertDialog;
@@ -32,18 +36,19 @@ public class MoyensActivity extends AbstractActivity implements OnClickListener,
 	
 	private ItemAdapter itemAdapter;
 	private ListView listView;
+	
+	protected int idVeh = 1;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
 		setContentView(R.layout.moyens);
-		findViewById(R.id.bouton_demande_moyen).setOnClickListener(this);
-	    listView = (ListView) findViewById(R.id.malistview);
+	    
+		listView = (ListView) findViewById(R.id.malistview);
 	    listView.setOnItemClickListener(this);
 	    itemAdapter = new ItemAdapter();
 	    listView.setAdapter(itemAdapter);
-	    
-	    // update();
 	    
 	    //Creation de la ArrayList qui nous permettra de remplir la listView
         List<HashMap<String, String>> listItem = new ArrayList<HashMap<String, String>>();
@@ -59,12 +64,13 @@ public class MoyensActivity extends AbstractActivity implements OnClickListener,
         //map.put("img", String.valueOf(R.drawable.firetruck));
         listItem.add(map);
         
- 
         //Creation d'un SimpleAdapter qui se chargera de mettre les items present dans notre list (listItem) dans la vue moyens_list_item
         SimpleAdapter mSchedule = new SimpleAdapter (this.getBaseContext(), listItem, R.layout.moyens_list_item,
                new String[] {"img", "titre", "description"}, new int[] {R.id.img, R.id.titre, R.id.description});
-        listView.setAdapter(mSchedule);
-              
+        listView.setAdapter(mSchedule); 
+
+		findViewById(R.id.bouton_demande_moyen).setOnClickListener(this);
+		
      
 	}
 	
@@ -100,19 +106,25 @@ public class MoyensActivity extends AbstractActivity implements OnClickListener,
 	@Override
 	public void onClick(View v) {
 		try {
-			Builder box = new AlertDialog.Builder(this);
-			box.setTitle("Ajout de moyen");
-			box.setMessage("Voici la liste des moyens que vous pouvez ajoutez:");
-			CharSequence[] items = {"FPT", "VSAV", "CCGC", "Vehicule A", "Vehicule B", "Vehicule C", "Vehicule D"};
-			box.setSingleChoiceItems(items, 0, null);
-			box.show();
+			flag = ActionFlag.ADD;
+			Vehicule veh = new Vehicule("42"+idVeh, "FPT Janze", new Position(33.4, 48.8), "Caserne Beaulieu", EtatVehicule.PARTIS, new Groupe("UniqueID", null, new ArrayList<Vehicule>()));
+	        List<IPictogram> pictos = PictogramFactory.getInstance(getBaseContext()).getPictograms();
+	        touchedEntity = new Entity<Vehicule>(veh, pictos.get(0));
+	        idVeh++;
+			observable.setChanged();
+			observable.notifyObservers(MoyensActivity.this);
+	        
+//			Builder box = new AlertDialog.Builder(this);
+//			box.setTitle("Ajout de moyen");
+//			box.setMessage("Voici la liste des moyens que vous pouvez ajoutez:");
+//			CharSequence[] items = {"FPT", "VSAV", "CCGC", "Vehicule A", "Vehicule B", "Vehicule C", "Vehicule D"};
+//			box.setSingleChoiceItems(items, 0, null);
+//			box.show();
 			}
 			catch (ClassCastException e) {
 			android.util.Log.e(TAG, e.getMessage());
 			}
-			
 		
-		Vehicule nouveau = new Vehicule("uid", "test", new Position(31.2, 44.1), null, EtatVehicule.ALERTE, new Groupe(new Agent(), null, null));		
 ////		update();
 //		List<IEntity> list_veh = new ArrayList<IEntity>();
 //		list_veh.add(new VehiculeEntity(nouveau, null));
@@ -124,6 +136,7 @@ public class MoyensActivity extends AbstractActivity implements OnClickListener,
 	public void update() {
 		List<IEntity> entities = controller.getInterventionEngine().getEntities();
 		itemAdapter.setItems(entities);
+	//	this.setContentView(itemAdapter.getView(position, convertView, parent))
 		itemAdapter.notifyDataSetChanged();
 	}
 	

@@ -10,6 +10,7 @@ import org.agetac.fragment.HiddenMenuFragment;
 import org.agetac.fragment.OpenedMenuFragment;
 import org.agetac.listener.IOnMenuEventListener;
 import org.agetac.listener.IOnOverlayEventListener;
+import org.agetac.model.impl.Groupe;
 import org.agetac.model.impl.Position;
 import org.agetac.model.impl.Vehicule;
 import org.agetac.model.impl.Vehicule.EtatVehicule;
@@ -138,7 +139,7 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 			GeoPoint m = (GeoPoint) mapView.getProjection().fromPixels(e.getX(), e.getY());
 			Position p = new Position(m.getLongitudeE6(), m.getLatitudeE6());
 			flag = ActionFlag.ADD;
-			Vehicule v = new Vehicule("42", "FPT Janze", p, null, EtatVehicule.PARTIS, null);
+			Vehicule v = new Vehicule("42", "FPT Janze", p, "", EtatVehicule.PARTIS, (Groupe) null);
 			touchedEntity = new Entity<Vehicule>(v, currentPicto); //TODO vrai relation picto-Entity
 			observable.setChanged();
 			observable.notifyObservers(SITACActivity.this);

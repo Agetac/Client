@@ -31,8 +31,6 @@
             android:id="@+id/bouton_demande_moyen"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#096"
-            android:padding="3dp"
             android:text="@string/demande_moyen" />
     </LinearLayout>
 
