@@ -5,28 +5,29 @@ import java.util.ArrayList;
 import org.agetac.pictogram.sign.IPictogram;
 
 public class PictogramGroup {
-		private String groupName;
-		private ArrayList<IPictogram> pictos;
-		
-		public PictogramGroup(String name) {
-			this.groupName = name;
-			this.pictos = new ArrayList<IPictogram>();
-		}
+	
+	private String groupName;
+	private ArrayList<IPictogram> pictos;
 
-		public String getGroupName() {
-			return groupName;
-		}
+	public PictogramGroup(String name) {
+		this.groupName = name;
+		this.pictos = new ArrayList<IPictogram>();
+	}
 
-		public void setGroupName(String groupName) {
-			this.groupName = groupName;
-		}
+	public String getGroupName() {
+		return groupName;
+	}
 
-		public ArrayList<IPictogram> getPictos() {
-			return pictos;
-		}
+	public void setGroupName(String groupName) {
+		this.groupName = groupName;
+	}
 
-		public void setPictos(ArrayList<IPictogram> pictos) {
-			this.pictos = pictos;
-		}
-		
+	public ArrayList<IPictogram> getPictos() {
+		return pictos;
+	}
+
+	public void setPictos(ArrayList<IPictogram> pictos) {
+		this.pictos = pictos;
+	}
+
 }

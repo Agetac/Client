@@ -10,6 +10,7 @@ import org.agetac.fragment.HiddenMenuFragment;
 import org.agetac.fragment.OpenedMenuFragment;
 import org.agetac.listener.IOnMenuEventListener;
 import org.agetac.listener.IOnOverlayEventListener;
+import org.agetac.model.impl.Agent;
 import org.agetac.model.impl.Groupe;
 import org.agetac.model.impl.Position;
 import org.agetac.model.impl.Vehicule;
@@ -139,7 +140,7 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 			GeoPoint m = (GeoPoint) mapView.getProjection().fromPixels(e.getX(), e.getY());
 			Position p = new Position(m.getLongitudeE6(), m.getLatitudeE6());
 			flag = ActionFlag.ADD;
-			Vehicule v = new Vehicule("42", "FPT Janze", p, "", EtatVehicule.PARTIS, (Groupe) null);
+			Vehicule v = new Vehicule("42", "FPT Janze", p, "", EtatVehicule.PARTIS, new Groupe("1", new Agent(), null));
 			touchedEntity = new Entity<Vehicule>(v, currentPicto); //TODO vrai relation picto-Entity
 			observable.setChanged();
 			observable.notifyObservers(SITACActivity.this);
@@ -149,17 +150,17 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 	@Override
 	public boolean onMenuItemClick(MenuItem item) {
 		switch (item.getItemId()) {
-		case R.id.menu_item_delete:
-			flag = ActionFlag.REMOVE;
-			observable.setChanged();
-			observable.notifyObservers(SITACActivity.this);
-			break;
-			
-		case R.id.menu_item_edit:
-			showEditItemDialog();
-			break;
-	}
-	return super.onContextItemSelected(item);
+			case R.id.menu_item_delete:
+				flag = ActionFlag.REMOVE;
+				observable.setChanged();
+				observable.notifyObservers(SITACActivity.this);
+				break;
+				
+			case R.id.menu_item_edit:
+				showEditItemDialog();
+				break;
+		}
+		return super.onContextItemSelected(item);
 	}
 	
 	private void showEditItemDialog() {

@@ -54,7 +54,8 @@ public abstract class AbstractActivity extends Activity implements ITabActivity 
 	protected void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
 		if (touchedEntity != null) {
-			outState.putSerializable(TOUCHED_ENTITY, touchedEntity);
+			// TODO vérifier la nécessité + check séria des attributs des entities
+//			outState.putSerializable(TOUCHED_ENTITY, touchedEntity);
 		}
 	}
 }

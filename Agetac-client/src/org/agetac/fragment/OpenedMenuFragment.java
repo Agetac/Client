@@ -8,6 +8,7 @@ import org.agetac.listener.IOnMenuEventListener;
 import org.agetac.menu.MenuExpandableListView;
 import org.agetac.pictogram.PictogramHolder;
 import org.agetac.pictogram.PictogramGroup;
+import org.agetac.pictogram.impl.Shape;
 import org.agetac.pictogram.sign.IPictogram;
 
 import android.app.Fragment;
@@ -28,7 +29,8 @@ public class OpenedMenuFragment extends Fragment implements IMenuFragment, OnCli
 	private Animation hideMenuAnim;
 	private Animation showMenuAnim;
 	private IOnMenuEventListener listener;
-	private ArrayList<IPictogram> pictos;
+	private ArrayList<PictogramGroup> groups;
+	private ArrayList<IPictogram> pictosDangers, pictosMapItems, pictosMoyens;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -46,7 +48,9 @@ public class OpenedMenuFragment extends Fragment implements IMenuFragment, OnCli
 		});
 		showMenuAnim = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_in_left);
 		PictogramHolder pFactory = PictogramHolder.getInstance(getActivity());
-		pictos = pFactory.getPictograms();
+		pictosDangers = pFactory.getPictograms(Shape.TRIANGLE_UP);
+//		pictosMapItems = pFactory.getPictograms(Shape.LINEAR_SHAPE);
+		pictosMoyens = pFactory.getPictograms(Shape.SQUARE);
 	}
 	
 	@Override
@@ -61,21 +65,27 @@ public class OpenedMenuFragment extends Fragment implements IMenuFragment, OnCli
 		super.onActivityCreated(savedInstanceState);
 		((ImageButton) getActivity().findViewById(R.id.btn_hide_menu)).setOnClickListener(this);
 		ExpandableListView listView = (ExpandableListView) getActivity().findViewById(R.id.menu);
-		ArrayList<PictogramGroup> groups = new ArrayList<PictogramGroup>();
+		groups = new ArrayList<PictogramGroup>();
 		
 		// Groupe des vehicules en attente, TODO signalitique en cas de nouveau vehicule a placer
-		PictogramGroup waitingVehicles = new PictogramGroup("Véhicules en attente");
-		groups.add(waitingVehicles);
+//		PictogramGroup waitingVehicles = new PictogramGroup("Véhicules en attente");
+//		groups.add(waitingVehicles);
+		
+		// Groupe des dangers
+		PictogramGroup grpDangers = new PictogramGroup("Dangers");
+		grpDangers.setPictos(pictosDangers);
+		groups.add(grpDangers);
 		
 		// Groupe des actions
-		PictogramGroup actions = new PictogramGroup("Actions");
-		// Pour l'instant, pour les tests, tous les pictos sont ajoutés dans le groupe actions
-		actions.setPictos(pictos);
-		groups.add(actions);
+//		PictogramGroup actions = new PictogramGroup("Actions");
+//		// Pour l'instant, pour les tests, tous les pictos sont ajoutés dans le groupe actions
+//		actions.setPictos(pictos);
+//		groups.add(actions);
 		
 		// Groupe des moyens
-		groups.add(new PictogramGroup("Moyens"));
-		groups.get(2).setPictos(pictos);
+		PictogramGroup grpMoyens = new PictogramGroup("Moyens");
+		grpMoyens.setPictos(pictosMoyens);
+		groups.add(grpMoyens);
 		
 		MenuExpandableListView adapter = new MenuExpandableListView(getActivity(), groups);
 		listView.setAdapter(adapter);
@@ -120,9 +130,12 @@ public class OpenedMenuFragment extends Fragment implements IMenuFragment, OnCli
 	}
 
 	@Override
-	public boolean onChildClick(ExpandableListView parent, View v,
-			int groupPosition, int childPosition, long id) {
-		if (listener != null) listener.onPictogramSelected(pictos.get(childPosition));
+	public boolean onChildClick(ExpandableListView p, View v, int grpIndex,
+			int childIndex, long id) {
+		if (listener != null) {
+			listener.onPictogramSelected(groups.get(grpIndex).getPictos()
+					.get(childIndex));
+		}
 		return true;
 	}
 }
