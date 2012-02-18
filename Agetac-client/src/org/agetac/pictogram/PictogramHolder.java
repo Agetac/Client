@@ -13,7 +13,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
 
 
-public class PictogramFactory {
+public class PictogramHolder {
 	
 	private static final String PICTO_RED_UP = "red_up";
 	private static final String PICTO_RED_DOWN = "red_down";
@@ -33,11 +33,11 @@ public class PictogramFactory {
 	private static final String PICTO_RED_GRPS = "red_grps";
 	private static final String PICTO_RED_SINGLE = "red_single";
 	
-	private static PictogramFactory instance;
+	private static PictogramHolder instance;
 	private Resources res;
 	private ArrayList<IPictogram> pictos;
 	
-	private PictogramFactory(Context context) {
+	private PictogramHolder(Context context) {
 		this.res = context.getResources();
 		pictos = new ArrayList<IPictogram>();
 		
@@ -62,9 +62,9 @@ public class PictogramFactory {
 		pictos.add(new Pictogram(PICTO_RED_SINGLE, BitmapFactory.decodeResource(res, R.drawable.picto_red_single)));
 	}
 	
-	public static PictogramFactory getInstance(Context context) {
+	public static PictogramHolder getInstance(Context context) {
 		if (instance == null) {
-			instance = new PictogramFactory(context);
+			instance = new PictogramHolder(context);
 		}
 		return instance;
 	}

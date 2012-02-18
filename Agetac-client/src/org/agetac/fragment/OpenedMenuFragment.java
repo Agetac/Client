@@ -6,7 +6,7 @@ import org.agetac.R;
 import org.agetac.fragment.sign.IMenuFragment;
 import org.agetac.listener.IOnMenuEventListener;
 import org.agetac.menu.MenuExpandableListView;
-import org.agetac.pictogram.PictogramFactory;
+import org.agetac.pictogram.PictogramHolder;
 import org.agetac.pictogram.PictogramGroup;
 import org.agetac.pictogram.sign.IPictogram;
 
@@ -45,7 +45,7 @@ public class OpenedMenuFragment extends Fragment implements IMenuFragment, OnCli
 			}
 		});
 		showMenuAnim = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_in_left);
-		PictogramFactory pFactory = PictogramFactory.getInstance(getActivity());
+		PictogramHolder pFactory = PictogramHolder.getInstance(getActivity());
 		pictos = pFactory.getPictograms();
 	}
 	

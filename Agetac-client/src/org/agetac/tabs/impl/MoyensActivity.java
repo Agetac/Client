@@ -13,7 +13,7 @@ import org.agetac.model.impl.Groupe;
 import org.agetac.model.impl.Position;
 import org.agetac.model.impl.Vehicule;
 import org.agetac.model.impl.Vehicule.EtatVehicule;
-import org.agetac.pictogram.PictogramFactory;
+import org.agetac.pictogram.PictogramHolder;
 import org.agetac.pictogram.sign.IPictogram;
 import org.agetac.tabs.sign.AbstractActivity;
 
@@ -108,7 +108,7 @@ public class MoyensActivity extends AbstractActivity implements OnClickListener,
 		try {
 			flag = ActionFlag.ADD;
 			Vehicule veh = new Vehicule("42"+idVeh, "FPT Janze", new Position(33.4, 48.8), "Caserne Beaulieu", EtatVehicule.PARTIS, new Groupe("UniqueID", null, new ArrayList<Vehicule>()));
-	        List<IPictogram> pictos = PictogramFactory.getInstance(getBaseContext()).getPictograms();
+	        List<IPictogram> pictos = PictogramHolder.getInstance(getBaseContext()).getPictograms();
 	        touchedEntity = new Entity<Vehicule>(veh, pictos.get(0));
 	        idVeh++;
 			observable.setChanged();
