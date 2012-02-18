@@ -6,8 +6,9 @@ import org.agetac.R;
 import org.agetac.fragment.sign.IMenuFragment;
 import org.agetac.listener.IOnMenuEventListener;
 import org.agetac.menu.MenuExpandableListView;
-import org.agetac.pictogram.PictogramHolder;
 import org.agetac.pictogram.PictogramGroup;
+import org.agetac.pictogram.PictogramHolder;
+import org.agetac.pictogram.impl.Color;
 import org.agetac.pictogram.impl.Shape;
 import org.agetac.pictogram.sign.IPictogram;
 
@@ -49,7 +50,7 @@ public class OpenedMenuFragment extends Fragment implements IMenuFragment, OnCli
 		showMenuAnim = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_in_left);
 		PictogramHolder pFactory = PictogramHolder.getInstance(getActivity());
 		pictosDangers = pFactory.getPictograms(Shape.TRIANGLE_UP);
-//		pictosMapItems = pFactory.getPictograms(Shape.LINEAR_SHAPE);
+		pictosMapItems = pFactory.getPictograms(Color.BLACK);
 		pictosMoyens = pFactory.getPictograms(Shape.SQUARE);
 	}
 	
@@ -86,6 +87,11 @@ public class OpenedMenuFragment extends Fragment implements IMenuFragment, OnCli
 		PictogramGroup grpMoyens = new PictogramGroup("Moyens");
 		grpMoyens.setPictos(pictosMoyens);
 		groups.add(grpMoyens);
+		
+		// Groupe des mapitems
+		PictogramGroup grpMapItems = new PictogramGroup("Map Items");
+		grpMapItems.setPictos(pictosMapItems);
+		groups.add(grpMapItems);
 		
 		MenuExpandableListView adapter = new MenuExpandableListView(getActivity(), groups);
 		listView.setAdapter(adapter);

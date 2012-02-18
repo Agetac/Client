@@ -35,13 +35,16 @@ public final class R {
         public static final int picto_green_grps=0x7f020011;
         public static final int picto_green_single=0x7f020012;
         public static final int picto_green_up=0x7f020013;
-        public static final int picto_red_dotted_grp=0x7f020014;
-        public static final int picto_red_dotted_single=0x7f020015;
-        public static final int picto_red_down=0x7f020016;
-        public static final int picto_red_grp=0x7f020017;
-        public static final int picto_red_grps=0x7f020018;
-        public static final int picto_red_single=0x7f020019;
-        public static final int picto_red_up=0x7f02001a;
+        public static final int picto_line=0x7f020014;
+        public static final int picto_point=0x7f020015;
+        public static final int picto_red_dotted_grp=0x7f020016;
+        public static final int picto_red_dotted_single=0x7f020017;
+        public static final int picto_red_down=0x7f020018;
+        public static final int picto_red_grp=0x7f020019;
+        public static final int picto_red_grps=0x7f02001a;
+        public static final int picto_red_single=0x7f02001b;
+        public static final int picto_red_up=0x7f02001c;
+        public static final int picto_zone=0x7f02001d;
     }
     public static final class id {
         public static final int addEntity=0x7f070024;
