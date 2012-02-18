@@ -62,8 +62,8 @@ public class OpenedMenuFragment extends Fragment implements IMenuFragment, OnCli
 	
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
-		
 		super.onActivityCreated(savedInstanceState);
+		
 		((ImageButton) getActivity().findViewById(R.id.btn_hide_menu)).setOnClickListener(this);
 		ExpandableListView listView = (ExpandableListView) getActivity().findViewById(R.id.menu);
 		groups = new ArrayList<PictogramGroup>();
@@ -93,8 +93,8 @@ public class OpenedMenuFragment extends Fragment implements IMenuFragment, OnCli
 		grpMapItems.setPictos(pictosMapItems);
 		groups.add(grpMapItems);
 		
-		MenuExpandableListView adapter = new MenuExpandableListView(getActivity(), groups);
-		listView.setAdapter(adapter);
+		MenuExpandableListView menuAdapter = new MenuExpandableListView(getActivity(), groups);
+		listView.setAdapter(menuAdapter);
 		listView.setOnChildClickListener(this);
 		
 		// Tests pour groupe des véhicules en attente "clignotant"
@@ -138,6 +138,9 @@ public class OpenedMenuFragment extends Fragment implements IMenuFragment, OnCli
 	@Override
 	public boolean onChildClick(ExpandableListView p, View v, int grpIndex,
 			int childIndex, long id) {
+
+		v.setSelected(true);
+		
 		if (listener != null) {
 			listener.onPictogramSelected(groups.get(grpIndex).getPictos()
 					.get(childIndex));

@@ -16,12 +16,10 @@ import android.widget.TextView;
 
 public class MenuExpandableListView extends BaseExpandableListAdapter {
 	
-	private Context context;
 	private ArrayList<PictogramGroup> groups;
 	private LayoutInflater inflater;
 	
 	public MenuExpandableListView(Context context, ArrayList<PictogramGroup> groups) {
-		 this.context = context;
 		 this.groups = groups;
 		 inflater = LayoutInflater.from(context);
 	}
@@ -49,7 +47,6 @@ public class MenuExpandableListView extends BaseExpandableListAdapter {
 			convertView = inflater.inflate(R.layout.menu_sitac_childs, null);
 			childView.imgChild = (ImageView) convertView.findViewById(R.id.menu_child_img);
 			childView.textViewChild = (TextView) convertView.findViewById(R.id.menu_child_text);
-
 			
 			convertView.setTag(childView);
 		}

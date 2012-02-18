@@ -70,6 +70,7 @@ public class MapOverlay extends Overlay {
 			p = mapV.getProjection().toMapPixels(item.getGeoPoint(), null);
 			bmp = items.get(i).getPictogram().getBitmap();
 			canvas.drawBitmap(bmp, p.x-(bmp.getWidth()/2), p.y-(bmp.getHeight()/2), null);
+			
 		}
 	}
 	
