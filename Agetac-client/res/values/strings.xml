@@ -12,6 +12,11 @@
     <string name="save">Enregistrer</string>
     <string name="cancel">Annuler</string>
     
+    <!-- STRINGS MOYENS ACTIVITY -->
+    <string name="vehicule_type">Type du véhicule</string>
+    <string name="gh_arrivee">Groupe Horaire - Arrivée</string>
+    <!-- #END# STRING MOYENS ACTIVITY -->
+    
     <string name="progress_title_connection">Veuillez patienter</string>
     <string name="progress_connection">Connexion...</string>
     <string name="progress_loading">Chargement...</string>

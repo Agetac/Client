@@ -2,13 +2,13 @@ package org.agetac.tabs.impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.List;
 
 import org.agetac.R;
 import org.agetac.common.ActionFlag;
 import org.agetac.entity.impl.Entity;
 import org.agetac.entity.sign.IEntity;
-import org.agetac.model.impl.Agent;
 import org.agetac.model.impl.Groupe;
 import org.agetac.model.impl.Position;
 import org.agetac.model.impl.Vehicule;
@@ -17,61 +17,50 @@ import org.agetac.pictogram.PictogramHolder;
 import org.agetac.pictogram.sign.IPictogram;
 import org.agetac.tabs.sign.AbstractActivity;
 
-import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
-import android.widget.AdapterView.OnItemClickListener;
 
 public class MoyensActivity extends AbstractActivity implements OnClickListener, OnItemClickListener {
 	
 	private static final String TAG = "MoyensActivity";
+	private static final String DATA_IMG = "data_img";
+	private static final String DATA_TYPE = "data_type";
+	private static final String DATA_DESC = "data_desc";
 	
-	private ItemAdapter itemAdapter;
+	private SimpleAdapter listAdapter;
 	private ListView listView;
-	
-	protected int idVeh = 1;
+	private List<Hashtable<String, String>> data;
+	private int idVeh = 1;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
 		setContentView(R.layout.moyens);
 	    
-		listView = (ListView) findViewById(R.id.malistview);
+		listView = (ListView) findViewById(R.id.moyens_listview);
 	    listView.setOnItemClickListener(this);
-	    itemAdapter = new ItemAdapter();
-	    listView.setAdapter(itemAdapter);
+	    LayoutInflater inflater = getLayoutInflater();
+	    listView.addHeaderView(inflater.inflate(R.layout.moyens_list_header, null), null, false);	    
 	    
-	    //Creation de la ArrayList qui nous permettra de remplir la listView
-        List<HashMap<String, String>> listItem = new ArrayList<HashMap<String, String>>();
- 
-        //On declare la HashMap qui contiendra les informations pour un item
-        HashMap<String, String> map;
- 
-        //Creation d'une HashMap pour ins�rer les informations du premier item de notre listView
-        
-        map = new HashMap<String, String>();        
-        map.put("titre", "Type du vehicule");
-        map.put("description", "Arrivee");
-        //map.put("img", String.valueOf(R.drawable.firetruck));
-        listItem.add(map);
+	    // Creation de l'ArrayList qui nous permettra de remplir la listView
+        data = new ArrayList<Hashtable<String, String>>();
         
         //Creation d'un SimpleAdapter qui se chargera de mettre les items present dans notre list (listItem) dans la vue moyens_list_item
-        SimpleAdapter mSchedule = new SimpleAdapter (this.getBaseContext(), listItem, R.layout.moyens_list_item,
-               new String[] {"img", "titre", "description"}, new int[] {R.id.img, R.id.titre, R.id.description});
-        listView.setAdapter(mSchedule); 
+        listAdapter = new SimpleAdapter(this.getBaseContext(), data, R.layout.moyens_list_item,
+               new String[] {DATA_IMG, DATA_TYPE, DATA_DESC}, new int[] {R.id.img, R.id.titre, R.id.description});
+        listView.setAdapter(listAdapter); 
 
-		findViewById(R.id.bouton_demande_moyen).setOnClickListener(this);
-		
-     
+		((Button) findViewById(R.id.btn_demande_moyens)).setOnClickListener(this);
 	}
 	
 	@Override
@@ -105,39 +94,35 @@ public class MoyensActivity extends AbstractActivity implements OnClickListener,
 
 	@Override
 	public void onClick(View v) {
-		try {
-			flag = ActionFlag.ADD;
-			Vehicule veh = new Vehicule("42"+idVeh, "FPT Janze", new Position(33.4, 48.8), "Caserne Beaulieu", EtatVehicule.PARTIS, new Groupe("UniqueID", null, new ArrayList<Vehicule>()));
-	        List<IPictogram> pictos = PictogramHolder.getInstance(getBaseContext()).getPictograms();
-	        touchedEntity = new Entity<Vehicule>(veh, pictos.get(0));
-	        idVeh++;
-			observable.setChanged();
-			observable.notifyObservers(MoyensActivity.this);
-	        
-//			Builder box = new AlertDialog.Builder(this);
-//			box.setTitle("Ajout de moyen");
-//			box.setMessage("Voici la liste des moyens que vous pouvez ajoutez:");
-//			CharSequence[] items = {"FPT", "VSAV", "CCGC", "Vehicule A", "Vehicule B", "Vehicule C", "Vehicule D"};
-//			box.setSingleChoiceItems(items, 0, null);
-//			box.show();
-			}
-			catch (ClassCastException e) {
-			android.util.Log.e(TAG, e.getMessage());
-			}
-		
-////		update();
-//		List<IEntity> list_veh = new ArrayList<IEntity>();
-//		list_veh.add(new VehiculeEntity(nouveau, null));
-//		itemAdapter.setItems((List<IEntity>) list_veh);
-//		listView.setAdapter(itemAdapter); 
+		switch (v.getId()) {
+			case R.id.btn_demande_moyens:
+				android.util.Log.d(TAG, "CLICK JE DEMANDE");
+				flag = ActionFlag.ADD;
+				Vehicule veh = new Vehicule("42"+idVeh, "FPT Janze", new Position(33.4, 48.8), "Caserne Beaulieu", EtatVehicule.PARTIS, new Groupe("UniqueID", null, new ArrayList<Vehicule>()));
+		        IPictogram vehiculePicto = PictogramHolder.getInstance(this).getPictogram(PictogramHolder.RED_GRP);
+		        touchedEntity = new Entity<Vehicule>(veh, vehiculePicto);
+		        idVeh++;
+				observable.setChanged();
+				observable.notifyObservers(MoyensActivity.this);
+				break;
+		}
+			
 	}
 	
 	@Override
 	public void update() {
 		List<IEntity> entities = controller.getInterventionEngine().getEntities();
-		itemAdapter.setItems(entities);
-	//	this.setContentView(itemAdapter.getView(position, convertView, parent))
-		itemAdapter.notifyDataSetChanged();
+		data.clear();
+		Hashtable<String, String> map;
+		for (int i=0; i<entities.size(); i++) {
+			Vehicule v = (Vehicule) entities.get(i).getModel();
+			map = new Hashtable<String, String>();
+			map.put(DATA_IMG, ""+R.drawable.firetruck);
+			map.put(DATA_TYPE, v.getName());
+			map.put(DATA_DESC, "todo");
+			data.add(map);
+		}
+		listAdapter.notifyDataSetChanged();
 	}
 	
 	public class ItemAdapter extends BaseAdapter {

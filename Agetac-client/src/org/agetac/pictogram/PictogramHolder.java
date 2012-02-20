@@ -1,6 +1,7 @@
 package org.agetac.pictogram;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.agetac.R;
 import org.agetac.pictogram.impl.Color;
@@ -18,26 +19,26 @@ import android.graphics.BitmapFactory.Options;
 
 public class PictogramHolder {
 	
-	private static final String RED_UP = "Source de feu";
-	private static final String RED_DOWN = "red_down";
-	private static final String GREEN_UP = "Produits chimiques";
-	private static final String GREEN_DOWN = "green_down";
-	private static final String BLUE_UP = "Source d'eau";
-	private static final String BLUE_DOWN = "blue_down";
-	private static final String BLUE_GRP = "blue_grp";
-	private static final String BLUE_GRPS = "blue_grps";
-	private static final String BLUE_SINGLE = "blue_single";
-	private static final String GREEN_GRP = "green_grp";
-	private static final String GREEN_GRPS = "green_grps";
-	private static final String GREEN_SINGLE = "green_single";
-	private static final String RED_DOTTED_SINGLE = "red_dotted_single";
-	private static final String RED_DOTTED_GRP = "red_dotted_grp";
-	private static final String RED_GRP = "red_grp";
-	private static final String RED_GRPS = "red_grps";
-	private static final String RED_SINGLE = "red_single";
-	private static final String LINE = "Ligne";
-	private static final String POINT = "Point";
-	private static final String ZONE = "Zone";
+	public static final String RED_UP = "Source de feu";
+	public static final String RED_DOWN = "red_down";
+	public static final String GREEN_UP = "Produits chimiques";
+	public static final String GREEN_DOWN = "green_down";
+	public static final String BLUE_UP = "Source d'eau";
+	public static final String BLUE_DOWN = "blue_down";
+	public static final String BLUE_GRP = "blue_grp";
+	public static final String BLUE_GRPS = "blue_grps";
+	public static final String BLUE_SINGLE = "blue_single";
+	public static final String GREEN_GRP = "green_grp";
+	public static final String GREEN_GRPS = "green_grps";
+	public static final String GREEN_SINGLE = "green_single";
+	public static final String RED_DOTTED_SINGLE = "red_dotted_single";
+	public static final String RED_DOTTED_GRP = "red_dotted_grp";
+	public static final String RED_GRP = "red_grp";
+	public static final String RED_GRPS = "red_grps";
+	public static final String RED_SINGLE = "red_single";
+	public static final String LINE = "Ligne";
+	public static final String POINT = "Point";
+	public static final String ZONE = "Zone";
 	
 	private static PictogramHolder instance;
 	private Resources res;
@@ -128,5 +129,12 @@ public class PictogramHolder {
 			names[i] = pictos.get(i).getName();
 		}
 		return names;
+	}
+
+	public IPictogram getPictogram(String name) {
+		for (int i=0; i<pictos.size(); i++) {
+			if (pictos.get(i).getName().equals(name)) return pictos.get(i);
+		}
+		return null;
 	}
 }
