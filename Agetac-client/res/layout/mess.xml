@@ -60,7 +60,8 @@
 	      android:layout_weight="0.2"   
 	      android:maxHeight="400px"
 	      android:minHeight="400px"
-	      android:gravity="top"/>
+	      android:gravity="top"
+	      android:layout_marginBottom="-20px"/>
 	
 	<LinearLayout
 	    android:layout_width="wrap_content"
@@ -68,7 +69,7 @@
 	    android:layout_below="@id/field_titles"
 	    android:layout_gravity="center_horizontal"
 	    android:orientation="horizontal"
-	    android:layout_marginTop="50px" >
+	    android:layout_marginTop="55px" >
 
 		<Button
 		    android:id="@+id/messEnvoyer"
