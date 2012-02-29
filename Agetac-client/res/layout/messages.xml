@@ -61,7 +61,8 @@
 	       android:layout_below="@id/field_titles"
 	       android:layout_gravity="center_horizontal"
 	       android:orientation="horizontal" 
-	       android:layout_marginTop="10px">
+	       android:layout_marginTop="10px"
+ android:layout_marginRight="48px">
      
 	 <Button
 	     android:id="@+id/buttonRetMess"
