@@ -1,10 +1,12 @@
 package org.agetac.tabs.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.agetac.R;
 import org.agetac.common.ActionFlag;
 import org.agetac.entity.impl.Entity;
+import org.agetac.entity.impl.Entity.EntityState;
 import org.agetac.entity.sign.IEntity;
 import org.agetac.fragment.HiddenMenuFragment;
 import org.agetac.fragment.OpenedMenuFragment;
@@ -16,6 +18,7 @@ import org.agetac.model.impl.Position;
 import org.agetac.model.impl.Vehicule;
 import org.agetac.model.impl.Vehicule.EtatVehicule;
 import org.agetac.overlay.MapOverlay;
+import org.agetac.pictogram.PictogramGroup;
 import org.agetac.pictogram.sign.IPictogram;
 import org.agetac.tabs.sign.AbstractActivity;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
@@ -99,6 +102,14 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 		List<IEntity> entities = controller.getInterventionEngine().getEntities();
 		mapOverlay.addEntities(entities);
 		mapView.invalidate();
+		
+		ArrayList<IEntity> offSitacEntities = new ArrayList<IEntity>();
+		for (int i=0; i<entities.size(); i++) {
+			if (entities.get(i).getState() == EntityState.OFF_SITAC) {
+				offSitacEntities.add(entities.get(i));
+			}
+		}
+		if (!offSitacEntities.isEmpty()) openedMenuFrag.addOffSitacEntities(offSitacEntities);
 	}
 
 	@Override
@@ -119,7 +130,7 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 	}
 
 	@Override
-	public void onPictogramSelected(IPictogram p) {
+	public void onPictogramSelected(IPictogram p, PictogramGroup grp) {
 		this.currentPicto = p;
 	}
 
@@ -141,7 +152,7 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 			Position p = new Position(m.getLongitudeE6(), m.getLatitudeE6());
 			flag = ActionFlag.ADD;
 			Vehicule v = new Vehicule("42", "FPT Janze", p, "", EtatVehicule.PARTIS, new Groupe("1", new Agent(), null));
-			touchedEntity = new Entity<Vehicule>(v, currentPicto); //TODO vrai relation picto-Entity
+			touchedEntity = new Entity<Vehicule>(v, currentPicto, EntityState.ON_SITAC); //TODO vrai relation picto-Entity
 			observable.setChanged();
 			observable.notifyObservers(SITACActivity.this);
 		}

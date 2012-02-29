@@ -1,13 +1,13 @@
 package org.agetac.tabs.impl;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
 
 import org.agetac.R;
 import org.agetac.common.ActionFlag;
 import org.agetac.entity.impl.Entity;
+import org.agetac.entity.impl.Entity.EntityState;
 import org.agetac.entity.sign.IEntity;
 import org.agetac.model.impl.Groupe;
 import org.agetac.model.impl.Position;
@@ -21,14 +21,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.TextView;
 
 public class MoyensActivity extends AbstractActivity implements OnClickListener, OnItemClickListener {
 	
@@ -40,7 +37,6 @@ public class MoyensActivity extends AbstractActivity implements OnClickListener,
 	private SimpleAdapter listAdapter;
 	private ListView listView;
 	private List<Hashtable<String, String>> data;
-	private int idVeh = 1;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -98,10 +94,9 @@ public class MoyensActivity extends AbstractActivity implements OnClickListener,
 			case R.id.btn_demande_moyens:
 				android.util.Log.d(TAG, "CLICK JE DEMANDE");
 				flag = ActionFlag.ADD;
-				Vehicule veh = new Vehicule("42"+idVeh, "FPT Janze", new Position(33.4, 48.8), "Caserne Beaulieu", EtatVehicule.PARTIS, new Groupe("UniqueID", null, new ArrayList<Vehicule>()));
+				Vehicule veh = new Vehicule("42", "FPT Janze", new Position(33.4, 48.8), "Caserne Beaulieu", EtatVehicule.PARTIS, new Groupe("UniqueID", null, new ArrayList<Vehicule>()));
 		        IPictogram vehiculePicto = PictogramHolder.getInstance(this).getPictogram(PictogramHolder.RED_GRP);
-		        touchedEntity = new Entity<Vehicule>(veh, vehiculePicto);
-		        idVeh++;
+		        touchedEntity = new Entity<Vehicule>(veh, vehiculePicto, EntityState.OFF_SITAC);
 				observable.setChanged();
 				observable.notifyObservers(MoyensActivity.this);
 				break;
@@ -124,42 +119,4 @@ public class MoyensActivity extends AbstractActivity implements OnClickListener,
 		}
 		listAdapter.notifyDataSetChanged();
 	}
-	
-	public class ItemAdapter extends BaseAdapter {
-
-		private List<IEntity> entities;
-
-	    public void setItems(List<IEntity> entities) {
-			this.entities = entities;
-		}
-
-		public int getCount() {
-	        if (entities == null) {
-	        	return 0;
-	        }
-	        return entities.size();
-	    }
-
-	    public Object getItem(int position) {
-	        if (entities == null) {
-	        	return null;
-	        }
-	        return entities.get(position);
-	    }
-
-	    public long getItemId(int position) {
-	        return 0;
-	    }
-
-	    // create a new View for each item referenced by the Adapter
-	    public View getView(int position, View convertView, ViewGroup parent) {
-	        View itemView = getLayoutInflater().inflate(R.layout.moyens_list_item, null);
-	        //View itemView = getLayoutInflater().inflate(R.layout.gridview_item, null);
-
-	        ((TextView) itemView.findViewById(R.id.vehicule_name)).setText(entities.get(position).getModel().getName());
-	        return itemView;
-	    }
-	}
-	
-	
 }

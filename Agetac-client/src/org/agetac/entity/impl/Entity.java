@@ -11,13 +11,17 @@ public class Entity<T extends IModel> implements IEntity {
 
 	private static final long serialVersionUID = 9102938L;
 	
+	public enum EntityState {ON_SITAC, OFF_SITAC}
+	
 	private T model;
 	private IPictogram picto;
 	private IGeoPoint geoP;
+	private EntityState state;
 	
-	public Entity(T model, IPictogram picto) {
+	public Entity(T model, IPictogram picto, EntityState state) {
 		this.model = model;
 		this.picto = picto;
+		this.state = state;
 		int latE6 = (int) model.getPosition().getLatitude();
 		int longE6 = (int) model.getPosition().getLongitude();
 		this.geoP = new GeoPoint(latE6, longE6);
@@ -40,7 +44,16 @@ public class Entity<T extends IModel> implements IEntity {
 
 	@Override
 	public IEntity clone() {
-		return new Entity<T>(model, picto);
+		return new Entity<T>(model, picto, state);
+	}
+
+	@Override
+	public EntityState getState() {
+		return state;
+	}
+
+	public void setState(EntityState state) {
+		this.state = state;
 	}
 
 	@Override

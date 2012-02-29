@@ -17,6 +17,12 @@
     <string name="gh_arrivee">Groupe Horaire - Arrivée</string>
     <!-- #END# STRING MOYENS ACTIVITY -->
     
+    <!-- STRINGS OPENEDMENU FRAGMENT -->
+    <string name="dangers">Dangers</string>
+    <string name="off_sitac">Position à définir</string>
+    <string name="map_items">Map items</string>
+    <!-- #END# STRING OPENEDMENU FRAGMENT -->    
+    
     <string name="progress_title_connection">Veuillez patienter</string>
     <string name="progress_connection">Connexion...</string>
     <string name="progress_loading">Chargement...</string>
