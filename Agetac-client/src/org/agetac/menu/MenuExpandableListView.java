@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.agetac.R;
 import org.agetac.pictogram.PictogramGroup;
 import org.agetac.pictogram.impl.Pictogram;
+import org.agetac.pictogram.sign.IPictogram;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -38,7 +39,7 @@ public class MenuExpandableListView extends BaseExpandableListAdapter {
 	public View getChildView(int groupPosition, int childPosition,
 			boolean isLastChild, View convertView, ViewGroup parent) {
 		// Pictogramme correspondant à l'item récupéré par la méthode
-		final Pictogram picto = (Pictogram) getChild(groupPosition, childPosition);
+		final IPictogram picto = (IPictogram) getChild(groupPosition, childPosition);
 		
 		ChildViewHolder childView;
 		if(convertView == null) {

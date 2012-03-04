@@ -116,16 +116,18 @@ public class MoyensActivity extends AbstractActivity implements OnClickListener,
 		// sur une soluce qui va dans ce sens ;)
 		Hashtable<String, String> map;
 		for (int i=0; i<entities.size(); i++) {
-			Vehicule v = (Vehicule) entities.get(i).getModel();
-			map = new Hashtable<String, String>();
-			map.put(DATA_IMG, ""+R.drawable.firetruck);
-			map.put(DATA_TYPE, v.getName());
-			map.put(DATA_CASERNE, v.getCaserneName());
-			EtatVehicule ev = v.getEtat();
-			map.put(DATA_ETAT, ev.toString());
-			map.put(DATA_GHARR, v.getGroupesHoraires().get(EtatVehicule.SUR_LES_LIEUX));
-			map.put(DATA_GHRET, v.getGroupesHoraires().get(EtatVehicule.DEMOBILISE));
-			data.add(map);
+			if (entities.get(i).getModel() instanceof Vehicule) {
+				Vehicule v = (Vehicule) entities.get(i).getModel();
+				map = new Hashtable<String, String>();
+				map.put(DATA_IMG, ""+R.drawable.firetruck);
+				map.put(DATA_TYPE, v.getName());
+				map.put(DATA_CASERNE, v.getCaserneName());
+				EtatVehicule ev = v.getEtat();
+				map.put(DATA_ETAT, ev.toString());
+				map.put(DATA_GHARR, v.getGroupesHoraires().get(EtatVehicule.SUR_LES_LIEUX));
+				map.put(DATA_GHRET, v.getGroupesHoraires().get(EtatVehicule.DEMOBILISE));
+				data.add(map);
+			}
 		}
 		listAdapter.notifyDataSetChanged();
 	}

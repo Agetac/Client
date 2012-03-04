@@ -6,6 +6,8 @@ import org.agetac.entity.impl.Entity.EntityState;
 import org.agetac.model.sign.IModel;
 import org.agetac.pictogram.sign.IPictogram;
 import org.osmdroid.api.IGeoPoint;
+import org.osmdroid.views.MapView;
+import android.graphics.Canvas;
 
 public interface IEntity extends Serializable {
 	
@@ -20,4 +22,6 @@ public interface IEntity extends Serializable {
 	public IEntity clone();
 
 	public EntityState getState();
+	
+	public void draw(Canvas canvas, MapView mapV, boolean shadow);
 }

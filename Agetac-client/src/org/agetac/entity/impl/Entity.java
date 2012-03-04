@@ -6,6 +6,10 @@ import org.agetac.model.sign.IModel;
 import org.agetac.pictogram.sign.IPictogram;
 import org.osmdroid.api.IGeoPoint;
 import org.osmdroid.util.GeoPoint;
+import org.osmdroid.views.MapView;
+
+import android.graphics.Canvas;
+import android.graphics.Point;
 
 public class Entity<T extends IModel> implements IEntity {
 
@@ -60,5 +64,12 @@ public class Entity<T extends IModel> implements IEntity {
 	public boolean isCloseTo(IGeoPoint pt, int precision) {
 		double distance = Utils.getDistanceInMeter(geoP, pt);
 		return (distance <= precision);
+	}
+
+	@Override
+	public void draw(Canvas canvas, MapView mapV, boolean shadow) {
+		Point p;
+		p = mapV.getProjection().toMapPixels(geoP, null);
+		picto.draw(canvas, p, shadow);
 	}
 }

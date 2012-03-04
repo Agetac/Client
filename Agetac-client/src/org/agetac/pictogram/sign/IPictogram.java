@@ -6,6 +6,8 @@ import org.agetac.pictogram.impl.Shape;
 import org.agetac.pictogram.impl.State;
 
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Point;
 
 
 public interface IPictogram {
@@ -21,5 +23,7 @@ public interface IPictogram {
 	public State getState();
 	
 	public GraphicalOverload getGraphicalOverload();
+	
+	public void draw(Canvas canvas, Point p, boolean shadow);
 	
 }

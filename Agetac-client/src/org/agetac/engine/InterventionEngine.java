@@ -6,6 +6,7 @@ import java.util.Observer;
 
 import org.agetac.engine.sign.IInterventionEngine;
 import org.agetac.entity.sign.IEntity;
+import org.agetac.model.impl.Action;
 import org.agetac.model.impl.Intervention;
 import org.agetac.model.impl.Vehicule;
 import org.agetac.observer.MyObservable;
@@ -30,6 +31,10 @@ public class InterventionEngine implements IInterventionEngine {
 			intervention.getVehicules().add((Vehicule) entity.getModel());
 			entities.add(entity);
 		}
+		if (entity.getModel() instanceof Action) {
+			intervention.getActions().add((Action) entity.getModel());
+			entities.add(entity);
+		}
 		notifyObservers();
 	}
 
@@ -39,7 +44,10 @@ public class InterventionEngine implements IInterventionEngine {
 			intervention.getVehicules().remove((Vehicule) entity.getModel());
 			entities.remove(entity);
 		}
-		notifyObservers();
+		if (entity.getModel() instanceof Action) {
+			intervention.getActions().remove((Action) entity.getModel());
+			entities.remove(entity);
+		}notifyObservers();
 	}
 
 	@Override

@@ -12,6 +12,7 @@ import org.agetac.fragment.HiddenMenuFragment;
 import org.agetac.fragment.OpenedMenuFragment;
 import org.agetac.listener.IOnMenuEventListener;
 import org.agetac.listener.IOnOverlayEventListener;
+import org.agetac.model.impl.Action;
 import org.agetac.model.impl.Agent;
 import org.agetac.model.impl.Groupe;
 import org.agetac.model.impl.Position;
@@ -19,6 +20,11 @@ import org.agetac.model.impl.Vehicule;
 import org.agetac.model.impl.Vehicule.EtatVehicule;
 import org.agetac.overlay.MapOverlay;
 import org.agetac.pictogram.PictogramGroup;
+import org.agetac.pictogram.impl.Color;
+import org.agetac.pictogram.impl.GraphicalOverload;
+import org.agetac.pictogram.impl.LinePicto;
+import org.agetac.pictogram.impl.Shape;
+import org.agetac.pictogram.impl.State;
 import org.agetac.pictogram.sign.IPictogram;
 import org.agetac.tabs.sign.AbstractActivity;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
@@ -31,6 +37,8 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.graphics.Bitmap;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -56,6 +64,7 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 	private IPictogram currentPicto;
 	private PopupMenu popupMenu;
 	private AlertDialog editItemDialog;
+	private GeoPoint lineBeginGeop;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -147,7 +156,7 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 	
 	@Override
 	public void onOverlayLongPressed(MotionEvent e, MapView mapView) {
-		if (currentPicto != null) {
+		if (currentPicto != null && currentPicto.getShape() != Shape.LINEAR_SHAPE) {
 			GeoPoint m = (GeoPoint) mapView.getProjection().fromPixels(e.getX(), e.getY());
 			Position p = new Position(m.getLongitudeE6(), m.getLatitudeE6());
 			flag = ActionFlag.ADD;
@@ -209,5 +218,45 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 			outState.putBoolean(EDIT_ITEM, true);
 			editItemDialog.dismiss();
 		}
+	}
+
+	@Override
+	public boolean onTouchEvent(MotionEvent event, MapView mapView) {
+		return false;
+	}
+
+	@Override
+	public boolean onUp(MotionEvent end, MapView mapView) {
+		if (currentPicto != null && currentPicto.getShape()==Shape.LINEAR_SHAPE) {
+			Point start, stop;
+			Position lineBeginPos = new Position(lineBeginGeop.getLongitudeE6(), lineBeginGeop.getLatitudeE6());
+			Point lineBeginPoint = mapView.getProjection().toMapPixels(lineBeginGeop, null);;
+			
+			GeoPoint me = (GeoPoint) mapView.getProjection().fromPixels(end.getX(), end.getY());
+			stop = mapView.getProjection().toMapPixels(me, null);
+			stop.set(stop.x-lineBeginPoint.x, stop.y-lineBeginPoint.y);
+			
+			start = mapView.getProjection().toMapPixels(lineBeginGeop, null);
+			start.set(start.x-lineBeginPoint.x, start.y-lineBeginPoint.y);
+			
+			
+			LinePicto lp = new LinePicto(currentPicto.getName(), currentPicto.getBitmap(), currentPicto.getColor(), currentPicto.getState(), currentPicto.getShape(), currentPicto.getGraphicalOverload(), start, stop);
+			Action as = new Action("42", lineBeginPos);
+			touchedEntity = new Entity<Action>(as, lp, EntityState.ON_SITAC); //TODO vrai relation picto-Entity
+			flag = ActionFlag.ADD;
+			observable.setChanged();
+			observable.notifyObservers(SITACActivity.this);
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public boolean lineBegin(MotionEvent start, MapView mapView) {
+		if (currentPicto != null && currentPicto.getShape()==Shape.LINEAR_SHAPE) {
+			lineBeginGeop = (GeoPoint) mapView.getProjection().fromPixels(start.getX(), start.getY());
+			return true;
+		}
+		return false;
 	}
 }
