@@ -74,8 +74,8 @@ public class LinePicto implements IPictogram {
 	@Override
 	public void draw(Canvas canvas, Point p, boolean shadow) {
 		canvas.drawLine(p.x+start.x, p.y+start.y, p.x+stop.x, p.y+stop.y, paint);
-		canvas.drawLine(p.x+stop.x, p.y+stop.y, p.x+stop.x+(start.x-stop.x)/16+(start.y-stop.y)/16, p.y+stop.y+(start.y-stop.y)/16+(start.x+stop.x)/16, paint);
-		canvas.drawLine(p.x+stop.x, p.y+stop.y, p.x+stop.x+(start.x-stop.x)/16-(start.y-stop.y)/16, p.y+stop.y+(start.y-stop.y)/16-(start.x+stop.x)/16, paint);
+		canvas.drawLine(p.x+stop.x, p.y+stop.y, p.x+stop.x+(start.x-stop.x)/16+(start.y-stop.y)/16, p.y+stop.y+(start.y-stop.y)/16+(-start.x+stop.x)/16, paint);
+		canvas.drawLine(p.x+stop.x, p.y+stop.y, p.x+stop.x+(start.x-stop.x)/16-(start.y-stop.y)/16, p.y+stop.y+(start.y-stop.y)/16-(-start.x+stop.x)/16, paint);
 	}
 
 }

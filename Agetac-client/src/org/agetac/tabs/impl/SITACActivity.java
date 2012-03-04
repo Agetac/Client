@@ -229,19 +229,22 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 	public boolean onUp(MotionEvent end, MapView mapView) {
 		if (currentPicto != null && currentPicto.getShape()==Shape.LINEAR_SHAPE) {
 			Point start, stop;
-			Position lineBeginPos = new Position(lineBeginGeop.getLongitudeE6(), lineBeginGeop.getLatitudeE6());
-			Point lineBeginPoint = mapView.getProjection().toMapPixels(lineBeginGeop, null);;
-			
+			GeoPoint stopGeoP = (GeoPoint) mapView.getProjection().fromPixels(end.getX(), end.getY());
+			Position lineMiddlePos = new Position((lineBeginGeop.getLongitudeE6()+stopGeoP.getLongitudeE6())/2, (lineBeginGeop.getLatitudeE6()+stopGeoP.getLatitudeE6())/2);
+			GeoPoint lineMiddleGeoP = new GeoPoint((int)lineMiddlePos.getLatitude(), (int)lineMiddlePos.getLongitude());
+			Point lineMiddlePoint = mapView.getProjection().toMapPixels(lineMiddleGeoP, null);
+
+		
 			GeoPoint me = (GeoPoint) mapView.getProjection().fromPixels(end.getX(), end.getY());
 			stop = mapView.getProjection().toMapPixels(me, null);
-			stop.set(stop.x-lineBeginPoint.x, stop.y-lineBeginPoint.y);
+			stop.set(stop.x-lineMiddlePoint.x, stop.y-lineMiddlePoint.y);
 			
 			start = mapView.getProjection().toMapPixels(lineBeginGeop, null);
-			start.set(start.x-lineBeginPoint.x, start.y-lineBeginPoint.y);
+			start.set(start.x-lineMiddlePoint.x, start.y-lineMiddlePoint.y);
 			
 			
 			LinePicto lp = new LinePicto(currentPicto.getName(), currentPicto.getBitmap(), currentPicto.getColor(), currentPicto.getState(), currentPicto.getShape(), currentPicto.getGraphicalOverload(), start, stop);
-			Action as = new Action("42", lineBeginPos);
+			Action as = new Action("42", lineMiddlePos);
 			touchedEntity = new Entity<Action>(as, lp, EntityState.ON_SITAC); //TODO vrai relation picto-Entity
 			flag = ActionFlag.ADD;
 			observable.setChanged();
