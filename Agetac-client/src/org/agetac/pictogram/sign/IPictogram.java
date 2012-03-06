@@ -24,6 +24,6 @@ public interface IPictogram {
 	
 	public GraphicalOverload getGraphicalOverload();
 	
-	public void draw(Canvas canvas, Point p, boolean shadow);
+	public void draw(Canvas canvas, Point p, boolean shadow, int zoomLevel);
 	
 }

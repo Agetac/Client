@@ -67,7 +67,7 @@ public class Pictogram implements IPictogram {
 		return graphicalOverload;
 	}
 	@Override
-	public void draw(Canvas canvas, Point p, boolean shadow) {
+	public void draw(Canvas canvas, Point p, boolean shadow, int zoomLevel) {
 		canvas.drawBitmap(bmp, p.x-(bmp.getWidth()/2), p.y-(bmp.getHeight()/2), null);		
 	}
 

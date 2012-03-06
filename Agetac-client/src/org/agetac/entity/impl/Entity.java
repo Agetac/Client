@@ -14,7 +14,8 @@ import android.graphics.Point;
 public class Entity<T extends IModel> implements IEntity {
 
 	private static final long serialVersionUID = 9102938L;
-	
+	private static final String TAG = "An Entity";
+
 	public enum EntityState {ON_SITAC, OFF_SITAC}
 	
 	private T model;
@@ -70,6 +71,6 @@ public class Entity<T extends IModel> implements IEntity {
 	public void draw(Canvas canvas, MapView mapV, boolean shadow) {
 		Point p;
 		p = mapV.getProjection().toMapPixels(geoP, null);
-		picto.draw(canvas, p, shadow);
+		picto.draw(canvas, p, shadow, mapV.getZoomLevel());
 	}
 }

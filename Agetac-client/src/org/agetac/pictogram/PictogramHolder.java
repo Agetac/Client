@@ -68,7 +68,7 @@ public class PictogramHolder {
 		pictos.add(new Pictogram(RED_GRP, BitmapFactory.decodeResource(res, R.drawable.picto_red_grp), Color.RED, State.STATE_HAPPENING, Shape.SQUARE, GraphicalOverload.NONE));
 		pictos.add(new Pictogram(RED_GRPS, BitmapFactory.decodeResource(res, R.drawable.picto_red_grps), Color.RED, State.STATE_HAPPENING, Shape.SQUARE, GraphicalOverload.NONE));
 		pictos.add(new Pictogram(RED_SINGLE, BitmapFactory.decodeResource(res, R.drawable.picto_red_single), Color.RED, State.STATE_HAPPENING, Shape.SQUARE, GraphicalOverload.NONE));
-		pictos.add(new LinePicto(LINE, BitmapFactory.decodeResource(res, R.drawable.picto_line), Color.BLACK, State.STATE_HAPPENING, Shape.LINEAR_SHAPE, GraphicalOverload.NONE, null, null));
+		pictos.add(new LinePicto(LINE, BitmapFactory.decodeResource(res, R.drawable.picto_line), Color.BLACK, State.STATE_HAPPENING, Shape.LINEAR_SHAPE, GraphicalOverload.NONE, null, null, 1));
 		pictos.add(new Pictogram(POINT, BitmapFactory.decodeResource(res, R.drawable.picto_point), Color.BLACK, State.STATE_HAPPENING, Shape.CIRCLE, GraphicalOverload.NONE));
 		pictos.add(new Pictogram(ZONE, BitmapFactory.decodeResource(res, R.drawable.picto_zone), Color.BLACK, State.STATE_HAPPENING, Shape.STAR_SHAPE, GraphicalOverload.NONE));
 	}
