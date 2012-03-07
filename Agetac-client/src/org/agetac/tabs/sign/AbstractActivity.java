@@ -29,7 +29,7 @@ public abstract class AbstractActivity extends Activity implements ITabActivity 
 	@Override
 	protected void onResume() {
 		super.onResume();
-		controller = Controller.getInstance();
+		controller = Controller.getInstance(this);
 		observable = new MyObservable();
 		observable.addObserver(controller);
 		controller.setCurrentActivity(this);

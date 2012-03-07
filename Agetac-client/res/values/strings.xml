@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="host">http://192.168.0.1</string>
+    <string name="port">:8112</string>
+    <string name="contextRoot">/agetacserver/</string>
+    
     <string name="app_name">Agetac-client</string>
     <string name="login">Identifiant</string>
     <string name="password">Mot de passe</string>
