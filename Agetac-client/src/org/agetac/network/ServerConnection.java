@@ -40,9 +40,8 @@ public class ServerConnection {
 		System.out.println("GET : " + url);
 		
 		ClientResource client = new ClientResource(url);
-		
 		Representation repr = null;
-		
+		System.out.println(">>>> "+client.get().toString());
 		repr = client.get();
 		
 		return repr;

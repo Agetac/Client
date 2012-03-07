@@ -28,11 +28,8 @@ public class InterventionEngine implements IInterventionEngine {
 	
 	public InterventionEngine(ServerConnection conn) {
 		servConn = conn;
-		System.out.println(">>>>> constructeur InterventionEngine");
 		Representation repr = servConn.getResource("intervention", "1");
-		System.out.println(">>>> "+repr.toString());
 		
-		System.out.println(">>>>> intervention récupérée");
 		try {
 			JsonRepresentation jsonRepr = new JsonRepresentation(repr);
 			intervention = new Intervention(jsonRepr.getJsonObject());
@@ -56,6 +53,7 @@ public class InterventionEngine implements IInterventionEngine {
 		if (entity.getModel() instanceof Vehicule) {
 			intervention.getVehicules().add((Vehicule) entity.getModel());
 			entities.add(entity);
+			
 		}
 		if (entity.getModel() instanceof Action) {
 			intervention.getActions().add((Action) entity.getModel());
@@ -73,7 +71,8 @@ public class InterventionEngine implements IInterventionEngine {
 		if (entity.getModel() instanceof Action) {
 			intervention.getActions().remove((Action) entity.getModel());
 			entities.remove(entity);
-		}notifyObservers();
+		}
+		notifyObservers();
 	}
 
 	@Override
