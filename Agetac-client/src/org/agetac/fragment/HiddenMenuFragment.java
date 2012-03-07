@@ -1,7 +1,6 @@
 package org.agetac.fragment;
 
 import org.agetac.R;
-import org.agetac.fragment.sign.IMenuFragment;
 import org.agetac.listener.IOnMenuEventListener;
 
 import android.app.Fragment;
