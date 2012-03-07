@@ -12,19 +12,19 @@
         android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen">
         <activity
             android:label="@string/app_name"
-            android:name=".MainActivity" >
+            android:name=".activity.MainActivity" >
             <intent-filter >
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         
-        <activity android:name="TabsActivity" />
-        <activity android:name=".tabs.impl.SITACActivity" />
-        <activity android:name=".tabs.impl.SOEICActivity" />
-        <activity android:name=".tabs.impl.MoyensActivity" />
-        <activity android:name=".tabs.impl.MessagesActivity" />
-        <activity android:name=".tabs.impl.CRMActivity" />
+        <activity android:name=".activity.ITabsActivity" />
+        <activity android:name=".activity.SITACActivity" />
+        <activity android:name=".activity.SOEICActivity" />
+        <activity android:name=".activity.MoyensActivity" />
+        <activity android:name=".activity.MessagesActivity" />
+        <activity android:name=".activity.CRMActivity" />
         
     </application>
     
