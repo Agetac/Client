@@ -1,12 +1,17 @@
 package org.agetac.command.impl;
 
+import java.io.IOException;
 import java.util.Date;
 
+import org.agetac.client.ServerConnection;
+import org.agetac.client.exception.BadResponseException;
 import org.agetac.command.sign.IRecordableCommand;
 import org.agetac.controller.Controller;
 import org.agetac.memento.sign.IMemento;
 import org.agetac.model.impl.Message;
-import org.restlet.engine.http.connector.ServerConnection;
+import org.json.JSONException;
+import org.restlet.ext.json.JsonRepresentation;
+import org.restlet.representation.Representation;
 
 public class SendMessageCommand implements IRecordableCommand {
 	public static final String NAME = "EnvoyerMessage";
@@ -39,22 +44,55 @@ public class SendMessageCommand implements IRecordableCommand {
 	}
 
 	
-	public Message sendMessage(String message) {
+	public boolean sendMessage(String message) throws BadResponseException, IOException, JSONException {
 		
 		String date = getGroupeHoraire();
 		String id = "" + SendMessageCommand.idMessage;
 		Message mess = new Message ( id, message, date);
 		System.out.println("Message : "+id + "," + message + "," + date);
 		
-
+		String interId = "0";
+		ServerConnection serv = new ServerConnection("148.60.13.116", "8112", "agetacserver");
 		
-		return mess;
+		Representation r = null;
+		try {
+			r = new JsonRepresentation(mess.toJSON());
+		} catch (JSONException e) {
+			
+			e.printStackTrace();
+		}
+
+		serv.putResource("intervention/" + interId + "/message",
+				mess.getUniqueID(), r);
+		
+		
+		Representation rep = serv.getResource("intervention/" + interId + "/message",
+				mess.getUniqueID());
+		JsonRepresentation jrepr = new JsonRepresentation(rep);
+		
+		
+		System.out.println(new Message(jrepr.getJsonObject()).getMessage());
+
+		return true;
 	}
-	
-	
+		
+		
 	public void execute() {
 		
-		sendMessage(controller.getMessage());
+		try {
+			try {
+				sendMessage(controller.getMessage());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} catch (BadResponseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		idMessage++;
 	}
 
