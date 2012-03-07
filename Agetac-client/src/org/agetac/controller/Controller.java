@@ -17,6 +17,7 @@ import org.agetac.engine.InterventionEngine;
 import org.agetac.engine.sign.IInterventionEngine;
 import org.agetac.entity.sign.IEntity;
 import org.agetac.model.impl.Intervention;
+import org.agetac.network.ServerConnection;
 import org.agetac.tabs.impl.CRMActivity;
 import org.agetac.tabs.impl.MessagesActivity;
 import org.agetac.tabs.impl.MoyensActivity;
@@ -24,17 +25,20 @@ import org.agetac.tabs.impl.SITACActivity;
 import org.agetac.tabs.impl.SOEICActivity;
 import org.agetac.tabs.sign.ITabActivity;
 
+import android.content.Context;
+
 public class Controller implements Observer {
 	
 	private static final String TAG = "Controller";
 
 	private IEntity lastEntity;
-	private static Controller controller = new Controller();
+	private static Controller controller;
 	private Map<String, ICommand> commands;
 	private ISubController moyensCtrl, sitacCtrl, soeicCtrl, messagesCtrl, crmCtrl;
 	private ITabActivity currentActivity;
 	private IInterventionEngine interventionEngine;
 	private String message;
+	private Context context;
 	
 	/**
 	 * Constructeur privé pour pattern Singleton.
@@ -47,17 +51,16 @@ public class Controller implements Observer {
 	 * - Crée les différents controlleurs associés aux onglets
 	 * - Crée toutes les commandes concrètes
 	 */
-	private Controller() {
-		interventionEngine = new InterventionEngine(new Intervention("42"));
+	private Controller(Context c) {
+		this.context = c;
+		
+		ServerConnection conn = new ServerConnection(c);
+		interventionEngine = new InterventionEngine(conn);
 		
 		initCommands();
 		initControllers();
 		
 		interventionEngine.addObserver(this);
-		
-//		// XXX test récup agent via serv
-//		Agent agent = ServerManager.getInstance().getAgent("ag0");
-//		System.out.println(">>>> AGENT: "+agent.toString());
 	}
 	
 	private void initCommands() {
@@ -75,7 +78,10 @@ public class Controller implements Observer {
 //		soeicCtrl = new SOEICController(this);
 	}
 	
-	public static Controller getInstance() {
+	public static Controller getInstance(Context c) {
+		if (controller == null) {
+			controller = new Controller(c);
+		}
 		return controller;
 	}
 	
