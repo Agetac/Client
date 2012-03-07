@@ -52,6 +52,8 @@
     <string name="vehicule_etat">Etat</string>
     <string name="vehicule_gh_arrivee">gh Arrivee</string>
     <string name="vehicule_gh_retour">gh Retour</string>
+    <string name="vehicule_gh_demande">gh Alerte</string>
+    <string name="imageContentDescription">Image representant moyen</string>
     <!-- fin entete -->
     <!-- #END# STRING MOYENS ACTIVITY -->
 

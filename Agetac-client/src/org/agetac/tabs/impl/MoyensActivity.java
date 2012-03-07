@@ -34,6 +34,7 @@ public class MoyensActivity extends AbstractActivity implements OnClickListener,
 	private static final String DATA_TYPE = "data_type";
 	private static final String DATA_CASERNE = "data_caserne";
 	private static final String DATA_ETAT = "data_etat";
+	private static final String DATA_GHDEM = "data_gh_demande";
 	private static final String DATA_GHARR = "data_gh_arrivee";
 	private static final String DATA_GHRET = "data_gh_retour";
 	
@@ -48,15 +49,13 @@ public class MoyensActivity extends AbstractActivity implements OnClickListener,
 	    
 		listView = (ListView) findViewById(R.id.moyens_listview);
 	    listView.setOnItemClickListener(this);
-	    LayoutInflater inflater = getLayoutInflater();
-	    listView.addHeaderView(inflater.inflate(R.layout.moyens_list_header, null), null, false);	    
 	    
 	    // Creation de l'ArrayList qui nous permettra de remplir la listView
         data = new ArrayList<Hashtable<String, String>>();
         
         //Creation d'un SimpleAdapter qui se chargera de mettre les items present dans notre list (listItem) dans la vue moyens_list_item
         listAdapter = new SimpleAdapter(this.getBaseContext(), data, R.layout.moyens_list_item,
-               new String[] {DATA_IMG, DATA_TYPE, DATA_CASERNE, DATA_ETAT, DATA_GHARR, DATA_GHRET}, new int[] {R.id.img, R.id.type_vehicule, R.id.caserne_vehicule, R.id.etat_vehicule, R.id.gh_arrivee, R.id.gh_retour});
+               new String[] {DATA_IMG, DATA_TYPE, DATA_CASERNE, DATA_ETAT, DATA_GHDEM, DATA_GHARR, DATA_GHRET}, new int[] {R.id.img, R.id.type_vehicule, R.id.caserne_vehicule, R.id.etat_vehicule, R.id.gh_demande, R.id.gh_arrivee, R.id.gh_retour});
         listView.setAdapter(listAdapter); 
 
 		((Button) findViewById(R.id.btn_demande_moyens)).setOnClickListener(this);
@@ -124,6 +123,7 @@ public class MoyensActivity extends AbstractActivity implements OnClickListener,
 				map.put(DATA_CASERNE, v.getCaserneName());
 				EtatVehicule ev = v.getEtat();
 				map.put(DATA_ETAT, ev.toString());
+				map.put(DATA_GHDEM, v.getGroupesHoraires().get(EtatVehicule.ALERTE));
 				map.put(DATA_GHARR, v.getGroupesHoraires().get(EtatVehicule.SUR_LES_LIEUX));
 				map.put(DATA_GHRET, v.getGroupesHoraires().get(EtatVehicule.DEMOBILISE));
 				data.add(map);
