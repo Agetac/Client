@@ -4,6 +4,7 @@ import org.agetac.pictogram.impl.Color;
 import org.agetac.pictogram.impl.GraphicalOverload;
 import org.agetac.pictogram.impl.Shape;
 import org.agetac.pictogram.impl.State;
+import org.osmdroid.views.MapView.Projection;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -24,6 +25,6 @@ public interface IPictogram {
 	
 	public GraphicalOverload getGraphicalOverload();
 	
-	public void draw(Canvas canvas, Point p, boolean shadow, int zoomLevel);
+	public void draw(Canvas canvas, Point p, boolean shadow, Projection mapProjection);
 	
 }
