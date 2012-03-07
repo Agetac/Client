@@ -52,7 +52,7 @@ public final class R {
         public static final int picto_zone=0x7f02001f;
     }
     public static final class id {
-        public static final int addEntity=0x7f080027;
+        public static final int addEntity=0x7f080028;
         public static final int btn_demande_moyens=0x7f08001b;
         public static final int btn_hide_menu=0x7f080008;
         public static final int btn_hide_show_menu=0x7f080007;
@@ -71,32 +71,33 @@ public final class R {
         public static final int edittext_message_normal=0x7f08000f;
         public static final int etat_vehicule=0x7f08001f;
         public static final int field_titles=0x7f08000c;
-        public static final int fragment_menu_hidden=0x7f080025;
-        public static final int fragment_menu_opened=0x7f080024;
-        public static final int gh_arrivee=0x7f080020;
-        public static final int gh_retour=0x7f080021;
+        public static final int fragment_menu_hidden=0x7f080026;
+        public static final int fragment_menu_opened=0x7f080025;
+        public static final int gh_arrivee=0x7f080021;
+        public static final int gh_demande=0x7f080020;
+        public static final int gh_retour=0x7f080022;
         public static final int img=0x7f08001c;
         public static final int loginField=0x7f080002;
-        public static final int mapview=0x7f080022;
+        public static final int mapview=0x7f080023;
         public static final int menu=0x7f080006;
-        public static final int menu_anchor=0x7f080023;
+        public static final int menu_anchor=0x7f080024;
         public static final int menu_child_img=0x7f080009;
         public static final int menu_child_text=0x7f08000a;
-        public static final int menu_item_delete=0x7f08002c;
-        public static final int menu_item_edit=0x7f08002b;
+        public static final int menu_item_delete=0x7f08002d;
+        public static final int menu_item_edit=0x7f08002c;
         public static final int messAnnuler=0x7f080011;
         public static final int messEnvoyer=0x7f080010;
         public static final int moyens_listview=0x7f08001a;
         public static final int name=0x7f080000;
-        public static final int nbCurrentEntity=0x7f080028;
-        public static final int nbFuturEntity=0x7f080029;
+        public static final int nbCurrentEntity=0x7f080029;
+        public static final int nbFuturEntity=0x7f08002a;
         public static final int passField=0x7f080003;
         public static final int retMessAmb=0x7f08000d;
-        public static final int sitac_actions_panel=0x7f080026;
+        public static final int sitac_actions_panel=0x7f080027;
         public static final int sitac_group=0x7f08000b;
         public static final int type_vehicule=0x7f08001d;
         public static final int vehicule_name=0x7f080001;
-        public static final int vehicules_listview=0x7f08002a;
+        public static final int vehicules_listview=0x7f08002b;
     }
     public static final class layout {
         public static final int crm=0x7f030000;
@@ -143,6 +144,7 @@ public final class R {
         public static final int edit=0x7f060009;
         public static final int empty_text=0x7f060023;
         public static final int host=0x7f060000;
+        public static final int imageContentDescription=0x7f06002c;
         public static final int je_demande=0x7f060021;
         public static final int je_prevois=0x7f06001f;
         public static final int je_procede=0x7f060020;
@@ -168,6 +170,7 @@ public final class R {
         public static final int vehicule_caserne=0x7f060027;
         public static final int vehicule_etat=0x7f060028;
         public static final int vehicule_gh_arrivee=0x7f060029;
+        public static final int vehicule_gh_demande=0x7f06002b;
         public static final int vehicule_gh_retour=0x7f06002a;
         /**  pour l'entete de la vue 
          */

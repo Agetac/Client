@@ -1,6 +1,7 @@
 package org.agetac.pictogram.impl;
 
 import org.agetac.pictogram.sign.IPictogram;
+import org.osmdroid.views.MapView.Projection;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -10,7 +11,7 @@ import android.graphics.Point;
 public class LinePicto implements IPictogram {
 	
 	private Point start,stop;
-	private int zoomLevelRef;
+	private float scaleRef;
 	private Bitmap bmp;
 	private String name;
 	private Color color;
@@ -19,10 +20,10 @@ public class LinePicto implements IPictogram {
 	private GraphicalOverload graphicalOverload;
 	Paint paint;
 	
-	public LinePicto(String name, Bitmap bmp, Point start, Point stop, int zoomLevelRef) {
+	public LinePicto(String name, Bitmap bmp, Point start, Point stop, float scaleRef) {
 		this.start = start;
 		this.stop = stop;
-		this.zoomLevelRef = zoomLevelRef;
+		this.scaleRef = scaleRef;
 		this.color = null;
 		this.state = null;
 		this.shape = null;
@@ -31,10 +32,10 @@ public class LinePicto implements IPictogram {
 		this.bmp = bmp;
 		this.paint = new Paint();
 	}
-	public LinePicto(String name, Bitmap bmp, Color color, State state, Shape shape, GraphicalOverload graphicalOverload, Point start, Point stop, int zoomLevelRef) {
+	public LinePicto(String name, Bitmap bmp, Color color, State state, Shape shape, GraphicalOverload graphicalOverload, Point start, Point stop, float scaleRef) {
 		this.start = start;
 		this.stop = stop;
-		this.zoomLevelRef = zoomLevelRef;
+		this.scaleRef = scaleRef;
 		this.color = color;
 		this.state = state;
 		this.shape = shape;
@@ -52,20 +53,20 @@ public class LinePicto implements IPictogram {
 		this.stop = stop;
 	}
 	
-	public void setZoomLevelRef(int zoomLevelRef) {
-		this.zoomLevelRef = zoomLevelRef;
+	public void setscaleRef(float scaleRef) {
+		this.scaleRef = scaleRef;
 	}
 	
 	public Point getStart() {
 		return this.start;
 	}
 	
-	public Point setStop() {
+	public Point getStop() {
 		return this.stop;
 	}
 	
-	public int setZoomLevelRef() {
-		return this.zoomLevelRef;
+	public float getscaleRef() {
+		return this.scaleRef;
 	}
 	
 	@Override
@@ -99,8 +100,8 @@ public class LinePicto implements IPictogram {
 	}
 
 	@Override
-	public void draw(Canvas canvas, Point p, boolean shadow,int zoomLevel) {
-		float s = zoomLevel/(float)zoomLevelRef;
+	public void draw(Canvas canvas, Point p, boolean shadow, Projection mapProjection) {
+		float s = mapProjection.metersToEquatorPixels(1.0f)/scaleRef;
 		canvas.drawLine(p.x+s*start.x, p.y+s*start.y, p.x+s*stop.x, p.y+s*stop.y, paint);
 		canvas.drawLine(p.x+s*stop.x, p.y+s*stop.y, p.x+s*(stop.x+(start.x-stop.x)/16+(start.y-stop.y)/16), p.y+s*(stop.y+(start.y-stop.y)/16+(-start.x+stop.x)/16), paint);
 		canvas.drawLine(p.x+s*stop.x, p.y+s*stop.y, p.x+s*(stop.x+(start.x-stop.x)/16-(start.y-stop.y)/16), p.y+s*(stop.y+(start.y-stop.y)/16-(-start.x+stop.x)/16), paint);
