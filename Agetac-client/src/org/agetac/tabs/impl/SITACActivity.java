@@ -243,7 +243,7 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 			start.set(start.x-lineMiddlePoint.x, start.y-lineMiddlePoint.y);
 			
 			
-			LinePicto lp = new LinePicto(currentPicto.getName(), currentPicto.getBitmap(), currentPicto.getColor(), currentPicto.getState(), currentPicto.getShape(), currentPicto.getGraphicalOverload(), start, stop, mapView.getZoomLevel());
+			LinePicto lp = new LinePicto(currentPicto.getName(), currentPicto.getBitmap(), currentPicto.getColor(), currentPicto.getState(), currentPicto.getShape(), currentPicto.getGraphicalOverload(), start, stop, mapView.getProjection().metersToEquatorPixels(1.0f));
 			Action as = new Action("42", lineMiddlePos);
 			touchedEntity = new Entity<Action>(as, lp, EntityState.ON_SITAC); //TODO vrai relation picto-Entity
 			flag = ActionFlag.ADD;

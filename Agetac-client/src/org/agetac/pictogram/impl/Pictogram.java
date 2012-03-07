@@ -1,6 +1,8 @@
 package org.agetac.pictogram.impl;
 
 import org.agetac.pictogram.sign.IPictogram;
+import org.osmdroid.views.MapView.Projection;
+
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Point;
@@ -67,7 +69,7 @@ public class Pictogram implements IPictogram {
 		return graphicalOverload;
 	}
 	@Override
-	public void draw(Canvas canvas, Point p, boolean shadow, int zoomLevel) {
+	public void draw(Canvas canvas, Point p, boolean shadow, Projection mapProjection) {
 		canvas.drawBitmap(bmp, p.x-(bmp.getWidth()/2), p.y-(bmp.getHeight()/2), null);		
 	}
 

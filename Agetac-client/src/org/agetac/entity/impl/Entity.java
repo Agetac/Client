@@ -70,6 +70,6 @@ public class Entity<T extends IModel> implements IEntity {
 	public void draw(Canvas canvas, MapView mapV, boolean shadow) {
 		Point p;
 		p = mapV.getProjection().toMapPixels(geoP, null);
-		picto.draw(canvas, p, shadow, mapV.getZoomLevel());
+		picto.draw(canvas, p, shadow, mapV.getProjection());
 	}
 }
