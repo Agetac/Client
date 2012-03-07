@@ -5,25 +5,21 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
-import org.agetac.command.impl.AddEntityCommand;
-import org.agetac.command.impl.RemoveEntityCommand;
-import org.agetac.command.impl.SendMessageCommand;
-import org.agetac.command.sign.ICommand;
-import org.agetac.controller.impl.MessagesController;
-import org.agetac.controller.impl.MoyensController;
-import org.agetac.controller.impl.SITACController;
-import org.agetac.controller.sign.ISubController;
+import org.agetac.activity.CRMActivity;
+import org.agetac.activity.ITabActivity;
+import org.agetac.activity.MessagesActivity;
+import org.agetac.activity.MoyensActivity;
+import org.agetac.activity.SITACActivity;
+import org.agetac.activity.SOEICActivity;
+import org.agetac.command.AddEntityCommand;
+import org.agetac.command.ICommand;
+import org.agetac.command.RemoveEntityCommand;
+import org.agetac.command.SendMessageCommand;
+import org.agetac.engine.IInterventionEngine;
 import org.agetac.engine.InterventionEngine;
-import org.agetac.engine.sign.IInterventionEngine;
-import org.agetac.entity.sign.IEntity;
+import org.agetac.entity.IEntity;
 import org.agetac.model.impl.Intervention;
 import org.agetac.network.ServerConnection;
-import org.agetac.tabs.impl.CRMActivity;
-import org.agetac.tabs.impl.MessagesActivity;
-import org.agetac.tabs.impl.MoyensActivity;
-import org.agetac.tabs.impl.SITACActivity;
-import org.agetac.tabs.impl.SOEICActivity;
-import org.agetac.tabs.sign.ITabActivity;
 
 import android.content.Context;
 

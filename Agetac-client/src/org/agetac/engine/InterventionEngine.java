@@ -5,8 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observer;
 
-import org.agetac.engine.sign.IInterventionEngine;
-import org.agetac.entity.sign.IEntity;
+import org.agetac.entity.IEntity;
 import org.agetac.model.exception.InvalidJSONException;
 import org.agetac.model.impl.Action;
 import org.agetac.model.impl.Intervention;

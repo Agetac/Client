@@ -1,6 +1,6 @@
 package org.agetac.listener;
 
-import org.agetac.entity.sign.IEntity;
+import org.agetac.entity.IEntity;
 import org.osmdroid.views.MapView;
 
 import android.view.MotionEvent;

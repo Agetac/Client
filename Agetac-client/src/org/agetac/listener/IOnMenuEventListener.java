@@ -1,7 +1,7 @@
 package org.agetac.listener;
 
-import org.agetac.pictogram.PictogramGroup;
-import org.agetac.pictogram.sign.IPictogram;
+import org.agetac.view.IPictogram;
+import org.agetac.view.PictogramGroup;
 
 public interface IOnMenuEventListener {
 

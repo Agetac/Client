@@ -3,15 +3,14 @@ package org.agetac.fragment;
 import java.util.ArrayList;
 
 import org.agetac.R;
-import org.agetac.entity.sign.IEntity;
-import org.agetac.fragment.sign.IMenuFragment;
+import org.agetac.entity.IEntity;
 import org.agetac.listener.IOnMenuEventListener;
-import org.agetac.menu.MenuExpandableListView;
-import org.agetac.pictogram.PictogramGroup;
-import org.agetac.pictogram.PictogramHolder;
-import org.agetac.pictogram.impl.Color;
-import org.agetac.pictogram.impl.Shape;
-import org.agetac.pictogram.sign.IPictogram;
+import org.agetac.view.Color;
+import org.agetac.view.IPictogram;
+import org.agetac.view.MenuExpandableListView;
+import org.agetac.view.PictogramGroup;
+import org.agetac.view.PictogramHolder;
+import org.agetac.view.Shape;
 
 import android.app.Fragment;
 import android.os.Bundle;
