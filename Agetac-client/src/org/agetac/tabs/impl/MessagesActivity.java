@@ -1,13 +1,9 @@
 package org.agetac.tabs.impl;
 
 import org.agetac.R;
+import org.agetac.command.impl.SendMessageCommand;
 import org.agetac.common.ActionFlag;
-import org.agetac.controller.Controller;
-import org.agetac.entity.sign.IEntity;
-import org.agetac.observer.MyObservable;
 import org.agetac.tabs.sign.AbstractActivity;
-import org.agetac.tabs.sign.ITabActivity;
-
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.View;
@@ -61,106 +57,123 @@ public class MessagesActivity extends AbstractActivity implements OnClickListene
 			texteAEnvoyer.setText("");
 			observable.setChanged();
 			observable.notifyObservers(MessagesActivity.this);
-			
-			AlertDialog.Builder confirmSend = new AlertDialog.Builder(this);
 
-			confirmSend.setMessage("Message envoye");
+			if(SendMessageCommand.getMessOk()){
 
-			confirmSend.setNeutralButton("OK", null);
+				AlertDialog.Builder confirmSend = new AlertDialog.Builder(this);
 
-			confirmSend.show();
-			
-			break;
+				confirmSend.setMessage("Message envoye");
 
+				confirmSend.setNeutralButton("OK", null);
 
-		case R.id.buttonEnvoyer :
+				confirmSend.show();
 
-			EditText TexteJeSuis = (EditText)findViewById(R.id.edittext_je_suis);
-			String jeSuis = TexteJeSuis.getText().toString();
-			EditText TexteJeVois = (EditText)findViewById(R.id.edittext_je_vois);
-			String jeVois = TexteJeVois.getText().toString();
-			EditText TexteJePrevois = (EditText)findViewById(R.id.edittext_je_prevois);
-			String jePrevois = TexteJePrevois.getText().toString();
-			EditText TexteJeProcede = (EditText)findViewById(R.id.edittext_je_procede);
-			String jeProcede = TexteJeProcede.getText().toString();
-			EditText TexteJeDemande = (EditText)findViewById(R.id.edittext_je_demande);
-			String jeDemande = TexteJeDemande.getText().toString();
+				SendMessageCommand.setMessOk(false);
 
-			message = "Je suis : " + jeSuis + "/n" + 
-					"Je vois : " + jeVois + "/n" +
-					"Je prevois : " + jePrevois + "/n" +
-					"Je procede : " + jeProcede + "/n" +
-					"Je demande : " + jeDemande + "/n";
+			}
+
+			else {
+				AlertDialog.Builder confirmSend = new AlertDialog.Builder(this);
+
+				confirmSend.setMessage("Echec de l'envoi");
+
+				confirmSend.setNeutralButton("Ok", null);
+
+				confirmSend.show();
+			}
+		
+
+		break;
 
 
+	case R.id.buttonEnvoyer :
 
-			flag = ActionFlag.SEND_MESSAGE;
+		EditText TexteJeSuis = (EditText)findViewById(R.id.edittext_je_suis);
+		String jeSuis = TexteJeSuis.getText().toString();
+		EditText TexteJeVois = (EditText)findViewById(R.id.edittext_je_vois);
+		String jeVois = TexteJeVois.getText().toString();
+		EditText TexteJePrevois = (EditText)findViewById(R.id.edittext_je_prevois);
+		String jePrevois = TexteJePrevois.getText().toString();
+		EditText TexteJeProcede = (EditText)findViewById(R.id.edittext_je_procede);
+		String jeProcede = TexteJeProcede.getText().toString();
+		EditText TexteJeDemande = (EditText)findViewById(R.id.edittext_je_demande);
+		String jeDemande = TexteJeDemande.getText().toString();
 
-			TexteJeSuis.setText("");
-			TexteJeVois.setText("");
-			TexteJePrevois.setText("");
-			TexteJeProcede.setText("");
-			TexteJeDemande.setText("");
-
-			observable.setChanged();
-			observable.notifyObservers(MessagesActivity.this);	
-			
-			AlertDialog.Builder confirmSendAmb = new AlertDialog.Builder(this);
-
-			confirmSendAmb.setMessage("Message envoye");
-
-			confirmSendAmb.setNeutralButton("OK", null);
-
-			confirmSendAmb.show();
-
-			break;
-
-		case R.id.buttonAnnuler : 
-
-			EditText jeSuisA = (EditText)findViewById(R.id.edittext_je_suis);
-			jeSuisA.setText("");
-			EditText jeVoisA = (EditText)findViewById(R.id.edittext_je_vois);
-			jeVoisA.setText("");
-			EditText jePrevoisA = (EditText)findViewById(R.id.edittext_je_prevois);
-			jePrevoisA.setText("");
-			EditText jeProcedeA = (EditText)findViewById(R.id.edittext_je_procede);
-			jeProcedeA.setText("");
-			EditText jeDemandeA = (EditText)findViewById(R.id.edittext_je_demande);
-			jeDemandeA.setText("");
-
-			break;
-
-		case R.id.retMessAmb : 
-
-			setContentView(R.layout.messages);
-			findViewById(R.id.buttonEnvoyer).setOnClickListener(this);
-			findViewById(R.id.buttonAnnuler).setOnClickListener(this);
-			findViewById(R.id.buttonRetMess).setOnClickListener(this);
-			findViewById(R.id.buttonConsMess).setOnClickListener(this);
-			break;
-
-
-		case R.id.buttonRetMess : 
-
-			setContentView(R.layout.mess);
-			findViewById(R.id.messEnvoyer).setOnClickListener(this);
-			findViewById(R.id.messAnnuler).setOnClickListener(this);
-			findViewById(R.id.retMessAmb).setOnClickListener(this);
-			findViewById(R.id.buttonConsMess).setOnClickListener(this);
-			break;
+		message = "Je suis : " + jeSuis + "/n" + 
+				"Je vois : " + jeVois + "/n" +
+				"Je prevois : " + jePrevois + "/n" +
+				"Je procede : " + jeProcede + "/n" +
+				"Je demande : " + jeDemande + "/n";
 
 
 
-		case R.id.buttonConsMess : 
+		flag = ActionFlag.SEND_MESSAGE;
 
-			setContentView(R.layout.reception_mess);
-			findViewById(R.id.retMessAmb).setOnClickListener(this);
-			findViewById(R.id.buttonRetMess).setOnClickListener(this);
+		TexteJeSuis.setText("");
+		TexteJeVois.setText("");
+		TexteJePrevois.setText("");
+		TexteJeProcede.setText("");
+		TexteJeDemande.setText("");
 
-			break;
+		observable.setChanged();
+		observable.notifyObservers(MessagesActivity.this);	
 
-		}
+		AlertDialog.Builder confirmSendAmb = new AlertDialog.Builder(this);
+
+		confirmSendAmb.setMessage("Message envoye");
+
+		confirmSendAmb.setNeutralButton("OK", null);
+
+		confirmSendAmb.show();
+
+		break;
+
+	case R.id.buttonAnnuler : 
+
+		EditText jeSuisA = (EditText)findViewById(R.id.edittext_je_suis);
+		jeSuisA.setText("");
+		EditText jeVoisA = (EditText)findViewById(R.id.edittext_je_vois);
+		jeVoisA.setText("");
+		EditText jePrevoisA = (EditText)findViewById(R.id.edittext_je_prevois);
+		jePrevoisA.setText("");
+		EditText jeProcedeA = (EditText)findViewById(R.id.edittext_je_procede);
+		jeProcedeA.setText("");
+		EditText jeDemandeA = (EditText)findViewById(R.id.edittext_je_demande);
+		jeDemandeA.setText("");
+
+		break;
+
+	case R.id.retMessAmb : 
+
+		setContentView(R.layout.messages);
+		findViewById(R.id.buttonEnvoyer).setOnClickListener(this);
+		findViewById(R.id.buttonAnnuler).setOnClickListener(this);
+		findViewById(R.id.buttonRetMess).setOnClickListener(this);
+		findViewById(R.id.buttonConsMess).setOnClickListener(this);
+		break;
+
+
+	case R.id.buttonRetMess : 
+
+		setContentView(R.layout.mess);
+		findViewById(R.id.messEnvoyer).setOnClickListener(this);
+		findViewById(R.id.messAnnuler).setOnClickListener(this);
+		findViewById(R.id.retMessAmb).setOnClickListener(this);
+		findViewById(R.id.buttonConsMess).setOnClickListener(this);
+		break;
+
+
+
+	case R.id.buttonConsMess : 
+
+		setContentView(R.layout.reception_mess);
+		findViewById(R.id.retMessAmb).setOnClickListener(this);
+		findViewById(R.id.buttonRetMess).setOnClickListener(this);
+
+		break;
+
 	}
+}
 
 }
 
