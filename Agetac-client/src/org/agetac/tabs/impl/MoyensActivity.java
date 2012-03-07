@@ -12,22 +12,30 @@ import org.agetac.entity.sign.IEntity;
 import org.agetac.model.impl.Groupe;
 import org.agetac.model.impl.Position;
 import org.agetac.model.impl.Vehicule;
+import org.agetac.model.impl.Vehicule.CategorieVehicule;
 import org.agetac.model.impl.Vehicule.EtatVehicule;
 import org.agetac.pictogram.PictogramHolder;
 import org.agetac.pictogram.sign.IPictogram;
 import org.agetac.tabs.sign.AbstractActivity;
 
 import android.os.Bundle;
+import android.text.format.Time;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.PopupMenu;
+import android.widget.PopupMenu.OnMenuItemClickListener;
 import android.widget.SimpleAdapter;
+import android.widget.Toast;
 
-public class MoyensActivity extends AbstractActivity implements OnClickListener, OnItemClickListener {
+public class MoyensActivity extends AbstractActivity implements OnClickListener, OnItemClickListener, OnMenuItemClickListener {
 	
 	private static final String TAG = "MoyensActivity";
 	private static final String DATA_IMG = "data_img";
@@ -41,6 +49,8 @@ public class MoyensActivity extends AbstractActivity implements OnClickListener,
 	private SimpleAdapter listAdapter;
 	private ListView listView;
 	private List<Hashtable<String, String>> data;
+	private PopupMenu popupMenu;
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +69,13 @@ public class MoyensActivity extends AbstractActivity implements OnClickListener,
         listView.setAdapter(listAdapter); 
 
 		((Button) findViewById(R.id.btn_demande_moyens)).setOnClickListener(this);
+		
+		popupMenu = new PopupMenu(MoyensActivity.this, findViewById(R.id.menu_moyens));
+		Menu menu = popupMenu.getMenu();
+		MenuInflater inflater = popupMenu.getMenuInflater();
+		inflater.inflate(R.menu.moyens_context_menu, menu);
+		popupMenu.setOnMenuItemClickListener(this);
+		//popupMenu.show();
 	}
 	
 	@Override
@@ -95,17 +112,61 @@ public class MoyensActivity extends AbstractActivity implements OnClickListener,
 		switch (v.getId()) {
 			case R.id.btn_demande_moyens:
 				android.util.Log.d(TAG, "CLICK JE DEMANDE");
-				flag = ActionFlag.ADD;
-				Vehicule veh = genVehicule();
-		        IPictogram vehiculePicto = PictogramHolder.getInstance(this).getPictogram(PictogramHolder.RED_GRP);
-		        touchedEntity = new Entity<Vehicule>(veh, vehiculePicto, EntityState.OFF_SITAC);
-				observable.setChanged();
-				observable.notifyObservers(MoyensActivity.this);
-				break;
+				popupMenu.show();
+			
+//				flag = ActionFlag.ADD;
+//				Vehicule veh = genVehicule();
+//		        IPictogram vehiculePicto = PictogramHolder.getInstance(this).getPictogram(PictogramHolder.RED_GRP);
+//		        touchedEntity = new Entity<Vehicule>(veh, vehiculePicto, EntityState.OFF_SITAC);
+//				observable.setChanged();
+//				observable.notifyObservers(MoyensActivity.this);
+//				break;
 		}
 			
 	}
 	
+	@Override
+	public boolean onMenuItemClick(MenuItem item) {
+		Vehicule veh ;
+		IPictogram vehiculePicto ;
+		switch (item.getItemId()) {
+	           case R.id.FPT:
+	        	   flag = ActionFlag.ADD;
+	        	   veh = genVehicule(CategorieVehicule.FPT);
+	        	   vehiculePicto = PictogramHolder.getInstance(this).getPictogram(PictogramHolder.RED_GRP);
+	        	   touchedEntity = new Entity<Vehicule>(veh, vehiculePicto, EntityState.OFF_SITAC);
+	        	   observable.setChanged();
+	        	   observable.notifyObservers(MoyensActivity.this);
+	               return true;
+	           case R.id.CCGC:
+	        	   flag = ActionFlag.ADD;
+	        	   veh = genVehicule(CategorieVehicule.CCGC);
+	        	   vehiculePicto = PictogramHolder.getInstance(this).getPictogram(PictogramHolder.RED_GRP);
+	        	   touchedEntity = new Entity<Vehicule>(veh, vehiculePicto, EntityState.OFF_SITAC);
+	        	   observable.setChanged();
+	        	   observable.notifyObservers(MoyensActivity.this);
+	               return true;
+	           case R.id.VSAV:
+	        	   flag = ActionFlag.ADD;
+	        	   veh = genVehicule(CategorieVehicule.VSAV);
+	        	   vehiculePicto = PictogramHolder.getInstance(this).getPictogram(PictogramHolder.RED_GRP);
+	        	   touchedEntity = new Entity<Vehicule>(veh, vehiculePicto, EntityState.OFF_SITAC);
+	        	   observable.setChanged();
+	        	   observable.notifyObservers(MoyensActivity.this);
+	               return true;
+		}
+		return super.onContextItemSelected(item);
+	}
+	
+  
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.moyens_context_menu, menu);
+        menu.getItem(0).getSubMenu().setHeaderIcon(R.drawable.firetruck);
+  
+        return true;
+     }
+		
 	@Override
 	public void update() {
 		List<IEntity> entities = controller.getInterventionEngine().getEntities();
@@ -136,7 +197,19 @@ public class MoyensActivity extends AbstractActivity implements OnClickListener,
 		Vehicule veh = new Vehicule("42", Vehicule.randomCategorieVehicule().toString(), new Position(33.4, 48.8), "Caserne Beaulieu", Vehicule.randomEtatVehicule(), new Groupe("UniqueID", null, new ArrayList<Vehicule>()));
 		return veh;
 	}
-//	
+	
+	public Vehicule genVehicule(CategorieVehicule cat) {
+		Vehicule veh = new Vehicule("42", cat.toString(), new Position(33.4, 48.8), "Caserne Beaulieu", EtatVehicule.ALERTE, new Groupe("UniqueID", null, new ArrayList<Vehicule>()), getTime());
+		return veh;
+	}
+
+	public String getTime(){
+		Time t = new Time();
+		t.setToNow();
+		return (String) t.toString().subSequence(9, 13);
+	}
+	
+	
 //	public class ItemAdapter extends BaseAdapter {
 //
 //		private List<IEntity> entities;
@@ -173,5 +246,7 @@ public class MoyensActivity extends AbstractActivity implements OnClickListener,
 //	    }
 //	}
 //	
+
+
 	
 }
