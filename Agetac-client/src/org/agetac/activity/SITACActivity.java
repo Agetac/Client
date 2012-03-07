@@ -17,6 +17,7 @@ import org.agetac.model.impl.Agent;
 import org.agetac.model.impl.Groupe;
 import org.agetac.model.impl.Position;
 import org.agetac.model.impl.Vehicule;
+import org.agetac.model.impl.Action.ActionType;
 import org.agetac.model.impl.Vehicule.EtatVehicule;
 import org.agetac.view.IPictogram;
 import org.agetac.view.LinePicto;
@@ -225,6 +226,8 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 		if (currentPicto != null && currentPicto.getShape()==Shape.LINEAR_SHAPE) {
 			Point start, stop;
 			GeoPoint stopGeoP = (GeoPoint) mapView.getProjection().fromPixels(end.getX(), end.getY());
+			Position lineBeginPos = new Position(lineBeginGeop.getLongitudeE6(), lineBeginGeop.getLatitudeE6());
+			Position lineEndPos = new Position(stopGeoP.getLongitudeE6(), stopGeoP.getLatitudeE6());
 			Position lineMiddlePos = new Position((lineBeginGeop.getLongitudeE6()+stopGeoP.getLongitudeE6())/2, (lineBeginGeop.getLatitudeE6()+stopGeoP.getLatitudeE6())/2);
 			GeoPoint lineMiddleGeoP = new GeoPoint((int)lineMiddlePos.getLatitude(), (int)lineMiddlePos.getLongitude());
 			Point lineMiddlePoint = mapView.getProjection().toMapPixels(lineMiddleGeoP, null);
@@ -239,7 +242,7 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 			
 			
 			LinePicto lp = new LinePicto(currentPicto.getName(), currentPicto.getBitmap(), currentPicto.getColor(), currentPicto.getState(), currentPicto.getShape(), currentPicto.getGraphicalOverload(), start, stop, mapView.getProjection().metersToEquatorPixels(1.0f));
-			Action as = new Action("42", lineMiddlePos);
+			Action as = new Action("42", lineMiddlePos, ActionType.FIRE, lineBeginPos, lineEndPos);
 			touchedEntity = new Entity<Action>(as, lp, EntityState.ON_SITAC); //TODO vrai relation picto-Entity
 			flag = ActionFlag.ADD;
 			observable.setChanged();
