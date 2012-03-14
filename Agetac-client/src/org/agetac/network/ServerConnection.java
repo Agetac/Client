@@ -1,13 +1,14 @@
 package org.agetac.network;
 
 import org.agetac.R;
+import org.agetac.common.api.ServerApi;
 import org.restlet.representation.Representation;
 import org.restlet.resource.ClientResource;
 import org.restlet.resource.ResourceException;
 
 import android.content.Context;
 
-public class ServerConnection {
+public class ServerConnection implements ServerApi {
 	
 	private static final String TAG = "ServerConnection";
 
@@ -21,6 +22,7 @@ public class ServerConnection {
 		this.contextRoot = c.getString(R.string.contextRoot);
 	}
 
+	@Override
 	public Representation getResource(String resType, String resUniqueID) {
 		
 		String url = baseUrl() + resType;
@@ -39,7 +41,7 @@ public class ServerConnection {
 		return repr;
 	}
 
-
+	@Override
 	public void putResource(String resType, String resUniqueID,	Representation resRepresentation) {
 
 		String url = baseUrl() + resType;
@@ -58,6 +60,7 @@ public class ServerConnection {
 		
 	}
 
+	@Override
 	public void postResource(String resType, String resUniqueID, Representation resRepresentation) {
 
 		String url = baseUrl() + resType;
@@ -76,7 +79,7 @@ public class ServerConnection {
 		
 	}
 
-	
+	@Override
 	public void deleteResource(String resType, String resUniqueID) {
 
 		String url = baseUrl() + resType;

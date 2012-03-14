@@ -3,8 +3,8 @@ package org.agetac.engine;
 import java.util.List;
 import java.util.Observer;
 
+import org.agetac.common.model.impl.Intervention;
 import org.agetac.entity.IEntity;
-import org.agetac.model.impl.Intervention;
 
 public interface IInterventionEngine {
 

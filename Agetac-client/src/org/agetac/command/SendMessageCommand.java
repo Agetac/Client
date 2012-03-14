@@ -3,8 +3,8 @@ package org.agetac.command;
 import java.io.IOException;
 import java.util.Date;
 
+import org.agetac.common.exception.BadResponseException;
 import org.agetac.controller.Controller;
-import org.agetac.exception.BadResponseException;
 import org.agetac.memento.IMemento;
 import org.json.JSONException;
 

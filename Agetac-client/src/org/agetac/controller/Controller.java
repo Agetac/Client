@@ -15,10 +15,10 @@ import org.agetac.command.AddEntityCommand;
 import org.agetac.command.ICommand;
 import org.agetac.command.RemoveEntityCommand;
 import org.agetac.command.SendMessageCommand;
+import org.agetac.common.model.impl.Intervention;
 import org.agetac.engine.IInterventionEngine;
 import org.agetac.engine.InterventionEngine;
 import org.agetac.entity.IEntity;
-import org.agetac.model.impl.Intervention;
 import org.agetac.network.ServerConnection;
 
 import android.content.Context;

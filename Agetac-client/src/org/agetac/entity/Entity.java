@@ -1,7 +1,7 @@
 package org.agetac.entity;
 
 import org.agetac.common.Utils;
-import org.agetac.model.sign.IModel;
+import org.agetac.common.model.sign.IModel;
 import org.agetac.view.IPictogram;
 import org.osmdroid.api.IGeoPoint;
 import org.osmdroid.util.GeoPoint;

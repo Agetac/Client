@@ -2,8 +2,8 @@ package org.agetac.entity;
 
 import java.io.Serializable;
 
+import org.agetac.common.model.sign.IModel;
 import org.agetac.entity.Entity.EntityState;
-import org.agetac.model.sign.IModel;
 import org.agetac.view.IPictogram;
 import org.osmdroid.api.IGeoPoint;
 import org.osmdroid.views.MapView;

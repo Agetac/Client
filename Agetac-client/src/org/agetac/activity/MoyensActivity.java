@@ -6,14 +6,13 @@ import java.util.List;
 
 import org.agetac.R;
 import org.agetac.common.ActionFlag;
+import org.agetac.common.model.impl.Groupe;
+import org.agetac.common.model.impl.Vehicule;
+import org.agetac.common.model.impl.Vehicule.CategorieVehicule;
+import org.agetac.common.model.impl.Vehicule.EtatVehicule;
 import org.agetac.entity.Entity;
-import org.agetac.entity.IEntity;
 import org.agetac.entity.Entity.EntityState;
-import org.agetac.model.impl.Groupe;
-import org.agetac.model.impl.Position;
-import org.agetac.model.impl.Vehicule;
-import org.agetac.model.impl.Vehicule.CategorieVehicule;
-import org.agetac.model.impl.Vehicule.EtatVehicule;
+import org.agetac.entity.IEntity;
 import org.agetac.view.IPictogram;
 import org.agetac.view.PictogramHolder;
 
@@ -24,13 +23,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.PopupMenu;
-import android.widget.SimpleAdapter;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.PopupMenu.OnMenuItemClickListener;
+import android.widget.SimpleAdapter;
 
 public class MoyensActivity extends AbstractActivity implements OnClickListener, OnMenuItemClickListener {
 	
