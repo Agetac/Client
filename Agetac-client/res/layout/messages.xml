@@ -53,7 +53,8 @@
 	    android:layout_height="match_parent"
 	    android:layout_marginTop="20px"
 	    android:layout_toRightOf="@id/field_titles"
-	    android:orientation="vertical" >
+	    android:orientation="vertical"
+	    >
 
 	   <LinearLayout
 	       android:layout_width="wrap_content"
@@ -62,7 +63,7 @@
 	       android:layout_gravity="center_horizontal"
 	       android:orientation="horizontal" 
 	       android:layout_marginTop="10px"
- android:layout_marginRight="48px">
+	        android:layout_marginRight="48px">
      
 	 <Button
 	     android:id="@+id/buttonRetMess"
@@ -123,7 +124,8 @@
 		    android:layout_height="wrap_content"
 		    android:layout_below="@id/field_titles"
 		    android:layout_gravity="center_horizontal"
-		    android:orientation="horizontal" >
+		    android:orientation="horizontal"
+		     android:layout_marginRight="48px" >
 
 			<Button
 			    android:id="@+id/buttonEnvoyer"
