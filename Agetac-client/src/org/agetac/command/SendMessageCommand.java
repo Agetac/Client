@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.util.Date;
 
 import org.agetac.common.exception.BadResponseException;
+import org.agetac.common.model.impl.Message;
 import org.agetac.controller.Controller;
+import org.agetac.entity.Entity;
 import org.agetac.memento.IMemento;
 import org.json.JSONException;
 
@@ -87,7 +89,6 @@ public class SendMessageCommand implements IRecordableCommand {
 //
 //		System.out.println(new Message(jrepr.getJsonObject()).getMessage());
 
-		
 	}
 
 

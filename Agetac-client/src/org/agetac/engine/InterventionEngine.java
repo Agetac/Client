@@ -57,37 +57,49 @@ public class InterventionEngine implements IInterventionEngine {
 			android.util.Log.d(TAG, ""+e.getMessage());
 		}
 	}
+	
+	@Override
+	public void sendMessage(Message m) {
+		try {
+			iConn.putMessage(m);
+		} catch (BadResponseException e) {
+			android.util.Log.d(TAG, e.getMessage());
+			
+		} catch (JSONException e) {
+			android.util.Log.d(TAG, e.getMessage());
+		}
+	}
 
 	@Override
 	public void addEntity(IEntity entity) {
 		try {
 			if (entity.getModel() instanceof Vehicule) {
 				Vehicule v = (Vehicule) entity.getModel();
+//				entity.setModel(iConn.putVehicule(v));
 				iConn.putVehicule(v);
 				entities.add(entity);
 			
 			} else if (entity.getModel() instanceof Action) {
 				Action a = (Action) entity.getModel();
+//				entity.setModel(iConn.putAction(a));
 				iConn.putAction(a);
 				entities.add(entity);
 			
 			} else if (entity.getModel() instanceof Source) {
 				Source s = (Source) entity.getModel();
+//				entity.setModel(iConn.putSource(s));
 				iConn.putSource(s);
 				entities.add(entity);
 			
 			} else if (entity.getModel() instanceof Cible) {
 				Cible c = (Cible) entity.getModel();
+//				entity.setModel(iConn.putCible(c));
 				iConn.putCible(c);
-				entities.add(entity);
-			
-			} else if (entity.getModel() instanceof Message) {
-				Message m = (Message) entity.getModel();
-				iConn.putMessage(m);
 				entities.add(entity);
 			
 			} else if (entity.getModel() instanceof Implique) {
 				Implique i = (Implique) entity.getModel();
+//				entity.setModel(iConn.putImplique(i));
 				iConn.putImplique(i);
 				entities.add(entity);
 			}
@@ -123,11 +135,6 @@ public class InterventionEngine implements IInterventionEngine {
 			} else if (entity.getModel() instanceof Cible) {
 				Cible c = (Cible) entity.getModel();
 				iConn.deleteCible(c);
-				entities.remove(entity);
-			
-			} else if (entity.getModel() instanceof Message) {
-				Message m = (Message) entity.getModel();
-				iConn.deleteMessage(m);
 				entities.remove(entity);
 			
 			} else if (entity.getModel() instanceof Implique) {

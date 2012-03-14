@@ -25,4 +25,6 @@ public interface IEntity extends Serializable {
 	public EntityState getState();
 	
 	public void draw(Canvas canvas, MapView mapV, boolean shadow);
+
+	public void setModel(IModel model);
 }
