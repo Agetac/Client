@@ -157,9 +157,15 @@ public class MoyensActivity extends AbstractActivity implements OnClickListener,
 		listAdapter.notifyDataSetChanged();
 	}
 	
+<<<<<<< HEAD
 	public Vehicule genVehicule(CategorieVehicule cat) {
 		Vehicule veh = new Vehicule(null, null,
 				cat, "Janze", EtatVehicule.ALERTE,
+=======
+	public Vehicule genVehicule(String name, CategorieVehicule cat) {
+		Vehicule veh = new Vehicule("42", null,
+				cat, "Caserne Beaulieu", EtatVehicule.ALERTE,
+>>>>>>> a3c49ee492d95c84ef787c5531b7a9e92f64614c
 				new Groupe("0", null, null), getTime());
 		return veh;
 	}
