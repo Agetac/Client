@@ -14,7 +14,7 @@ import org.agetac.entity.Entity;
 import org.agetac.entity.Entity.EntityState;
 import org.agetac.entity.IEntity;
 import org.agetac.view.IPictogram;
-import org.agetac.view.PictogramHolder;
+import org.agetac.view.EntityHolder;
 
 import android.os.Bundle;
 import android.text.format.Time;
@@ -98,7 +98,7 @@ public class MoyensActivity extends AbstractActivity implements OnClickListener,
 	        	   flag = ActionFlag.ADD;
 	        	   // TODO récupérer le nom via un formulaire 
 	        	   veh = genVehicule("Janze", CategorieVehicule.FPT);
-	        	   vehiculePicto = PictogramHolder.getInstance(this).getPictogram(PictogramHolder.RED_GRP);
+	        	   vehiculePicto = EntityHolder.getInstance(this).getEntity(EntityHolder.RED_GRP).getPictogram();
 	        	   touchedEntity = new Entity<Vehicule>(veh, vehiculePicto, EntityState.OFF_SITAC);
 	        	   observable.setChanged();
 	        	   observable.notifyObservers(MoyensActivity.this);
@@ -107,7 +107,7 @@ public class MoyensActivity extends AbstractActivity implements OnClickListener,
 	           case R.id.CCGC:
 	        	   flag = ActionFlag.ADD;
 	        	   veh = genVehicule("Janze", CategorieVehicule.CCGC);
-	        	   vehiculePicto = PictogramHolder.getInstance(this).getPictogram(PictogramHolder.RED_GRP);
+	        	   vehiculePicto = EntityHolder.getInstance(this).getEntity(EntityHolder.RED_GRP).getPictogram();
 	        	   touchedEntity = new Entity<Vehicule>(veh, vehiculePicto, EntityState.OFF_SITAC);
 	        	   observable.setChanged();
 	        	   observable.notifyObservers(MoyensActivity.this);
@@ -116,7 +116,7 @@ public class MoyensActivity extends AbstractActivity implements OnClickListener,
 	           case R.id.VSAV:
 	        	   flag = ActionFlag.ADD;
 	        	   veh = genVehicule("Janze", CategorieVehicule.VSAV);
-	        	   vehiculePicto = PictogramHolder.getInstance(this).getPictogram(PictogramHolder.RED_GRP);
+	        	   vehiculePicto = EntityHolder.getInstance(this).getEntity(EntityHolder.RED_GRP).getPictogram();
 	        	   touchedEntity = new Entity<Vehicule>(veh, vehiculePicto, EntityState.OFF_SITAC);
 	        	   observable.setChanged();
 	        	   observable.notifyObservers(MoyensActivity.this);
@@ -158,8 +158,8 @@ public class MoyensActivity extends AbstractActivity implements OnClickListener,
 	}
 	
 	public Vehicule genVehicule(String name, CategorieVehicule cat) {
-		Vehicule veh = new Vehicule("42", name, null,
-				cat, "Caserne Beaulieu", EtatVehicule.ALERTE,
+		Vehicule veh = new Vehicule(null, null,
+				cat, "Beaulieu", EtatVehicule.ALERTE,
 				new Groupe("0", null, null), getTime());
 		return veh;
 	}

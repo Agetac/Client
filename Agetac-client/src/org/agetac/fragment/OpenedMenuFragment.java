@@ -5,12 +5,12 @@ import java.util.ArrayList;
 import org.agetac.R;
 import org.agetac.entity.IEntity;
 import org.agetac.listener.IOnMenuEventListener;
+import org.agetac.view.Color;
+import org.agetac.view.EntityHolder;
 import org.agetac.view.IPictogram;
 import org.agetac.view.MenuExpandableListAdapter;
 import org.agetac.view.MenuGroup;
-import org.agetac.view.PictogramHolder;
 import org.agetac.view.Shape;
-import org.agetac.view.Color;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -51,12 +51,12 @@ public class OpenedMenuFragment extends Fragment implements IMenuFragment, OnCli
 			}
 		});
 		showMenuAnim = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_in_left);
-		PictogramHolder pHolder = PictogramHolder.getInstance(getActivity());
-		pictosDangers = pHolder.getPictograms(Shape.TRIANGLE_UP);
-		pictosCibles = pHolder.getPictograms(Shape.TRIANGLE_DOWN);
-		pictosMapItems = pHolder.getPictograms(Color.BLACK);
-		pictosMoyens = pHolder.getPictograms(Shape.SQUARE);
-		pictosOffSitac = new ArrayList<IPictogram>();
+		EntityHolder pHolder = EntityHolder.getInstance(getActivity());
+		pictosDangers = pHolder.getEntities(Shape.TRIANGLE_UP);
+		pictosCibles = pHolder.getEntities(Shape.TRIANGLE_DOWN);
+		pictosMapItems = pHolder.getEntities(Color.BLACK);
+		pictosMoyens = pHolder.getEntities(Shape.SQUARE);
+		pictosOffSitac = new ArrayList<IEntity>();
 	}
 	
 	@Override
@@ -89,12 +89,12 @@ public class OpenedMenuFragment extends Fragment implements IMenuFragment, OnCli
 		
 		// Groupe des moyens
 		MenuGroup grpMoyens = new MenuGroup(getString(R.string.moyens));
-		grpMoyens.setPictos(pictosMoyens);
+		grpMoyens.setEntities(pictosMoyens);
 		groups.add(grpMoyens);
 		
 		// Groupe des mapitems
 		MenuGroup grpMapItems = new MenuGroup(getString(R.string.map_items));
-		grpMapItems.setPictos(pictosMapItems);
+		grpMapItems.setEntities(pictosMapItems);
 		groups.add(grpMapItems);
 		
 		menuAdapter = new MenuExpandableListAdapter(getActivity(), groups);
@@ -141,7 +141,7 @@ public class OpenedMenuFragment extends Fragment implements IMenuFragment, OnCli
 		
 		if (listener != null) {
 			MenuGroup grp = groups.get(grpIndex);
-			IPictogram picto = grp.getPictos().get(childIndex);
+			IPictogram picto = grp.getEntities().get(childIndex).getPictogram();
 			listener.onPictogramSelected(picto, grp);
 		}
 		return true;
@@ -180,10 +180,10 @@ public class OpenedMenuFragment extends Fragment implements IMenuFragment, OnCli
 			
 			pictosOffSitac.clear();
 			for (int i=0; i<entities.size(); i++) {
-				pictosOffSitac.add(entities.get(i).getPictogram());
+				pictosOffSitac.add(entities.get(i));
 			}
 			
-			grpOffSitac.setPictos(pictosOffSitac);
+			grpOffSitac.setEntities(pictosOffSitac);
 			menuAdapter.notifyDataSetChanged();
 		}
 	}

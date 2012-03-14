@@ -3,7 +3,6 @@ package org.agetac.view;
 import java.util.ArrayList;
 
 import org.agetac.R;
-import org.agetac.entity.IEntity;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -16,20 +15,20 @@ import android.widget.TextView;
 
 public class MenuExpandableListAdapter extends BaseExpandableListAdapter {
 	
-	private ArrayList<IEntity> groups;
+	private ArrayList<MenuGroup> groups;
 	//private ArrayList<PictogramGroup> groups;
 	private LayoutInflater inflater;
 	private int numChildSelected = -1;
 	private int numGroupSelected = -1;
 	
-	public MenuExpandableListAdapter(Context context, ArrayList<IEntity> groups) {
+	public MenuExpandableListAdapter(Context context, ArrayList<MenuGroup> groups) {
 		 this.groups = groups;
 		 inflater = LayoutInflater.from(context);
 	}
 	
 	@Override
 	public Object getChild(int groupPosition, int childPosition) {
-		return groups.get(groupPosition).getPictos().get(childPosition);
+		return groups.get(groupPosition).getEntities().get(childPosition).getPictogram();
 	}
 
 	@Override
@@ -68,7 +67,7 @@ public class MenuExpandableListAdapter extends BaseExpandableListAdapter {
 
 	@Override
 	public int getChildrenCount(int groupPosition) {
-		return groups.get(groupPosition).getPictos().size();
+		return groups.get(groupPosition).getEntities().size();
 	}
 
 	@Override

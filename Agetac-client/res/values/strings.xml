@@ -18,6 +18,7 @@
 
     <!-- STRINGS OPENEDMENU FRAGMENT -->
     <string name="dangers">Dangers</string>
+    <string name="cibles">Cibles</string>
     <string name="off_sitac">Position à définir</string>
     <string name="map_items">Map items</string>
     <!-- #END# STRING OPENEDMENU FRAGMENT -->
