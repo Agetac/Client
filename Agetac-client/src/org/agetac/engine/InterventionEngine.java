@@ -10,6 +10,7 @@ import org.agetac.common.exception.BadResponseException;
 import org.agetac.common.exception.InvalidJSONException;
 import org.agetac.common.model.impl.Action;
 import org.agetac.common.model.impl.Cible;
+import org.agetac.common.model.impl.DemandeMoyen;
 import org.agetac.common.model.impl.Implique;
 import org.agetac.common.model.impl.Intervention;
 import org.agetac.common.model.impl.Message;
@@ -17,6 +18,7 @@ import org.agetac.common.model.impl.Source;
 import org.agetac.common.model.impl.Vehicule;
 import org.agetac.entity.IEntity;
 import org.agetac.network.ServerConnection;
+import org.agetac.network.ServerThread;
 import org.agetac.observer.MyObservable;
 import org.json.JSONException;
 import org.restlet.ext.json.JsonRepresentation;
@@ -70,6 +72,12 @@ public class InterventionEngine implements IInterventionEngine {
 		}
 	}
 
+	public void demandeMoyen(DemandeMoyen dm) {
+//		dm = iConn.putDemandeMoyen(dm);
+//		ServerThread t = new ServerThread(iConn, dm);
+//		t.start();
+	}
+	
 	@Override
 	public void addEntity(IEntity entity) {
 		try {
@@ -109,6 +117,8 @@ public class InterventionEngine implements IInterventionEngine {
 			
 		} catch (JSONException e) {
 			android.util.Log.d(TAG, e.getMessage());
+		} catch (Exception e) {
+			android.util.Log.d(TAG, ""+e.getMessage());
 		}
 
 		notifyObservers();

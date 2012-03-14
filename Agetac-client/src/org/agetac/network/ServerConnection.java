@@ -2,6 +2,7 @@ package org.agetac.network;
 
 import org.agetac.R;
 import org.agetac.common.api.ServerApi;
+import org.agetac.common.exception.BadResponseException;
 import org.restlet.representation.Representation;
 import org.restlet.resource.ClientResource;
 import org.restlet.resource.ResourceException;
@@ -42,7 +43,7 @@ public class ServerConnection implements ServerApi {
 	}
 
 	@Override
-	public void putResource(String resType, String resUniqueID,	Representation resRepresentation) {
+	public Representation putResource(String resType, String resUniqueID, Representation resRepresentation) throws BadResponseException{
 
 		String url = baseUrl() + resType;
 		
@@ -53,9 +54,9 @@ public class ServerConnection implements ServerApi {
 		ClientResource client = new ClientResource(url);
 		
 		try {
-			client.put(resRepresentation);
+			return client.put(resRepresentation);
 		} catch (ResourceException e) {
-			System.out.println("Error: " + e.getStatus());
+			throw (new BadResponseException(client.getResponse()));
 		}
 		
 	}
