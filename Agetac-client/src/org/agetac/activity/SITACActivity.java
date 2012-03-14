@@ -23,7 +23,7 @@ import org.agetac.listener.IOnOverlayEventListener;
 import org.agetac.view.IPictogram;
 import org.agetac.view.LinePicto;
 import org.agetac.view.MapOverlay;
-import org.agetac.view.PictogramGroup;
+import org.agetac.view.MenuGroup;
 import org.agetac.view.Shape;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
@@ -136,7 +136,7 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 	}
 
 	@Override
-	public void onPictogramSelected(IPictogram p, PictogramGroup grp) {
+	public void onPictogramSelected(IPictogram p, MenuGroup grp) {
 		this.currentPicto = p;
 	}
 
@@ -158,9 +158,13 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 			Position p = new Position(m.getLongitudeE6(), m.getLatitudeE6());
 			flag = ActionFlag.ADD;
 			Vehicule v = new Vehicule("1", "Janze", p, CategorieVehicule.FPT, "Beaulieu", EtatVehicule.PARTIS, new Groupe("0", new Agent(), new ArrayList<Vehicule>()), "4242");
-			touchedEntity = new Entity<Vehicule>(v, currentPicto, EntityState.ON_SITAC); //TODO vrai relation picto-Entity
+			touchedEntity = new Entity<Vehicule>(v, currentPicto, EntityState.ON_SITAC); //TODO vraie relation picto-Entity
 			observable.setChanged();
 			observable.notifyObservers(SITACActivity.this);
+
+			// Une fois qu'on a placé l'item sur la SITAC, on le désélectionne
+			currentPicto = null;
+			//openedMenuFrag.unselectItem();
 		}
 	}
 
@@ -248,6 +252,9 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 			flag = ActionFlag.ADD;
 			observable.setChanged();
 			observable.notifyObservers(SITACActivity.this);
+			
+			// Une fois qu'on a tracé la flêche/ligne/autre sur la SITAC, on la désélectionne
+			currentPicto = null;
 			return true;
 		}
 		return false;

@@ -5,12 +5,12 @@ import java.util.ArrayList;
 import org.agetac.R;
 import org.agetac.entity.IEntity;
 import org.agetac.listener.IOnMenuEventListener;
-import org.agetac.view.Color;
 import org.agetac.view.IPictogram;
-import org.agetac.view.MenuExpandableListView;
-import org.agetac.view.PictogramGroup;
+import org.agetac.view.MenuExpandableListAdapter;
+import org.agetac.view.MenuGroup;
 import org.agetac.view.PictogramHolder;
 import org.agetac.view.Shape;
+import org.agetac.view.Color;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -23,16 +23,18 @@ import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
+import android.widget.ExpandableListView.OnGroupClickListener;
 import android.widget.ImageButton;
 
-public class OpenedMenuFragment extends Fragment implements IMenuFragment, OnClickListener, OnChildClickListener {
+public class OpenedMenuFragment extends Fragment implements IMenuFragment, OnClickListener, OnChildClickListener, OnGroupClickListener {
 
 	private Animation hideMenuAnim;
 	private Animation showMenuAnim;
 	private IOnMenuEventListener listener;
-	private ArrayList<PictogramGroup> groups;
-	private ArrayList<IPictogram> pictosDangers, pictosMapItems, pictosMoyens, pictosOffSitac;
-	private MenuExpandableListView menuAdapter;
+	private ArrayList<MenuGroup> groups;
+	private ArrayList<IEntity> pictosDangers, pictosCibles, pictosMapItems, pictosMoyens, pictosOffSitac;
+	private MenuExpandableListAdapter menuAdapter;
+	private ExpandableListView listView;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -49,10 +51,11 @@ public class OpenedMenuFragment extends Fragment implements IMenuFragment, OnCli
 			}
 		});
 		showMenuAnim = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_in_left);
-		PictogramHolder pFactory = PictogramHolder.getInstance(getActivity());
-		pictosDangers = pFactory.getPictograms(Shape.TRIANGLE_UP);
-		pictosMapItems = pFactory.getPictograms(Color.BLACK);
-		pictosMoyens = pFactory.getPictograms(Shape.SQUARE);
+		PictogramHolder pHolder = PictogramHolder.getInstance(getActivity());
+		pictosDangers = pHolder.getPictograms(Shape.TRIANGLE_UP);
+		pictosCibles = pHolder.getPictograms(Shape.TRIANGLE_DOWN);
+		pictosMapItems = pHolder.getPictograms(Color.BLACK);
+		pictosMoyens = pHolder.getPictograms(Shape.SQUARE);
 		pictosOffSitac = new ArrayList<IPictogram>();
 	}
 	
@@ -67,37 +70,37 @@ public class OpenedMenuFragment extends Fragment implements IMenuFragment, OnCli
 		super.onActivityCreated(savedInstanceState);
 		
 		((ImageButton) getActivity().findViewById(R.id.btn_hide_menu)).setOnClickListener(this);
-		ExpandableListView listView = (ExpandableListView) getActivity().findViewById(R.id.menu);
-		groups = new ArrayList<PictogramGroup>();
+		listView = (ExpandableListView) getActivity().findViewById(R.id.menu);
+		groups = new ArrayList<MenuGroup>();
 		
 		// Groupe des vehicules en attente, TODO signalitique en cas de nouveau vehicule a placer
 //		PictogramGroup waitingVehicles = new PictogramGroup("Véhicules en attente");
 //		groups.add(waitingVehicles);
 		
 		// Groupe des dangers
-		PictogramGroup grpDangers = new PictogramGroup(getString(R.string.dangers));
-		grpDangers.setPictos(pictosDangers);
+		MenuGroup grpDangers = new MenuGroup(getString(R.string.dangers));
+		grpDangers.setEntities(pictosDangers);
 		groups.add(grpDangers);
 		
-		// Groupe des actions
-//		PictogramGroup actions = new PictogramGroup("Actions");
-//		// Pour l'instant, pour les tests, tous les pictos sont ajoutés dans le groupe actions
-//		actions.setPictos(pictos);
-//		groups.add(actions);
+		// Groupe des cibles
+		MenuGroup grpCibles = new MenuGroup(getString(R.string.cibles));
+		grpCibles.setEntities(pictosCibles);
+		groups.add(grpCibles);
 		
 		// Groupe des moyens
-		PictogramGroup grpMoyens = new PictogramGroup(getString(R.string.moyens));
+		MenuGroup grpMoyens = new MenuGroup(getString(R.string.moyens));
 		grpMoyens.setPictos(pictosMoyens);
 		groups.add(grpMoyens);
 		
 		// Groupe des mapitems
-		PictogramGroup grpMapItems = new PictogramGroup(getString(R.string.map_items));
+		MenuGroup grpMapItems = new MenuGroup(getString(R.string.map_items));
 		grpMapItems.setPictos(pictosMapItems);
 		groups.add(grpMapItems);
 		
-		menuAdapter = new MenuExpandableListView(getActivity(), groups);
+		menuAdapter = new MenuExpandableListAdapter(getActivity(), groups);
 		listView.setAdapter(menuAdapter);
 		listView.setOnChildClickListener(this);
+		listView.setOnGroupClickListener(this);
 		
 		getView().startAnimation(showMenuAnim);
 	}
@@ -133,28 +136,45 @@ public class OpenedMenuFragment extends Fragment implements IMenuFragment, OnCli
 	public boolean onChildClick(ExpandableListView p, View v, int grpIndex,
 			int childIndex, long id) {
 
-		v.setSelected(true);
+		//v.setSelected(true);
+		menuAdapter.setChildSelected(childIndex, grpIndex);
 		
 		if (listener != null) {
-			PictogramGroup grp = groups.get(grpIndex);
+			MenuGroup grp = groups.get(grpIndex);
 			IPictogram picto = grp.getPictos().get(childIndex);
 			listener.onPictogramSelected(picto, grp);
 		}
 		return true;
 	}
 
+	@Override
+	public boolean onGroupClick(ExpandableListView parent, View v,
+			int groupPosition, long id) {
+		
+		if(menuAdapter.getNumGroupSelected() != -1) {
+			View childSelected = menuAdapter.getChildView(menuAdapter.getNumGroupSelected(), menuAdapter.getNumChildSelected(), 
+					false, null, null);
+			if(childSelected != null) {
+				menuAdapter.notifyDataSetChanged();
+				System.out.println("rentre");
+			}
+		}
+		return false;
+	}
+	
+	
 	public void addOffSitacEntities(ArrayList<IEntity> entities) {
 		if (entities.isEmpty()) {
 			if (groups.get(0).getGroupName().equals(getString(R.string.off_sitac))) {
 				groups.remove(0);
 			}
 		} else {
-			PictogramGroup grpOffSitac = null;
+			MenuGroup grpOffSitac = null;
 			if (groups.get(0).getGroupName().equals(getString(R.string.off_sitac))) {
 				grpOffSitac = groups.get(0);
 			
 			} else {
-				grpOffSitac = new PictogramGroup(getString(R.string.off_sitac));
+				grpOffSitac = new MenuGroup(getString(R.string.off_sitac));
 				groups.add(0, grpOffSitac);
 			}
 			
@@ -167,4 +187,9 @@ public class OpenedMenuFragment extends Fragment implements IMenuFragment, OnCli
 			menuAdapter.notifyDataSetChanged();
 		}
 	}
+	
+	public void unselectItem(View v) {
+		v.setSelected(false);
+	}
+
 }
