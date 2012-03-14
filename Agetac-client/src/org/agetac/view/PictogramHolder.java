@@ -19,6 +19,8 @@ public class PictogramHolder {
 	public static final String GREEN_DOWN = "green_down";
 	public static final String BLUE_UP = "Source d'eau";
 	public static final String BLUE_DOWN = "blue_down";
+	public static final String ORANGE_UP = "orange_up";
+	public static final String ORANGE_DOWN = "orange_down";
 	public static final String BLUE_GRP = "blue_grp";
 	public static final String BLUE_GRPS = "blue_grps";
 	public static final String BLUE_SINGLE = "blue_single";
@@ -48,6 +50,8 @@ public class PictogramHolder {
 		pictos.add(new Pictogram(RED_DOWN, BitmapFactory.decodeResource(res, R.drawable.picto_red_down, options), Color.RED, State.STATE_HAPPENING, Shape.TRIANGLE_DOWN, GraphicalOverload.NONE));
 		pictos.add(new Pictogram(GREEN_UP, BitmapFactory.decodeResource(res, R.drawable.picto_green_up), Color.GREEN, State.STATE_HAPPENING, Shape.TRIANGLE_UP, GraphicalOverload.NONE));
 		pictos.add(new Pictogram(GREEN_DOWN, BitmapFactory.decodeResource(res, R.drawable.picto_green_down), Color.GREEN, State.STATE_HAPPENING, Shape.TRIANGLE_DOWN, GraphicalOverload.NONE));
+		pictos.add(new Pictogram(ORANGE_UP, BitmapFactory.decodeResource(res, R.drawable.picto_orange_up), Color.ORANGE, State.STATE_HAPPENING, Shape.TRIANGLE_UP, GraphicalOverload.NONE));
+		pictos.add(new Pictogram(ORANGE_DOWN, BitmapFactory.decodeResource(res, R.drawable.picto_orange_down), Color.ORANGE, State.STATE_HAPPENING, Shape.TRIANGLE_DOWN, GraphicalOverload.NONE));
 		pictos.add(new Pictogram(BLUE_UP, BitmapFactory.decodeResource(res, R.drawable.picto_blue_up), Color.BLUE, State.STATE_HAPPENING, Shape.TRIANGLE_UP, GraphicalOverload.NONE));
 		pictos.add(new Pictogram(BLUE_DOWN, BitmapFactory.decodeResource(res, R.drawable.picto_blue_down), Color.BLUE, State.STATE_HAPPENING, Shape.TRIANGLE_DOWN, GraphicalOverload.NONE));
 		pictos.add(new Pictogram(BLUE_GRP, BitmapFactory.decodeResource(res, R.drawable.picto_blue_grp), Color.BLUE, State.STATE_HAPPENING, Shape.SQUARE, GraphicalOverload.NONE));
