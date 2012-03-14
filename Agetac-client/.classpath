@@ -20,6 +20,5 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="lib/osmdroid-packager-3.0.6.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/Agetac-model"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/Agetac-server"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

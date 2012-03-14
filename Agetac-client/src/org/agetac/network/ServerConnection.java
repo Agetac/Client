@@ -10,23 +10,15 @@ import android.content.Context;
 public class ServerConnection {
 	
 	private static final String TAG = "ServerConnection";
-	private static final String HOST = "host";
-	private static final String PORT = "port";
-	private static final String CONTEXT = "context";
 
 	private String host;
 	private String contextRoot;
 	private String port;
 
 	public ServerConnection(Context c) {
-		System.out.println(">>>>> constructeur ServerConnection");
-
 		this.host = c.getString(R.string.host);
 		this.port = c.getString(R.string.port);
 		this.contextRoot = c.getString(R.string.contextRoot);
-	
-		
-		System.out.println(">>>>> base url: "+baseUrl());
 	}
 
 	public Representation getResource(String resType, String resUniqueID) {
@@ -41,7 +33,7 @@ public class ServerConnection {
 		
 		ClientResource client = new ClientResource(url);
 		Representation repr = null;
-		System.out.println(">>>> "+client.get().toString());
+		
 		repr = client.get();
 		
 		return repr;
@@ -104,6 +96,6 @@ public class ServerConnection {
 	}
 
 	private String baseUrl() {
-		return host + port + contextRoot;
+		return "http://" + host + ":" + port + "/" + contextRoot + "/";
 	}
 }

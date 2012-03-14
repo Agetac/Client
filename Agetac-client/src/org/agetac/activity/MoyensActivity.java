@@ -7,8 +7,8 @@ import java.util.List;
 import org.agetac.R;
 import org.agetac.common.ActionFlag;
 import org.agetac.entity.Entity;
-import org.agetac.entity.Entity.EntityState;
 import org.agetac.entity.IEntity;
+import org.agetac.entity.Entity.EntityState;
 import org.agetac.model.impl.Groupe;
 import org.agetac.model.impl.Position;
 import org.agetac.model.impl.Vehicule;
@@ -25,14 +25,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.PopupMenu;
-import android.widget.PopupMenu.OnMenuItemClickListener;
 import android.widget.SimpleAdapter;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.PopupMenu.OnMenuItemClickListener;
 
-public class MoyensActivity extends AbstractActivity implements OnClickListener, OnItemClickListener, OnMenuItemClickListener {
+public class MoyensActivity extends AbstractActivity implements OnClickListener, OnMenuItemClickListener {
 	
 	private static final String TAG = "MoyensActivity";
 	private static final String DATA_IMG = "data_img";
@@ -55,7 +55,6 @@ public class MoyensActivity extends AbstractActivity implements OnClickListener,
 		setContentView(R.layout.moyens);
 	    
 		listView = (ListView) findViewById(R.id.moyens_listview);
-	    listView.setOnItemClickListener(this);
 	    
 	    // Creation de l'ArrayList qui nous permettra de remplir la listView
         data = new ArrayList<Hashtable<String, String>>();
@@ -74,35 +73,6 @@ public class MoyensActivity extends AbstractActivity implements OnClickListener,
 		popupMenu.setOnMenuItemClickListener(this);
 		//popupMenu.show();
 	}
-	
-	@Override
-	public void onItemClick(AdapterView<?> adpt, View v, int index, long l) {
-////		try {/*
-//			final AdapterView<?> adapter = adpt;
-//		final int position = index;
-//			AlertDialog.Builder confirmDelete = new AlertDialog.Builder(this);
-//			confirmDelete.setTitle(R.string.dialog_title_deletevehicule);
-//			confirmDelete.setMessage(R.string.dialog_deletevehicule);
-//			confirmDelete.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
-//				@Override
-//				public void onClick(DialogInterface dialog, int which) {
-//					ItemAdapter itemAdpt = (ItemAdapter) adapter.getAdapter();
-//					flag = ActionFlag.REMOVE;
-//					touchedEntity = (IEntity) itemAdpt.getItem(position);
-//					observable.setChanged();
-//					observable.notifyObservers(MoyensActivity.this);
-//				}
-//			});
-//			confirmDelete.setNegativeButton(R.string.no, null);
-//			confirmDelete.show();*/
-//			
-//			
-//			
-////		} catch (ClassCastException e) {
-////			android.util.Log.e(TAG, e.getMessage());
-////		}*/
-	}
-
 
 	@Override
 	public void onClick(View v) {
@@ -129,23 +99,26 @@ public class MoyensActivity extends AbstractActivity implements OnClickListener,
 		switch (item.getItemId()) {
 	           case R.id.FPT:
 	        	   flag = ActionFlag.ADD;
-	        	   veh = genVehicule(CategorieVehicule.FPT);
+	        	   // TODO récupérer le nom via un formulaire 
+	        	   veh = genVehicule("Janze", CategorieVehicule.FPT);
 	        	   vehiculePicto = PictogramHolder.getInstance(this).getPictogram(PictogramHolder.RED_GRP);
 	        	   touchedEntity = new Entity<Vehicule>(veh, vehiculePicto, EntityState.OFF_SITAC);
 	        	   observable.setChanged();
 	        	   observable.notifyObservers(MoyensActivity.this);
 	               return true;
+	               
 	           case R.id.CCGC:
 	        	   flag = ActionFlag.ADD;
-	        	   veh = genVehicule(CategorieVehicule.CCGC);
+	        	   veh = genVehicule("Janze", CategorieVehicule.CCGC);
 	        	   vehiculePicto = PictogramHolder.getInstance(this).getPictogram(PictogramHolder.RED_GRP);
 	        	   touchedEntity = new Entity<Vehicule>(veh, vehiculePicto, EntityState.OFF_SITAC);
 	        	   observable.setChanged();
 	        	   observable.notifyObservers(MoyensActivity.this);
 	               return true;
+	               
 	           case R.id.VSAV:
 	        	   flag = ActionFlag.ADD;
-	        	   veh = genVehicule(CategorieVehicule.VSAV);
+	        	   veh = genVehicule("Janze", CategorieVehicule.VSAV);
 	        	   vehiculePicto = PictogramHolder.getInstance(this).getPictogram(PictogramHolder.RED_GRP);
 	        	   touchedEntity = new Entity<Vehicule>(veh, vehiculePicto, EntityState.OFF_SITAC);
 	        	   observable.setChanged();
@@ -167,17 +140,14 @@ public class MoyensActivity extends AbstractActivity implements OnClickListener,
 	@Override
 	public void update() {
 		List<IEntity> entities = controller.getInterventionEngine().getEntities();
-		data.clear(); // parce qu'à chaque appel d'update() on récupère toute la liste d'entitées
-		// et que la liste au deuxième appel d'update() a déjà été remplie, donc on la vide puis on la re-remplie
-		// on pourrait penser aussi qu'un appel à update avec juste ce qui a changé serait mieux, j'vais réfléchir
-		// sur une soluce qui va dans ce sens ;)
+		data.clear();
 		Hashtable<String, String> map;
 		for (int i=0; i<entities.size(); i++) {
 			if (entities.get(i).getModel() instanceof Vehicule) {
 				Vehicule v = (Vehicule) entities.get(i).getModel();
 				map = new Hashtable<String, String>();
 				map.put(DATA_IMG, ""+R.drawable.firetruck);
-				map.put(DATA_TYPE, v.getName());
+				map.put(DATA_TYPE, v.getCategorie()+" "+v.getName());
 				map.put(DATA_CASERNE, v.getCaserneName());
 				EtatVehicule ev = v.getEtat();
 				map.put(DATA_ETAT, ev.toString());
@@ -190,13 +160,10 @@ public class MoyensActivity extends AbstractActivity implements OnClickListener,
 		listAdapter.notifyDataSetChanged();
 	}
 	
-	public Vehicule genVehicule() {
-		Vehicule veh = new Vehicule("42", Vehicule.randomCategorieVehicule().toString(), new Position(33.4, 48.8), "Caserne Beaulieu", Vehicule.randomEtatVehicule(), new Groupe("UniqueID", null, new ArrayList<Vehicule>()));
-		return veh;
-	}
-	
-	public Vehicule genVehicule(CategorieVehicule cat) {
-		Vehicule veh = new Vehicule("42", cat.toString(), new Position(33.4, 48.8), "Caserne Beaulieu", EtatVehicule.ALERTE, new Groupe("UniqueID", null, new ArrayList<Vehicule>()), getTime());
+	public Vehicule genVehicule(String name, CategorieVehicule cat) {
+		Vehicule veh = new Vehicule("42", name, null,
+				cat, "Caserne Beaulieu", EtatVehicule.ALERTE,
+				new Groupe("0", null, null), getTime());
 		return veh;
 	}
 
@@ -204,46 +171,5 @@ public class MoyensActivity extends AbstractActivity implements OnClickListener,
 		Time t = new Time();
 		t.setToNow();
 		return (String) t.toString().subSequence(9, 13);
-	}
-	
-	
-//	public class ItemAdapter extends BaseAdapter {
-//
-//		private List<IEntity> entities;
-//
-//	    public void setItems(List<IEntity> entities) {
-//			this.entities = entities;
-//		}
-//
-//		public int getCount() {
-//	        if (entities == null) {
-//	        	return 0;
-//	        }
-//	        return entities.size();
-//	    }
-//
-//	    public Object getItem(int position) {
-//	        if (entities == null) {
-//	        	return null;
-//	        }
-//	        return entities.get(position);
-//	    }
-//
-//	    public long getItemId(int position) {
-//	        return 0;
-//	    }
-//
-//	    // create a new View for each item referenced by the Adapter
-//	    public View getView(int position, View convertView, ViewGroup parent) {
-//	        View itemView = getLayoutInflater().inflate(R.layout.moyens_list_item, null);
-//	        //View itemView = getLayoutInflater().inflate(R.layout.gridview_item, null);
-//
-//	        ((TextView) itemView.findViewById(R.id.vehicule_name)).setText(entities.get(position).getModel().getName());
-//	        return itemView;
-//	    }
-//	}
-//	
-
-
-	
+	}	
 }

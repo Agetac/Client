@@ -18,6 +18,7 @@ import org.agetac.model.impl.Groupe;
 import org.agetac.model.impl.Position;
 import org.agetac.model.impl.Vehicule;
 import org.agetac.model.impl.Action.ActionType;
+import org.agetac.model.impl.Vehicule.CategorieVehicule;
 import org.agetac.model.impl.Vehicule.EtatVehicule;
 import org.agetac.view.IPictogram;
 import org.agetac.view.LinePicto;
@@ -156,7 +157,7 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 			GeoPoint m = (GeoPoint) mapView.getProjection().fromPixels(e.getX(), e.getY());
 			Position p = new Position(m.getLongitudeE6(), m.getLatitudeE6());
 			flag = ActionFlag.ADD;
-			Vehicule v = new Vehicule("42", "FPT Janze", p, "", EtatVehicule.PARTIS, new Groupe("1", new Agent(), null));
+			Vehicule v = new Vehicule("1", "Janze", p, CategorieVehicule.FPT, "Beaulieu", EtatVehicule.PARTIS, new Groupe("0", new Agent(), new ArrayList<Vehicule>()), "4242");
 			touchedEntity = new Entity<Vehicule>(v, currentPicto, EntityState.ON_SITAC); //TODO vrai relation picto-Entity
 			observable.setChanged();
 			observable.notifyObservers(SITACActivity.this);

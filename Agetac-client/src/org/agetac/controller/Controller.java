@@ -34,22 +34,20 @@ public class Controller implements Observer {
 	private ITabActivity currentActivity;
 	private IInterventionEngine interventionEngine;
 	private String message;
-	private Context context;
 	
 	/**
 	 * Constructeur privé pour pattern Singleton.
 	 * Empêche la création d'un nouveau controlleur lorsque
 	 * celui-ci a déjà été crée une première fois.
 	 * 
-	 * - Crée un moteur d'intervention avec l'intervention récupérée sur le serveur
+	 * - Crée une connexion avec le serveur
+	 * - Crée un moteur d'intervention grâce à cette connexion
 	 * - Crée la liste de ITabActivity qui contiendra les
 	 *   différents onglets de l'application.
-	 * - Crée les différents controlleurs associés aux onglets
+	 * - Crée les différents controlleurs associés aux activitées
 	 * - Crée toutes les commandes concrètes
 	 */
 	private Controller(Context c) {
-		this.context = c;
-		
 		ServerConnection conn = new ServerConnection(c);
 		interventionEngine = new InterventionEngine(conn);
 		
@@ -85,6 +83,7 @@ public class Controller implements Observer {
 		this.currentActivity = act;		
 		// on demande à la vue de se mettre à jour
 		act.update();
+		System.out.println("Controller: appel update sur ["+act.getClass().getSimpleName().toString()+"]");
 	}
 	
 	public IEntity getLastEntity() {
