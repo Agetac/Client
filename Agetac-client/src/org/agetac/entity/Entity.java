@@ -9,7 +9,7 @@ import org.osmdroid.views.MapView;
 import android.graphics.Canvas;
 import android.graphics.Point;
 
-public class Entity<T extends IModel> implements IEntity {
+public class Entity implements IEntity {
 
 	private static final long serialVersionUID = 9102938L;
 	private static final int EARTH_RADIUS_METERS = 6378137;
@@ -47,7 +47,7 @@ public class Entity<T extends IModel> implements IEntity {
 
 	@Override
 	public IEntity clone() {
-		return new Entity<T>(model, picto, state);
+		return new Entity(model, picto, state);
 	}
 
 	@Override

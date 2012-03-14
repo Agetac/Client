@@ -97,27 +97,27 @@ public class MoyensActivity extends AbstractActivity implements OnClickListener,
 	           case R.id.FPT:
 	        	   flag = ActionFlag.ADD;
 	        	   // TODO récupérer le nom via un formulaire 
-	        	   veh = genVehicule("Janze", CategorieVehicule.FPT);
+	        	   veh = genVehicule(CategorieVehicule.FPT);
 	        	   vehiculePicto = PictogramHolder.getInstance(this).getPictogram(PictogramHolder.RED_GRP);
-	        	   touchedEntity = new Entity<Vehicule>(veh, vehiculePicto, EntityState.OFF_SITAC);
+	        	   touchedEntity = new Entity(veh, vehiculePicto, EntityState.OFF_SITAC);
 	        	   observable.setChanged();
 	        	   observable.notifyObservers(MoyensActivity.this);
 	               return true;
 	               
 	           case R.id.CCGC:
 	        	   flag = ActionFlag.ADD;
-	        	   veh = genVehicule("Janze", CategorieVehicule.CCGC);
+	        	   veh = genVehicule(CategorieVehicule.CCGC);
 	        	   vehiculePicto = PictogramHolder.getInstance(this).getPictogram(PictogramHolder.RED_GRP);
-	        	   touchedEntity = new Entity<Vehicule>(veh, vehiculePicto, EntityState.OFF_SITAC);
+	        	   touchedEntity = new Entity(veh, vehiculePicto, EntityState.OFF_SITAC);
 	        	   observable.setChanged();
 	        	   observable.notifyObservers(MoyensActivity.this);
 	               return true;
 	               
 	           case R.id.VSAV:
 	        	   flag = ActionFlag.ADD;
-	        	   veh = genVehicule("Janze", CategorieVehicule.VSAV);
+	        	   veh = genVehicule(CategorieVehicule.VSAV);
 	        	   vehiculePicto = PictogramHolder.getInstance(this).getPictogram(PictogramHolder.RED_GRP);
-	        	   touchedEntity = new Entity<Vehicule>(veh, vehiculePicto, EntityState.OFF_SITAC);
+	        	   touchedEntity = new Entity(veh, vehiculePicto, EntityState.OFF_SITAC);
 	        	   observable.setChanged();
 	        	   observable.notifyObservers(MoyensActivity.this);
 	               return true;
@@ -157,9 +157,9 @@ public class MoyensActivity extends AbstractActivity implements OnClickListener,
 		listAdapter.notifyDataSetChanged();
 	}
 	
-	public Vehicule genVehicule(String name, CategorieVehicule cat) {
-		Vehicule veh = new Vehicule("42", name, null,
-				cat, "Caserne Beaulieu", EtatVehicule.ALERTE,
+	public Vehicule genVehicule(CategorieVehicule cat) {
+		Vehicule veh = new Vehicule(null, null,
+				cat, "Janze", EtatVehicule.ALERTE,
 				new Groupe("0", null, null), getTime());
 		return veh;
 	}
