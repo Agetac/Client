@@ -36,7 +36,6 @@
 
     <uses-feature android:name="android.hardware.location.network" />
     <uses-feature android:name="android.hardware.location.gps" />
-    <uses-feature android:name="android.hardware.telephony" />
     <uses-feature android:name="android.hardware.wifi" />
 
 </manifest>

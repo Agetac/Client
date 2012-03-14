@@ -27,8 +27,7 @@ public class MessagesActivity extends AbstractActivity implements OnClickListene
 
 	@Override
 	public void update() {
-
-
+		
 	}
 
 	@Override
@@ -63,22 +62,16 @@ public class MessagesActivity extends AbstractActivity implements OnClickListene
 				AlertDialog.Builder confirmSend = new AlertDialog.Builder(this);
 
 				confirmSend.setMessage("Message envoye");
-
 				confirmSend.setNeutralButton("OK", null);
-
 				confirmSend.show();
-
 				SendMessageCommand.setMessOk(false);
 
 			}
 
 			else {
 				AlertDialog.Builder confirmSend = new AlertDialog.Builder(this);
-
 				confirmSend.setMessage("Echec de l'envoi");
-
 				confirmSend.setNeutralButton("Ok", null);
-
 				confirmSend.show();
 			}
 		

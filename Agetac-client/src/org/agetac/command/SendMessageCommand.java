@@ -3,14 +3,10 @@ package org.agetac.command;
 import java.io.IOException;
 import java.util.Date;
 
-import org.agetac.client.ServerConnection;
-import org.agetac.client.exception.BadResponseException;
+import org.agetac.common.exception.BadResponseException;
 import org.agetac.controller.Controller;
 import org.agetac.memento.IMemento;
-import org.agetac.model.impl.Message;
 import org.json.JSONException;
-import org.restlet.ext.json.JsonRepresentation;
-import org.restlet.representation.Representation;
 
 public class SendMessageCommand implements IRecordableCommand {
 	public static final String NAME = "EnvoyerMessage";
@@ -56,37 +52,40 @@ public class SendMessageCommand implements IRecordableCommand {
 
 	public void sendMessage(String message) throws BadResponseException, IOException, JSONException {
 
-		String date = getGroupeHoraire();
-		String id = "" + SendMessageCommand.idMessage;
-		Message mess = new Message ( id, message, date);
-		System.out.println("Message : "+id + "," + message + "," + date);
-
-		String interId = "0";
-		ServerConnection serv = new ServerConnection("148.60.13.116", "8112", "agetacserver");
-
-
-		Representation r = null;
-		try {
-			r = new JsonRepresentation(mess.toJSON());
-			serv.putResource("intervention/" + interId + "/message",
-					mess.getUniqueID(), r);
-			messOk = true;
-
-		} catch (JSONException e) {
-
-			System.out.println("Le message n'a pas pu être envoyé sur le serveur");
-			e.printStackTrace();
-		}
-
-
-
-
-		Representation rep = serv.getResource("intervention/" + interId + "/message",
-				mess.getUniqueID());
-		JsonRepresentation jrepr = new JsonRepresentation(rep);
-
-
-		System.out.println(new Message(jrepr.getJsonObject()).getMessage());
+		// TODO c'pas possible √ßa ...
+		// la connexion au serveur est d√©j√† faite dans org.agetac.network.ServerConnection
+		
+//		String date = getGroupeHoraire();
+//		String id = "" + SendMessageCommand.idMessage;
+//		Message mess = new Message ( id, message, date);
+//		System.out.println("Message : "+id + "," + message + "," + date);
+//
+//		String interId = "0";
+//		ServerConnection serv = new ServerConnection("148.60.13.116", "8112", "agetacserver");
+//
+//
+//		Representation r = null;
+//		try {
+//			r = new JsonRepresentation(mess.toJSON());
+//			serv.putResource("intervention/" + interId + "/message",
+//					mess.getUniqueID(), r);
+//			messOk = true;
+//
+//		} catch (JSONException e) {
+//
+//			System.out.println("Le message n'a pas pu ÔøΩtre envoyÔøΩ sur le serveur");
+//			e.printStackTrace();
+//		}
+//
+//
+//
+//
+//		Representation rep = serv.getResource("intervention/" + interId + "/message",
+//				mess.getUniqueID());
+//		JsonRepresentation jrepr = new JsonRepresentation(rep);
+//
+//
+//		System.out.println(new Message(jrepr.getJsonObject()).getMessage());
 
 		
 	}

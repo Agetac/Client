@@ -5,11 +5,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observer;
 
+import org.agetac.common.api.InterventionConnection;
+import org.agetac.common.exception.BadResponseException;
+import org.agetac.common.exception.InvalidJSONException;
+import org.agetac.common.model.impl.Action;
+import org.agetac.common.model.impl.Cible;
+import org.agetac.common.model.impl.Implique;
+import org.agetac.common.model.impl.Intervention;
+import org.agetac.common.model.impl.Message;
+import org.agetac.common.model.impl.Source;
+import org.agetac.common.model.impl.Vehicule;
 import org.agetac.entity.IEntity;
-import org.agetac.model.exception.InvalidJSONException;
-import org.agetac.model.impl.Action;
-import org.agetac.model.impl.Intervention;
-import org.agetac.model.impl.Vehicule;
 import org.agetac.network.ServerConnection;
 import org.agetac.observer.MyObservable;
 import org.json.JSONException;
@@ -23,60 +29,123 @@ public class InterventionEngine implements IInterventionEngine {
 	private Intervention intervention;
 	private List<IEntity> entities;
 	private MyObservable observable;
-	private ServerConnection servConn;
+	private InterventionConnection iConn;
 	
-	public InterventionEngine(ServerConnection conn) {
-		servConn = conn;
-		Representation repr = servConn.getResource("intervention", "1");
+	public InterventionEngine(ServerConnection serv) {
+		observable = new MyObservable();
+		entities = new ArrayList<IEntity>();
+		
+		// TODO need auth ici pour récupérer l'intervention associée au COS connecté
+		Representation repr = serv.getResource("intervention", "1");
 		
 		try {
 			JsonRepresentation jsonRepr = new JsonRepresentation(repr);
 			intervention = new Intervention(jsonRepr.getJsonObject());
+			iConn = new InterventionConnection(intervention.getUniqueID(), serv);
 			
 		} catch (IOException e) {
 			android.util.Log.d(TAG, e.getMessage());
 			
+		} catch (JSONException e) {
+			android.util.Log.d(TAG, e.getMessage());
+			
 		} catch (InvalidJSONException e) {
+			android.util.Log.d(TAG, e.getMessage());
+		 
+		} catch (Exception e) {
+			// XXX hack qui ne marche pas toujours... GREAT
+			android.util.Log.d(TAG, ""+e.getMessage());
+		}
+	}
+
+	@Override
+	public void addEntity(IEntity entity) {
+		try {
+			if (entity.getModel() instanceof Vehicule) {
+				Vehicule v = (Vehicule) entity.getModel();
+				iConn.putVehicule(v);
+				entities.add(entity);
+			
+			} else if (entity.getModel() instanceof Action) {
+				Action a = (Action) entity.getModel();
+				iConn.putAction(a);
+				entities.add(entity);
+			
+			} else if (entity.getModel() instanceof Source) {
+				Source s = (Source) entity.getModel();
+				iConn.putSource(s);
+				entities.add(entity);
+			
+			} else if (entity.getModel() instanceof Cible) {
+				Cible c = (Cible) entity.getModel();
+				iConn.putCible(c);
+				entities.add(entity);
+			
+			} else if (entity.getModel() instanceof Message) {
+				Message m = (Message) entity.getModel();
+				iConn.putMessage(m);
+				entities.add(entity);
+			
+			} else if (entity.getModel() instanceof Implique) {
+				Implique i = (Implique) entity.getModel();
+				iConn.putImplique(i);
+				entities.add(entity);
+			}
+			
+		} catch (BadResponseException e) {
 			android.util.Log.d(TAG, e.getMessage());
 			
 		} catch (JSONException e) {
 			android.util.Log.d(TAG, e.getMessage());
-		}		
-		
-		observable = new MyObservable();
-		entities = new ArrayList<IEntity>();
-	}
-	
-	@Override
-	public void addEntity(IEntity entity) {
-		if (entity.getModel() instanceof Vehicule) {
-			intervention.getVehicules().add((Vehicule) entity.getModel());
-			entities.add(entity);
-			
 		}
-		if (entity.getModel() instanceof Action) {
-			intervention.getActions().add((Action) entity.getModel());
-			entities.add(entity);
-		}
+
 		notifyObservers();
 	}
 
 	@Override
 	public void removeEntity(IEntity entity) {
-		if (entity.getModel() instanceof Vehicule) {
-			intervention.getVehicules().remove((Vehicule) entity.getModel());
-			entities.remove(entity);
+		try {
+			if (entity.getModel() instanceof Vehicule) {
+				Vehicule v = (Vehicule) entity.getModel();
+				iConn.deleteVehicule(v);
+				entities.remove(entity);
+			
+			} else if (entity.getModel() instanceof Action) {
+				Action a = (Action) entity.getModel();
+				iConn.deleteAction(a);
+				entities.remove(entity);
+			
+			} else if (entity.getModel() instanceof Source) {
+				Source s = (Source) entity.getModel();
+				iConn.deleteSource(s);
+				entities.remove(entity);
+			
+			} else if (entity.getModel() instanceof Cible) {
+				Cible c = (Cible) entity.getModel();
+				iConn.deleteCible(c);
+				entities.remove(entity);
+			
+			} else if (entity.getModel() instanceof Message) {
+				Message m = (Message) entity.getModel();
+				iConn.deleteMessage(m);
+				entities.remove(entity);
+			
+			} else if (entity.getModel() instanceof Implique) {
+				Implique i = (Implique) entity.getModel();
+				iConn.deleteImplique(i);
+				entities.remove(entity);
+			}
+			
+		} catch (BadResponseException e) {
+			android.util.Log.d(TAG, e.getMessage());
 		}
-		if (entity.getModel() instanceof Action) {
-			intervention.getActions().remove((Action) entity.getModel());
-			entities.remove(entity);
-		}
+		
 		notifyObservers();
 	}
 
 	@Override
-	public void editEntity(String uid, IEntity entity) {
-		android.util.Log.d(TAG, "not implemented yet");
+	public void editEntity(IEntity entity) {
+		android.util.Log.d(TAG, "[editEntity method] not implemented yet");
 	}
 
 	@Override
@@ -84,6 +153,7 @@ public class InterventionEngine implements IInterventionEngine {
 		return entities;
 	}
 	
+	@Override
 	public Intervention getIntervention() {
 		return intervention;
 	}
