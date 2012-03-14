@@ -53,7 +53,7 @@ public class InterventionEngine implements IInterventionEngine {
 			android.util.Log.d(TAG, e.getMessage());
 		 
 		} catch (Exception e) {
-			// XXX hack : si on a pas ça plantage...
+			// XXX hack qui ne marche pas toujours... GREAT
 			android.util.Log.d(TAG, ""+e.getMessage());
 		}
 	}
@@ -63,7 +63,6 @@ public class InterventionEngine implements IInterventionEngine {
 		try {
 			if (entity.getModel() instanceof Vehicule) {
 				Vehicule v = (Vehicule) entity.getModel();
-				android.util.Log.d(TAG, "iManager >>>> "+iConn);
 				iConn.putVehicule(v);
 				entities.add(entity);
 			
