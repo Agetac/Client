@@ -158,7 +158,7 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 			Position p = new Position(m.getLongitudeE6(), m.getLatitudeE6());
 			flag = ActionFlag.ADD;
 
-			Vehicule v = new Vehicule(null, p, CategorieVehicule.FPT, "Janze", EtatVehicule.PARTIS, new Groupe("0", new Agent(), new ArrayList<Vehicule>()), "4242");
+			Vehicule v = new Vehicule(p, CategorieVehicule.FPT, "Janze", EtatVehicule.PARTIS, new Groupe(new Agent(), new ArrayList<Vehicule>()), "4242");
 			touchedEntity = new Entity(v, currentPicto, EntityState.ON_SITAC); //TODO vrai relation picto-Entity
 
 			observable.setChanged();
@@ -249,7 +249,7 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 			
 			
 			LinePicto lp = new LinePicto(currentPicto.getName(), currentPicto.getBitmap(), currentPicto.getColor(), currentPicto.getState(), currentPicto.getShape(), currentPicto.getGraphicalOverload(), start, stop, mapView.getProjection().metersToEquatorPixels(1.0f));
-			Action as = new Action("42", lineMiddlePos, ActionType.FIRE, lineBeginPos, lineEndPos);
+			Action as = new Action(lineMiddlePos, ActionType.FIRE, lineBeginPos, lineEndPos);
 			touchedEntity = new Entity(as, lp, EntityState.ON_SITAC); //TODO vrai relation picto-Entity
 			flag = ActionFlag.ADD;
 			observable.setChanged();

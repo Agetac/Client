@@ -158,9 +158,9 @@ public class MoyensActivity extends AbstractActivity implements OnClickListener,
 	}
 	
 	public Vehicule genVehicule(CategorieVehicule cat) {
-		Vehicule veh = new Vehicule(null, null,
+		Vehicule veh = new Vehicule(null,
 				cat, "Janze", EtatVehicule.ALERTE,
-				new Groupe("0", null, null), getTime());
+				new Groupe(null, null), getTime());
 		return veh;
 	}
 
