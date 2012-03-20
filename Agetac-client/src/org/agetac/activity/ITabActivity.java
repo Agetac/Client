@@ -1,6 +1,6 @@
 package org.agetac.activity;
 
-import org.agetac.common.ActionFlag;
+import org.agetac.controller.Controller.ActionFlag;
 import org.agetac.entity.IEntity;
 
 public interface ITabActivity {

@@ -2,7 +2,7 @@ package org.agetac.activity;
 
 import org.agetac.R;
 import org.agetac.command.SendMessageCommand;
-import org.agetac.common.ActionFlag;
+import org.agetac.controller.Controller.ActionFlag;
 
 import android.app.AlertDialog;
 import android.os.Bundle;

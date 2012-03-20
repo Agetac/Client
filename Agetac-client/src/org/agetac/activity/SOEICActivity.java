@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Random;
 
 import org.agetac.R;
-import org.agetac.common.ActionFlag;
+import org.agetac.controller.Controller.ActionFlag;
 import org.agetac.entity.IEntity;
 
 import android.app.AlertDialog;
@@ -13,11 +13,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.AdapterView.OnItemClickListener;
 
 public class SOEICActivity extends AbstractActivity implements OnClickListener, OnItemClickListener {
 	

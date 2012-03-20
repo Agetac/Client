@@ -7,7 +7,6 @@ import java.util.Observer;
 
 import org.agetac.common.api.InterventionConnection;
 import org.agetac.common.exception.BadResponseException;
-import org.agetac.common.exception.InvalidJSONException;
 import org.agetac.common.model.impl.Action;
 import org.agetac.common.model.impl.Cible;
 import org.agetac.common.model.impl.DemandeMoyen;
@@ -18,8 +17,8 @@ import org.agetac.common.model.impl.Source;
 import org.agetac.common.model.impl.Vehicule;
 import org.agetac.entity.IEntity;
 import org.agetac.network.ServerConnection;
-import org.agetac.network.ServerThread;
 import org.agetac.observer.MyObservable;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.json.JSONException;
 import org.restlet.ext.json.JsonRepresentation;
 import org.restlet.representation.Representation;
@@ -33,30 +32,22 @@ public class InterventionEngine implements IInterventionEngine {
 	private MyObservable observable;
 	private InterventionConnection iConn;
 	
-	public InterventionEngine(ServerConnection serv) {
+	public InterventionEngine(final ServerConnection serv) {
 		observable = new MyObservable();
 		entities = new ArrayList<IEntity>();
 		
 		// TODO need auth ici pour récupérer l'intervention associée au COS connecté
-		Representation repr = serv.getResource("intervention", "1");
-		
+		final Representation repr = serv.getResource("intervention", "1");
+				
 		try {
-			JsonRepresentation jsonRepr = new JsonRepresentation(repr);
-			intervention = new Intervention(jsonRepr.getJsonObject());
+			JsonRepresentation jRepr = new JsonRepresentation(repr);
+			ObjectMapper mapper = new ObjectMapper();
+			
+			intervention = mapper.readValue(jRepr.getStream(), Intervention.class);
 			iConn = new InterventionConnection(intervention.getUniqueID(), serv);
 			
 		} catch (IOException e) {
-			android.util.Log.d(TAG, e.getMessage());
-			
-		} catch (JSONException e) {
-			android.util.Log.d(TAG, e.getMessage());
-			
-		} catch (InvalidJSONException e) {
-			android.util.Log.d(TAG, e.getMessage());
-		 
-		} catch (Exception e) {
-			// XXX hack qui ne marche pas toujours... GREAT
-			android.util.Log.d(TAG, ""+e.getMessage());
+			android.util.Log.e(TAG, "IOException: "+e.getMessage());
 		}
 	}
 	
@@ -83,42 +74,39 @@ public class InterventionEngine implements IInterventionEngine {
 		try {
 			if (entity.getModel() instanceof Vehicule) {
 				Vehicule v = (Vehicule) entity.getModel();
-//				entity.setModel(iConn.putVehicule(v));
-				iConn.putVehicule(v);
+				Vehicule v2 = iConn.putVehicule(v);
+				System.out.println("entity retrievd >> "+v2.toString());
+				entity.setModel(v2);
 				entities.add(entity);
 			
 			} else if (entity.getModel() instanceof Action) {
 				Action a = (Action) entity.getModel();
-//				entity.setModel(iConn.putAction(a));
-				iConn.putAction(a);
+				entity.setModel(iConn.putAction(a));
 				entities.add(entity);
 			
 			} else if (entity.getModel() instanceof Source) {
 				Source s = (Source) entity.getModel();
-//				entity.setModel(iConn.putSource(s));
-				iConn.putSource(s);
+				entity.setModel(iConn.putSource(s));
 				entities.add(entity);
 			
 			} else if (entity.getModel() instanceof Cible) {
 				Cible c = (Cible) entity.getModel();
-//				entity.setModel(iConn.putCible(c));
-				iConn.putCible(c);
+				entity.setModel(iConn.putCible(c));
 				entities.add(entity);
 			
 			} else if (entity.getModel() instanceof Implique) {
 				Implique i = (Implique) entity.getModel();
-//				entity.setModel(iConn.putImplique(i));
-				iConn.putImplique(i);
+				entity.setModel(iConn.putImplique(i));
 				entities.add(entity);
 			}
 			
 		} catch (BadResponseException e) {
-			android.util.Log.d(TAG, e.getMessage());
+			android.util.Log.e(TAG, "addEntity BadResponse: "+e.getMessage());
 			
 		} catch (JSONException e) {
-			android.util.Log.d(TAG, e.getMessage());
+			android.util.Log.e(TAG, "addEntity JSONException: "+e.getMessage());
 		} catch (Exception e) {
-			android.util.Log.d(TAG, ""+e.getMessage());
+			android.util.Log.e(TAG, "addEntity Exception: "+e.getMessage());
 		}
 
 		notifyObservers();

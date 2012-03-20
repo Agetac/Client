@@ -18,7 +18,9 @@ public class AddEntityCommand implements IRecordableCommand {
 
 	@Override
 	public void execute() {
+		System.out.println("before entity>>> "+controller.getLastEntity().toString());
 		engine.addEntity(controller.getLastEntity());
+		System.out.println("after entity>>> "+controller.getLastEntity().toString());
 	}
 
 	@Override

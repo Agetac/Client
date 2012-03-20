@@ -114,4 +114,9 @@ public class Entity implements IEntity {
 		
 		return distance;
 	}
+	
+	@Override
+	public String toString() {
+		return model.toString();
+	}
 }

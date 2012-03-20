@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.agetac.R;
-import org.agetac.common.ActionFlag;
 import org.agetac.common.model.impl.Action;
 import org.agetac.common.model.impl.Action.ActionType;
 import org.agetac.common.model.impl.Agent;
@@ -13,6 +12,7 @@ import org.agetac.common.model.impl.Position;
 import org.agetac.common.model.impl.Vehicule;
 import org.agetac.common.model.impl.Vehicule.CategorieVehicule;
 import org.agetac.common.model.impl.Vehicule.EtatVehicule;
+import org.agetac.controller.Controller.ActionFlag;
 import org.agetac.entity.Entity;
 import org.agetac.entity.Entity.EntityState;
 import org.agetac.entity.IEntity;

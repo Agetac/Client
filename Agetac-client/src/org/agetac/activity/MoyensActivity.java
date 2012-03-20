@@ -5,16 +5,16 @@ import java.util.Hashtable;
 import java.util.List;
 
 import org.agetac.R;
-import org.agetac.common.ActionFlag;
 import org.agetac.common.model.impl.Groupe;
 import org.agetac.common.model.impl.Vehicule;
 import org.agetac.common.model.impl.Vehicule.CategorieVehicule;
 import org.agetac.common.model.impl.Vehicule.EtatVehicule;
+import org.agetac.controller.Controller.ActionFlag;
 import org.agetac.entity.Entity;
 import org.agetac.entity.Entity.EntityState;
 import org.agetac.entity.IEntity;
-import org.agetac.view.IPictogram;
 import org.agetac.view.EntityHolder;
+import org.agetac.view.IPictogram;
 
 import android.os.Bundle;
 import android.text.format.Time;

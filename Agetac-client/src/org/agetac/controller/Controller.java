@@ -26,6 +26,12 @@ import android.content.Context;
 public class Controller implements Observer {
 	
 	private static final String TAG = "Controller";
+	
+	public enum ActionFlag {
+		ADD,
+		REMOVE,
+		SEND_MESSAGE	
+	}
 
 	private IEntity lastEntity;
 	private static Controller controller;
