@@ -141,8 +141,8 @@ public class OpenedMenuFragment extends Fragment implements IMenuFragment, OnCli
 		
 		if (listener != null) {
 			MenuGroup grp = groups.get(grpIndex);
-			IPictogram picto = grp.getEntities().get(childIndex).getPictogram();
-			listener.onPictogramSelected(picto, grp);
+			IEntity entity = grp.getEntities().get(childIndex);
+			listener.onEntitySelected(entity, grp);
 		}
 		return true;
 	}

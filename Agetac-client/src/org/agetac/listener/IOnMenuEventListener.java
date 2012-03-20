@@ -1,6 +1,6 @@
 package org.agetac.listener;
 
-import org.agetac.view.IPictogram;
+import org.agetac.entity.IEntity;
 import org.agetac.view.MenuGroup;
 
 public interface IOnMenuEventListener {
@@ -9,5 +9,5 @@ public interface IOnMenuEventListener {
 	
 	public void onShowMenu();
 	
-	public void onPictogramSelected(IPictogram p, MenuGroup grp);
+	public void onEntitySelected(IEntity e, MenuGroup grp);
 }

@@ -58,7 +58,7 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 	private FragmentManager fManager;
 	private OpenedMenuFragment openedMenuFrag;
 	private HiddenMenuFragment hiddenMenuFrag;
-	private IPictogram currentPicto;
+	private IEntity currentEntity;
 	private PopupMenu popupMenu;
 	private AlertDialog editItemDialog;
 	private GeoPoint lineBeginGeop;
@@ -136,8 +136,8 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 	}
 
 	@Override
-	public void onPictogramSelected(IPictogram p, MenuGroup grp) {
-		this.currentPicto = p;
+	public void onEntitySelected(IEntity e, MenuGroup grp) {
+		this.currentEntity = e;
 	}
 
 	@Override
@@ -153,19 +153,18 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 	
 	@Override
 	public void onOverlayLongPressed(MotionEvent e, MapView mapView) {
-		if (currentPicto != null && currentPicto.getShape() != Shape.LINEAR_SHAPE) {
+		if (currentEntity != null && currentEntity.getPictogram().getShape() != Shape.LINEAR_SHAPE) {
 			GeoPoint m = (GeoPoint) mapView.getProjection().fromPixels(e.getX(), e.getY());
 			Position p = new Position(m.getLongitudeE6(), m.getLatitudeE6());
 			flag = ActionFlag.ADD;
-
-			Vehicule v = new Vehicule(null, p, CategorieVehicule.FPT, "Janze", EtatVehicule.PARTIS, new Groupe("0", new Agent(), new ArrayList<Vehicule>()), "4242");
-			touchedEntity = new Entity(v, currentPicto, EntityState.ON_SITAC); //TODO vrai relation picto-Entity
-
+			touchedEntity = currentEntity.clone();
+			touchedEntity.getModel().setPosition(p);
+			
 			observable.setChanged();
 			observable.notifyObservers(SITACActivity.this);
 
 			// Une fois qu'on a placé l'item sur la SITAC, on le désélectionne
-			currentPicto = null;
+			currentEntity = null;
 			//openedMenuFrag.unselectItem();
 		}
 	}
@@ -230,7 +229,7 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 
 	@Override
 	public boolean onUp(MotionEvent end, MapView mapView) {
-		if (currentPicto != null && currentPicto.getShape()==Shape.LINEAR_SHAPE) {
+		if (currentEntity != null && currentEntity.getPictogram().getShape()==Shape.LINEAR_SHAPE) {
 			Point start, stop;
 			GeoPoint stopGeoP = (GeoPoint) mapView.getProjection().fromPixels(end.getX(), end.getY());
 			Position lineBeginPos = new Position(lineBeginGeop.getLongitudeE6(), lineBeginGeop.getLatitudeE6());
@@ -248,15 +247,18 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 			start.set(start.x-lineMiddlePoint.x, start.y-lineMiddlePoint.y);
 			
 			
-			LinePicto lp = new LinePicto(currentPicto.getName(), currentPicto.getBitmap(), currentPicto.getColor(), currentPicto.getState(), currentPicto.getShape(), currentPicto.getGraphicalOverload(), start, stop, mapView.getProjection().metersToEquatorPixels(1.0f));
-			Action as = new Action("42", lineMiddlePos, ActionType.FIRE, lineBeginPos, lineEndPos);
-			touchedEntity = new Entity(as, lp, EntityState.ON_SITAC); //TODO vrai relation picto-Entity
+			//LinePicto lp = new LinePicto(currentPicto.getName(), currentPicto.getBitmap(), currentPicto.getColor(), currentPicto.getState(), currentPicto.getShape(), currentPicto.getGraphicalOverload(), start, stop, mapView.getProjection().metersToEquatorPixels(1.0f));
+			//Action as = new Action("42", lineMiddlePos, ActionType.FIRE, lineBeginPos, lineEndPos);
+			touchedEntity = currentEntity.clone();//new Entity(as, lp, EntityState.ON_SITAC); //TODO vrai relation picto-Entity
+			touchedEntity.getModel().setPosition(lineMiddlePos);
+			((Action)touchedEntity.getModel()).setOrigin(lineBeginPos);
+			((Action)touchedEntity.getModel()).setAim(lineEndPos);
 			flag = ActionFlag.ADD;
 			observable.setChanged();
 			observable.notifyObservers(SITACActivity.this);
 			
 			// Une fois qu'on a tracé la flêche/ligne/autre sur la SITAC, on la désélectionne
-			currentPicto = null;
+			currentEntity = null;
 			return true;
 		}
 		return false;
@@ -264,7 +266,7 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 
 	@Override
 	public boolean lineBegin(MotionEvent start, MapView mapView) {
-		if (currentPicto != null && currentPicto.getShape()==Shape.LINEAR_SHAPE) {
+		if (currentEntity != null && currentEntity.getPictogram().getShape()==Shape.LINEAR_SHAPE) {
 			lineBeginGeop = (GeoPoint) mapView.getProjection().fromPixels(start.getX(), start.getY());
 			return true;
 		}

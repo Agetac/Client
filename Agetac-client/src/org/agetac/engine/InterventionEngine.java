@@ -98,6 +98,12 @@ public class InterventionEngine implements IInterventionEngine {
 				Implique i = (Implique) entity.getModel();
 				entity.setModel(iConn.putImplique(i));
 				entities.add(entity);
+				
+			} else if (entity.getModel() instanceof DemandeMoyen) {
+				DemandeMoyen dm = (DemandeMoyen) entity.getModel();
+//				entity.setModel(iConn.putDemandeMoyen(i));
+				iConn.putDemandeMoyen(dm);
+				entities.add(entity);
 			}
 			
 		} catch (BadResponseException e) {
