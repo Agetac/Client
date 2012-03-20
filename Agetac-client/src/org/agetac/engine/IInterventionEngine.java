@@ -22,4 +22,6 @@ public interface IInterventionEngine {
 	public void addObserver(Observer o);
 
 	public List<IEntity> getEntities();
+
+	public void stopUpdates();
 }

@@ -5,23 +5,17 @@ import java.util.List;
 
 import org.agetac.R;
 import org.agetac.common.model.impl.Action;
-import org.agetac.common.model.impl.Action.ActionType;
-import org.agetac.common.model.impl.Agent;
-import org.agetac.common.model.impl.Groupe;
+import org.agetac.common.model.impl.DemandeMoyen;
+import org.agetac.common.model.impl.DemandeMoyen.EtatDemande;
 import org.agetac.common.model.impl.Position;
-import org.agetac.common.model.impl.Vehicule;
 import org.agetac.common.model.impl.Vehicule.CategorieVehicule;
-import org.agetac.common.model.impl.Vehicule.EtatVehicule;
 import org.agetac.controller.Controller.ActionFlag;
-import org.agetac.entity.Entity;
 import org.agetac.entity.Entity.EntityState;
 import org.agetac.entity.IEntity;
 import org.agetac.fragment.HiddenMenuFragment;
 import org.agetac.fragment.OpenedMenuFragment;
 import org.agetac.listener.IOnMenuEventListener;
 import org.agetac.listener.IOnOverlayEventListener;
-import org.agetac.view.IPictogram;
-import org.agetac.view.LinePicto;
 import org.agetac.view.MapOverlay;
 import org.agetac.view.MenuGroup;
 import org.agetac.view.Shape;
@@ -159,7 +153,11 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 			flag = ActionFlag.ADD;
 			touchedEntity = currentEntity.clone();
 			touchedEntity.getModel().setPosition(p);
-			
+			if (touchedEntity.getModel() instanceof DemandeMoyen) {
+				((DemandeMoyen) touchedEntity.getModel()).setEtat(EtatDemande.LANCEE);
+				((DemandeMoyen) touchedEntity.getModel()).setCategorie(CategorieVehicule.FPT);
+			}
+
 			observable.setChanged();
 			observable.notifyObservers(SITACActivity.this);
 

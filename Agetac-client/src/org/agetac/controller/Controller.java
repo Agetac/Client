@@ -55,7 +55,7 @@ public class Controller implements Observer {
 	 */
 	private Controller(Context c) {
 		ServerConnection conn = new ServerConnection(c);
-		interventionEngine = new InterventionEngine(conn);
+		interventionEngine = new InterventionEngine(conn, c);
 		
 		initCommands();
 		initControllers();
@@ -89,7 +89,6 @@ public class Controller implements Observer {
 		this.currentActivity = act;		
 		// on demande à la vue de se mettre à jour
 		act.update();
-		System.out.println("Controller: appel update sur ["+act.getClass().getSimpleName().toString()+"]");
 	}
 	
 	public IEntity getLastEntity() {
@@ -153,5 +152,9 @@ public class Controller implements Observer {
 		} else {
 			android.util.Log.d(TAG, "update non pris en charge! ni une Intervention ni une ITabActivity");
 		}
+	}
+
+	public void quit() {
+		interventionEngine.stopUpdates();
 	}
 }

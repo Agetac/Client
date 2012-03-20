@@ -36,6 +36,12 @@ public abstract class AbstractActivity extends Activity implements ITabActivity 
 	}
 	
 	@Override
+	public void onBackPressed() {
+		super.onBackPressed();
+		controller.quit();
+	}
+	
+	@Override
 	public ActionFlag getActionFlag() {
 		return flag;
 	}

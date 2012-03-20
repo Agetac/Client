@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observer;
 
+import org.agetac.common.api.InterventionApi;
 import org.agetac.common.api.InterventionConnection;
 import org.agetac.common.exception.BadResponseException;
 import org.agetac.common.model.impl.Action;
@@ -23,6 +24,8 @@ import org.json.JSONException;
 import org.restlet.ext.json.JsonRepresentation;
 import org.restlet.representation.Representation;
 
+import android.content.Context;
+
 public class InterventionEngine implements IInterventionEngine {
 
 	private static final String TAG = "InterventionEngine";
@@ -30,9 +33,10 @@ public class InterventionEngine implements IInterventionEngine {
 	private Intervention intervention;
 	private List<IEntity> entities;
 	private MyObservable observable;
-	private InterventionConnection iConn;
+	private InterventionApi iConn;
+	private UpdateInterventionThread updateThread;
 	
-	public InterventionEngine(final ServerConnection serv) {
+	public InterventionEngine(final ServerConnection serv, final Context c) {
 		observable = new MyObservable();
 		entities = new ArrayList<IEntity>();
 		
@@ -45,6 +49,10 @@ public class InterventionEngine implements IInterventionEngine {
 			
 			intervention = mapper.readValue(jRepr.getStream(), Intervention.class);
 			iConn = new InterventionConnection(intervention.getUniqueID(), serv);
+			
+			// thread de MAJ de l'intervention via le serveur en "temps-reel"
+//			updateThread = new UpdateInterventionThread(this, iConn, c);
+//			updateThread.start();
 			
 		} catch (IOException e) {
 			android.util.Log.e(TAG, "IOException: "+e.getMessage());
@@ -72,14 +80,7 @@ public class InterventionEngine implements IInterventionEngine {
 	@Override
 	public void addEntity(IEntity entity) {
 		try {
-			if (entity.getModel() instanceof Vehicule) {
-				Vehicule v = (Vehicule) entity.getModel();
-				Vehicule v2 = iConn.putVehicule(v);
-				System.out.println("entity retrievd >> "+v2.toString());
-				entity.setModel(v2);
-				entities.add(entity);
-			
-			} else if (entity.getModel() instanceof Action) {
+			if (entity.getModel() instanceof Action) {
 				Action a = (Action) entity.getModel();
 				entity.setModel(iConn.putAction(a));
 				entities.add(entity);
@@ -101,8 +102,7 @@ public class InterventionEngine implements IInterventionEngine {
 				
 			} else if (entity.getModel() instanceof DemandeMoyen) {
 				DemandeMoyen dm = (DemandeMoyen) entity.getModel();
-//				entity.setModel(iConn.putDemandeMoyen(i));
-				iConn.putDemandeMoyen(dm);
+				entity.setModel(iConn.putDemandeMoyen(dm));
 				entities.add(entity);
 			}
 			
@@ -111,8 +111,6 @@ public class InterventionEngine implements IInterventionEngine {
 			
 		} catch (JSONException e) {
 			android.util.Log.e(TAG, "addEntity JSONException: "+e.getMessage());
-		} catch (Exception e) {
-			android.util.Log.e(TAG, "addEntity Exception: "+e.getMessage());
 		}
 
 		notifyObservers();
@@ -176,5 +174,10 @@ public class InterventionEngine implements IInterventionEngine {
 
 	public void addObserver(Observer observer) {
 		observable.addObserver(observer);
+	}
+
+	@Override
+	public void stopUpdates() {
+		if (updateThread != null) updateThread.doStop();
 	}
 }
