@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="host">148.60.13.24</string>
+    <string name="host">192.168.1.12</string>
     <string name="port">8112</string>
     <string name="contextRoot">agetacserver</string>
     

@@ -110,15 +110,21 @@ public class InterventionEngine implements IInterventionEngine {
 //				entity.setModel(iConn.putImplique(i));
 				iConn.putImplique(i);
 				entities.add(entity);
+				
+			} else if (entity.getModel() instanceof DemandeMoyen) {
+				DemandeMoyen dm = (DemandeMoyen) entity.getModel();
+//				entity.setModel(iConn.putDemandeMoyen(i));
+				iConn.putDemandeMoyen(dm);
+				entities.add(entity);
 			}
 			
 		} catch (BadResponseException e) {
-			android.util.Log.d(TAG, e.getMessage());
+			android.util.Log.d(TAG, ""+e.getMessage());
 			
 		} catch (JSONException e) {
 			android.util.Log.d(TAG, e.getMessage());
 		} catch (Exception e) {
-			android.util.Log.d(TAG, ""+e.getMessage());
+			android.util.Log.d(TAG, " "+e.getMessage());
 		}
 
 		notifyObservers();
