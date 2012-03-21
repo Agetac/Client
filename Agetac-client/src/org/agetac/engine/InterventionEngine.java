@@ -1,7 +1,6 @@
 package org.agetac.engine;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Observer;
 
@@ -11,6 +10,7 @@ import org.agetac.common.exception.BadResponseException;
 import org.agetac.common.model.impl.Action;
 import org.agetac.common.model.impl.Cible;
 import org.agetac.common.model.impl.DemandeMoyen;
+import org.agetac.common.model.impl.DemandeMoyen.EtatDemande;
 import org.agetac.common.model.impl.Implique;
 import org.agetac.common.model.impl.Intervention;
 import org.agetac.common.model.impl.Message;
@@ -18,7 +18,6 @@ import org.agetac.common.model.impl.Source;
 import org.agetac.common.model.impl.Vehicule;
 import org.agetac.entity.EntityList;
 import org.agetac.entity.IEntity;
-import org.agetac.entity.Entity.EntityState;
 import org.agetac.network.ServerConnection;
 import org.agetac.observer.MyObservable;
 import org.agetac.view.EntityHolder;
@@ -80,9 +79,7 @@ public class InterventionEngine implements IInterventionEngine {
 	}
 	
 	@Override
-	public void addEntity(IEntity entity) {
-		//entities.add(entity);
-		
+	public void addEntity(IEntity entity) {		
 		try {
 			if (entity.getModel() instanceof Action) {
 				Action a = (Action) entity.getModel();
@@ -106,10 +103,7 @@ public class InterventionEngine implements IInterventionEngine {
 				
 			} else if (entity.getModel() instanceof DemandeMoyen) {
 				DemandeMoyen dm = (DemandeMoyen) entity.getModel();
-				System.out.println(">>> "+dm.toString());
-				DemandeMoyen dm2 = iConn.putDemandeMoyen(dm);
-				System.out.println(">>>>>>> "+dm2.toString());
-				entity.setModel(dm2);
+				entity.setModel(iConn.putDemandeMoyen(dm));
 				entities.add(entity);
 			}
 			
@@ -119,7 +113,6 @@ public class InterventionEngine implements IInterventionEngine {
 		} catch (JSONException e) {
 			android.util.Log.e(TAG, "addEntity JSONException: "+e.getMessage());
 		}
-		System.out.println("YOUPI TRAlALALALA");
 		notifyObservers();
 	}
 
@@ -181,32 +174,10 @@ public class InterventionEngine implements IInterventionEngine {
 				if (e != null) {
 					// on met à jour le model de son entitee
 					e.setModel(vehList.get(i));
-					break;
+					
 				} else {
-					IEntity ent;
 					Vehicule model = vehList.get(i);
-					
-					// on cree une entite pour le représenter
-					switch (model.getCategorie()) {
-						case FPT:
-							ent = holder.getEntity(EntityHolder.GREEN_COL).clone();
-							ent.setState(EntityState.ON_SITAC);
-							break;
-							
-						case VSAV:
-							ent = holder.getEntity(EntityHolder.GREEN_ISOLE).clone();
-							break;
-							
-						// TODO prendre en compte les autres cas
-							
-						default:
-							// TODO creer une NullEntity ?
-							ent = holder.getEntity(EntityHolder.RED_ISOLE).clone();
-							break;
-					}
-					
-					ent.setModel(model);
-					entities.add(ent);
+					entities.add(holder.generateEntity(model));
 				}
 			}
 		}
@@ -223,7 +194,28 @@ public class InterventionEngine implements IInterventionEngine {
 		
 		List<DemandeMoyen> dMoyList = inter.getDemandesMoyen();
 		for (int i=0; i<dMoyList.size(); i++) {
-			android.util.Log.d(TAG, "demMoy > "+dMoyList.get(i).toString());
+			// traiter les demandes acceptées et les supprimers de la sitac
+			// pour les remplacers par des vehicules
+			for (int j=0; j<entities.size(); j++) {
+				IEntity e = entities.find(dMoyList.get(i).getUniqueID(), DemandeMoyen.class);
+				// si le vehicule existe deja cote client
+				if (e != null) {
+					// on cherche à savoir si son état est "ACCEPTE"
+					if (dMoyList.get(i).getEtat() == EtatDemande.ACCEPTEE) {
+						// la demande a ete acceptee
+						for (int k=0; k<intervention.getVehicules().size(); k++) {
+							// TODO mettre une hashmap
+							if (intervention.getVehicules().get(k).getUniqueID() == dMoyList.get(i).getVehId()) {
+								Vehicule v = intervention.getVehicules().get(k);
+								entities.add(holder.generateEntity(v));
+							}
+						}
+					}
+
+				} else {
+					
+				}
+			}			
 		}
 		
 		List<Implique> impList = inter.getImpliques();
@@ -238,39 +230,7 @@ public class InterventionEngine implements IInterventionEngine {
 		
 		List<Source> srcList = inter.getSources();
 		for (int i=0; i<srcList.size(); i++) {
-//			for (int j=0; j<entities.size(); j++) {
-//				// si le vehicule existe deja cote client
-//				if (srcList.get(i).getUniqueID() == entities.get(j).getModel().getUniqueID()) {
-//					// on met à jour le model de son entitee
-//					entities.get(j).setModel(srcList.get(i));
-//					
-//				// si le vehicule est nouveau
-//				} else {
-//					IEntity ent;
-//					Source model = srcList.get(i);
-//					
-//					// on cree une entite pour le représenter
-//					switch (model.ge) {
-//						case FPT:
-//							ent = holder.getEntity(EntityHolder.RED_SINGLE).clone();
-//							break;
-//							
-//						case VSAV:
-//							ent = holder.getEntity(EntityHolder.GREEN_SINGLE).clone();
-//							break;
-//							
-//						// TODO prendre en compte les autres cas
-//							
-//						default:
-//							// TODO creer une NullEntity ?
-//							ent = holder.getEntity(EntityHolder.RED_SINGLE).clone();
-//							break;
-//					}
-//					
-//					ent.setModel(model);
-//					entities.add(ent);
-//				}
-//			}
+			
 		}
 		
 		notifyObservers();

@@ -8,6 +8,8 @@ import org.agetac.common.model.impl.Cible;
 import org.agetac.common.model.impl.DemandeMoyen;
 import org.agetac.common.model.impl.Groupe;
 import org.agetac.common.model.impl.Source;
+import org.agetac.common.model.impl.Vehicule;
+import org.agetac.common.model.sign.IModel;
 import org.agetac.entity.Entity;
 import org.agetac.entity.Entity.EntityState;
 import org.agetac.entity.IEntity;
@@ -164,5 +166,40 @@ public class EntityHolder {
 				return entities.get(i);
 		}
 		return null;
+	}
+	
+	public IEntity generateEntity(IModel model) {
+		// default entity
+		IEntity ent = getEntity(EntityHolder.RED_ISOLE).clone();
+		if (model instanceof Vehicule) {
+			
+			// on cree une entite pour le représenter
+			switch (((Vehicule) model).getCategorie()) {
+				case FPT:
+					ent = getEntity(EntityHolder.GREEN_COL).clone();
+					break;
+					
+				case VSAV:
+					ent = getEntity(EntityHolder.GREEN_ISOLE).clone();
+					break;
+					
+				// TODO prendre en compte les autres cas
+			}
+			
+		} else if (model instanceof Source) {
+			
+			
+		} else if (model instanceof Cible) {
+			
+			
+		}
+		
+		if (model.getPosition().getLatitude() == 0 && model.getPosition().getLongitude() == 0) {
+			// alors l'item n'a pas de position definie et donc son etat est OFF_SITAC
+			ent.setState(EntityState.OFF_SITAC);
+		}
+		ent.setModel(model);
+		
+		return ent;
 	}
 }
