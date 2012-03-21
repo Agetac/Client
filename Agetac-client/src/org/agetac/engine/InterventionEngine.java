@@ -198,27 +198,27 @@ public class InterventionEngine implements IInterventionEngine {
 		
 		List<Action> actList = inter.getActions();
 		for (int i=0; i<actList.size(); i++) {
-			android.util.Log.e(TAG, "act > "+actList.get(i).toString());
+			android.util.Log.d(TAG, "act > "+actList.get(i).toString());
 		}
 		
 		List<Cible> cibList = inter.getCibles();
 		for (int i=0; i<cibList.size(); i++) {
-			android.util.Log.e(TAG, "cib > "+cibList.get(i).toString());
+			android.util.Log.d(TAG, "cib > "+cibList.get(i).toString());
 		}
 		
 		List<DemandeMoyen> dMoyList = inter.getDemandesMoyen();
 		for (int i=0; i<dMoyList.size(); i++) {
-			android.util.Log.e(TAG, "demMoy > "+dMoyList.get(i).toString());
+			android.util.Log.d(TAG, "demMoy > "+dMoyList.get(i).toString());
 		}
 		
 		List<Implique> impList = inter.getImpliques();
 		for (int i=0; i<impList.size(); i++) {
-			android.util.Log.e(TAG, "imp > "+impList.get(i).toString());
+			android.util.Log.d(TAG, "imp > "+impList.get(i).toString());
 		}
 		
 		List<Message> messList = inter.getMessages();
 		for (int i=0; i<messList.size(); i++) {
-			android.util.Log.e(TAG, "mess > "+messList.get(i).toString());
+			android.util.Log.d(TAG, "mess > "+messList.get(i).toString());
 		}
 		
 		List<Source> srcList = inter.getSources();
