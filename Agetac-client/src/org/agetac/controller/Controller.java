@@ -10,7 +10,6 @@ import org.agetac.activity.ITabActivity;
 import org.agetac.activity.MessagesActivity;
 import org.agetac.activity.MoyensActivity;
 import org.agetac.activity.SITACActivity;
-import org.agetac.activity.SOEICActivity;
 import org.agetac.command.AddEntityCommand;
 import org.agetac.command.ICommand;
 import org.agetac.command.RemoveEntityCommand;
@@ -36,7 +35,7 @@ public class Controller implements Observer {
 	private IEntity lastEntity;
 	private static Controller controller;
 	private Map<String, ICommand> commands;
-	private ISubController moyensCtrl, sitacCtrl, soeicCtrl, messagesCtrl, crmCtrl;
+	private ISubController moyensCtrl, sitacCtrl, messagesCtrl, crmCtrl;
 	private ITabActivity currentActivity;
 	private IInterventionEngine interventionEngine;
 	private String message;
@@ -75,7 +74,6 @@ public class Controller implements Observer {
 		moyensCtrl = new MoyensController(this);
 		messagesCtrl = new MessagesController(this);
 //		crmCtrl = new CRMController(this);
-//		soeicCtrl = new SOEICController(this);
 	}
 	
 	public static Controller getInstance(Context c) {
@@ -128,11 +126,7 @@ public class Controller implements Observer {
 			if (data instanceof SITACActivity) {
 				android.util.Log.d(TAG, "update venant de SITACActivity");
 				sitacCtrl.processUpdate(act);
-				
-			} else if (data instanceof SOEICActivity) {
-				android.util.Log.d(TAG, "update venant de SOEICActivity");
-				soeicCtrl.processUpdate(act);
-				
+
 			} else if (data instanceof MoyensActivity) {
 				android.util.Log.d(TAG, "update venant de MoyensActivity");
 				moyensCtrl.processUpdate(act);

@@ -62,7 +62,7 @@ public class ServerConnection implements ServerApi {
 	}
 
 	@Override
-	public void postResource(String resType, String resUniqueID, Representation resRepresentation) {
+	public Representation postResource(String resType, String resUniqueID, Representation resRepresentation) throws BadResponseException {
 
 		String url = baseUrl() + resType;
 		
@@ -73,9 +73,9 @@ public class ServerConnection implements ServerApi {
 		ClientResource client = new ClientResource(url);
 		
 		try {
-			client.post(resRepresentation);
+			return client.post(resRepresentation);
 		} catch (ResourceException e) {
-			System.out.println("Error: " + e.getStatus());
+			throw (new BadResponseException(client.getResponse()));
 		}
 		
 	}

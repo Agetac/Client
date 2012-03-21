@@ -16,9 +16,12 @@ import org.agetac.common.model.impl.Intervention;
 import org.agetac.common.model.impl.Message;
 import org.agetac.common.model.impl.Source;
 import org.agetac.common.model.impl.Vehicule;
+import org.agetac.common.model.sign.IModel;
+import org.agetac.entity.Entity;
 import org.agetac.entity.IEntity;
 import org.agetac.network.ServerConnection;
 import org.agetac.observer.MyObservable;
+import org.agetac.view.EntityHolder;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.json.JSONException;
 import org.restlet.ext.json.JsonRepresentation;
@@ -35,10 +38,12 @@ public class InterventionEngine implements IInterventionEngine {
 	private MyObservable observable;
 	private InterventionApi iConn;
 	private UpdateInterventionThread updateThread;
+	private Context context;
 	
 	public InterventionEngine(final ServerConnection serv, final Context c) {
 		observable = new MyObservable();
 		entities = new ArrayList<IEntity>();
+		this.context = c;
 		
 		// TODO need auth ici pour récupérer l'intervention associée au COS connecté
 		final Representation repr = serv.getResource("intervention", "1");
@@ -51,8 +56,8 @@ public class InterventionEngine implements IInterventionEngine {
 			iConn = new InterventionConnection(intervention.getUniqueID(), serv);
 			
 			// thread de MAJ de l'intervention via le serveur en "temps-reel"
-//			updateThread = new UpdateInterventionThread(this, iConn, c);
-//			updateThread.start();
+			updateThread = new UpdateInterventionThread(this, iConn);
+			updateThread.start();
 			
 		} catch (IOException e) {
 			android.util.Log.e(TAG, "IOException: "+e.getMessage());
@@ -69,12 +74,6 @@ public class InterventionEngine implements IInterventionEngine {
 		} catch (JSONException e) {
 			android.util.Log.d(TAG, e.getMessage());
 		}
-	}
-
-	public void demandeMoyen(DemandeMoyen dm) {
-//		dm = iConn.putDemandeMoyen(dm);
-//		ServerThread t = new ServerThread(iConn, dm);
-//		t.start();
 	}
 	
 	@Override
@@ -155,6 +154,110 @@ public class InterventionEngine implements IInterventionEngine {
 	@Override
 	public void editEntity(IEntity entity) {
 		android.util.Log.d(TAG, "[editEntity method] not implemented yet");
+	}
+	
+	@Override
+	public void updateIntervention(Intervention inter) {
+		EntityHolder holder = EntityHolder.getInstance(context);
+		
+		List<Vehicule> vehList = inter.getVehicules();
+		for (int i=0; i<vehList.size(); i++) {
+			for (int j=0; j<entities.size(); j++) {
+				// si le vehicule existe deja cote client
+				if (vehList.get(i).getUniqueID() == entities.get(j).getModel().getUniqueID()) {
+					// on met à jour le model de son entitee
+					entities.get(j).setModel(vehList.get(i));
+					
+				// si le vehicule est nouveau
+				} else {
+					IEntity ent;
+					Vehicule model = vehList.get(i);
+					
+					// on cree une entite pour le représenter
+					switch (model.getCategorie()) {
+						case FPT:
+							ent = holder.getEntity(EntityHolder.RED_ISOLE).clone();
+							break;
+							
+						case VSAV:
+							ent = holder.getEntity(EntityHolder.GREEN_ISOLE).clone();
+							break;
+							
+						// TODO prendre en compte les autres cas
+							
+						default:
+							// TODO creer une NullEntity ?
+							ent = holder.getEntity(EntityHolder.RED_ISOLE).clone();
+							break;
+					}
+					
+					ent.setModel(model);
+					entities.add(ent);
+				}
+			}
+		}
+		
+		List<Action> actList = inter.getActions();
+		for (int i=0; i<actList.size(); i++) {
+			android.util.Log.e(TAG, "act > "+actList.get(i).toString());
+		}
+		
+		List<Cible> cibList = inter.getCibles();
+		for (int i=0; i<cibList.size(); i++) {
+			android.util.Log.e(TAG, "cib > "+cibList.get(i).toString());
+		}
+		
+		List<DemandeMoyen> dMoyList = inter.getDemandesMoyen();
+		for (int i=0; i<dMoyList.size(); i++) {
+			android.util.Log.e(TAG, "demMoy > "+dMoyList.get(i).toString());
+		}
+		
+		List<Implique> impList = inter.getImpliques();
+		for (int i=0; i<impList.size(); i++) {
+			android.util.Log.e(TAG, "imp > "+impList.get(i).toString());
+		}
+		
+		List<Message> messList = inter.getMessages();
+		for (int i=0; i<messList.size(); i++) {
+			android.util.Log.e(TAG, "mess > "+messList.get(i).toString());
+		}
+		
+		List<Source> srcList = inter.getSources();
+		for (int i=0; i<srcList.size(); i++) {
+//			for (int j=0; j<entities.size(); j++) {
+//				// si le vehicule existe deja cote client
+//				if (srcList.get(i).getUniqueID() == entities.get(j).getModel().getUniqueID()) {
+//					// on met à jour le model de son entitee
+//					entities.get(j).setModel(srcList.get(i));
+//					
+//				// si le vehicule est nouveau
+//				} else {
+//					IEntity ent;
+//					Source model = srcList.get(i);
+//					
+//					// on cree une entite pour le représenter
+//					switch (model.ge) {
+//						case FPT:
+//							ent = holder.getEntity(EntityHolder.RED_SINGLE).clone();
+//							break;
+//							
+//						case VSAV:
+//							ent = holder.getEntity(EntityHolder.GREEN_SINGLE).clone();
+//							break;
+//							
+//						// TODO prendre en compte les autres cas
+//							
+//						default:
+//							// TODO creer une NullEntity ?
+//							ent = holder.getEntity(EntityHolder.RED_SINGLE).clone();
+//							break;
+//					}
+//					
+//					ent.setModel(model);
+//					entities.add(ent);
+//				}
+//			}
+		}
 	}
 
 	@Override

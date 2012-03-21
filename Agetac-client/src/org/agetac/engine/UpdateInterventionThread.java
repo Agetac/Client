@@ -1,12 +1,8 @@
 package org.agetac.engine;
 
-import java.util.List;
-
 import org.agetac.common.api.InterventionApi;
 import org.agetac.common.exception.BadResponseException;
-import org.agetac.common.model.impl.Vehicule;
-
-import android.content.Context;
+import org.agetac.common.model.impl.Intervention;
 
 public class UpdateInterventionThread extends Thread {
 	
@@ -14,37 +10,32 @@ public class UpdateInterventionThread extends Thread {
 
 	private InterventionApi iConn;
 	private InterventionEngine engine;
-	private Context context;
 	private boolean doRun = true;
 	
-	public UpdateInterventionThread(InterventionEngine engine, InterventionApi iConn, Context c) {
+	public UpdateInterventionThread(InterventionEngine engine, InterventionApi iConn) {
 		this.engine = engine;
 		this.iConn = iConn;
-		this.context = c;
 	}
 	
 	@Override
-	public void run() {
+	public void run() {	
 		while (doRun) {
 			try {
-				List<Vehicule> vList = iConn.getVehicules();
-				for (int i=0; i<vList.size(); i++) {
-					android.util.Log.d(TAG, "> "+vList.get(i).toString());
-				}
+				
+				Intervention intervention = iConn.getIntervention();
+				engine.updateIntervention(intervention);
+				
+				// TODO permettre de modifier l'intervalle de MAJ dans les prefs
+				sleep(5000);
 				
 			} catch (BadResponseException e1) {
 				android.util.Log.d(TAG, "BadResponse: "+e1.getMessage());
-			}
-			
-			
-			try {
-				// TODO permettre de modifier l'intervalle de MAJ dans les prefs
-				sleep(5000);
+				
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				android.util.Log.e(TAG, "Error thread sleep: "+e.getMessage());
 			}
 		}
+		android.util.Log.d(TAG, "UpdateThread stopped");
 	}
 	
 	public void doStop() {
