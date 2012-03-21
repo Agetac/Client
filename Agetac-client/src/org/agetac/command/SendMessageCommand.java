@@ -1,18 +1,14 @@
 package org.agetac.command;
 
-import java.io.IOException;
 import java.util.Date;
 
-import org.agetac.common.exception.BadResponseException;
 import org.agetac.common.model.impl.Message;
 import org.agetac.controller.Controller;
-import org.agetac.entity.Entity;
 import org.agetac.memento.IMemento;
-import org.json.JSONException;
 
 public class SendMessageCommand implements IRecordableCommand {
 	public static final String NAME = "EnvoyerMessage";
-	private static int idMessage = 0;
+	//private static int idMessage = 0;
 	private static boolean messOk = false;
 
 
@@ -54,9 +50,9 @@ public class SendMessageCommand implements IRecordableCommand {
 		
 		
 		String date = getGroupeHoraire();
-		String id = "" + SendMessageCommand.idMessage;
-		Message mess = new Message ( id, message, date);
-		System.out.println("Message : "+id + "," + message + "," + date);
+		//String id = "" + SendMessageCommand.idMessage;
+		Message mess = new Message (null, message, date);
+		System.out.println("Message : " + message + "," + date);
 		
 		
 		messOk = controller.getInterventionEngine().sendMessage(mess);
@@ -68,7 +64,7 @@ public class SendMessageCommand implements IRecordableCommand {
 	public void execute() {
 
 		sendMessage(controller.getMessage());
-		idMessage++;
+		//idMessage++;
 	}
 
 	@Override
