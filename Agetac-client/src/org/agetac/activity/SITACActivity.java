@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.agetac.R;
 import org.agetac.common.model.impl.Action;
+import org.agetac.common.model.impl.Action.ActionType;
 import org.agetac.common.model.impl.DemandeMoyen;
 import org.agetac.common.model.impl.DemandeMoyen.EtatDemande;
 import org.agetac.common.model.impl.Position;
@@ -16,6 +17,7 @@ import org.agetac.fragment.HiddenMenuFragment;
 import org.agetac.fragment.OpenedMenuFragment;
 import org.agetac.listener.IOnMenuEventListener;
 import org.agetac.listener.IOnOverlayEventListener;
+import org.agetac.view.LinePicto;
 import org.agetac.view.MapOverlay;
 import org.agetac.view.MenuGroup;
 import org.agetac.view.Shape;
@@ -164,6 +166,7 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 				((DemandeMoyen) touchedEntity.getModel()).setEtat(EtatDemande.LANCEE);
 				((DemandeMoyen) touchedEntity.getModel()).setCategorie(CategorieVehicule.FPT);
 			}
+			touchedEntity.setState(EntityState.ON_SITAC);
 
 			observable.setChanged();
 			observable.notifyObservers(SITACActivity.this);
@@ -252,12 +255,17 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 			start.set(start.x-lineMiddlePoint.x, start.y-lineMiddlePoint.y);
 			
 			
-			//LinePicto lp = new LinePicto(currentPicto.getName(), currentPicto.getBitmap(), currentPicto.getColor(), currentPicto.getState(), currentPicto.getShape(), currentPicto.getGraphicalOverload(), start, stop, mapView.getProjection().metersToEquatorPixels(1.0f));
+			LinePicto lp = new LinePicto(currentEntity.getPictogram().getName(), currentEntity.getPictogram().getBitmap(), currentEntity.getPictogram().getColor(), currentEntity.getPictogram().getState(), currentEntity.getPictogram().getShape(), currentEntity.getPictogram().getGraphicalOverload(), start, stop, mapView.getProjection().metersToEquatorPixels(1.0f));
 			//Action as = new Action("42", lineMiddlePos, ActionType.FIRE, lineBeginPos, lineEndPos);
 			touchedEntity = currentEntity.clone();//new Entity(as, lp, EntityState.ON_SITAC); //TODO vrai relation picto-Entity
 			touchedEntity.getModel().setPosition(lineMiddlePos);
 			((Action)touchedEntity.getModel()).setOrigin(lineBeginPos);
 			((Action)touchedEntity.getModel()).setAim(lineEndPos);
+			((Action)touchedEntity.getModel()).setActionType(ActionType.FIRE);
+			((LinePicto) touchedEntity.getPictogram()).setscaleRef(mapView.getProjection().metersToEquatorPixels(1.0f));
+			((LinePicto) touchedEntity.getPictogram()).setStart(start);
+			((LinePicto) touchedEntity.getPictogram()).setStop(stop);
+			touchedEntity.setState(EntityState.ON_SITAC);
 			flag = ActionFlag.ADD;
 			observable.setChanged();
 			observable.notifyObservers(SITACActivity.this);

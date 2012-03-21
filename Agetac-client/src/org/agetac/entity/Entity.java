@@ -54,7 +54,8 @@ public class Entity implements IEntity {
 	public EntityState getState() {
 		return state;
 	}
-
+	
+	@Override
 	public void setState(EntityState state) {
 		this.state = state;
 	}
