@@ -64,7 +64,7 @@ public class MessagesActivity extends AbstractActivity implements OnClickListene
 				confirmSend.setMessage("Message envoye");
 				confirmSend.setNeutralButton("OK", null);
 				confirmSend.show();
-				SendMessageCommand.setMessOk(false);
+			
 
 			}
 
@@ -111,14 +111,23 @@ public class MessagesActivity extends AbstractActivity implements OnClickListene
 		observable.setChanged();
 		observable.notifyObservers(MessagesActivity.this);	
 
-		AlertDialog.Builder confirmSendAmb = new AlertDialog.Builder(this);
+		if(SendMessageCommand.getMessOk()){
 
-		confirmSendAmb.setMessage("Message envoye");
+			AlertDialog.Builder confirmSend = new AlertDialog.Builder(this);
 
-		confirmSendAmb.setNeutralButton("OK", null);
+			confirmSend.setMessage("Message envoye");
+			confirmSend.setNeutralButton("OK", null);
+			confirmSend.show();
+			
+		}
 
-		confirmSendAmb.show();
-
+		else {
+			AlertDialog.Builder confirmSend = new AlertDialog.Builder(this);
+			confirmSend.setMessage("Echec de l'envoi");
+			confirmSend.setNeutralButton("Ok", null);
+			confirmSend.show();
+		}
+	
 		break;
 
 	case R.id.buttonAnnuler : 

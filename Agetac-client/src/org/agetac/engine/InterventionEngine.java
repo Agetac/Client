@@ -64,15 +64,18 @@ public class InterventionEngine implements IInterventionEngine {
 	}
 	
 	@Override
-	public void sendMessage(Message m) {
+	public boolean sendMessage(Message m) {
+		
 		try {
 			iConn.putMessage(m);
+			return true;
 		} catch (BadResponseException e) {
 			android.util.Log.d(TAG, e.getMessage());
 			
 		} catch (JSONException e) {
 			android.util.Log.d(TAG, e.getMessage());
 		}
+		return false;
 	}
 	
 	@Override

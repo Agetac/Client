@@ -42,8 +42,9 @@ public interface IInterventionEngine {
 	 * Ajoute un message a l'intervention
 	 * et envoi la modif au server
 	 * @param m
+	 * @return 
 	 */
-	public void sendMessage(Message m); 
+	public boolean sendMessage(Message m); 
 	
 	/**
 	 * L'intervention actuelle
