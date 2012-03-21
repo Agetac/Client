@@ -92,11 +92,11 @@ public class MessagesActivity extends AbstractActivity implements OnClickListene
 		EditText TexteJeDemande = (EditText)findViewById(R.id.edittext_je_demande);
 		String jeDemande = TexteJeDemande.getText().toString();
 
-		message = "Je suis : " + jeSuis + "/n" + 
-				"Je vois : " + jeVois + "/n" +
-				"Je prevois : " + jePrevois + "/n" +
-				"Je procede : " + jeProcede + "/n" +
-				"Je demande : " + jeDemande + "/n";
+		message = "Je suis : " + jeSuis + "\n" + 
+				"Je vois : " + jeVois + "\n" +
+				"Je prevois : " + jePrevois + "\n" +
+				"Je procede : " + jeProcede + "\n" +
+				"Je demande : " + jeDemande + "\n";
 
 
 

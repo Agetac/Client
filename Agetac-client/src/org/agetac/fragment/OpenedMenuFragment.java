@@ -7,7 +7,6 @@ import org.agetac.entity.IEntity;
 import org.agetac.listener.IOnMenuEventListener;
 import org.agetac.view.Color;
 import org.agetac.view.EntityHolder;
-import org.agetac.view.IPictogram;
 import org.agetac.view.MenuExpandableListAdapter;
 import org.agetac.view.MenuGroup;
 import org.agetac.view.Shape;
@@ -156,7 +155,6 @@ public class OpenedMenuFragment extends Fragment implements IMenuFragment, OnCli
 					false, null, null);
 			if(childSelected != null) {
 				menuAdapter.notifyDataSetChanged();
-				System.out.println("rentre");
 			}
 		}
 		return false;
