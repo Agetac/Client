@@ -94,6 +94,7 @@ public class MapOverlay extends Overlay {
 		
 		for (int i=0; i<items.size(); i++) {
 			item = items.get(i);
+			//android.util.Log.d(TAG,item.toString());
 			item.draw(canvas, mapV, shadow);
 		}
 	}

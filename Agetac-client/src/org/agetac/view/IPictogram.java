@@ -23,4 +23,6 @@ public interface IPictogram {
 	
 	public void draw(Canvas canvas, Point p, boolean shadow, Projection mapProjection);
 	
+	public IPictogram clone();
+	
 }

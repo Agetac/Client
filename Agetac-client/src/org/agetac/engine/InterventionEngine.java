@@ -57,7 +57,7 @@ public class InterventionEngine implements IInterventionEngine {
 			
 			// thread de MAJ de l'intervention via le serveur en "temps-reel"
 			updateThread = new UpdateInterventionThread(this, iConn);
-			updateThread.start();
+			//updateThread.start();
 			
 		} catch (IOException e) {
 			android.util.Log.e(TAG, "IOException: "+e.getMessage());
@@ -81,6 +81,8 @@ public class InterventionEngine implements IInterventionEngine {
 	
 	@Override
 	public void addEntity(IEntity entity) {
+		//entities.add(entity);
+		
 		try {
 			if (entity.getModel() instanceof Action) {
 				Action a = (Action) entity.getModel();

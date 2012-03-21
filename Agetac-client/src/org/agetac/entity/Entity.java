@@ -1,7 +1,14 @@
 package org.agetac.entity;
 
+import java.util.ArrayList;
+
+import org.agetac.common.exception.InvalidJSONException;
+import org.agetac.common.model.impl.*;
+import org.agetac.common.model.impl.Action.ActionType;
+import org.agetac.common.model.impl.DemandeMoyen.EtatDemande;
 import org.agetac.common.model.sign.IModel;
 import org.agetac.view.IPictogram;
+import org.json.JSONException;
 import org.osmdroid.api.IGeoPoint;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
@@ -35,6 +42,7 @@ public class Entity implements IEntity {
 		return geoP;
 	}
 
+
 	@Override
 	public IModel getModel() {
 		return model;
@@ -47,7 +55,35 @@ public class Entity implements IEntity {
 
 	@Override
 	public IEntity clone() {
-		return new Entity(model, picto, state);
+		if (model instanceof Action) {
+			return new Entity(new Action(model.getUniqueID(), new Position(model.getPosition()), ((Action) model).getActionType(), new Position(((Action) model).getOrigin()), new Position(((Action) model).getAim())), picto.clone(), state);
+		} else if (model instanceof Agent) {
+			//humhum?
+			//return new Entity(new Agent(model.getUniqueID(), model.getUniqueID(), ((Agent) model).getAptitude(), ((Agent) model).getSubordonnes()), picto.clone(), state);
+		} else if (model instanceof Caserne) {
+			//humhum?
+			//return new Entity(new Action(model.getUniqueID(), new Position(model.getPosition()), ((Action) model).getActionType(), new Position(((Action) model).getOrigin()), new Position(((Action) model).getAim())), picto.clone(), state);
+		} else if (model instanceof Cible) {
+			return new Entity(new Cible(model.getUniqueID(), new Position(model.getPosition())), picto.clone(), state);
+		} else if (model instanceof DemandeMoyen) {
+			return new Entity(new DemandeMoyen(model.getUniqueID(), model.getName(), new Position(model.getPosition()), ((DemandeMoyen) model).getEtat(), ((DemandeMoyen) model).getGroupe()), picto.clone(), state);
+		} else if (model instanceof Groupe) {
+			//humhum?
+			//return new Entity(new Action(model.getUniqueID(), new Position(model.getPosition()), ((Action) model).getActionType(), new Position(((Action) model).getOrigin()), new Position(((Action) model).getAim())), picto.clone(), state);
+		} else if (model instanceof Implique) {
+			//humhum?
+			//return new Entity(new Action(model.getUniqueID(), new Position(model.getPosition()), ((Action) model).getActionType(), new Position(((Action) model).getOrigin()), new Position(((Action) model).getAim())), picto.clone(), state);
+		} else if (model instanceof Intervention) {
+			//humhum?
+			//return new Entity(new Action(model.getUniqueID(), new Position(model.getPosition()), ((Action) model).getActionType(), new Position(((Action) model).getOrigin()), new Position(((Action) model).getAim())), picto.clone(), state);
+		} else if (model instanceof Source) {
+			return new Entity(new Source(model.getUniqueID(), new Position(model.getPosition())), picto.clone(), state);
+		} else if (model instanceof Vehicule) {
+			//humhum?
+			//return new Entity(new Action(model.getUniqueID(), new Position(model.getPosition()), ((Action) model).getActionType(), new Position(((Action) model).getOrigin()), new Position(((Action) model).getAim())), picto.clone(), state);
+		}
+		System.err.println("OULALALA!");
+		return null;
 	}
 
 	@Override
@@ -70,12 +106,16 @@ public class Entity implements IEntity {
 	public void draw(Canvas canvas, MapView mapV, boolean shadow) {
 		Point p;
 		p = mapV.getProjection().toMapPixels(geoP, null);
+		android.util.Log.d("ENTITIII",p.toString()+geoP.toString());
 		picto.draw(canvas, p, shadow, mapV.getProjection());
 	}
 
 	@Override
 	public void setModel(IModel model) {
 		this.model = model;
+		int latE6 = (int) model.getPosition().getLatitude();
+		int longE6 = (int) model.getPosition().getLongitude();
+		this.geoP = new GeoPoint(latE6, longE6);	
 	}
 	
 	/**

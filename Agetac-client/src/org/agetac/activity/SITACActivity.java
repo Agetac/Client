@@ -102,6 +102,7 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 	@Override
 	public void update() {
 		List<IEntity> entities = controller.getInterventionEngine().getEntities();
+		android.util.Log.d(TAG,entities.toString());
 		mapOverlay.addEntities(entities);
 		
 		final ArrayList<IEntity> offSitacEntities = new ArrayList<IEntity>();
@@ -167,6 +168,7 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 				((DemandeMoyen) touchedEntity.getModel()).setCategorie(CategorieVehicule.FPT);
 			}
 			touchedEntity.setState(EntityState.ON_SITAC);
+			
 
 			observable.setChanged();
 			observable.notifyObservers(SITACActivity.this);

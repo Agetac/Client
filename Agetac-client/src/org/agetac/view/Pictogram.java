@@ -69,7 +69,12 @@ public class Pictogram implements IPictogram {
 	}
 	@Override
 	public void draw(Canvas canvas, Point p, boolean shadow, Projection mapProjection) {
+		android.util.Log.d("PICTOOO",bmp.toString());
 		canvas.drawBitmap(bmp, p.x-(bmp.getWidth()/2), p.y-(bmp.getHeight()/2), null);		
 	}
-
+	
+	@Override
+	public Pictogram clone() {
+		return this;
+	}
 }

@@ -16,6 +16,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
+import android.graphics.Point;
 
 public class EntityHolder {
 
@@ -89,7 +90,7 @@ public class EntityHolder {
 		entities.add(new Entity(new Groupe(), new Pictogram(RED_GRP, BitmapFactory.decodeResource(res, R.drawable.picto_red_grp), Color.RED, State.STATE_HAPPENING, Shape.SQUARE, GraphicalOverload.GROUPE), EntityState.OFF_SITAC));
 		entities.add(new Entity(new Groupe(), new Pictogram(RED_COL, BitmapFactory.decodeResource(res, R.drawable.picto_red_col), Color.RED, State.STATE_HAPPENING, Shape.SQUARE, GraphicalOverload.COLONNE), EntityState.OFF_SITAC));
 		
-		entities.add(new Entity(new Action(), new LinePicto(LINE, BitmapFactory.decodeResource(res, R.drawable.picto_line), Color.BLACK, State.STATE_HAPPENING, Shape.LINEAR_SHAPE, GraphicalOverload.NONE, null, null, 1), EntityState.OFF_SITAC));
+		entities.add(new Entity(new Action(), new LinePicto(LINE, BitmapFactory.decodeResource(res, R.drawable.picto_line), Color.BLACK, State.STATE_HAPPENING, Shape.LINEAR_SHAPE, GraphicalOverload.NONE, new Point(0,0), new Point(0,0), 1), EntityState.OFF_SITAC));
 		entities.add(new Entity(new Source(), new Pictogram(POINT, BitmapFactory.decodeResource(res, R.drawable.picto_point), Color.BLACK, State.STATE_HAPPENING, Shape.CIRCLE, GraphicalOverload.NONE), EntityState.OFF_SITAC));
 		entities.add(new Entity(new Source(), new Pictogram(ZONE, BitmapFactory.decodeResource(res, R.drawable.picto_zone), Color.BLACK, State.STATE_HAPPENING, Shape.STAR_SHAPE, GraphicalOverload.NONE), EntityState.OFF_SITAC));
 	}
