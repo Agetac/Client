@@ -5,8 +5,10 @@ import java.util.Hashtable;
 import java.util.List;
 
 import org.agetac.R;
+import org.agetac.common.model.impl.DemandeMoyen;
 import org.agetac.common.model.impl.Groupe;
 import org.agetac.common.model.impl.Vehicule;
+import org.agetac.common.model.impl.DemandeMoyen.EtatDemande;
 import org.agetac.common.model.impl.Vehicule.CategorieVehicule;
 import org.agetac.common.model.impl.Vehicule.EtatVehicule;
 import org.agetac.controller.Controller.ActionFlag;
@@ -88,40 +90,45 @@ public class MoyensActivity extends AbstractActivity implements OnClickListener,
 		}
 			
 	}
-	
+
 	@Override
 	public boolean onMenuItemClick(MenuItem item) {
-		Vehicule veh ;
-		IPictogram vehiculePicto ;
+		IEntity e;
+		IPictogram vehiculePicto;
+		flag = ActionFlag.ADD;
+		
 		switch (item.getItemId()) {
-	           case R.id.FPT:
-	        	   flag = ActionFlag.ADD;
-	        	   // TODO récupérer le nom via un formulaire 
-	        	   veh = genVehicule(CategorieVehicule.FPT);
-	        	   vehiculePicto = EntityHolder.getInstance(this).getEntity(EntityHolder.RED_GRP).getPictogram();
-	        	   touchedEntity = new Entity(veh, vehiculePicto, EntityState.OFF_SITAC);
-	        	   observable.setChanged();
-	        	   observable.notifyObservers(MoyensActivity.this);
-	               return true;
-	               
-	           case R.id.CCGC:
-	        	   flag = ActionFlag.ADD;
-	        	   veh = genVehicule(CategorieVehicule.CCGC);
-	        	   vehiculePicto = EntityHolder.getInstance(this).getEntity(EntityHolder.RED_GRP).getPictogram();
-	        	   touchedEntity = new Entity(veh, vehiculePicto, EntityState.OFF_SITAC);
-	        	   observable.setChanged();
-	        	   observable.notifyObservers(MoyensActivity.this);
-	               return true;
-	               
-	           case R.id.VSAV:
-	        	   flag = ActionFlag.ADD;
-	        	   veh = genVehicule(CategorieVehicule.VSAV);
-	        	   vehiculePicto = EntityHolder.getInstance(this).getEntity(EntityHolder.RED_GRP).getPictogram();
-	        	   touchedEntity = new Entity(veh, vehiculePicto, EntityState.OFF_SITAC);
-	        	   observable.setChanged();
-	        	   observable.notifyObservers(MoyensActivity.this);
-	               return true;
+			case R.id.FPT:
+				// TODO récupérer le nom via un formulaire
+				e = genDemandeMoyen(CategorieVehicule.FPT);
+				vehiculePicto = EntityHolder.getInstance(this)
+						.getEntity(EntityHolder.RED_GRP).getPictogram();
+				break;
+	
+			case R.id.CCGC:
+				e = genDemandeMoyen(CategorieVehicule.CCGC);
+				vehiculePicto = EntityHolder.getInstance(this)
+						.getEntity(EntityHolder.RED_GRP).getPictogram();
+				break;
+	
+			case R.id.VSAV:
+				e = genDemandeMoyen(CategorieVehicule.VSAV);
+				vehiculePicto = EntityHolder.getInstance(this)
+						.getEntity(EntityHolder.RED_GRP).getPictogram();
+				break;
+				
+			default:
+				// TODO récupérer le nom via un formulaire
+				e = genDemandeMoyen(CategorieVehicule.FPT);
+				vehiculePicto = EntityHolder.getInstance(this)
+						.getEntity(EntityHolder.RED_GRP).getPictogram();
+				break;
 		}
+
+		e.setState(EntityState.OFF_SITAC);
+		touchedEntity = e;
+		observable.setChanged();
+		observable.notifyObservers(MoyensActivity.this);
 		return super.onContextItemSelected(item);
 	}
 	
@@ -148,9 +155,13 @@ public class MoyensActivity extends AbstractActivity implements OnClickListener,
 				map.put(DATA_CASERNE, v.getCaserneName());
 				EtatVehicule ev = v.getEtat();
 				map.put(DATA_ETAT, ev.toString());
-				map.put(DATA_GHDEM, v.getGroupesHoraires().get(EtatVehicule.ALERTE));
-				map.put(DATA_GHARR, v.getGroupesHoraires().get(EtatVehicule.SUR_LES_LIEUX));
-				map.put(DATA_GHRET, v.getGroupesHoraires().get(EtatVehicule.DEMOBILISE));
+//				map.put(DATA_GHDEM, v.getGroupesHoraires().get(EtatVehicule.ALERTE));
+//				map.put(DATA_GHARR, v.getGroupesHoraires().get(EtatVehicule.SUR_LES_LIEUX));
+//				map.put(DATA_GHRET, v.getGroupesHoraires().get(EtatVehicule.DEMOBILISE));
+				
+				map.put(DATA_GHDEM, "hey hey");
+				map.put(DATA_GHARR, "tralala");
+				map.put(DATA_GHRET, "youpi");
 				data.add(map);
 			}
 		}
@@ -162,11 +173,11 @@ public class MoyensActivity extends AbstractActivity implements OnClickListener,
 		});
 	}
 	
-	public Vehicule genVehicule(CategorieVehicule cat) {
-		Vehicule veh = new Vehicule(null, null,
-				cat, "Janze", EtatVehicule.ALERTE,
-				new Groupe("0", null, null), getTime());
-		return veh;
+	public IEntity genDemandeMoyen(CategorieVehicule cat) {
+		IEntity e = EntityHolder.getInstance(this).getEntity(EntityHolder.RED_ISOLE).clone();
+		((DemandeMoyen) e.getModel()).setCategorie(cat);
+		((DemandeMoyen) e.getModel()).setEtat(EtatDemande.LANCEE);
+		return e;
 	}
 
 	public String getTime(){

@@ -18,6 +18,7 @@ import org.agetac.common.model.impl.Source;
 import org.agetac.common.model.impl.Vehicule;
 import org.agetac.entity.EntityList;
 import org.agetac.entity.IEntity;
+import org.agetac.entity.Entity.EntityState;
 import org.agetac.network.ServerConnection;
 import org.agetac.observer.MyObservable;
 import org.agetac.view.EntityHolder;
@@ -100,7 +101,10 @@ public class InterventionEngine implements IInterventionEngine {
 				
 			} else if (entity.getModel() instanceof DemandeMoyen) {
 				DemandeMoyen dm = (DemandeMoyen) entity.getModel();
-				entity.setModel(iConn.putDemandeMoyen(dm));
+				System.out.println(">>> "+dm.toString());
+				DemandeMoyen dm2 = iConn.putDemandeMoyen(dm);
+				System.out.println(">>>>>>> "+dm2.toString());
+				entity.setModel(dm2);
 				entities.add(entity);
 			}
 			
@@ -110,7 +114,7 @@ public class InterventionEngine implements IInterventionEngine {
 		} catch (JSONException e) {
 			android.util.Log.e(TAG, "addEntity JSONException: "+e.getMessage());
 		}
-
+		System.out.println("YOUPI TRAlALALALA");
 		notifyObservers();
 	}
 
@@ -140,6 +144,11 @@ public class InterventionEngine implements IInterventionEngine {
 			} else if (entity.getModel() instanceof Implique) {
 				Implique i = (Implique) entity.getModel();
 				iConn.deleteImplique(i);
+				entities.remove(entity);
+			
+			} else if (entity.getModel() instanceof DemandeMoyen) {
+				DemandeMoyen dm = (DemandeMoyen) entity.getModel();
+				iConn.deleteDemandeMoyen(dm);
 				entities.remove(entity);
 			}
 			
@@ -175,7 +184,8 @@ public class InterventionEngine implements IInterventionEngine {
 					// on cree une entite pour le représenter
 					switch (model.getCategorie()) {
 						case FPT:
-							ent = holder.getEntity(EntityHolder.RED_ISOLE).clone();
+							ent = holder.getEntity(EntityHolder.GREEN_COL).clone();
+							ent.setState(EntityState.ON_SITAC);
 							break;
 							
 						case VSAV:
