@@ -101,15 +101,22 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 	public void update() {
 		List<IEntity> entities = controller.getInterventionEngine().getEntities();
 		mapOverlay.addEntities(entities);
-		mapView.invalidate();
 		
-		ArrayList<IEntity> offSitacEntities = new ArrayList<IEntity>();
+		final ArrayList<IEntity> offSitacEntities = new ArrayList<IEntity>();
 		for (int i=0; i<entities.size(); i++) {
 			if (entities.get(i).getState() == EntityState.OFF_SITAC) {
 				offSitacEntities.add(entities.get(i));
 			}
 		}
-		if (!offSitacEntities.isEmpty()) openedMenuFrag.addOffSitacEntities(offSitacEntities);
+		
+		runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				mapView.invalidate();
+				if (!offSitacEntities.isEmpty())
+					openedMenuFrag.addOffSitacEntities(offSitacEntities);
+			}
+		});
 	}
 
 	@Override

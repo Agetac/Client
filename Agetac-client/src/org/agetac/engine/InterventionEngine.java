@@ -16,8 +16,7 @@ import org.agetac.common.model.impl.Intervention;
 import org.agetac.common.model.impl.Message;
 import org.agetac.common.model.impl.Source;
 import org.agetac.common.model.impl.Vehicule;
-import org.agetac.common.model.sign.IModel;
-import org.agetac.entity.Entity;
+import org.agetac.entity.EntityList;
 import org.agetac.entity.IEntity;
 import org.agetac.network.ServerConnection;
 import org.agetac.observer.MyObservable;
@@ -34,7 +33,7 @@ public class InterventionEngine implements IInterventionEngine {
 	private static final String TAG = "InterventionEngine";
 	
 	private Intervention intervention;
-	private List<IEntity> entities;
+	private EntityList entities;
 	private MyObservable observable;
 	private InterventionApi iConn;
 	private UpdateInterventionThread updateThread;
@@ -42,7 +41,7 @@ public class InterventionEngine implements IInterventionEngine {
 	
 	public InterventionEngine(final ServerConnection serv, final Context c) {
 		observable = new MyObservable();
-		entities = new ArrayList<IEntity>();
+		entities = new EntityList();
 		this.context = c;
 		
 		// TODO need auth ici pour récupérer l'intervention associée au COS connecté
@@ -163,12 +162,12 @@ public class InterventionEngine implements IInterventionEngine {
 		List<Vehicule> vehList = inter.getVehicules();
 		for (int i=0; i<vehList.size(); i++) {
 			for (int j=0; j<entities.size(); j++) {
+				IEntity e = entities.find(vehList.get(i).getUniqueID(), Vehicule.class);
 				// si le vehicule existe deja cote client
-				if (vehList.get(i).getUniqueID() == entities.get(j).getModel().getUniqueID()) {
+				if (e != null) {
 					// on met à jour le model de son entitee
-					entities.get(j).setModel(vehList.get(i));
-					
-				// si le vehicule est nouveau
+					e.setModel(vehList.get(i));
+					break;
 				} else {
 					IEntity ent;
 					Vehicule model = vehList.get(i);
@@ -258,6 +257,8 @@ public class InterventionEngine implements IInterventionEngine {
 //				}
 //			}
 		}
+		
+		notifyObservers();
 	}
 
 	@Override

@@ -154,7 +154,12 @@ public class MoyensActivity extends AbstractActivity implements OnClickListener,
 				data.add(map);
 			}
 		}
-		listAdapter.notifyDataSetChanged();
+		runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				listAdapter.notifyDataSetChanged();
+			}
+		});
 	}
 	
 	public Vehicule genVehicule(CategorieVehicule cat) {
