@@ -169,7 +169,6 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 			}
 			touchedEntity.setState(EntityState.ON_SITAC);
 			
-
 			observable.setChanged();
 			observable.notifyObservers(SITACActivity.this);
 

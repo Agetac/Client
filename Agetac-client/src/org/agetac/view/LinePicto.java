@@ -100,7 +100,7 @@ public class LinePicto implements IPictogram {
 
 	@Override
 	public void draw(Canvas canvas, Point p, boolean shadow, Projection mapProjection) {
-		android.util.Log.d("PICTOOO",bmp.toString());
+		//android.util.Log.d("PICTOOO",bmp.toString());
 		float s = mapProjection.metersToEquatorPixels(1.0f)/scaleRef;
 		canvas.drawLine(p.x+s*start.x, p.y+s*start.y, p.x+s*stop.x, p.y+s*stop.y, paint);
 		canvas.drawLine(p.x+s*stop.x, p.y+s*stop.y, p.x+s*(stop.x+(start.x-stop.x)/16+(start.y-stop.y)/16), p.y+s*(stop.y+(start.y-stop.y)/16+(-start.x+stop.x)/16), paint);

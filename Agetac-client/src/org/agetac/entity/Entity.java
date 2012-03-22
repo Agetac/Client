@@ -106,7 +106,7 @@ public class Entity implements IEntity {
 	public void draw(Canvas canvas, MapView mapV, boolean shadow) {
 		Point p;
 		p = mapV.getProjection().toMapPixels(geoP, null);
-		android.util.Log.d("ENTITIII",p.toString()+geoP.toString());
+		//android.util.Log.d("ENTITIII",p.toString()+geoP.toString());
 		picto.draw(canvas, p, shadow, mapV.getProjection());
 	}
 
