@@ -176,7 +176,7 @@ public class EntityHolder {
 			// on cree une entite pour le représenter
 			switch (((Vehicule) model).getCategorie()) {
 				case FPT:
-					ent = getEntity(EntityHolder.GREEN_COL).clone();
+					ent = getEntity(EntityHolder.RED_ISOLE).clone();
 					break;
 					
 				case VSAV:

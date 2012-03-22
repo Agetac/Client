@@ -6,6 +6,8 @@ import org.agetac.common.exception.InvalidJSONException;
 import org.agetac.common.model.impl.*;
 import org.agetac.common.model.impl.Action.ActionType;
 import org.agetac.common.model.impl.DemandeMoyen.EtatDemande;
+import org.agetac.common.model.impl.Vehicule.CategorieVehicule;
+import org.agetac.common.model.impl.Vehicule.EtatVehicule;
 import org.agetac.common.model.sign.IModel;
 import org.agetac.view.IPictogram;
 import org.json.JSONException;
@@ -79,8 +81,8 @@ public class Entity implements IEntity {
 		} else if (model instanceof Source) {
 			return new Entity(new Source(model.getUniqueID(), new Position(model.getPosition())), picto.clone(), state);
 		} else if (model instanceof Vehicule) {
-			//humhum?
-			//return new Entity(new Action(model.getUniqueID(), new Position(model.getPosition()), ((Action) model).getActionType(), new Position(((Action) model).getOrigin()), new Position(((Action) model).getAim())), picto.clone(), state);
+			//not sure of that
+			return new Entity(new Vehicule(model.getUniqueID(), new Position(model.getPosition()), ((Vehicule) model).getCategorie(), ((Vehicule) model).getCaserneName(), ((Vehicule) model).getEtat(), ((Vehicule) model).getGroupe(), "Tsoin tsoin"), picto.clone(), state);
 		}
 		System.err.println("OULALALA!");
 		return null;

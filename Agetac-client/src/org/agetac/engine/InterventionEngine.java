@@ -200,16 +200,18 @@ public class InterventionEngine implements IInterventionEngine {
 				IEntity e = entities.find(dMoyList.get(i).getUniqueID(), DemandeMoyen.class);
 				// si le vehicule existe deja cote client
 				if (e != null) {
+					// on met à jour le model de son entitee
+					e.setModel(dMoyList.get(i));
 					// on cherche à savoir si son état est "ACCEPTE"
 					if (dMoyList.get(i).getEtat() == EtatDemande.ACCEPTEE) {
 						// la demande a ete acceptee
-						for (int k=0; k<intervention.getVehicules().size(); k++) {
-							// TODO mettre une hashmap
-							if (intervention.getVehicules().get(k).getUniqueID() == dMoyList.get(i).getVehId()) {
-								Vehicule v = intervention.getVehicules().get(k);
-								entities.add(holder.generateEntity(v));
-							}
-						}
+//						for (int k=0; k<intervention.getVehicules().size(); k++) {
+//							// TODO mettre une hashmap
+//							if (intervention.getVehicules().get(k).getUniqueID() == dMoyList.get(i).getVehId()) {
+//								Vehicule v = intervention.getVehicules().get(k);
+//								entities.add(holder.generateEntity(v));
+//							}
+//						}
 					}
 
 				} else {

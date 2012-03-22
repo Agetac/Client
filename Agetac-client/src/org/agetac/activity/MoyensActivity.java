@@ -6,13 +6,11 @@ import java.util.List;
 
 import org.agetac.R;
 import org.agetac.common.model.impl.DemandeMoyen;
-import org.agetac.common.model.impl.Groupe;
 import org.agetac.common.model.impl.Vehicule;
 import org.agetac.common.model.impl.DemandeMoyen.EtatDemande;
 import org.agetac.common.model.impl.Vehicule.CategorieVehicule;
 import org.agetac.common.model.impl.Vehicule.EtatVehicule;
 import org.agetac.controller.Controller.ActionFlag;
-import org.agetac.entity.Entity;
 import org.agetac.entity.Entity.EntityState;
 import org.agetac.entity.IEntity;
 import org.agetac.view.EntityHolder;
@@ -94,35 +92,29 @@ public class MoyensActivity extends AbstractActivity implements OnClickListener,
 	@Override
 	public boolean onMenuItemClick(MenuItem item) {
 		IEntity e;
-		IPictogram vehiculePicto;
 		flag = ActionFlag.ADD;
 		
 		switch (item.getItemId()) {
 			case R.id.FPT:
 				// TODO récupérer le nom via un formulaire
 				e = genDemandeMoyen(CategorieVehicule.FPT);
-				vehiculePicto = EntityHolder.getInstance(this)
-						.getEntity(EntityHolder.RED_GRP).getPictogram();
-				break;
+			break;
 	
 			case R.id.CCGC:
 				e = genDemandeMoyen(CategorieVehicule.CCGC);
-				vehiculePicto = EntityHolder.getInstance(this)
-						.getEntity(EntityHolder.RED_GRP).getPictogram();
-				break;
+			break;
 	
 			case R.id.VSAV:
 				e = genDemandeMoyen(CategorieVehicule.VSAV);
-				vehiculePicto = EntityHolder.getInstance(this)
-						.getEntity(EntityHolder.RED_GRP).getPictogram();
-				break;
+			break;
+				
+			case R.id.menu_attaque:
+				return true;
 				
 			default:
 				// TODO récupérer le nom via un formulaire
 				e = genDemandeMoyen(CategorieVehicule.FPT);
-				vehiculePicto = EntityHolder.getInstance(this)
-						.getEntity(EntityHolder.RED_GRP).getPictogram();
-				break;
+			break;
 		}
 
 		e.setState(EntityState.OFF_SITAC);

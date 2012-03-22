@@ -108,7 +108,9 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 		final ArrayList<IEntity> offSitacEntities = new ArrayList<IEntity>();
 		for (int i=0; i<entities.size(); i++) {
 			if (entities.get(i).getState() == EntityState.OFF_SITAC) {
-				offSitacEntities.add(entities.get(i));
+				if (!(entities.get(i).getModel() instanceof DemandeMoyen && ((DemandeMoyen)entities.get(i).getModel()).getEtat() != EtatDemande.LANCEE)) {
+					offSitacEntities.add(entities.get(i));
+				}
 			}
 		}
 		
