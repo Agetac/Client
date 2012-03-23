@@ -171,8 +171,8 @@ public class EntityHolder {
 	public IEntity generateEntity(IModel model) {
 		// default entity
 		IEntity ent = getEntity(EntityHolder.RED_ISOLE).clone();
+		
 		if (model instanceof Vehicule) {
-			
 			// on cree une entite pour le représenter
 			switch (((Vehicule) model).getCategorie()) {
 				case FPT:

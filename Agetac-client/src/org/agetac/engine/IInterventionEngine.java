@@ -1,6 +1,6 @@
 package org.agetac.engine;
 
-import java.util.List;
+import java.util.ArrayList;
 import java.util.Observer;
 
 import org.agetac.common.model.impl.Intervention;
@@ -62,7 +62,7 @@ public interface IInterventionEngine {
 	 * La liste des entitees de l'intervention
 	 * @return entities liste des entitees
 	 */
-	public List<IEntity> getEntities();
+	public ArrayList<IEntity> getEntities();
 
 	/**
 	 * Demande au thread de MAJ de l'intervention

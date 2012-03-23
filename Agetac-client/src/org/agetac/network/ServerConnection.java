@@ -3,6 +3,10 @@ package org.agetac.network;
 import org.agetac.R;
 import org.agetac.common.api.ServerApi;
 import org.agetac.common.exception.BadResponseException;
+import org.restlet.Client;
+import org.restlet.Component;
+import org.restlet.Server;
+import org.restlet.data.Protocol;
 import org.restlet.representation.Representation;
 import org.restlet.resource.ClientResource;
 import org.restlet.resource.ResourceException;
@@ -21,6 +25,16 @@ public class ServerConnection implements ServerApi {
 		this.host = c.getString(R.string.host);
 		this.port = c.getString(R.string.port);
 		this.contextRoot = c.getString(R.string.contextRoot);
+		
+		// Create the HTTP server and listen on port 8182
+//		Component comp = new Component();
+//		Server server = comp.getServers().add(Protocol.HTTP, 8112);
+//		server.getContext().getParameters().add("useForwardedForHeader", "true");
+//		try {
+//			comp.start();
+//		} catch (Exception e) {
+//			android.util.Log.d(TAG, "Exception component: "+e.getMessage());
+//		}
 	}
 
 	@Override

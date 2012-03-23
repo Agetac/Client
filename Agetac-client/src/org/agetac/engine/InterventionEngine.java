@@ -1,6 +1,7 @@
 package org.agetac.engine;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Observer;
 
@@ -16,6 +17,8 @@ import org.agetac.common.model.impl.Intervention;
 import org.agetac.common.model.impl.Message;
 import org.agetac.common.model.impl.Source;
 import org.agetac.common.model.impl.Vehicule;
+import org.agetac.common.model.sign.AbstractModel;
+import org.agetac.common.model.sign.IModel;
 import org.agetac.entity.EntityList;
 import org.agetac.entity.IEntity;
 import org.agetac.network.ServerConnection;
@@ -55,6 +58,9 @@ public class InterventionEngine implements IInterventionEngine {
 			iConn = new InterventionConnection(intervention.getUniqueID(), serv);
 			
 			// thread de MAJ de l'intervention via le serveur en "temps-reel"
+			// TODO changer ça pour utiliser un système PUSH afin
+			// que ce soit le serveur qui demande au client de se mettre à jour
+			// et pas le client qui flood le serveur
 			updateThread = new UpdateInterventionThread(this, iConn);
 			updateThread.start();
 			
@@ -103,7 +109,8 @@ public class InterventionEngine implements IInterventionEngine {
 				
 			} else if (entity.getModel() instanceof DemandeMoyen) {
 				DemandeMoyen dm = (DemandeMoyen) entity.getModel();
-				entity.setModel(iConn.putDemandeMoyen(dm));
+				DemandeMoyen dmWithID = iConn.putDemandeMoyen(dm);
+				entity.setModel(dmWithID);
 				entities.add(entity);
 			}
 			
@@ -167,79 +174,79 @@ public class InterventionEngine implements IInterventionEngine {
 		EntityHolder holder = EntityHolder.getInstance(context);
 		
 		List<Vehicule> vehList = inter.getVehicules();
-		for (int i=0; i<vehList.size(); i++) {
-			for (int j=0; j<entities.size(); j++) {
-				IEntity e = entities.find(vehList.get(i).getUniqueID(), Vehicule.class);
-				// si le vehicule existe deja cote client
-				if (e != null) {
-					// on met à jour le model de son entitee
-					e.setModel(vehList.get(i));
-					
-				} else {
-					Vehicule model = vehList.get(i);
-					entities.add(holder.generateEntity(model));
-				}
-			}
-		}
+		processUpdate(vehList, Vehicule.class);
 		
 		List<Action> actList = inter.getActions();
-		for (int i=0; i<actList.size(); i++) {
-			android.util.Log.d(TAG, "act > "+actList.get(i).toString());
-		}
+		processUpdate(actList, Action.class);
 		
 		List<Cible> cibList = inter.getCibles();
-		for (int i=0; i<cibList.size(); i++) {
-			android.util.Log.d(TAG, "cib > "+cibList.get(i).toString());
-		}
+		processUpdate(cibList, Cible.class);
 		
 		List<DemandeMoyen> dMoyList = inter.getDemandesMoyen();
 		for (int i=0; i<dMoyList.size(); i++) {
 			// traiter les demandes acceptées et les supprimers de la sitac
 			// pour les remplacers par des vehicules
-			for (int j=0; j<entities.size(); j++) {
-				IEntity e = entities.find(dMoyList.get(i).getUniqueID(), DemandeMoyen.class);
-				// si le vehicule existe deja cote client
-				if (e != null) {
-					// on met à jour le model de son entitee
-					e.setModel(dMoyList.get(i));
-					// on cherche à savoir si son état est "ACCEPTE"
-					if (dMoyList.get(i).getEtat() == EtatDemande.ACCEPTEE) {
-						// la demande a ete acceptee
-//						for (int k=0; k<intervention.getVehicules().size(); k++) {
-//							// TODO mettre une hashmap
-//							if (intervention.getVehicules().get(k).getUniqueID() == dMoyList.get(i).getVehId()) {
-//								Vehicule v = intervention.getVehicules().get(k);
-//								entities.add(holder.generateEntity(v));
-//							}
-//						}
+			IEntity e = entities.find(dMoyList.get(i).getUniqueID(), DemandeMoyen.class);
+			// si la demande existe deja cote client
+			if (e != null) {
+				// on met à jour le model de son entitee
+				e.setModel(dMoyList.get(i));
+				// on cherche à savoir si son état est "ACCEPTE"
+				if (dMoyList.get(i).getEtat() == EtatDemande.ACCEPTEE) {
+					// la demande a ete acceptee, il faut donc supprimer
+					// la demande de la SITAC pour la remplacer par un vehicule
+					for (int k=0; k<intervention.getVehicules().size(); k++) {
+						if (intervention.getVehicules().get(k).getUniqueID() == dMoyList.get(i).getVehId()) {
+							// on cree la future entitee du vehicule
+							Vehicule v = intervention.getVehicules().get(k);
+							entities.add(holder.generateEntity(v));
+							// on supprime la demande de la SITAC
+							entities.remove(dMoyList.get(i));
+						}
 					}
-
-				} else {
-					
 				}
-			}			
+			}
 		}
 		
 		List<Implique> impList = inter.getImpliques();
-		for (int i=0; i<impList.size(); i++) {
-			android.util.Log.d(TAG, "imp > "+impList.get(i).toString());
-		}
+		processUpdate(impList, Implique.class);
 		
 		List<Message> messList = inter.getMessages();
-		for (int i=0; i<messList.size(); i++) {
-			android.util.Log.d(TAG, "mess > "+messList.get(i).toString());
-		}
+		// TODO process messages differently
 		
 		List<Source> srcList = inter.getSources();
-		for (int i=0; i<srcList.size(); i++) {
-			
-		}
+		processUpdate(srcList, Source.class);
 		
 		notifyObservers();
 	}
+	
+	/**
+	 * Parcours la liste passee en parametre afin de mettre a jour les entitees
+	 * deja connues ou bien de creer des entitees pour les objets qu'elle ne
+	 * connait pas.
+	 * @param list une liste qui etend IModel
+	 * @param aClass la classe des objets de la liste
+	 */
+	private void processUpdate(List<? extends IModel> list, Class<? extends IModel> aClass) {
+		EntityHolder holder = EntityHolder.getInstance(context);
+		
+		for (int i=0; i<list.size(); i++) {
+			IEntity e = entities.find(list.get(i).getUniqueID(), aClass);
+			// si l'entitee existe deja cote client
+			if (e != null) {
+				// on met à jour son model
+				e.setModel(list.get(i));
+				
+			} else {
+				// sinon on lui cree une entitee
+				IModel model = list.get(i);
+				entities.add(holder.generateEntity(model));
+			}
+		}
+	}
 
 	@Override
-	public List<IEntity> getEntities() {
+	public ArrayList<IEntity> getEntities() {
 		return entities;
 	}
 	
