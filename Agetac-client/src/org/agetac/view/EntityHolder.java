@@ -5,9 +5,11 @@ import java.util.ArrayList;
 import org.agetac.R;
 import org.agetac.common.model.impl.Action;
 import org.agetac.common.model.impl.Cible;
+import org.agetac.common.model.impl.Cible.CibleType;
 import org.agetac.common.model.impl.DemandeMoyen;
 import org.agetac.common.model.impl.Groupe;
 import org.agetac.common.model.impl.Source;
+import org.agetac.common.model.impl.Source.SourceType;
 import org.agetac.common.model.impl.Vehicule;
 import org.agetac.common.model.sign.IModel;
 import org.agetac.entity.Entity;
@@ -44,7 +46,7 @@ public class EntityHolder {
 	public static final String RED_DOTTED_SINGLE = "red_dotted_single";
 	public static final String RED_DOTTED_NONE = "red_dotted_none";
 	
-	public static final String RED_NONE = "RED_none";
+	public static final String RED_NONE = "red_none";
 	public static final String RED_GRP = "red_grp";
 	public static final String RED_COL = "red_col";
 	public static final String RED_ISOLE = "red_isole";
@@ -64,14 +66,13 @@ public class EntityHolder {
 		Options options = new Options();
 		options.inPurgeable = false;
 		
-		entities.add(new Entity(new Source(), new Pictogram(RED_UP, BitmapFactory.decodeResource(res, R.drawable.picto_red_up, options), Color.RED, State.STATE_HAPPENING, Shape.TRIANGLE_UP, GraphicalOverload.NONE), EntityState.OFF_SITAC));
-		entities.add(new Entity(new Cible(), new Pictogram(RED_DOWN, BitmapFactory.decodeResource(res, R.drawable.picto_red_down, options), Color.RED, State.STATE_HAPPENING, Shape.TRIANGLE_DOWN, GraphicalOverload.NONE), EntityState.OFF_SITAC));
-		entities.add(new Entity(new Source(), new Pictogram(GREEN_UP, BitmapFactory.decodeResource(res, R.drawable.picto_green_up), Color.GREEN, State.STATE_HAPPENING, Shape.TRIANGLE_UP, GraphicalOverload.NONE), EntityState.OFF_SITAC));
-		entities.add(new Entity(new Cible(), new Pictogram(GREEN_DOWN, BitmapFactory.decodeResource(res, R.drawable.picto_green_down), Color.GREEN, State.STATE_HAPPENING, Shape.TRIANGLE_DOWN, GraphicalOverload.NONE), EntityState.OFF_SITAC));
-		entities.add(new Entity(new Source(), new Pictogram(ORANGE_UP, BitmapFactory.decodeResource(res, R.drawable.picto_orange_up), Color.ORANGE, State.STATE_HAPPENING, Shape.TRIANGLE_UP, GraphicalOverload.NONE), EntityState.OFF_SITAC));
-		entities.add(new Entity(new Cible(), new Pictogram(ORANGE_DOWN, BitmapFactory.decodeResource(res, R.drawable.picto_orange_down), Color.ORANGE, State.STATE_HAPPENING, Shape.TRIANGLE_DOWN, GraphicalOverload.NONE), EntityState.OFF_SITAC));
-		entities.add(new Entity(new Source(), new Pictogram(BLUE_UP, BitmapFactory.decodeResource(res, R.drawable.picto_blue_up), Color.BLUE, State.STATE_HAPPENING, Shape.TRIANGLE_UP, GraphicalOverload.NONE), EntityState.OFF_SITAC));
-		entities.add(new Entity(new Cible(), new Pictogram(BLUE_DOWN, BitmapFactory.decodeResource(res, R.drawable.picto_blue_down), Color.BLUE, State.STATE_HAPPENING, Shape.TRIANGLE_DOWN, GraphicalOverload.NONE), EntityState.OFF_SITAC));
+		entities.add(new Entity(new Source(SourceType.FIRE), new Pictogram(RED_UP, BitmapFactory.decodeResource(res, R.drawable.picto_red_up, options), Color.RED, State.STATE_HAPPENING, Shape.TRIANGLE_UP, GraphicalOverload.NONE), EntityState.OFF_SITAC));
+		entities.add(new Entity(new Cible(CibleType.FIRE), new Pictogram(RED_DOWN, BitmapFactory.decodeResource(res, R.drawable.picto_red_down, options), Color.RED, State.STATE_HAPPENING, Shape.TRIANGLE_DOWN, GraphicalOverload.NONE), EntityState.OFF_SITAC));
+		entities.add(new Entity(new Cible(CibleType.HUMAN), new Pictogram(GREEN_DOWN, BitmapFactory.decodeResource(res, R.drawable.picto_green_down), Color.GREEN, State.STATE_HAPPENING, Shape.TRIANGLE_DOWN, GraphicalOverload.NONE), EntityState.OFF_SITAC));
+		entities.add(new Entity(new Source(SourceType.CHEM), new Pictogram(ORANGE_UP, BitmapFactory.decodeResource(res, R.drawable.picto_orange_up), Color.ORANGE, State.STATE_HAPPENING, Shape.TRIANGLE_UP, GraphicalOverload.NONE), EntityState.OFF_SITAC));
+		entities.add(new Entity(new Cible(CibleType.CHEM), new Pictogram(ORANGE_DOWN, BitmapFactory.decodeResource(res, R.drawable.picto_orange_down), Color.ORANGE, State.STATE_HAPPENING, Shape.TRIANGLE_DOWN, GraphicalOverload.NONE), EntityState.OFF_SITAC));
+		entities.add(new Entity(new Source(SourceType.WATER), new Pictogram(BLUE_UP, BitmapFactory.decodeResource(res, R.drawable.picto_blue_up), Color.BLUE, State.STATE_HAPPENING, Shape.TRIANGLE_UP, GraphicalOverload.NONE), EntityState.OFF_SITAC));
+		entities.add(new Entity(new Cible(CibleType.WATER), new Pictogram(BLUE_DOWN, BitmapFactory.decodeResource(res, R.drawable.picto_blue_down), Color.BLUE, State.STATE_HAPPENING, Shape.TRIANGLE_DOWN, GraphicalOverload.NONE), EntityState.OFF_SITAC));
 		
 		entities.add(new Entity(new DemandeMoyen(), new Pictogram(BLUE_NONE, BitmapFactory.decodeResource(res, R.drawable.picto_blue_none), Color.BLUE, State.STATE_HAPPENING, Shape.SQUARE, GraphicalOverload.NONE), EntityState.OFF_SITAC));
 		entities.add(new Entity(new DemandeMoyen(), new Pictogram(BLUE_ISOLE, BitmapFactory.decodeResource(res, R.drawable.picto_blue_isole), Color.BLUE, State.STATE_HAPPENING, Shape.SQUARE, GraphicalOverload.ISOLE), EntityState.OFF_SITAC));
@@ -187,11 +188,38 @@ public class EntityHolder {
 			}
 			
 		} else if (model instanceof Source) {
-			
+			switch (((Source) model).getType()) {
+				case CHEM:
+					ent = getEntity(EntityHolder.ORANGE_UP).clone();
+					break;
+					
+				case WATER:
+					ent = getEntity(EntityHolder.BLUE_UP).clone();
+					break;
+					
+				case FIRE:
+					ent = getEntity(EntityHolder.RED_UP).clone();
+					break;
+			}
 			
 		} else if (model instanceof Cible) {
-			
-			
+			switch (((Cible) model).getType()) {
+				case CHEM:
+					ent = getEntity(EntityHolder.ORANGE_DOWN).clone();
+					break;
+					
+				case WATER:
+					ent = getEntity(EntityHolder.BLUE_DOWN).clone();
+					break;
+					
+				case FIRE:
+					ent = getEntity(EntityHolder.RED_DOWN).clone();
+					break;
+					
+				case HUMAN:
+					ent = getEntity(EntityHolder.GREEN_DOWN).clone();
+					break;
+		}
 		}
 		
 		if (model.getPosition().getLatitude() == 0 && model.getPosition().getLongitude() == 0) {

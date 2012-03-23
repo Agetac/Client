@@ -66,7 +66,7 @@ public class Entity implements IEntity {
 			//humhum?
 			//return new Entity(new Action(model.getUniqueID(), new Position(model.getPosition()), ((Action) model).getActionType(), new Position(((Action) model).getOrigin()), new Position(((Action) model).getAim())), picto.clone(), state);
 		} else if (model instanceof Cible) {
-			return new Entity(new Cible(model.getUniqueID(), new Position(model.getPosition())), picto.clone(), state);
+			return new Entity(new Cible(model.getUniqueID(), new Position(model.getPosition()), ((Cible) model).getType()), picto.clone(), state);
 		} else if (model instanceof DemandeMoyen) {
 			return new Entity(new DemandeMoyen(model.getUniqueID(), model.getName(), new Position(model.getPosition()), ((DemandeMoyen) model).getEtat(), ((DemandeMoyen) model).getGroupe()), picto.clone(), state);
 		} else if (model instanceof Groupe) {
@@ -79,7 +79,7 @@ public class Entity implements IEntity {
 			//humhum?
 			//return new Entity(new Action(model.getUniqueID(), new Position(model.getPosition()), ((Action) model).getActionType(), new Position(((Action) model).getOrigin()), new Position(((Action) model).getAim())), picto.clone(), state);
 		} else if (model instanceof Source) {
-			return new Entity(new Source(model.getUniqueID(), new Position(model.getPosition())), picto.clone(), state);
+			return new Entity(new Source(model.getUniqueID(), new Position(model.getPosition()), ((Source) model).getType()), picto.clone(), state);
 		} else if (model instanceof Vehicule) {
 			//not sure of that
 			return new Entity(new Vehicule(model.getUniqueID(), new Position(model.getPosition()), ((Vehicule) model).getCategorie(), ((Vehicule) model).getCaserneName(), ((Vehicule) model).getEtat(), ((Vehicule) model).getGroupe(), "Tsoin tsoin"), picto.clone(), state);
