@@ -174,7 +174,6 @@ public class EntityHolder {
 		IEntity ent = getEntity(EntityHolder.RED_ISOLE).clone();
 		
 		if (model instanceof Vehicule) {
-			// on cree une entite pour le représenter
 			switch (((Vehicule) model).getCategorie()) {
 				case FPT:
 					ent = getEntity(EntityHolder.RED_ISOLE).clone();
@@ -219,13 +218,30 @@ public class EntityHolder {
 				case HUMAN:
 					ent = getEntity(EntityHolder.GREEN_DOWN).clone();
 					break;
-		}
+			}
+			
+		} else if (model instanceof DemandeMoyen) {
+			switch (((DemandeMoyen) model).getCategorie()) {
+			case FPT:
+				ent = getEntity(EntityHolder.RED_ISOLE).clone();
+				break;
+				
+			case VSAV:
+				ent = getEntity(EntityHolder.GREEN_ISOLE).clone();
+				break;
+				
+			// TODO prendre en compte les autres cas
+			}
 		}
 		
 		if (model.getPosition().getLatitude() == 0 && model.getPosition().getLongitude() == 0) {
 			// alors l'item n'a pas de position definie et donc son etat est OFF_SITAC
 			ent.setState(EntityState.OFF_SITAC);
+		
+		} else {
+			ent.setState(EntityState.ON_SITAC);
 		}
+		
 		ent.setModel(model);
 		
 		return ent;

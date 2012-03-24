@@ -31,7 +31,7 @@ public class OpenedMenuFragment extends Fragment implements IMenuFragment, OnCli
 	private Animation showMenuAnim;
 	private IOnMenuEventListener listener;
 	private ArrayList<MenuGroup> groups;
-	private ArrayList<IEntity> pictosDangers, pictosCibles, pictosMapItems, pictosMoyens, pictosOffSitac;
+	private ArrayList<IEntity> pictosDangers, pictosCibles, pictosActions, pictosMoyens, pictosOffSitac;
 	private MenuExpandableListAdapter menuAdapter;
 	private ExpandableListView listView;
 	
@@ -53,7 +53,7 @@ public class OpenedMenuFragment extends Fragment implements IMenuFragment, OnCli
 		EntityHolder pHolder = EntityHolder.getInstance(getActivity());
 		pictosDangers = pHolder.getEntities(Shape.TRIANGLE_UP);
 		pictosCibles = pHolder.getEntities(Shape.TRIANGLE_DOWN);
-		pictosMapItems = pHolder.getEntities(Color.BLACK);
+		pictosActions = pHolder.getEntities(Color.BLACK);
 		pictosMoyens = pHolder.getEntities(Shape.SQUARE);
 		pictosOffSitac = new ArrayList<IEntity>();
 	}
@@ -92,8 +92,8 @@ public class OpenedMenuFragment extends Fragment implements IMenuFragment, OnCli
 		groups.add(grpMoyens);
 		
 		// Groupe des mapitems
-		MenuGroup grpMapItems = new MenuGroup(getString(R.string.map_items));
-		grpMapItems.setEntities(pictosMapItems);
+		MenuGroup grpMapItems = new MenuGroup(getString(R.string.actions));
+		grpMapItems.setEntities(pictosActions);
 		groups.add(grpMapItems);
 		
 		menuAdapter = new MenuExpandableListAdapter(getActivity(), groups);
@@ -162,7 +162,7 @@ public class OpenedMenuFragment extends Fragment implements IMenuFragment, OnCli
 	
 	
 	public void addOffSitacEntities(ArrayList<IEntity> entities) {
-		if (entities.isEmpty()) {
+		if (entities == null || entities.isEmpty()) {
 			if (groups.get(0).getGroupName().equals(getString(R.string.off_sitac))) {
 				groups.remove(0);
 			}
@@ -177,10 +177,7 @@ public class OpenedMenuFragment extends Fragment implements IMenuFragment, OnCli
 			}
 			
 			pictosOffSitac.clear();
-			for (int i=0; i<entities.size(); i++) {
-				pictosOffSitac.add(entities.get(i));
-			}
-			
+			pictosOffSitac.addAll(entities);			
 			grpOffSitac.setEntities(pictosOffSitac);
 			menuAdapter.notifyDataSetChanged();
 		}

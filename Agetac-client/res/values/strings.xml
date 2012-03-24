@@ -21,7 +21,7 @@
     <string name="dangers">Dangers</string>
     <string name="cibles">Cibles</string>
     <string name="off_sitac">Position à définir</string>
-    <string name="map_items">Map items</string>
+    <string name="actions">Actions</string>
     <!-- #END# STRING OPENEDMENU FRAGMENT -->
 
     <string name="progress_title_connection">Veuillez patienter</string>
@@ -63,6 +63,7 @@
     <string name="CCGC">CCGC</string>
     <string name="VSAV">VSAV</string>
     <string name="item2">item2</string>
+    <string name="unknown">Inconnue</string>
 
     <!-- fin entete -->
     <!-- #END# STRING MOYENS ACTIVITY -->

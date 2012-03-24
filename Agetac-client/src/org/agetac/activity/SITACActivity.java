@@ -107,8 +107,11 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 		
 		final ArrayList<IEntity> offSitacEntities = new ArrayList<IEntity>();
 		for (int i=0; i<entities.size(); i++) {
-			if (entities.get(i).getState() == EntityState.OFF_SITAC) {
-				if (!(entities.get(i).getModel() instanceof DemandeMoyen && ((DemandeMoyen)entities.get(i).getModel()).getEtat() != EtatDemande.LANCEE)) {
+			IEntity e = entities.get(i);
+			if (e.getState() == EntityState.OFF_SITAC) {
+				if (!(e.getModel() instanceof DemandeMoyen
+					&&((DemandeMoyen) e.getModel()).getEtat() != EtatDemande.LANCEE)) {
+					android.util.Log.e(TAG, "DIDIER > "+entities.get(i).toString());
 					offSitacEntities.add(entities.get(i));
 				}
 			}
@@ -118,8 +121,7 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 			@Override
 			public void run() {
 				mapView.invalidate();
-				if (!offSitacEntities.isEmpty())
-					openedMenuFrag.addOffSitacEntities(offSitacEntities);
+				openedMenuFrag.addOffSitacEntities(offSitacEntities);
 			}
 		});
 	}
@@ -259,8 +261,7 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 			
 			
 			LinePicto lp = new LinePicto(currentEntity.getPictogram().getName(), currentEntity.getPictogram().getBitmap(), currentEntity.getPictogram().getColor(), currentEntity.getPictogram().getState(), currentEntity.getPictogram().getShape(), currentEntity.getPictogram().getGraphicalOverload(), start, stop, mapView.getProjection().metersToEquatorPixels(1.0f));
-			//Action as = new Action("42", lineMiddlePos, ActionType.FIRE, lineBeginPos, lineEndPos);
-			touchedEntity = currentEntity.clone();//new Entity(as, lp, EntityState.ON_SITAC); //TODO vrai relation picto-Entity
+			touchedEntity = currentEntity.clone();
 			touchedEntity.getModel().setPosition(lineMiddlePos);
 			((Action)touchedEntity.getModel()).setOrigin(lineBeginPos);
 			((Action)touchedEntity.getModel()).setAim(lineEndPos);

@@ -144,6 +144,7 @@ public final class R {
         public static final int FPT=0x7f060031;
         public static final int Message=0x7f060023;
         public static final int VSAV=0x7f060033;
+        public static final int actions=0x7f060010;
         public static final int alim=0x7f06002f;
         public static final int app_name=0x7f060003;
         public static final int attaque=0x7f06002e;
@@ -175,7 +176,6 @@ public final class R {
         public static final int je_suis=0x7f06001e;
         public static final int je_vois=0x7f06001f;
         public static final int login=0x7f060004;
-        public static final int map_items=0x7f060010;
         public static final int menu_img_desc=0x7f060025;
         public static final int messages=0x7f06001c;
         public static final int moyens=0x7f06001b;
@@ -192,6 +192,7 @@ public final class R {
         public static final int secours=0x7f060030;
         public static final int sitac=0x7f06001a;
         public static final int soeic=0x7f060019;
+        public static final int unknown=0x7f060035;
         public static final int vehicule_caserne=0x7f060028;
         public static final int vehicule_etat=0x7f060029;
         public static final int vehicule_gh_arrivee=0x7f06002a;

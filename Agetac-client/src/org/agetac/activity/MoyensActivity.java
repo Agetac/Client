@@ -31,14 +31,14 @@ import android.widget.SimpleAdapter;
 
 public class MoyensActivity extends AbstractActivity implements OnClickListener, OnMenuItemClickListener {
 	
-	private static final String TAG = "MoyensActivity";
-	private static final String DATA_IMG = "data_img";
-	private static final String DATA_TYPE = "data_type";
-	private static final String DATA_CASERNE = "data_caserne";
-	private static final String DATA_ETAT = "data_etat";
-	private static final String DATA_GHDEM = "data_gh_demande";
-	private static final String DATA_GHARR = "data_gh_arrivee";
-	private static final String DATA_GHRET = "data_gh_retour";
+	private static final String TAG				= "MoyensActivity";
+	private static final String DATA_IMG		= "data_img";
+	private static final String DATA_TYPE		= "data_type";
+	private static final String DATA_CASERNE	= "data_caserne";
+	private static final String DATA_ETAT		= "data_etat";
+	private static final String DATA_GHDEM		= "data_gh_demande";
+	private static final String DATA_GHARR		= "data_gh_arrivee";
+	private static final String DATA_GHRET		= "data_gh_retour";
 	
 	private SimpleAdapter listAdapter;
 	private ListView listView;
@@ -68,7 +68,6 @@ public class MoyensActivity extends AbstractActivity implements OnClickListener,
 		MenuInflater inflater = popupMenu.getMenuInflater();
 		inflater.inflate(R.menu.moyens_context_menu, menu);
 		popupMenu.setOnMenuItemClickListener(this);
-		//popupMenu.show();
 	}
 
 	@Override
@@ -76,36 +75,35 @@ public class MoyensActivity extends AbstractActivity implements OnClickListener,
 		switch (v.getId()) {
 			case R.id.btn_demande_moyens:
 				android.util.Log.d(TAG, "CLICK JE DEMANDE");
-				popupMenu.show();
-			
+				popupMenu.show();		
 //				flag = ActionFlag.ADD;
 //				Vehicule veh = genVehicule();
 //		        IPictogram vehiculePicto = PictogramHolder.getInstance(this).getPictogram(PictogramHolder.RED_GRP);
 //		        touchedEntity = new Entity<Vehicule>(veh, vehiculePicto, EntityState.OFF_SITAC);
 //				observable.setChanged();
 //				observable.notifyObservers(MoyensActivity.this);
-//				break;
+				break;
 		}
 			
 	}
 
 	@Override
 	public boolean onMenuItemClick(MenuItem item) {
-		IEntity e;
+		DemandeMoyen dm;
 		flag = ActionFlag.ADD;
 		
 		switch (item.getItemId()) {
 			case R.id.FPT:
 				// TODO récupérer le nom via un formulaire
-				e = genDemandeMoyen(CategorieVehicule.FPT);
+				dm = genDemandeMoyen(CategorieVehicule.FPT);
 			break;
 	
 			case R.id.CCGC:
-				e = genDemandeMoyen(CategorieVehicule.CCGC);
+				dm = genDemandeMoyen(CategorieVehicule.CCGC);
 			break;
 	
 			case R.id.VSAV:
-				e = genDemandeMoyen(CategorieVehicule.VSAV);
+				dm = genDemandeMoyen(CategorieVehicule.VSAV);
 			break;
 				
 			case R.id.menu_attaque:
@@ -113,12 +111,11 @@ public class MoyensActivity extends AbstractActivity implements OnClickListener,
 				
 			default:
 				// TODO récupérer le nom via un formulaire
-				e = genDemandeMoyen(CategorieVehicule.FPT);
+				dm = genDemandeMoyen(CategorieVehicule.FPT);
 			break;
 		}
-
-		e.setState(EntityState.OFF_SITAC);
-		touchedEntity = e;
+		
+		touchedEntity = EntityHolder.getInstance(this).generateEntity(dm);
 		observable.setChanged();
 		observable.notifyObservers(MoyensActivity.this);
 		return super.onContextItemSelected(item);
@@ -139,24 +136,45 @@ public class MoyensActivity extends AbstractActivity implements OnClickListener,
 		data.clear();
 		Hashtable<String, String> map;
 		for (int i=0; i<entities.size(); i++) {
+			// la map pour la prochaine ligne a ajouter
+			map = new Hashtable<String, String>();
+			
 			if (entities.get(i).getModel() instanceof Vehicule) {
 				Vehicule v = (Vehicule) entities.get(i).getModel();
-				map = new Hashtable<String, String>();
 				map.put(DATA_IMG, ""+R.drawable.firetruck);
-				map.put(DATA_TYPE, v.getCategorie()+" "+v.getName());
+				map.put(DATA_TYPE, v.getName());
 				map.put(DATA_CASERNE, v.getCaserneName());
 				EtatVehicule ev = v.getEtat();
 				map.put(DATA_ETAT, ev.toString());
-//				map.put(DATA_GHDEM, v.getGroupesHoraires().get(EtatVehicule.ALERTE));
-//				map.put(DATA_GHARR, v.getGroupesHoraires().get(EtatVehicule.SUR_LES_LIEUX));
-//				map.put(DATA_GHRET, v.getGroupesHoraires().get(EtatVehicule.DEMOBILISE));
-				
-				map.put(DATA_GHDEM, "hey hey");
-				map.put(DATA_GHARR, "tralala");
-				map.put(DATA_GHRET, "youpi");
-				data.add(map);
+				map.put(DATA_GHDEM, getString(R.string.unknown)); // mapping GH non implemente sur le model
+				map.put(DATA_GHARR, getString(R.string.unknown)); // mapping GH non implemente sur le model
+				map.put(DATA_GHRET, getString(R.string.unknown)); // mapping GH non implemente sur le model
+			
+			} else if (entities.get(i).getModel() instanceof DemandeMoyen) {
+				DemandeMoyen dm = (DemandeMoyen) entities.get(i).getModel();
+				// si la demande est en cours ou qu'elle a ete refusee on l'affiche
+				// sinon ça signifie que le vehicule est deja affiche
+				if (dm.getEtat() != EtatDemande.ACCEPTEE) {
+					map.put(DATA_IMG, ""+R.drawable.firetruck);
+					map.put(DATA_TYPE, dm.getName());
+					map.put(DATA_CASERNE, getString(R.string.unknown));
+					map.put(DATA_ETAT, dm.getEtat().toString());
+					map.put(DATA_GHDEM, getString(R.string.unknown)); // mapping GH non implemente sur le model
+					map.put(DATA_GHARR, getString(R.string.unknown)); // mapping GH non implemente sur le model
+					map.put(DATA_GHRET, getString(R.string.unknown)); // mapping GH non implemente sur le model
+					
+				} else {
+					// on ajoute pas une map vide dans la liste
+					// mais on continu a parcourir les entitees
+					continue;
+				}
 			}
+			
+			// on ajoute la map a la liste
+			data.add(map);
 		}
+		
+		// on notifie l'adapter que le contenu de la liste a change
 		runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
@@ -165,11 +183,12 @@ public class MoyensActivity extends AbstractActivity implements OnClickListener,
 		});
 	}
 	
-	public IEntity genDemandeMoyen(CategorieVehicule cat) {
-		IEntity e = EntityHolder.getInstance(this).getEntity(EntityHolder.RED_ISOLE).clone();
-		((DemandeMoyen) e.getModel()).setCategorie(cat);
-		((DemandeMoyen) e.getModel()).setEtat(EtatDemande.LANCEE);
-		return e;
+	public DemandeMoyen genDemandeMoyen(CategorieVehicule cat) {
+		DemandeMoyen dm = new DemandeMoyen();
+		dm.setCategorie(cat);
+		dm.setEtat(EtatDemande.LANCEE);
+		dm.getGroupesHoraires().put(EtatDemande.LANCEE, getTime());
+		return dm;
 	}
 
 	public String getTime(){
