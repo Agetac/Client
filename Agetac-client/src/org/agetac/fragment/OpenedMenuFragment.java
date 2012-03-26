@@ -183,6 +183,19 @@ public class OpenedMenuFragment extends Fragment implements IMenuFragment, OnCli
 		}
 	}
 	
+	public void removeOnSitacEntity(IEntity entity) {
+		MenuGroup grpOffSitac = null;
+		if (groups.get(0).getGroupName().equals(getString(R.string.off_sitac))) {
+			grpOffSitac = groups.get(0);
+		} else {
+			grpOffSitac = new MenuGroup(getString(R.string.off_sitac));
+			groups.add(0, grpOffSitac);
+		}	
+		pictosOffSitac.remove(entity);			
+		grpOffSitac.setEntities(pictosOffSitac);
+		menuAdapter.notifyDataSetChanged();
+	}
+	
 	public void unselectItem(View v) {
 		v.setSelected(false);
 	}

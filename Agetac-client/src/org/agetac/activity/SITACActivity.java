@@ -103,11 +103,15 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 	public void update() {
 		List<IEntity> entities = controller.getInterventionEngine().getEntities();
 		android.util.Log.d(TAG,entities.toString());
-		mapOverlay.addEntities(entities);
+		//mapOverlay.addEntities(entities);
+		mapOverlay.addEntities(new ArrayList<IEntity>());//pour clearer la list des entitees de l'overlay
 		
 		final ArrayList<IEntity> offSitacEntities = new ArrayList<IEntity>();
 		for (int i=0; i<entities.size(); i++) {
 			IEntity e = entities.get(i);
+			if ((!(e.getModel() instanceof DemandeMoyen)) || (((DemandeMoyen) e.getModel()).getEtat() == EtatDemande.LANCEE)) {
+				mapOverlay.addEntity(e);
+			}
 			if (e.getState() == EntityState.OFF_SITAC) {
 				if (!(e.getModel() instanceof DemandeMoyen
 					&&((DemandeMoyen) e.getModel()).getEtat() != EtatDemande.LANCEE)) {
@@ -161,6 +165,7 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 	
 	@Override
 	public void onOverlayLongPressed(MotionEvent e, MapView mapView) {
+
 		if (currentEntity != null && currentEntity.getPictogram().getShape() != Shape.LINEAR_SHAPE) {
 			GeoPoint m = (GeoPoint) mapView.getProjection().fromPixels(e.getX(), e.getY());
 			Position p = new Position(m.getLongitudeE6(), m.getLatitudeE6());
