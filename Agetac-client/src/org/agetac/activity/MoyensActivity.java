@@ -96,15 +96,15 @@ public class MoyensActivity extends AbstractActivity implements OnClickListener,
 			case R.id.FPT:
 				// TODO récupérer le nom via un formulaire
 				dm = genDemandeMoyen(CategorieVehicule.FPT);
-			break;
+				break;
 	
 			case R.id.CCGC:
 				dm = genDemandeMoyen(CategorieVehicule.CCGC);
-			break;
+				break;
 	
 			case R.id.VSAV:
 				dm = genDemandeMoyen(CategorieVehicule.VSAV);
-			break;
+				break;
 				
 			case R.id.menu_attaque:
 				return true;
@@ -112,7 +112,7 @@ public class MoyensActivity extends AbstractActivity implements OnClickListener,
 			default:
 				// TODO récupérer le nom via un formulaire
 				dm = genDemandeMoyen(CategorieVehicule.FPT);
-			break;
+				break;
 		}
 		
 		touchedEntity = EntityHolder.getInstance(this).generateEntity(dm);
@@ -149,6 +149,8 @@ public class MoyensActivity extends AbstractActivity implements OnClickListener,
 				map.put(DATA_GHDEM, getString(R.string.unknown)); // mapping GH non implemente sur le model
 				map.put(DATA_GHARR, getString(R.string.unknown)); // mapping GH non implemente sur le model
 				map.put(DATA_GHRET, getString(R.string.unknown)); // mapping GH non implemente sur le model
+				// on ajoute la map a la liste
+				data.add(map);
 			
 			} else if (entities.get(i).getModel() instanceof DemandeMoyen) {
 				DemandeMoyen dm = (DemandeMoyen) entities.get(i).getModel();
@@ -162,16 +164,10 @@ public class MoyensActivity extends AbstractActivity implements OnClickListener,
 					map.put(DATA_GHDEM, getString(R.string.unknown)); // mapping GH non implemente sur le model
 					map.put(DATA_GHARR, getString(R.string.unknown)); // mapping GH non implemente sur le model
 					map.put(DATA_GHRET, getString(R.string.unknown)); // mapping GH non implemente sur le model
-					
-				} else {
-					// on ajoute pas une map vide dans la liste
-					// mais on continu a parcourir les entitees
-					continue;
+					// on ajoute la map a la liste
+					data.add(map);
 				}
 			}
-			
-			// on ajoute la map a la liste
-			data.add(map);
 		}
 		
 		// on notifie l'adapter que le contenu de la liste a change

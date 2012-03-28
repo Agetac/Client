@@ -17,11 +17,12 @@ import org.agetac.common.model.impl.Intervention;
 import org.agetac.common.model.impl.Message;
 import org.agetac.common.model.impl.Source;
 import org.agetac.common.model.impl.Vehicule;
-import org.agetac.common.model.sign.AbstractModel;
 import org.agetac.common.model.sign.IModel;
 import org.agetac.entity.EntityList;
 import org.agetac.entity.IEntity;
-import org.agetac.entity.Entity.EntityState;
+import org.agetac.handler.AddHandler;
+import org.agetac.handler.DeleteHandler;
+import org.agetac.handler.EditHandler;
 import org.agetac.network.ServerConnection;
 import org.agetac.observer.MyObservable;
 import org.agetac.view.EntityHolder;
@@ -42,6 +43,9 @@ public class InterventionEngine implements IInterventionEngine {
 	private InterventionApi iConn;
 	private UpdateInterventionThread updateThread;
 	private Context context;
+	private AddHandler addHandler;
+	private DeleteHandler delHandler;
+	private EditHandler editHandler;
 	
 	public InterventionEngine(final ServerConnection serv, final Context c) {
 		observable = new MyObservable();
@@ -57,6 +61,11 @@ public class InterventionEngine implements IInterventionEngine {
 			
 			intervention = mapper.readValue(jRepr.getStream(), Intervention.class);
 			iConn = new InterventionConnection(intervention.getUniqueID(), serv);
+			
+			// instanciate handlers for i/o
+			addHandler = new AddHandler(entities, iConn);
+			delHandler = new DeleteHandler(entities, iConn);
+			editHandler = new EditHandler(entities, iConn);
 			
 			// thread de MAJ de l'intervention via le serveur en "temps-reel"
 			// TODO changer ça pour utiliser un système PUSH afin
@@ -88,38 +97,7 @@ public class InterventionEngine implements IInterventionEngine {
 	@Override
 	public void addEntity(IEntity entity) {		
 		try {
-			if (entity.getModel() instanceof Action) {
-				Action a = (Action) entity.getModel();
-				entity.setModel(iConn.putAction(a));
-				entities.add(entity);
-			
-			} else if (entity.getModel() instanceof Vehicule) {
-				Vehicule v = (Vehicule) entity.getModel();
-				android.util.Log.d(TAG, "vehicule >> "+v.toString());
-				entity.setModel(iConn.postVehicule(v));
-				android.util.Log.d(TAG, "entity du vehicule >> "+entity.toString());
-			
-			} else if (entity.getModel() instanceof Source) {
-				Source s = (Source) entity.getModel();
-				entity.setModel(iConn.putSource(s));
-				entities.add(entity);
-			
-			} else if (entity.getModel() instanceof Cible) {
-				Cible c = (Cible) entity.getModel();
-				entity.setModel(iConn.putCible(c));
-				entities.add(entity);
-			
-			} else if (entity.getModel() instanceof Implique) {
-				Implique i = (Implique) entity.getModel();
-				entity.setModel(iConn.putImplique(i));
-				entities.add(entity);
-				
-			} else if (entity.getModel() instanceof DemandeMoyen) {
-				DemandeMoyen dm = (DemandeMoyen) entity.getModel();
-				DemandeMoyen dmWithID = iConn.putDemandeMoyen(dm);
-				entity.setModel(dmWithID);
-				entities.add(entity);
-			}
+			addHandler.handle(entity);
 			
 		} catch (BadResponseException e) {
 			android.util.Log.e(TAG, "addEntity BadResponse: "+e.getMessage());
@@ -133,39 +111,12 @@ public class InterventionEngine implements IInterventionEngine {
 	@Override
 	public void removeEntity(IEntity entity) {
 		try {
-			if (entity.getModel() instanceof Vehicule) {
-				Vehicule v = (Vehicule) entity.getModel();
-				iConn.deleteVehicule(v);
-				entities.remove(entity);
-			
-			} else if (entity.getModel() instanceof Action) {
-				Action a = (Action) entity.getModel();
-				iConn.deleteAction(a);
-				entities.remove(entity);
-			
-			} else if (entity.getModel() instanceof Source) {
-				Source s = (Source) entity.getModel();
-				iConn.deleteSource(s);
-				entities.remove(entity);
-			
-			} else if (entity.getModel() instanceof Cible) {
-				Cible c = (Cible) entity.getModel();
-				iConn.deleteCible(c);
-				entities.remove(entity);
-			
-			} else if (entity.getModel() instanceof Implique) {
-				Implique i = (Implique) entity.getModel();
-				iConn.deleteImplique(i);
-				entities.remove(entity);
-			
-			} else if (entity.getModel() instanceof DemandeMoyen) {
-				DemandeMoyen dm = (DemandeMoyen) entity.getModel();
-				iConn.deleteDemandeMoyen(dm);
-				entities.remove(entity);
-			}
+			delHandler.handle(entity);
 			
 		} catch (BadResponseException e) {
-			android.util.Log.d(TAG, e.getMessage());
+			android.util.Log.e(TAG, "removeEntity BadResponse: "+e.getMessage());
+		} catch (JSONException e) {
+			android.util.Log.e(TAG, "removeEntity JSONException: "+e.getMessage());
 		}
 		
 		notifyObservers();
@@ -173,7 +124,16 @@ public class InterventionEngine implements IInterventionEngine {
 
 	@Override
 	public void editEntity(IEntity entity) {
-		android.util.Log.d(TAG, "[editEntity method] not implemented yet");
+		try {
+			editHandler.handle(entity);
+			
+		} catch (BadResponseException e) {
+			android.util.Log.e(TAG, "removeEntity BadResponse: "+e.getMessage());
+		} catch (JSONException e) {
+			android.util.Log.e(TAG, "removeEntity JSONException: "+e.getMessage());
+		}
+		
+		notifyObservers();
 	}
 	
 	@Override

@@ -11,6 +11,7 @@ import org.agetac.activity.MessagesActivity;
 import org.agetac.activity.MoyensActivity;
 import org.agetac.activity.SITACActivity;
 import org.agetac.command.AddEntityCommand;
+import org.agetac.command.EditEntityCommand;
 import org.agetac.command.ICommand;
 import org.agetac.command.RemoveEntityCommand;
 import org.agetac.command.SendMessageCommand;
@@ -29,6 +30,7 @@ public class Controller implements Observer {
 	public enum ActionFlag {
 		ADD,
 		REMOVE,
+		EDIT,
 		SEND_MESSAGE	
 	}
 
@@ -66,7 +68,8 @@ public class Controller implements Observer {
 		commands = new Hashtable<String, ICommand>();
 		commands.put(AddEntityCommand.NAME, new AddEntityCommand(this));
 		commands.put(RemoveEntityCommand.NAME, new RemoveEntityCommand(this));
-		commands.put(SendMessageCommand.NAME, new SendMessageCommand(this)); 
+		commands.put(SendMessageCommand.NAME, new SendMessageCommand(this));
+		commands.put(EditEntityCommand.NAME, new EditEntityCommand(this));
 	}
 	
 	private void initControllers() {
