@@ -18,7 +18,6 @@ import org.agetac.common.model.impl.Message;
 import org.agetac.common.model.impl.Source;
 import org.agetac.common.model.impl.Vehicule;
 import org.agetac.common.model.sign.IModel;
-import org.agetac.entity.EntityHolder;
 import org.agetac.entity.EntityList;
 import org.agetac.entity.IEntity;
 import org.agetac.handler.AddHandler;
@@ -26,6 +25,7 @@ import org.agetac.handler.DeleteHandler;
 import org.agetac.handler.EditHandler;
 import org.agetac.network.ServerConnection;
 import org.agetac.observer.MyObservable;
+import org.agetac.view.EntityHolder;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.json.JSONException;
 import org.restlet.ext.json.JsonRepresentation;
@@ -46,6 +46,7 @@ public class InterventionEngine implements IInterventionEngine {
 	private AddHandler addHandler;
 	private DeleteHandler delHandler;
 	private EditHandler editHandler;
+	private List<Message> ListMessages;
 	
 	public InterventionEngine(final ServerConnection serv, final Context c) {
 		observable = new MyObservable();
@@ -178,8 +179,10 @@ public class InterventionEngine implements IInterventionEngine {
 		List<Implique> impList = inter.getImpliques();
 		processUpdate(impList, Implique.class);
 		
-		List<Message> messList = inter.getMessages();
+		ListMessages = inter.getMessages();
 		// TODO process messages differently
+		//for(int i=0; i<messList.size(); i++) {
+		//android.util.Log.d(TAG, "mess > " +  messList.get(0).toString());}
 		
 		List<Source> srcList = inter.getSources();
 		processUpdate(srcList, Source.class);
@@ -220,6 +223,10 @@ public class InterventionEngine implements IInterventionEngine {
 	@Override
 	public Intervention getIntervention() {
 		return intervention;
+	}
+	
+	public List<Message> getListMessages() {
+		return ListMessages;
 	}
 	
 	private void notifyObservers() {

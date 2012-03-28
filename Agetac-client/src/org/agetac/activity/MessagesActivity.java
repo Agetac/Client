@@ -1,18 +1,34 @@
 package org.agetac.activity;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.List;
+
 import org.agetac.R;
 import org.agetac.command.SendMessageCommand;
+import org.agetac.common.model.impl.Message;
+import org.agetac.controller.Controller;
 import org.agetac.controller.Controller.ActionFlag;
+
 
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
 
 public class MessagesActivity extends AbstractActivity implements OnClickListener {
 
+	private static final String TAG = "MessageActivity";
 	private String message;
+	private SimpleAdapter listAdapter;
+	private ListView listView;
+	private List<Hashtable<String, String>> listMessages;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -171,7 +187,40 @@ public class MessagesActivity extends AbstractActivity implements OnClickListene
 		setContentView(R.layout.reception_mess);
 		findViewById(R.id.retMessAmb).setOnClickListener(this);
 		findViewById(R.id.buttonRetMess).setOnClickListener(this);
-
+		
+		listView = (ListView) findViewById(R.id.listMess);
+		listMessages = new ArrayList<Hashtable<String, String>>();
+		listAdapter = new SimpleAdapter(this.getBaseContext(), listMessages, R.layout.liste_message,
+	               new String[] {"titre", "description"}, new int[] {R.id.titre, R.id.description});
+	 
+		listView.setAdapter(listAdapter); 
+	    listMessages.clear();	
+	    
+		List<Message> messagesRecus = Controller.getInterventionEngine().getListMessages();
+		
+	    Hashtable<String, String> map;
+	   
+	    for(int i=0; i<=messagesRecus.size(); i++) {
+			map = new Hashtable<String, String>();	
+			map.put("titre", messagesRecus.get(i).getDate().toString());
+			map.put("description", messagesRecus.get(i).getMessage().toString());
+			listMessages.add(map);
+		}
+		
+		
+	/*	  listView.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			@SuppressWarnings("unchecked")
+			public void onItemClick(AdapterView<?> a, View v, int position, long id) {
+				HashMap<String, String> map2 = (HashMap<String, String>) listView.getItemAtPosition(position);
+				AlertDialog.Builder adb = new AlertDialog.Builder(MessagesActivity.this);
+				adb.setTitle("Vue du message");
+				adb.setMessage(map2.get("description"));
+				adb.setPositiveButton("Ok", null);
+				adb.show();
+			}		
+			}); */
+	
 		break;
 
 	}
