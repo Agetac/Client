@@ -115,5 +115,12 @@ public class MapOverlay extends Overlay {
 	public void removeOnOverlayEventListener() {
 		this.listener = null;
 	}
+
+	/**
+	 * Vide toutes les entitées de l'overlay
+	 */
+	public void clearEntities() {
+		items.clear();
+	}
 	
 }

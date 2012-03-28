@@ -84,7 +84,6 @@ public class Entity implements IEntity {
 			//not sure of that
 			return new Entity(new Vehicule(model.getUniqueID(), new Position(model.getPosition()), ((Vehicule) model).getCategorie(), ((Vehicule) model).getCaserneName(), ((Vehicule) model).getEtat(), ((Vehicule) model).getGroupe(), "Tsoin tsoin"), picto.clone(), state);
 		}
-		System.err.println("OULALALA!");
 		return null;
 	}
 
@@ -108,7 +107,6 @@ public class Entity implements IEntity {
 	public void draw(Canvas canvas, MapView mapV, boolean shadow) {
 		Point p;
 		p = mapV.getProjection().toMapPixels(geoP, null);
-		//android.util.Log.d("ENTITIII",p.toString()+geoP.toString());
 		picto.draw(canvas, p, shadow, mapV.getProjection());
 	}
 
@@ -117,7 +115,11 @@ public class Entity implements IEntity {
 		this.model = model;
 		int latE6 = (int) model.getPosition().getLatitude();
 		int longE6 = (int) model.getPosition().getLongitude();
-		this.geoP = new GeoPoint(latE6, longE6);	
+		this.geoP = new GeoPoint(latE6, longE6);
+		
+		if (latE6 != 0 && longE6 != 0) {
+			state = EntityState.ON_SITAC;
+		}
 	}
 	
 	/**
@@ -160,6 +162,6 @@ public class Entity implements IEntity {
 	
 	@Override
 	public String toString() {
-		return model.toString();
+		return "["+state.name()+"] "+model.toString();
 	}
 }

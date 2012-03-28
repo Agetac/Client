@@ -21,6 +21,7 @@ import org.agetac.common.model.sign.AbstractModel;
 import org.agetac.common.model.sign.IModel;
 import org.agetac.entity.EntityList;
 import org.agetac.entity.IEntity;
+import org.agetac.entity.Entity.EntityState;
 import org.agetac.network.ServerConnection;
 import org.agetac.observer.MyObservable;
 import org.agetac.view.EntityHolder;
@@ -91,6 +92,12 @@ public class InterventionEngine implements IInterventionEngine {
 				Action a = (Action) entity.getModel();
 				entity.setModel(iConn.putAction(a));
 				entities.add(entity);
+			
+			} else if (entity.getModel() instanceof Vehicule) {
+				Vehicule v = (Vehicule) entity.getModel();
+				android.util.Log.d(TAG, "vehicule >> "+v.toString());
+				entity.setModel(iConn.postVehicule(v));
+				android.util.Log.d(TAG, "entity du vehicule >> "+entity.toString());
 			
 			} else if (entity.getModel() instanceof Source) {
 				Source s = (Source) entity.getModel();
@@ -263,7 +270,7 @@ public class InterventionEngine implements IInterventionEngine {
 	public void addObserver(Observer observer) {
 		observable.addObserver(observer);
 	}
-
+	
 	@Override
 	public void stopUpdates() {
 		if (updateThread != null) updateThread.doStop();

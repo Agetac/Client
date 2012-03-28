@@ -102,25 +102,43 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 	@Override
 	public void update() {
 		List<IEntity> entities = controller.getInterventionEngine().getEntities();
-		android.util.Log.d(TAG,entities.toString());
-		//mapOverlay.addEntities(entities);
-		mapOverlay.addEntities(new ArrayList<IEntity>());//pour clearer la list des entitees de l'overlay
+		android.util.Log.d(TAG, entities.toString());
+		mapOverlay.clearEntities();
 		
 		final ArrayList<IEntity> offSitacEntities = new ArrayList<IEntity>();
 		for (int i=0; i<entities.size(); i++) {
 			IEntity e = entities.get(i);
-			if ((!(e.getModel() instanceof DemandeMoyen)) || (((DemandeMoyen) e.getModel()).getEtat() == EtatDemande.LANCEE)) {
-				mapOverlay.addEntity(e);
-			}
-			if (e.getState() == EntityState.OFF_SITAC) {
-				if (!(e.getModel() instanceof DemandeMoyen
-					&&((DemandeMoyen) e.getModel()).getEtat() != EtatDemande.LANCEE)) {
-					android.util.Log.e(TAG, "DIDIER > "+entities.get(i).toString());
-					offSitacEntities.add(entities.get(i));
+			
+			// si c'est une demande de moyen
+			if (e.getModel() instanceof DemandeMoyen) {
+				DemandeMoyen dm = (DemandeMoyen) e.getModel();
+				// si elle est encore dans l'etat LANCEE
+				if (dm.getEtat() == EtatDemande.LANCEE) {
+					// si sa position est definie
+					if (e.getState() == EntityState.ON_SITAC) {
+						// on l'ajoute a la SITAC
+						mapOverlay.addEntity(e);
+					} else {
+						// sinon on la met dans l'onglet "position a definir"
+						offSitacEntities.add(e);
+					}
+				}
+				
+			// si ce n'est pas une demande de moyen
+			} else {
+				// on verifie juste l'etat de l'entitee
+				// si sa position est definie
+				if (e.getState() == EntityState.ON_SITAC) {
+					// on l'ajoute a la SITAC
+					mapOverlay.addEntity(e);
+				} else {
+					// sinon on la met dans l'onglet "position a definir"
+					offSitacEntities.add(e);
 				}
 			}
 		}
 		
+		// on demande aux composants de se mettre a jour graphiquement
 		runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
@@ -150,6 +168,7 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 	@Override
 	public void onEntitySelected(IEntity e, MenuGroup grp) {
 		this.currentEntity = e;
+		android.util.Log.d(TAG, "selected entity menu = "+e.getModel().getName()+" "+e.getModel().getUniqueID());
 	}
 
 	@Override
