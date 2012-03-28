@@ -1,4 +1,4 @@
-package org.agetac.view;
+package org.agetac.entity;
 
 import java.util.ArrayList;
 
@@ -12,9 +12,13 @@ import org.agetac.common.model.impl.Source;
 import org.agetac.common.model.impl.Source.SourceType;
 import org.agetac.common.model.impl.Vehicule;
 import org.agetac.common.model.sign.IModel;
-import org.agetac.entity.Entity;
 import org.agetac.entity.Entity.EntityState;
-import org.agetac.entity.IEntity;
+import org.agetac.view.Color;
+import org.agetac.view.GraphicalOverload;
+import org.agetac.view.LinePicto;
+import org.agetac.view.Pictogram;
+import org.agetac.view.Shape;
+import org.agetac.view.State;
 
 import android.content.Context;
 import android.content.res.Resources;

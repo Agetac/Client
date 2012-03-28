@@ -2,7 +2,11 @@
 <resources>
     
 
+<<<<<<< HEAD
     <string name="host">148.60.3.2</string>
+=======
+    <string name="host">148.60.14.103</string>
+>>>>>>> 2197c2c7e5c3dd42a513f8b7143d58b184dcbe74
     <string name="port">8112</string>
     <string name="contextRoot">agetacserver</string>
     
