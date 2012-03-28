@@ -1,9 +1,6 @@
 package org.agetac.activity;
 
 import org.agetac.R;
-import org.agetac.R.id;
-import org.agetac.R.layout;
-import org.agetac.R.string;
 
 import android.app.Activity;
 import android.app.ProgressDialog;

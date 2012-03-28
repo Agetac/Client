@@ -6,6 +6,8 @@ import org.agetac.common.model.sign.IModel;
 
 public class EntityList extends ArrayList<IEntity> {
 
+	private static final long serialVersionUID = 6192402122463398955L;
+
 	/**
 	 * Return an entity that matches with the id
 	 * @param uniqueID

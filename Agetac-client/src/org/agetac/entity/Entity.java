@@ -1,16 +1,18 @@
 package org.agetac.entity;
 
-import java.util.ArrayList;
-
-import org.agetac.common.exception.InvalidJSONException;
-import org.agetac.common.model.impl.*;
-import org.agetac.common.model.impl.Action.ActionType;
-import org.agetac.common.model.impl.DemandeMoyen.EtatDemande;
-import org.agetac.common.model.impl.Vehicule.CategorieVehicule;
-import org.agetac.common.model.impl.Vehicule.EtatVehicule;
+import org.agetac.common.model.impl.Action;
+import org.agetac.common.model.impl.Agent;
+import org.agetac.common.model.impl.Caserne;
+import org.agetac.common.model.impl.Cible;
+import org.agetac.common.model.impl.DemandeMoyen;
+import org.agetac.common.model.impl.Groupe;
+import org.agetac.common.model.impl.Implique;
+import org.agetac.common.model.impl.Intervention;
+import org.agetac.common.model.impl.Position;
+import org.agetac.common.model.impl.Source;
+import org.agetac.common.model.impl.Vehicule;
 import org.agetac.common.model.sign.IModel;
 import org.agetac.view.IPictogram;
-import org.json.JSONException;
 import org.osmdroid.api.IGeoPoint;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
