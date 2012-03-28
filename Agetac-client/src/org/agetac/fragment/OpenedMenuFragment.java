@@ -3,10 +3,10 @@ package org.agetac.fragment;
 import java.util.ArrayList;
 
 import org.agetac.R;
+import org.agetac.entity.EntityHolder;
 import org.agetac.entity.IEntity;
 import org.agetac.listener.IOnMenuEventListener;
 import org.agetac.view.Color;
-import org.agetac.view.EntityHolder;
 import org.agetac.view.MenuExpandableListAdapter;
 import org.agetac.view.MenuGroup;
 import org.agetac.view.Shape;
@@ -152,14 +152,14 @@ public class OpenedMenuFragment extends Fragment implements IMenuFragment, OnCli
 	public boolean onGroupClick(ExpandableListView parent, View v,
 			int groupPosition, long id) {
 
-		if (menuAdapter.getNumGroupSelected() != -1) {
-			View childSelected = menuAdapter.getChildView(
-					menuAdapter.getNumGroupSelected(),
-					menuAdapter.getNumChildSelected(), false, null, null);
-			if (childSelected != null) {
-				menuAdapter.notifyDataSetChanged();
-			}
-		}
+//		if (menuAdapter.getNumGroupSelected() != -1) {
+//			View childSelected = menuAdapter.getChildView(
+//					menuAdapter.getNumGroupSelected(),
+//					menuAdapter.getNumChildSelected(), false, null, null);
+//			if (childSelected != null) {
+//				menuAdapter.notifyDataSetChanged();
+//			}
+//		}
 		return false;
 	}
 	
