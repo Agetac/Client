@@ -31,7 +31,8 @@ public class Controller implements Observer {
 		ADD,
 		REMOVE,
 		EDIT,
-		SEND_MESSAGE	
+		SEND_MESSAGE,
+		UPDATE_GH
 	}
 
 	private IEntity lastEntity;

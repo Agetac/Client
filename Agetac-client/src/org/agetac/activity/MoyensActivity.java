@@ -16,6 +16,9 @@ import org.agetac.entity.IEntity;
 import org.agetac.view.EntityHolder;
 import org.agetac.view.IPictogram;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.format.Time;
 import android.view.Menu;
@@ -23,13 +26,15 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.PopupMenu.OnMenuItemClickListener;
 import android.widget.SimpleAdapter;
 
-public class MoyensActivity extends AbstractActivity implements OnClickListener, OnMenuItemClickListener {
+public class MoyensActivity extends AbstractActivity implements OnClickListener, OnMenuItemClickListener, OnItemClickListener {
 	
 	private static final String TAG				= "MoyensActivity";
 	private static final String DATA_IMG		= "data_img";
@@ -59,7 +64,9 @@ public class MoyensActivity extends AbstractActivity implements OnClickListener,
         //Creation d'un SimpleAdapter qui se chargera de mettre les items present dans notre list (listItem) dans la vue moyens_list_item
         listAdapter = new SimpleAdapter(this.getBaseContext(), data, R.layout.moyens_list_item,
                new String[] {DATA_IMG, DATA_TYPE, DATA_CASERNE, DATA_ETAT, DATA_GHDEM, DATA_GHARR, DATA_GHRET}, new int[] {R.id.img, R.id.type_vehicule, R.id.caserne_vehicule, R.id.etat_vehicule, R.id.gh_demande, R.id.gh_arrivee, R.id.gh_retour});
-        listView.setAdapter(listAdapter); 
+        listView.setAdapter(listAdapter);
+        
+        listView.setOnItemClickListener(this);
 
 		((Button) findViewById(R.id.btn_demande_moyens)).setOnClickListener(this);
 		
@@ -88,6 +95,60 @@ public class MoyensActivity extends AbstractActivity implements OnClickListener,
 	}
 
 	@Override
+	public void onItemClick(AdapterView<?> adpt, View v, int index, long l) {
+		 try {
+			 final List<IEntity> entities = controller.getInterventionEngine().getEntities();
+			 final AdapterView<?> adapter = adpt;
+			 final int position = index;
+			 final AlertDialog.Builder confirmDelete = new AlertDialog.Builder(this);
+			 final Context contx = this.getBaseContext();
+			 confirmDelete.setTitle(R.string.dialog_title_vehicule);
+			 confirmDelete.setMessage(R.string.dialog_update_gh_ou_supprimer_vehicule);
+			 confirmDelete.setPositiveButton(R.string.dialog_vehicule_supprimer, new
+				 DialogInterface.OnClickListener() {
+					 @Override
+					 public void onClick(DialogInterface dialog, int which) {
+						 flag = ActionFlag.REMOVE;
+						 touchedEntity = (IEntity) entities.get(position);
+						 observable.setChanged();
+						 observable.notifyObservers(MoyensActivity.this);
+					}
+				 });
+			 confirmDelete.setNeutralButton(R.string.dialog_vehicule_gerer_gh, new
+				 DialogInterface.OnClickListener() {
+					 @Override
+					 public void onClick(DialogInterface dialog, int which) {
+						 dialog.dismiss();
+						 AlertDialog.Builder gererGH = new AlertDialog.Builder(contx, R.layout.moyens_update_gh);
+						 gererGH.setTitle(R.string.dialog_title_vehicule);
+						 gererGH.setMessage(R.string.dialog_update_gh_ou_supprimer_vehicule);
+						 gererGH.setPositiveButton(R.string.dialog_vehicule_supprimer, new
+							 DialogInterface.OnClickListener() {
+								 @Override
+								 public void onClick(DialogInterface dialog, int which) {
+									 flag = ActionFlag.REMOVE;
+									 touchedEntity = (IEntity) entities.get(position);
+									 observable.setChanged();
+									 observable.notifyObservers(MoyensActivity.this);
+								}
+							 });
+						 /*
+						 flag = ActionFlag.UPDATE_GH;
+						 touchedEntity = (IEntity) entities.get(position);
+						 observable.setChanged();
+						 observable.notifyObservers(MoyensActivity.this);
+						 */
+					}
+				 });
+			 confirmDelete.setNegativeButton(R.string.annuler, null);
+			 confirmDelete.show();		
+		 } catch (ClassCastException e) {
+			 android.util.Log.e(TAG, e.getMessage());
+		 }
+		
+	}	
+
+	@Override
 	public boolean onMenuItemClick(MenuItem item) {
 		DemandeMoyen dm;
 		flag = ActionFlag.ADD;
@@ -107,12 +168,12 @@ public class MoyensActivity extends AbstractActivity implements OnClickListener,
 				break;
 				
 			case R.id.menu_attaque:
-				return true;
+				return false;
+				
 				
 			default:
 				// TODO récupérer le nom via un formulaire
-				dm = genDemandeMoyen(CategorieVehicule.FPT);
-				break;
+				return false;
 		}
 		
 		touchedEntity = EntityHolder.getInstance(this).generateEntity(dm);
@@ -191,5 +252,5 @@ public class MoyensActivity extends AbstractActivity implements OnClickListener,
 		Time t = new Time();
 		t.setToNow();
 		return (String) t.toString().subSequence(9, 13);
-	}	
+	}
 }

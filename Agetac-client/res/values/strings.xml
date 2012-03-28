@@ -2,7 +2,7 @@
 <resources>
     
 
-    <string name="host">192.168.0.1</string>
+    <string name="host">148.60.3.2</string>
     <string name="port">8112</string>
     <string name="contextRoot">agetacserver</string>
     
@@ -12,6 +12,7 @@
     <string name="connection">Connexion</string>
     <string name="yes">Oui</string>
     <string name="no">Non</string>
+    <string name="annuler">Annuler</string>
     <string name="edit">Modifier</string>
     <string name="delete">Supprimer</string>
     <string name="save">Enregistrer</string>
@@ -29,8 +30,12 @@
     <string name="progress_loading">Chargement...</string>
     <string name="dialog_title_confirmexit">Quitter</string>
     <string name="dialog_confirmexit">Êtes-vous sûr de vouloir vous déconnecter ?</string>
-    <string name="dialog_title_deletevehicule">Confirmer suppression</string>
+    <string name="dialog_title_vehicule">Confirmer Action</string>
     <string name="dialog_deletevehicule">Voulez-vous supprimer ce véhicule ?</string>
+    <string name="dialog_title_deletevehicule">Confirmer suppression</string>
+    <string name="dialog_vehicule_supprimer">Supprimer</string>
+    <string name="dialog_vehicule_gerer_gh">Gerer GH</string>
+    <string name="dialog_update_gh_ou_supprimer_vehicule">Voulez-vous mettre à jour les GH ou supprimer ce véhicule ?</string>
     <string name="dialog_title_edit_item">Modifier: %1s</string>
     <string name="soeic">SOEIC</string>
     <string name="sitac">SITAC</string>
