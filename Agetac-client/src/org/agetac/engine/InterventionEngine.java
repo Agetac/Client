@@ -105,17 +105,18 @@ public class InterventionEngine implements IInterventionEngine {
 	@Override
 	public void updateIntervention() {
 		EntityHolder holder = EntityHolder.getInstance(context);
+		InterventionDTO remoteInter = client.getIntervention(interId);
 		
-		List<VehicleDTO> vehList = new ArrayList<VehicleDTO>(client.getVehicles(interId));
+		List<VehicleDTO> vehList = new ArrayList<VehicleDTO>(remoteInter.getVehicles());
 		processUpdate(vehList, VehicleDTO.class);
 		
-		List<ActionDTO> actList = new ArrayList<ActionDTO>(client.getActions(interId));
+		List<ActionDTO> actList = new ArrayList<ActionDTO>(remoteInter.getActions());
 		processUpdate(actList, ActionDTO.class);
 		
-		List<TargetDTO> cibList = new ArrayList<TargetDTO>(client.getTargets(interId));
+		List<TargetDTO> cibList = new ArrayList<TargetDTO>(remoteInter.getTargets());
 		processUpdate(cibList, TargetDTO.class);
 		
-		List<VehicleDemandDTO> dMoyList = new ArrayList<VehicleDemandDTO>(client.getVehicleDemands(interId));
+		List<VehicleDemandDTO> dMoyList = new ArrayList<VehicleDemandDTO>(remoteInter.getDemands());
 		for (int i=0; i<dMoyList.size(); i++) {
 			// traiter les demandes acceptées et les supprimers de la sitac
 			// pour les remplacers par des vehicules
@@ -142,15 +143,15 @@ public class InterventionEngine implements IInterventionEngine {
 			}
 		}
 		
-		List<VictimDTO> impList = new ArrayList<VictimDTO>(client.getVictims(interId));
+		List<VictimDTO> impList = new ArrayList<VictimDTO>(remoteInter.getVictims());
 		processUpdate(impList, VictimDTO.class);
 		
-		listMessages = new ArrayList<MessageDTO>(client.getMessages(interId));
+		listMessages = new ArrayList<MessageDTO>(remoteInter.getMessages());
 		// TODO process messages differently
 		//for(int i=0; i<messList.size(); i++) {
 		//android.util.Log.d(TAG, "mess > " +  messList.get(0).toString());}
 		
-		List<SourceDTO> srcList = new ArrayList<SourceDTO>(client.getSources(interId));
+		List<SourceDTO> srcList = new ArrayList<SourceDTO>(remoteInter.getSources());
 		processUpdate(srcList, SourceDTO.class);
 		
 		notifyObservers();
