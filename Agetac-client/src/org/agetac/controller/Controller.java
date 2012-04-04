@@ -31,7 +31,8 @@ public class Controller implements Observer {
 		ADD,
 		REMOVE,
 		EDIT,
-		SEND_MESSAGE	
+		SEND_MESSAGE,
+		UPDATE_GH
 	}
 
 	private IEntity lastEntity;
@@ -39,7 +40,7 @@ public class Controller implements Observer {
 	private Map<String, ICommand> commands;
 	private ISubController moyensCtrl, sitacCtrl, messagesCtrl, crmCtrl;
 	private ITabActivity currentActivity;
-	private IInterventionEngine interventionEngine;
+	private static IInterventionEngine interventionEngine;
 	private String message;
 	
 	/**
@@ -104,7 +105,7 @@ public class Controller implements Observer {
 		return commands;
 	}
 	
-	public IInterventionEngine getInterventionEngine() {
+	public static IInterventionEngine getInterventionEngine() {
 		return interventionEngine;
 	}
 	

@@ -1,6 +1,7 @@
 package org.agetac.engine;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Observer;
 
 import org.agetac.common.model.impl.Intervention;
@@ -8,7 +9,7 @@ import org.agetac.common.model.impl.Message;
 import org.agetac.entity.IEntity;
 
 public interface IInterventionEngine {
-
+	
 	/**
 	 * Ajoute une entitee a l'intervention
 	 * et envoi la modif au server
@@ -68,5 +69,8 @@ public interface IInterventionEngine {
 	 * Demande au thread de MAJ de l'intervention
 	 * de s'arreter des que possible
 	 */
+	
+	public List<Message> getListMessages();
+	
 	public void stopUpdates();
 }

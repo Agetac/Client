@@ -46,6 +46,7 @@ public class InterventionEngine implements IInterventionEngine {
 	private AddHandler addHandler;
 	private DeleteHandler delHandler;
 	private EditHandler editHandler;
+	private List<Message> ListMessages;
 	
 	public InterventionEngine(final ServerConnection serv, final Context c) {
 		observable = new MyObservable();
@@ -178,8 +179,10 @@ public class InterventionEngine implements IInterventionEngine {
 		List<Implique> impList = inter.getImpliques();
 		processUpdate(impList, Implique.class);
 		
-		List<Message> messList = inter.getMessages();
+		ListMessages = inter.getMessages();
 		// TODO process messages differently
+		//for(int i=0; i<messList.size(); i++) {
+		//android.util.Log.d(TAG, "mess > " +  messList.get(0).toString());}
 		
 		List<Source> srcList = inter.getSources();
 		processUpdate(srcList, Source.class);
@@ -220,6 +223,10 @@ public class InterventionEngine implements IInterventionEngine {
 	@Override
 	public Intervention getIntervention() {
 		return intervention;
+	}
+	
+	public List<Message> getListMessages() {
+		return ListMessages;
 	}
 	
 	private void notifyObservers() {
