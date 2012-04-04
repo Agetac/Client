@@ -13,6 +13,7 @@ import org.agetac.common.dto.VehicleDemandDTO;
 import org.agetac.common.dto.VehicleDemandDTO.DemandState;
 import org.agetac.controller.Controller;
 import org.agetac.controller.Controller.ActionFlag;
+import org.agetac.entity.EntityFactory;
 import org.agetac.entity.EntityHolder;
 import org.agetac.entity.IEntity;
 
@@ -173,7 +174,7 @@ public class MoyensActivity extends AbstractActivity implements OnClickListener,
 				return false;
 		}
 		
-		touchedEntity = EntityHolder.getInstance(this).generateEntity(dm);
+		touchedEntity = EntityFactory.make(dm);
 		observable.setChanged();
 		observable.notifyObservers(MoyensActivity.this);
 		return super.onContextItemSelected(item);

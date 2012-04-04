@@ -20,8 +20,6 @@ public interface IEntity extends Serializable {
 	
 	public boolean isCloseTo(IGeoPoint pt, int precision);
 	
-	public IEntity clone();
-
 	public EntityState getState();
 	
 	public void draw(Canvas canvas, MapView mapV, boolean shadow);

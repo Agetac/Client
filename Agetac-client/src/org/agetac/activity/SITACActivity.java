@@ -13,6 +13,7 @@ import org.agetac.common.dto.VehicleDemandDTO.DemandState;
 import org.agetac.controller.Controller;
 import org.agetac.controller.Controller.ActionFlag;
 import org.agetac.entity.Entity.EntityState;
+import org.agetac.entity.EntityFactory;
 import org.agetac.entity.IEntity;
 import org.agetac.fragment.HiddenMenuFragment;
 import org.agetac.fragment.OpenedMenuFragment;
@@ -190,7 +191,7 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 			GeoPoint m = (GeoPoint) mapView.getProjection().fromPixels(e.getX(), e.getY());
 			PositionDTO p = new PositionDTO(m.getLatitudeE6(), m.getLongitudeE6());
 			flag = ActionFlag.ADD;
-			touchedEntity = currentEntity.clone();
+			touchedEntity = EntityFactory.make(currentEntity);
 			touchedEntity.getModel().setPosition(p);
 			if (touchedEntity.getModel() instanceof VehicleDemandDTO) {
 				((VehicleDemandDTO) touchedEntity.getModel()).setState(DemandState.ASKED);
@@ -285,8 +286,7 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 			start.set(start.x-lineMiddlePoint.x, start.y-lineMiddlePoint.y);
 			
 			
-			LinePicto lp = new LinePicto(currentEntity.getPictogram().getName(), currentEntity.getPictogram().getBitmap(), currentEntity.getPictogram().getColor(), currentEntity.getPictogram().getState(), currentEntity.getPictogram().getShape(), currentEntity.getPictogram().getGraphicalOverload(), start, stop, mapView.getProjection().metersToEquatorPixels(1.0f));
-			touchedEntity = currentEntity.clone();
+			touchedEntity = EntityFactory.make(currentEntity);
 			touchedEntity.getModel().setPosition(lineMiddlePos);
 			((ActionDTO)touchedEntity.getModel()).setPosition(lineBeginPos);
 			((ActionDTO)touchedEntity.getModel()).setAim(lineEndPos);

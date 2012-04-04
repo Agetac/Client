@@ -63,7 +63,7 @@ public class EntityHolder {
 
 	private static EntityHolder instance;
 	private Resources res;
-	private ArrayList<IEntity> entities;
+	private static ArrayList<IEntity> entities;
 
 	private EntityHolder(Context context) {
 		this.res = context.getResources();
@@ -169,7 +169,7 @@ public class EntityHolder {
 		return names;
 	}
 
-	public IEntity getEntity(String name) {
+	public static IEntity getEntity(String name) {
 		for (int i = 0; i < entities.size(); i++) {
 			if (entities.get(i).getPictogram().getName().equals(name))
 				return entities.get(i);
@@ -177,96 +177,4 @@ public class EntityHolder {
 		return null;
 	}
 	
-	public IEntity generateEntity(IModel model) {
-		// default entity
-		IEntity ent = getEntity(EntityHolder.UNKNOWN).clone();
-		
-		if (model instanceof VehicleDTO) {
-			switch (((VehicleDTO) model).getType()) {
-				case FPT:
-					ent = getEntity(EntityHolder.RED_ISOLE).clone();
-					break;
-					
-				case VSAV:
-					ent = getEntity(EntityHolder.GREEN_ISOLE).clone();
-					break;
-					
-				// TODO prendre en compte les autres cas
-			}
-			
-		} else if (model instanceof SourceDTO) {
-			switch (((SourceDTO) model).getType()) {
-				case CHEM:
-					ent = getEntity(EntityHolder.ORANGE_UP).clone();
-					break;
-					
-				case WATER:
-					ent = getEntity(EntityHolder.BLUE_UP).clone();
-					break;
-					
-				case FIRE:
-					ent = getEntity(EntityHolder.RED_UP).clone();
-					break;
-			}
-			
-		} else if (model instanceof TargetDTO) {
-			switch (((TargetDTO) model).getType()) {
-				case CHEM:
-					ent = getEntity(EntityHolder.ORANGE_DOWN).clone();
-					break;
-					
-				case WATER:
-					ent = getEntity(EntityHolder.BLUE_DOWN).clone();
-					break;
-					
-				case FIRE:
-					ent = getEntity(EntityHolder.RED_DOWN).clone();
-					break;
-					
-				case HUMAN:
-					ent = getEntity(EntityHolder.GREEN_DOWN).clone();
-					break;
-			}
-			
-		} else if (model instanceof VehicleDemandDTO) {
-			switch (((VehicleDemandDTO) model).getType()) {
-				case FPT:
-					ent = getEntity(EntityHolder.RED_ISOLE).clone();
-					break;
-					
-				case VSAV:
-					ent = getEntity(EntityHolder.GREEN_ISOLE).clone();
-					break;
-				
-			// TODO prendre en compte les autres cas
-			}
-			
-		} else if (model instanceof ActionDTO) {
-			switch (((ActionDTO) model).getType()) {
-				case FIRE:
-					
-					break;
-					
-				case HUMAN:
-					
-					break;
-					
-				case WATER:
-					
-					break;
-			}
-		}
-		
-		if (model.getPosition().getLatitude() == 0 && model.getPosition().getLongitude() == 0) {
-			// alors l'item n'a pas de position definie et donc son etat est OFF_SITAC
-			ent.setState(EntityState.OFF_SITAC);
-		
-		} else {
-			ent.setState(EntityState.ON_SITAC);
-		}
-		
-		ent.setModel(model);
-		
-		return ent;
-	}
 }

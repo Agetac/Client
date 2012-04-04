@@ -19,6 +19,7 @@ import org.agetac.common.dto.VehicleDemandDTO;
 import org.agetac.common.dto.VehicleDTO.VehicleType;
 import org.agetac.common.dto.VehicleDemandDTO.DemandState;
 import org.agetac.common.dto.VictimDTO;
+import org.agetac.entity.EntityFactory;
 import org.agetac.entity.EntityHolder;
 import org.agetac.entity.EntityList;
 import org.agetac.entity.IEntity;
@@ -137,7 +138,7 @@ public class InterventionEngine implements IInterventionEngine {
 						if (vList.get(k).getId() == dMoyList.get(i).getVehicleId()) {
 							// on cree la future entitee du vehicule
 							VehicleDTO v = vList.get(k);
-							entities.add(holder.generateEntity(v));
+							entities.add(EntityFactory.make(v));
 							// on supprime la demande de la SITAC
 							entities.remove(dMoyList.get(i));
 						}
@@ -180,7 +181,7 @@ public class InterventionEngine implements IInterventionEngine {
 			} else {
 				// sinon on lui cree une entitee
 				IModel model = list.get(i);
-				entities.add(holder.generateEntity(model));
+				entities.add(EntityFactory.make(model));
 			}
 		}
 	}
