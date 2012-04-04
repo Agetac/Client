@@ -3,15 +3,15 @@ package org.agetac.entity;
 import java.util.ArrayList;
 
 import org.agetac.R;
-import org.agetac.common.model.impl.Action;
-import org.agetac.common.model.impl.Cible;
-import org.agetac.common.model.impl.Cible.CibleType;
-import org.agetac.common.model.impl.DemandeMoyen;
-import org.agetac.common.model.impl.Groupe;
-import org.agetac.common.model.impl.Source;
-import org.agetac.common.model.impl.Source.SourceType;
-import org.agetac.common.model.impl.Vehicule;
-import org.agetac.common.model.sign.IModel;
+import org.agetac.common.dto.ActionDTO;
+import org.agetac.common.dto.GroupDTO;
+import org.agetac.common.dto.IModel;
+import org.agetac.common.dto.SourceDTO;
+import org.agetac.common.dto.SourceDTO.SourceType;
+import org.agetac.common.dto.TargetDTO;
+import org.agetac.common.dto.TargetDTO.TargetType;
+import org.agetac.common.dto.VehicleDTO;
+import org.agetac.common.dto.VehicleDemandDTO;
 import org.agetac.entity.Entity.EntityState;
 import org.agetac.view.Color;
 import org.agetac.view.GraphicalOverload;
@@ -28,11 +28,11 @@ import android.graphics.Point;
 
 public class EntityHolder {
 
-	public static final String RED_UP = "Source de feu";
+	public static final String RED_UP = "SourceDTO de feu";
 	public static final String RED_DOWN = "red_down";
 	public static final String GREEN_UP = "green_up";
 	public static final String GREEN_DOWN = "green_down";
-	public static final String BLUE_UP = "Source d'eau";
+	public static final String BLUE_UP = "SourceDTO d'eau";
 	public static final String BLUE_DOWN = "blue_down";
 	public static final String ORANGE_UP = "Produits chimiques";
 	public static final String ORANGE_DOWN = "orange_down";
@@ -70,36 +70,36 @@ public class EntityHolder {
 		Options options = new Options();
 		options.inPurgeable = false;
 		
-		entities.add(new Entity(new Source(SourceType.FIRE), new Pictogram(RED_UP, BitmapFactory.decodeResource(res, R.drawable.picto_red_up, options), Color.RED, State.STATE_HAPPENING, Shape.TRIANGLE_UP, GraphicalOverload.NONE), EntityState.OFF_SITAC));
-		entities.add(new Entity(new Cible(CibleType.FIRE), new Pictogram(RED_DOWN, BitmapFactory.decodeResource(res, R.drawable.picto_red_down, options), Color.RED, State.STATE_HAPPENING, Shape.TRIANGLE_DOWN, GraphicalOverload.NONE), EntityState.OFF_SITAC));
-		entities.add(new Entity(new Cible(CibleType.HUMAN), new Pictogram(GREEN_DOWN, BitmapFactory.decodeResource(res, R.drawable.picto_green_down), Color.GREEN, State.STATE_HAPPENING, Shape.TRIANGLE_DOWN, GraphicalOverload.NONE), EntityState.OFF_SITAC));
-		entities.add(new Entity(new Source(SourceType.CHEM), new Pictogram(ORANGE_UP, BitmapFactory.decodeResource(res, R.drawable.picto_orange_up), Color.ORANGE, State.STATE_HAPPENING, Shape.TRIANGLE_UP, GraphicalOverload.NONE), EntityState.OFF_SITAC));
-		entities.add(new Entity(new Cible(CibleType.CHEM), new Pictogram(ORANGE_DOWN, BitmapFactory.decodeResource(res, R.drawable.picto_orange_down), Color.ORANGE, State.STATE_HAPPENING, Shape.TRIANGLE_DOWN, GraphicalOverload.NONE), EntityState.OFF_SITAC));
-		entities.add(new Entity(new Source(SourceType.WATER), new Pictogram(BLUE_UP, BitmapFactory.decodeResource(res, R.drawable.picto_blue_up), Color.BLUE, State.STATE_HAPPENING, Shape.TRIANGLE_UP, GraphicalOverload.NONE), EntityState.OFF_SITAC));
-		entities.add(new Entity(new Cible(CibleType.WATER), new Pictogram(BLUE_DOWN, BitmapFactory.decodeResource(res, R.drawable.picto_blue_down), Color.BLUE, State.STATE_HAPPENING, Shape.TRIANGLE_DOWN, GraphicalOverload.NONE), EntityState.OFF_SITAC));
+		entities.add(new Entity(new SourceDTO(SourceType.FIRE), new Pictogram(RED_UP, BitmapFactory.decodeResource(res, R.drawable.picto_red_up, options), Color.RED, State.STATE_HAPPENING, Shape.TRIANGLE_UP, GraphicalOverload.NONE), EntityState.OFF_SITAC));
+		entities.add(new Entity(new TargetDTO(TargetType.FIRE), new Pictogram(RED_DOWN, BitmapFactory.decodeResource(res, R.drawable.picto_red_down, options), Color.RED, State.STATE_HAPPENING, Shape.TRIANGLE_DOWN, GraphicalOverload.NONE), EntityState.OFF_SITAC));
+		entities.add(new Entity(new TargetDTO(TargetType.HUMAN), new Pictogram(GREEN_DOWN, BitmapFactory.decodeResource(res, R.drawable.picto_green_down), Color.GREEN, State.STATE_HAPPENING, Shape.TRIANGLE_DOWN, GraphicalOverload.NONE), EntityState.OFF_SITAC));
+		entities.add(new Entity(new SourceDTO(SourceType.CHEM), new Pictogram(ORANGE_UP, BitmapFactory.decodeResource(res, R.drawable.picto_orange_up), Color.ORANGE, State.STATE_HAPPENING, Shape.TRIANGLE_UP, GraphicalOverload.NONE), EntityState.OFF_SITAC));
+		entities.add(new Entity(new TargetDTO(TargetType.CHEM), new Pictogram(ORANGE_DOWN, BitmapFactory.decodeResource(res, R.drawable.picto_orange_down), Color.ORANGE, State.STATE_HAPPENING, Shape.TRIANGLE_DOWN, GraphicalOverload.NONE), EntityState.OFF_SITAC));
+		entities.add(new Entity(new SourceDTO(SourceType.WATER), new Pictogram(BLUE_UP, BitmapFactory.decodeResource(res, R.drawable.picto_blue_up), Color.BLUE, State.STATE_HAPPENING, Shape.TRIANGLE_UP, GraphicalOverload.NONE), EntityState.OFF_SITAC));
+		entities.add(new Entity(new TargetDTO(TargetType.WATER), new Pictogram(BLUE_DOWN, BitmapFactory.decodeResource(res, R.drawable.picto_blue_down), Color.BLUE, State.STATE_HAPPENING, Shape.TRIANGLE_DOWN, GraphicalOverload.NONE), EntityState.OFF_SITAC));
 		
-		entities.add(new Entity(new DemandeMoyen(), new Pictogram(BLUE_NONE, BitmapFactory.decodeResource(res, R.drawable.picto_blue_none), Color.BLUE, State.STATE_HAPPENING, Shape.SQUARE, GraphicalOverload.NONE), EntityState.OFF_SITAC));
-		entities.add(new Entity(new DemandeMoyen(), new Pictogram(BLUE_ISOLE, BitmapFactory.decodeResource(res, R.drawable.picto_blue_isole), Color.BLUE, State.STATE_HAPPENING, Shape.SQUARE, GraphicalOverload.ISOLE), EntityState.OFF_SITAC));
-		entities.add(new Entity(new Groupe(), new Pictogram(BLUE_GRP, BitmapFactory.decodeResource(res, R.drawable.picto_blue_grp), Color.BLUE, State.STATE_HAPPENING, Shape.SQUARE, GraphicalOverload.GROUPE), EntityState.OFF_SITAC));
-		entities.add(new Entity(new Groupe(), new Pictogram(BLUE_COL, BitmapFactory.decodeResource(res, R.drawable.picto_blue_col), Color.BLUE, State.STATE_HAPPENING, Shape.SQUARE, GraphicalOverload.COLONNE), EntityState.OFF_SITAC));
+		entities.add(new Entity(new VehicleDemandDTO(), new Pictogram(BLUE_NONE, BitmapFactory.decodeResource(res, R.drawable.picto_blue_none), Color.BLUE, State.STATE_HAPPENING, Shape.SQUARE, GraphicalOverload.NONE), EntityState.OFF_SITAC));
+		entities.add(new Entity(new VehicleDemandDTO(), new Pictogram(BLUE_ISOLE, BitmapFactory.decodeResource(res, R.drawable.picto_blue_isole), Color.BLUE, State.STATE_HAPPENING, Shape.SQUARE, GraphicalOverload.ISOLE), EntityState.OFF_SITAC));
+		entities.add(new Entity(new GroupDTO(), new Pictogram(BLUE_GRP, BitmapFactory.decodeResource(res, R.drawable.picto_blue_grp), Color.BLUE, State.STATE_HAPPENING, Shape.SQUARE, GraphicalOverload.GROUPE), EntityState.OFF_SITAC));
+		entities.add(new Entity(new GroupDTO(), new Pictogram(BLUE_COL, BitmapFactory.decodeResource(res, R.drawable.picto_blue_col), Color.BLUE, State.STATE_HAPPENING, Shape.SQUARE, GraphicalOverload.COLONNE), EntityState.OFF_SITAC));
 	
 		
-		entities.add(new Entity(new DemandeMoyen(), new Pictogram(GREEN_NONE, BitmapFactory.decodeResource(res, R.drawable.picto_green_none), Color.GREEN, State.STATE_HAPPENING, Shape.SQUARE, GraphicalOverload.NONE), EntityState.OFF_SITAC));
-		entities.add(new Entity(new DemandeMoyen(), new Pictogram(GREEN_ISOLE, BitmapFactory.decodeResource(res, R.drawable.picto_green_isole), Color.GREEN, State.STATE_HAPPENING, Shape.SQUARE, GraphicalOverload.ISOLE), EntityState.OFF_SITAC));
-		entities.add(new Entity(new Groupe(), new Pictogram(GREEN_GRP, BitmapFactory.decodeResource(res, R.drawable.picto_green_grp), Color.GREEN, State.STATE_HAPPENING, Shape.SQUARE, GraphicalOverload.GROUPE), EntityState.OFF_SITAC));
-		entities.add(new Entity(new Groupe(), new Pictogram(GREEN_COL, BitmapFactory.decodeResource(res, R.drawable.picto_green_col), Color.GREEN, State.STATE_HAPPENING, Shape.SQUARE, GraphicalOverload.COLONNE), EntityState.OFF_SITAC));
+		entities.add(new Entity(new VehicleDemandDTO(), new Pictogram(GREEN_NONE, BitmapFactory.decodeResource(res, R.drawable.picto_green_none), Color.GREEN, State.STATE_HAPPENING, Shape.SQUARE, GraphicalOverload.NONE), EntityState.OFF_SITAC));
+		entities.add(new Entity(new VehicleDemandDTO(), new Pictogram(GREEN_ISOLE, BitmapFactory.decodeResource(res, R.drawable.picto_green_isole), Color.GREEN, State.STATE_HAPPENING, Shape.SQUARE, GraphicalOverload.ISOLE), EntityState.OFF_SITAC));
+		entities.add(new Entity(new GroupDTO(), new Pictogram(GREEN_GRP, BitmapFactory.decodeResource(res, R.drawable.picto_green_grp), Color.GREEN, State.STATE_HAPPENING, Shape.SQUARE, GraphicalOverload.GROUPE), EntityState.OFF_SITAC));
+		entities.add(new Entity(new GroupDTO(), new Pictogram(GREEN_COL, BitmapFactory.decodeResource(res, R.drawable.picto_green_col), Color.GREEN, State.STATE_HAPPENING, Shape.SQUARE, GraphicalOverload.COLONNE), EntityState.OFF_SITAC));
 		
-		entities.add(new Entity(new DemandeMoyen(), new Pictogram(RED_DOTTED_SINGLE, BitmapFactory.decodeResource(res, R.drawable.picto_red_dotted_isole), Color.RED, State.STATE_HAPPENING, Shape.SQUARE, GraphicalOverload.ISOLE), EntityState.OFF_SITAC));
-		entities.add(new Entity(new Groupe(), new Pictogram(RED_DOTTED_NONE, BitmapFactory.decodeResource(res, R.drawable.picto_red_dotted_none), Color.RED, State.STATE_HAPPENING, Shape.SQUARE, GraphicalOverload.NONE), EntityState.OFF_SITAC));
+		entities.add(new Entity(new VehicleDemandDTO(), new Pictogram(RED_DOTTED_SINGLE, BitmapFactory.decodeResource(res, R.drawable.picto_red_dotted_isole), Color.RED, State.STATE_HAPPENING, Shape.SQUARE, GraphicalOverload.ISOLE), EntityState.OFF_SITAC));
+		entities.add(new Entity(new GroupDTO(), new Pictogram(RED_DOTTED_NONE, BitmapFactory.decodeResource(res, R.drawable.picto_red_dotted_none), Color.RED, State.STATE_HAPPENING, Shape.SQUARE, GraphicalOverload.NONE), EntityState.OFF_SITAC));
 		
-		entities.add(new Entity(new DemandeMoyen(), new Pictogram(RED_NONE, BitmapFactory.decodeResource(res, R.drawable.picto_red_none), Color.RED, State.STATE_HAPPENING, Shape.SQUARE, GraphicalOverload.NONE), EntityState.OFF_SITAC));
-		entities.add(new Entity(new DemandeMoyen(), new Pictogram(RED_ISOLE, BitmapFactory.decodeResource(res, R.drawable.picto_red_isole), Color.RED, State.STATE_HAPPENING, Shape.SQUARE, GraphicalOverload.ISOLE), EntityState.OFF_SITAC));
-		entities.add(new Entity(new Groupe(), new Pictogram(RED_GRP, BitmapFactory.decodeResource(res, R.drawable.picto_red_grp), Color.RED, State.STATE_HAPPENING, Shape.SQUARE, GraphicalOverload.GROUPE), EntityState.OFF_SITAC));
-		entities.add(new Entity(new Groupe(), new Pictogram(RED_COL, BitmapFactory.decodeResource(res, R.drawable.picto_red_col), Color.RED, State.STATE_HAPPENING, Shape.SQUARE, GraphicalOverload.COLONNE), EntityState.OFF_SITAC));
+		entities.add(new Entity(new VehicleDemandDTO(), new Pictogram(RED_NONE, BitmapFactory.decodeResource(res, R.drawable.picto_red_none), Color.RED, State.STATE_HAPPENING, Shape.SQUARE, GraphicalOverload.NONE), EntityState.OFF_SITAC));
+		entities.add(new Entity(new VehicleDemandDTO(), new Pictogram(RED_ISOLE, BitmapFactory.decodeResource(res, R.drawable.picto_red_isole), Color.RED, State.STATE_HAPPENING, Shape.SQUARE, GraphicalOverload.ISOLE), EntityState.OFF_SITAC));
+		entities.add(new Entity(new GroupDTO(), new Pictogram(RED_GRP, BitmapFactory.decodeResource(res, R.drawable.picto_red_grp), Color.RED, State.STATE_HAPPENING, Shape.SQUARE, GraphicalOverload.GROUPE), EntityState.OFF_SITAC));
+		entities.add(new Entity(new GroupDTO(), new Pictogram(RED_COL, BitmapFactory.decodeResource(res, R.drawable.picto_red_col), Color.RED, State.STATE_HAPPENING, Shape.SQUARE, GraphicalOverload.COLONNE), EntityState.OFF_SITAC));
 		
-		entities.add(new Entity(new Action(), new LinePicto(LINE, BitmapFactory.decodeResource(res, R.drawable.picto_line), Color.BLACK, State.STATE_HAPPENING, Shape.LINEAR_SHAPE, GraphicalOverload.NONE, new Point(0,0), new Point(0,0), 1), EntityState.OFF_SITAC));
-		entities.add(new Entity(new Source(), new Pictogram(POINT, BitmapFactory.decodeResource(res, R.drawable.picto_point), Color.BLACK, State.STATE_HAPPENING, Shape.CIRCLE, GraphicalOverload.NONE), EntityState.OFF_SITAC));
-		entities.add(new Entity(new Source(), new Pictogram(ZONE, BitmapFactory.decodeResource(res, R.drawable.picto_zone), Color.BLACK, State.STATE_HAPPENING, Shape.STAR_SHAPE, GraphicalOverload.NONE), EntityState.OFF_SITAC));
+		entities.add(new Entity(new ActionDTO(), new LinePicto(LINE, BitmapFactory.decodeResource(res, R.drawable.picto_line), Color.BLACK, State.STATE_HAPPENING, Shape.LINEAR_SHAPE, GraphicalOverload.NONE, new Point(0,0), new Point(0,0), 1), EntityState.OFF_SITAC));
+		entities.add(new Entity(new SourceDTO(), new Pictogram(POINT, BitmapFactory.decodeResource(res, R.drawable.picto_point), Color.BLACK, State.STATE_HAPPENING, Shape.CIRCLE, GraphicalOverload.NONE), EntityState.OFF_SITAC));
+		entities.add(new Entity(new SourceDTO(), new Pictogram(ZONE, BitmapFactory.decodeResource(res, R.drawable.picto_zone), Color.BLACK, State.STATE_HAPPENING, Shape.STAR_SHAPE, GraphicalOverload.NONE), EntityState.OFF_SITAC));
 	}
 
 	public static EntityHolder getInstance(Context context) {
@@ -177,8 +177,8 @@ public class EntityHolder {
 		// default entity
 		IEntity ent = getEntity(EntityHolder.RED_ISOLE).clone();
 		
-		if (model instanceof Vehicule) {
-			switch (((Vehicule) model).getCategorie()) {
+		if (model instanceof VehicleDTO) {
+			switch (((VehicleDTO) model).getType()) {
 				case FPT:
 					ent = getEntity(EntityHolder.RED_ISOLE).clone();
 					break;
@@ -190,8 +190,8 @@ public class EntityHolder {
 				// TODO prendre en compte les autres cas
 			}
 			
-		} else if (model instanceof Source) {
-			switch (((Source) model).getType()) {
+		} else if (model instanceof SourceDTO) {
+			switch (((SourceDTO) model).getType()) {
 				case CHEM:
 					ent = getEntity(EntityHolder.ORANGE_UP).clone();
 					break;
@@ -205,8 +205,8 @@ public class EntityHolder {
 					break;
 			}
 			
-		} else if (model instanceof Cible) {
-			switch (((Cible) model).getType()) {
+		} else if (model instanceof TargetDTO) {
+			switch (((TargetDTO) model).getType()) {
 				case CHEM:
 					ent = getEntity(EntityHolder.ORANGE_DOWN).clone();
 					break;
@@ -224,8 +224,8 @@ public class EntityHolder {
 					break;
 			}
 			
-		} else if (model instanceof DemandeMoyen) {
-			switch (((DemandeMoyen) model).getCategorie()) {
+		} else if (model instanceof VehicleDemandDTO) {
+			switch (((VehicleDemandDTO) model).getType()) {
 			case FPT:
 				ent = getEntity(EntityHolder.RED_ISOLE).clone();
 				break;

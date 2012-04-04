@@ -1,5 +1,6 @@
 package org.agetac.controller;
 
+import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Map;
 import java.util.Observable;
@@ -15,11 +16,10 @@ import org.agetac.command.EditEntityCommand;
 import org.agetac.command.ICommand;
 import org.agetac.command.RemoveEntityCommand;
 import org.agetac.command.SendMessageCommand;
-import org.agetac.common.model.impl.Intervention;
+import org.agetac.common.dto.InterventionDTO;
 import org.agetac.engine.IInterventionEngine;
 import org.agetac.engine.InterventionEngine;
 import org.agetac.entity.IEntity;
-import org.agetac.network.ServerConnection;
 
 import android.content.Context;
 
@@ -40,7 +40,7 @@ public class Controller implements Observer {
 	private Map<String, ICommand> commands;
 	private ISubController moyensCtrl, sitacCtrl, messagesCtrl, crmCtrl;
 	private ITabActivity currentActivity;
-	private static IInterventionEngine interventionEngine;
+	private IInterventionEngine interventionEngine;
 	private String message;
 	
 	/**
@@ -56,8 +56,7 @@ public class Controller implements Observer {
 	 * - Crée toutes les commandes concrètes
 	 */
 	private Controller(Context c) {
-		ServerConnection conn = new ServerConnection(c);
-		interventionEngine = new InterventionEngine(conn, c);
+		interventionEngine = new InterventionEngine(c);
 		
 		initCommands();
 		initControllers();
@@ -105,7 +104,11 @@ public class Controller implements Observer {
 		return commands;
 	}
 	
-	public static IInterventionEngine getInterventionEngine() {
+	public ArrayList<IEntity> getEntities() {
+		return interventionEngine.getEntities();
+	}
+	
+	public IInterventionEngine getInterventionEngine() {
 		return interventionEngine;
 	}
 	
@@ -120,7 +123,7 @@ public class Controller implements Observer {
 
 	@Override
 	public void update(Observable observable, Object data) {
-		if (data instanceof Intervention) {
+		if (data instanceof InterventionDTO) {
 			android.util.Log.d(TAG, "update venant d'Intervention");
 			if (currentActivity != null) currentActivity.update();
 			

@@ -4,12 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.agetac.R;
-import org.agetac.common.model.impl.Action;
-import org.agetac.common.model.impl.Action.ActionType;
-import org.agetac.common.model.impl.DemandeMoyen;
-import org.agetac.common.model.impl.DemandeMoyen.EtatDemande;
-import org.agetac.common.model.impl.Position;
-import org.agetac.common.model.impl.Vehicule.CategorieVehicule;
+import org.agetac.common.dto.ActionDTO;
+import org.agetac.common.dto.ActionDTO.ActionType;
+import org.agetac.common.dto.PositionDTO;
+import org.agetac.common.dto.VehicleDTO.VehicleType;
+import org.agetac.common.dto.VehicleDemandDTO;
+import org.agetac.common.dto.VehicleDemandDTO.DemandState;
+import org.agetac.controller.Controller;
 import org.agetac.controller.Controller.ActionFlag;
 import org.agetac.entity.Entity.EntityState;
 import org.agetac.entity.IEntity;
@@ -101,7 +102,7 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 
 	@Override
 	public void update() {
-		List<IEntity> entities = controller.getInterventionEngine().getEntities();
+		List<IEntity> entities = controller.getEntities();
 		android.util.Log.d(TAG, entities.toString());
 		mapOverlay.clearEntities();
 		
@@ -110,10 +111,10 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 			IEntity e = entities.get(i);
 			
 			// si c'est une demande de moyen
-			if (e.getModel() instanceof DemandeMoyen) {
-				DemandeMoyen dm = (DemandeMoyen) e.getModel();
+			if (e.getModel() instanceof VehicleDemandDTO) {
+				VehicleDemandDTO dm = (VehicleDemandDTO) e.getModel();
 				// si elle est encore dans l'etat LANCEE
-				if (dm.getEtat() == EtatDemande.LANCEE) {
+				if (dm.getState() == DemandState.ASKED) {
 					// si sa position est definie
 					if (e.getState() == EntityState.ON_SITAC) {
 						// on l'ajoute a la SITAC
@@ -168,7 +169,7 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 	@Override
 	public void onEntitySelected(IEntity e, MenuGroup grp) {
 		this.currentEntity = e;
-		android.util.Log.d(TAG, "selected entity menu = "+e.getModel().getName()+" "+e.getModel().getUniqueID());
+		android.util.Log.d(TAG, "selected entity menu = "+e.getModel().getName()+" "+e.getModel().getId());
 	}
 
 	@Override
@@ -187,13 +188,13 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 
 		if (currentEntity != null && currentEntity.getPictogram().getShape() != Shape.LINEAR_SHAPE) {
 			GeoPoint m = (GeoPoint) mapView.getProjection().fromPixels(e.getX(), e.getY());
-			Position p = new Position(m.getLongitudeE6(), m.getLatitudeE6());
+			PositionDTO p = new PositionDTO(m.getLatitudeE6(), m.getLongitudeE6());
 			flag = ActionFlag.ADD;
 			touchedEntity = currentEntity.clone();
 			touchedEntity.getModel().setPosition(p);
-			if (touchedEntity.getModel() instanceof DemandeMoyen) {
-				((DemandeMoyen) touchedEntity.getModel()).setEtat(EtatDemande.LANCEE);
-				((DemandeMoyen) touchedEntity.getModel()).setCategorie(CategorieVehicule.FPT);
+			if (touchedEntity.getModel() instanceof VehicleDemandDTO) {
+				((VehicleDemandDTO) touchedEntity.getModel()).setState(DemandState.ASKED);
+				((VehicleDemandDTO) touchedEntity.getModel()).setType(VehicleType.FPT);
 			}
 			touchedEntity.setState(EntityState.ON_SITAC);
 			
@@ -269,9 +270,9 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 		if (currentEntity != null && currentEntity.getPictogram().getShape()==Shape.LINEAR_SHAPE) {
 			Point start, stop;
 			GeoPoint stopGeoP = (GeoPoint) mapView.getProjection().fromPixels(end.getX(), end.getY());
-			Position lineBeginPos = new Position(lineBeginGeop.getLongitudeE6(), lineBeginGeop.getLatitudeE6());
-			Position lineEndPos = new Position(stopGeoP.getLongitudeE6(), stopGeoP.getLatitudeE6());
-			Position lineMiddlePos = new Position((lineBeginGeop.getLongitudeE6()+stopGeoP.getLongitudeE6())/2, (lineBeginGeop.getLatitudeE6()+stopGeoP.getLatitudeE6())/2);
+			PositionDTO lineBeginPos = new PositionDTO(lineBeginGeop.getLongitudeE6(), lineBeginGeop.getLatitudeE6());
+			PositionDTO lineEndPos = new PositionDTO(stopGeoP.getLongitudeE6(), stopGeoP.getLatitudeE6());
+			PositionDTO lineMiddlePos = new PositionDTO((lineBeginGeop.getLongitudeE6()+stopGeoP.getLongitudeE6())/2, (lineBeginGeop.getLatitudeE6()+stopGeoP.getLatitudeE6())/2);
 			GeoPoint lineMiddleGeoP = new GeoPoint((int)lineMiddlePos.getLatitude(), (int)lineMiddlePos.getLongitude());
 			Point lineMiddlePoint = mapView.getProjection().toMapPixels(lineMiddleGeoP, null);
 
@@ -287,9 +288,9 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 			LinePicto lp = new LinePicto(currentEntity.getPictogram().getName(), currentEntity.getPictogram().getBitmap(), currentEntity.getPictogram().getColor(), currentEntity.getPictogram().getState(), currentEntity.getPictogram().getShape(), currentEntity.getPictogram().getGraphicalOverload(), start, stop, mapView.getProjection().metersToEquatorPixels(1.0f));
 			touchedEntity = currentEntity.clone();
 			touchedEntity.getModel().setPosition(lineMiddlePos);
-			((Action)touchedEntity.getModel()).setOrigin(lineBeginPos);
-			((Action)touchedEntity.getModel()).setAim(lineEndPos);
-			((Action)touchedEntity.getModel()).setActionType(ActionType.FIRE);
+			((ActionDTO)touchedEntity.getModel()).setPosition(lineBeginPos);
+			((ActionDTO)touchedEntity.getModel()).setAim(lineEndPos);
+			((ActionDTO)touchedEntity.getModel()).setType(ActionType.FIRE);
 			((LinePicto) touchedEntity.getPictogram()).setscaleRef(mapView.getProjection().metersToEquatorPixels(1.0f));
 			((LinePicto) touchedEntity.getPictogram()).setStart(start);
 			((LinePicto) touchedEntity.getPictogram()).setStop(stop);

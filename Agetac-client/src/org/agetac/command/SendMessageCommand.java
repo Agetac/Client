@@ -2,7 +2,7 @@ package org.agetac.command;
 
 import java.util.Date;
 
-import org.agetac.common.model.impl.Message;
+import org.agetac.common.dto.MessageDTO;
 import org.agetac.controller.Controller;
 import org.agetac.memento.IMemento;
 
@@ -51,7 +51,7 @@ public class SendMessageCommand implements IRecordableCommand {
 		
 		String date = getGroupeHoraire();
 		//String id = "" + SendMessageCommand.idMessage;
-		Message mess = new Message (null, message, date);
+		MessageDTO mess = new MessageDTO (message, date);
 		System.out.println("Message : " + message + "," + date);
 		
 		

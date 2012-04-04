@@ -1,23 +1,19 @@
 package org.agetac.activity;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
 
 import org.agetac.R;
 import org.agetac.command.SendMessageCommand;
-import org.agetac.common.model.impl.Message;
+import org.agetac.common.dto.MessageDTO;
 import org.agetac.controller.Controller;
 import org.agetac.controller.Controller.ActionFlag;
-
 
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -196,14 +192,14 @@ public class MessagesActivity extends AbstractActivity implements OnClickListene
 		listView.setAdapter(listAdapter); 
 	    listMessages.clear();	
 	    
-		List<Message> messagesRecus = Controller.getInterventionEngine().getListMessages();
+		List<MessageDTO> messagesRecus = controller.getInterventionEngine().getListMessages();
 		
 	    Hashtable<String, String> map;
 	   
 	    for(int i=0; i<=messagesRecus.size(); i++) {
 			map = new Hashtable<String, String>();	
 			map.put("titre", messagesRecus.get(i).getDate().toString());
-			map.put("description", messagesRecus.get(i).getMessage().toString());
+			map.put("description", messagesRecus.get(i).getText().toString());
 			listMessages.add(map);
 		}
 		

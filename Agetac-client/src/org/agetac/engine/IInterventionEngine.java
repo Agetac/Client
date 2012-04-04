@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observer;
 
-import org.agetac.common.model.impl.Intervention;
-import org.agetac.common.model.impl.Message;
+import org.agetac.common.dto.InterventionDTO;
+import org.agetac.common.dto.MessageDTO;
 import org.agetac.entity.IEntity;
 
 public interface IInterventionEngine {
@@ -31,13 +31,10 @@ public interface IInterventionEngine {
 	public void editEntity(IEntity entity);
 	
 	/**
-	 * Met a jour toute l'intervention en faisant un diff
-	 * avec celle passee en parametre
-	 * Cette methode est appelee par le thread d'update
-	 * (UpdateInterventionThread)
-	 * @param inter
+	 * Effectue une mise a jour complete des donnees de l'intervention
+	 * en allant chercher toutes les informations sur le serveur
 	 */
-	public void updateIntervention(Intervention inter);
+	public void updateIntervention();
 	
 	/**
 	 * Ajoute un message a l'intervention
@@ -45,13 +42,13 @@ public interface IInterventionEngine {
 	 * @param m
 	 * @return 
 	 */
-	public boolean sendMessage(Message m); 
+	public boolean sendMessage(MessageDTO m); 
 	
 	/**
 	 * L'intervention actuelle
 	 * @return intervention l'intervention en cours
 	 */
-	public Intervention getIntervention();
+	public InterventionDTO getIntervention();
 	
 	/**
 	 * Ajoute un observeur
@@ -70,7 +67,14 @@ public interface IInterventionEngine {
 	 * de s'arreter des que possible
 	 */
 	
-	public List<Message> getListMessages();
+	public List<MessageDTO> getListMessages();
 	
 	public void stopUpdates();
+	
+	/**
+	 * L'id de l'intervention actuelle
+	 * ou -1 si aucune intervention n'a ete recuperee
+	 * @return id de l'intervention courante
+	 */
+	public int getInterventionId();
 }

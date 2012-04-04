@@ -1,21 +1,22 @@
 package org.agetac.activity;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Hashtable;
 import java.util.List;
 
 import org.agetac.R;
-import org.agetac.common.model.impl.DemandeMoyen;
-import org.agetac.common.model.impl.DemandeMoyen.EtatDemande;
-import org.agetac.common.model.impl.Vehicule;
-import org.agetac.common.model.impl.Vehicule.CategorieVehicule;
-import org.agetac.common.model.impl.Vehicule.EtatVehicule;
+import org.agetac.common.dto.VehicleDTO;
+import org.agetac.common.dto.VehicleDTO.VehicleState;
+import org.agetac.common.dto.VehicleDTO.VehicleType;
+import org.agetac.common.dto.VehicleDemandDTO;
+import org.agetac.common.dto.VehicleDemandDTO.DemandState;
+import org.agetac.controller.Controller;
 import org.agetac.controller.Controller.ActionFlag;
 import org.agetac.entity.EntityHolder;
 import org.agetac.entity.IEntity;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.format.Time;
@@ -82,9 +83,9 @@ public class MoyensActivity extends AbstractActivity implements OnClickListener,
 				android.util.Log.d(TAG, "CLICK JE DEMANDE");
 				popupMenu.show();		
 //				flag = ActionFlag.ADD;
-//				Vehicule veh = genVehicule();
+//				VehicleDTO veh = genVehicleDTO();
 //		        IPictogram vehiculePicto = PictogramHolder.getInstance(this).getPictogram(PictogramHolder.RED_GRP);
-//		        touchedEntity = new Entity<Vehicule>(veh, vehiculePicto, EntityState.OFF_SITAC);
+//		        touchedEntity = new Entity<VehicleDTO>(veh, vehiculePicto, EntityState.OFF_SITAC);
 //				observable.setChanged();
 //				observable.notifyObservers(MoyensActivity.this);
 				break;
@@ -95,11 +96,9 @@ public class MoyensActivity extends AbstractActivity implements OnClickListener,
 	@Override
 	public void onItemClick(AdapterView<?> adpt, View v, int index, long l) {
 		 try {
-			 final List<IEntity> entities = controller.getInterventionEngine().getEntities();
-			 final AdapterView<?> adapter = adpt;
+			 final List<IEntity> entities = controller.getEntities();
 			 final int position = index;
 			 final AlertDialog.Builder confirmDelete = new AlertDialog.Builder(this);
-			 final Context contx = this.getBaseContext();
 			 confirmDelete.setTitle(R.string.dialog_title_vehicule);
 			 confirmDelete.setMessage(R.string.dialog_update_gh_ou_supprimer_vehicule);
 			 confirmDelete.setPositiveButton(R.string.dialog_vehicule_supprimer, new
@@ -112,32 +111,32 @@ public class MoyensActivity extends AbstractActivity implements OnClickListener,
 						 observable.notifyObservers(MoyensActivity.this);
 					}
 				 });
-			 confirmDelete.setNeutralButton(R.string.dialog_vehicule_gerer_gh, new
-				 DialogInterface.OnClickListener() {
-					 @Override
-					 public void onClick(DialogInterface dialog, int which) {
-						 dialog.dismiss();
-						 AlertDialog.Builder gererGH = new AlertDialog.Builder(contx, R.layout.moyens_update_gh);
-						 gererGH.setTitle(R.string.dialog_title_vehicule);
-						 gererGH.setMessage(R.string.dialog_update_gh_ou_supprimer_vehicule);
-						 gererGH.setPositiveButton(R.string.dialog_vehicule_supprimer, new
-							 DialogInterface.OnClickListener() {
-								 @Override
-								 public void onClick(DialogInterface dialog, int which) {
-									 flag = ActionFlag.REMOVE;
-									 touchedEntity = (IEntity) entities.get(position);
-									 observable.setChanged();
-									 observable.notifyObservers(MoyensActivity.this);
-								}
-							 });
-						 /*
-						 flag = ActionFlag.UPDATE_GH;
-						 touchedEntity = (IEntity) entities.get(position);
-						 observable.setChanged();
-						 observable.notifyObservers(MoyensActivity.this);
-						 */
-					}
-				 });
+//			 confirmDelete.setNeutralButton(R.string.dialog_vehicule_gerer_gh, new
+//				 DialogInterface.OnClickListener() {
+//					 @Override
+//					 public void onClick(DialogInterface dialog, int which) {
+//						 dialog.dismiss();
+//						 AlertDialog.Builder gererGH = new AlertDialog.Builder(contx, R.layout.moyens_update_gh);
+//						 gererGH.setTitle(R.string.dialog_title_vehicule);
+//						 gererGH.setMessage(R.string.dialog_update_gh_ou_supprimer_vehicule);
+//						 gererGH.setPositiveButton(R.string.dialog_vehicule_supprimer, new
+//							 DialogInterface.OnClickListener() {
+//								 @Override
+//								 public void onClick(DialogInterface dialog, int which) {
+//									 flag = ActionFlag.REMOVE;
+//									 touchedEntity = (IEntity) entities.get(position);
+//									 observable.setChanged();
+//									 observable.notifyObservers(MoyensActivity.this);
+//								}
+//							 });
+//						 /*
+//						 flag = ActionFlag.UPDATE_GH;
+//						 touchedEntity = (IEntity) entities.get(position);
+//						 observable.setChanged();
+//						 observable.notifyObservers(MoyensActivity.this);
+//						 */
+//					}
+//				 });
 			 confirmDelete.setNegativeButton(R.string.annuler, null);
 			 confirmDelete.show();		
 		 } catch (ClassCastException e) {
@@ -148,21 +147,21 @@ public class MoyensActivity extends AbstractActivity implements OnClickListener,
 
 	@Override
 	public boolean onMenuItemClick(MenuItem item) {
-		DemandeMoyen dm;
+		VehicleDemandDTO dm;
 		flag = ActionFlag.ADD;
 		
 		switch (item.getItemId()) {
 			case R.id.FPT:
 				// TODO récupérer le nom via un formulaire
-				dm = genDemandeMoyen(CategorieVehicule.FPT);
+				dm = genVehicleDemandDTO(VehicleType.FPT);
 				break;
 	
 			case R.id.CCGC:
-				dm = genDemandeMoyen(CategorieVehicule.CCGC);
+				dm = genVehicleDemandDTO(VehicleType.CCGC);
 				break;
 	
 			case R.id.VSAV:
-				dm = genDemandeMoyen(CategorieVehicule.VSAV);
+				dm = genVehicleDemandDTO(VehicleType.VSAV);
 				break;
 				
 			case R.id.menu_attaque:
@@ -191,19 +190,19 @@ public class MoyensActivity extends AbstractActivity implements OnClickListener,
 		
 	@Override
 	public void update() {
-		List<IEntity> entities = controller.getInterventionEngine().getEntities();
+		List<IEntity> entities = controller.getEntities();
 		data.clear();
 		Hashtable<String, String> map;
 		for (int i=0; i<entities.size(); i++) {
 			// la map pour la prochaine ligne a ajouter
 			map = new Hashtable<String, String>();
 			
-			if (entities.get(i).getModel() instanceof Vehicule) {
-				Vehicule v = (Vehicule) entities.get(i).getModel();
+			if (entities.get(i).getModel() instanceof VehicleDTO) {
+				VehicleDTO v = (VehicleDTO) entities.get(i).getModel();
 				map.put(DATA_IMG, ""+R.drawable.firetruck);
 				map.put(DATA_TYPE, v.getName());
-				map.put(DATA_CASERNE, v.getCaserneName());
-				EtatVehicule ev = v.getEtat();
+				map.put(DATA_CASERNE, v.getBarrackName());
+				VehicleState ev = v.getState();
 				map.put(DATA_ETAT, ev.toString());
 				map.put(DATA_GHDEM, getString(R.string.unknown)); // mapping GH non implemente sur le model
 				map.put(DATA_GHARR, getString(R.string.unknown)); // mapping GH non implemente sur le model
@@ -211,15 +210,15 @@ public class MoyensActivity extends AbstractActivity implements OnClickListener,
 				// on ajoute la map a la liste
 				data.add(map);
 			
-			} else if (entities.get(i).getModel() instanceof DemandeMoyen) {
-				DemandeMoyen dm = (DemandeMoyen) entities.get(i).getModel();
+			} else if (entities.get(i).getModel() instanceof VehicleDemandDTO) {
+				VehicleDemandDTO dm = (VehicleDemandDTO) entities.get(i).getModel();
 				// si la demande est en cours ou qu'elle a ete refusee on l'affiche
 				// sinon ça signifie que le vehicule est deja affiche
-				if (dm.getEtat() != EtatDemande.ACCEPTEE) {
+				if (dm.getState() != DemandState.ACCEPTED) {
 					map.put(DATA_IMG, ""+R.drawable.firetruck);
-					map.put(DATA_TYPE, dm.getName());
+					map.put(DATA_TYPE, dm.getType().name());
 					map.put(DATA_CASERNE, getString(R.string.unknown));
-					map.put(DATA_ETAT, dm.getEtat().toString());
+					map.put(DATA_ETAT, dm.getState().name());
 					map.put(DATA_GHDEM, getString(R.string.unknown)); // mapping GH non implemente sur le model
 					map.put(DATA_GHARR, getString(R.string.unknown)); // mapping GH non implemente sur le model
 					map.put(DATA_GHRET, getString(R.string.unknown)); // mapping GH non implemente sur le model
@@ -238,11 +237,11 @@ public class MoyensActivity extends AbstractActivity implements OnClickListener,
 		});
 	}
 	
-	public DemandeMoyen genDemandeMoyen(CategorieVehicule cat) {
-		DemandeMoyen dm = new DemandeMoyen();
-		dm.setCategorie(cat);
-		dm.setEtat(EtatDemande.LANCEE);
-		dm.getGroupesHoraires().put(EtatDemande.LANCEE, getTime());
+	public VehicleDemandDTO genVehicleDemandDTO(VehicleType type) {
+		VehicleDemandDTO dm = new VehicleDemandDTO();
+		dm.setType(type);
+		dm.setState(DemandState.ASKED);
+		dm.setTimestamp(new Date());
 		return dm;
 	}
 

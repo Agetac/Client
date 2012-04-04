@@ -1,58 +1,57 @@
 package org.agetac.handler;
 
-import org.agetac.common.api.InterventionApi;
-import org.agetac.common.exception.BadResponseException;
-import org.agetac.common.model.impl.Action;
-import org.agetac.common.model.impl.Cible;
-import org.agetac.common.model.impl.DemandeMoyen;
-import org.agetac.common.model.impl.Implique;
-import org.agetac.common.model.impl.Source;
-import org.agetac.common.model.impl.Vehicule;
+
+import org.agetac.common.client.AgetacClient;
+import org.agetac.common.dto.ActionDTO;
+import org.agetac.common.dto.SourceDTO;
+import org.agetac.common.dto.TargetDTO;
+import org.agetac.common.dto.VehicleDTO;
+import org.agetac.common.dto.VehicleDemandDTO;
+import org.agetac.common.dto.VictimDTO;
 import org.agetac.entity.EntityList;
 import org.agetac.entity.IEntity;
-import org.json.JSONException;
 
 public class DeleteHandler implements IHandler {
 
 	private EntityList entities;
-	private InterventionApi iConn;
+	private AgetacClient client;
 	
-	public DeleteHandler(EntityList entList, InterventionApi iConn) {
+	public DeleteHandler(EntityList entList, AgetacClient client) {
 		this.entities = entList;
-		this.iConn = iConn;
+		this.client = client;
 	}
 
 	@Override
-	public void handle(IEntity entity) throws JSONException, BadResponseException {
+	public void handle(IEntity entity) {
 		
-		if (entity.getModel() instanceof Vehicule) {
-			Vehicule v = (Vehicule) entity.getModel();
-			iConn.deleteVehicule(v);
+		if (entity.getModel() instanceof VehicleDTO) {
+			VehicleDTO v = (VehicleDTO) entity.getModel();
+			client.deleteVehicle(v.getId());
 			entities.remove(entity);
 		
-		} else if (entity.getModel() instanceof Action) {
-			Action a = (Action) entity.getModel();
-			iConn.deleteAction(a);
+		} else if (entity.getModel() instanceof ActionDTO) {
+			ActionDTO a = (ActionDTO) entity.getModel();
+			client.deleteAction(a.getId());
 			entities.remove(entity);
 		
-		} else if (entity.getModel() instanceof Source) {
-			Source s = (Source) entity.getModel();
-			iConn.deleteSource(s);
+		} else if (entity.getModel() instanceof SourceDTO) {
+			SourceDTO s = (SourceDTO) entity.getModel();
+			client.deleteSource(s.getId());
 			entities.remove(entity);
 		
-		} else if (entity.getModel() instanceof Cible) {
-			Cible c = (Cible) entity.getModel();
-			iConn.deleteCible(c);
+		} else if (entity.getModel() instanceof TargetDTO) {
+			TargetDTO c = (TargetDTO) entity.getModel();
+			client.deleteTarget(c.getId());
 			entities.remove(entity);
 		
-		} else if (entity.getModel() instanceof Implique) {
-			Implique i = (Implique) entity.getModel();
-			iConn.deleteImplique(i);
+		} else if (entity.getModel() instanceof VictimDTO) {
+			VictimDTO i = (VictimDTO) entity.getModel();
+			client.deleteVictim(i.getId());
 			entities.remove(entity);
 		
-		} else if (entity.getModel() instanceof DemandeMoyen) {
-			DemandeMoyen dm = (DemandeMoyen) entity.getModel();
-			iConn.deleteDemandeMoyen(dm);
+		} else if (entity.getModel() instanceof VehicleDemandDTO) {
+			VehicleDemandDTO dm = (VehicleDemandDTO) entity.getModel();
+			client.deleteVehicleDemand(dm.getId());
 			entities.remove(entity);
 		}
 	}

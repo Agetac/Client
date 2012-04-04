@@ -2,7 +2,7 @@ package org.agetac.entity;
 
 import java.util.ArrayList;
 
-import org.agetac.common.model.sign.IModel;
+import org.agetac.common.dto.IModel;
 
 public class EntityList extends ArrayList<IEntity> {
 
@@ -13,10 +13,10 @@ public class EntityList extends ArrayList<IEntity> {
 	 * @param uniqueID
 	 * @return
 	 */
-	public <T extends IModel> IEntity find(String uniqueID, Class<T> theModel) {
+	public <T extends IModel> IEntity find(long uid, Class<T> theModel) {
 		for (int i=0; i<size(); i++) {
 			if (get(i).getModel().getClass() == theModel)  {
-				if (get(i).getModel().getUniqueID().equals(uniqueID)) {
+				if (get(i).getModel().getId() == (uid)) {
 					return get(i);
 				}
 			}

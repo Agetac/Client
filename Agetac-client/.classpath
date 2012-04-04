@@ -4,24 +4,18 @@
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
-	<classpathentry kind="lib" path="lib/org.json.jar"/>
+	<classpathentry kind="lib" path="lib/org.apache.commons.logging.jar"/>
+	<classpathentry kind="lib" path="lib/org.apache.httpclient.jar"/>
+	<classpathentry kind="lib" path="lib/org.apache.httpcore.jar"/>
+	<classpathentry kind="lib" path="lib/org.codehaus.jackson.core.jar"/>
+	<classpathentry kind="lib" path="lib/org.codehaus.jackson.mapper.jar"/>
+	<classpathentry kind="lib" path="lib/org.restlet.ext.httpclient.jar"/>
+	<classpathentry kind="lib" path="lib/org.restlet.ext.jackson.jar"/>
+	<classpathentry kind="lib" path="lib/org.restlet.ext.ssl.jar"/>
 	<classpathentry kind="lib" path="lib/org.restlet.jar"/>
-	<classpathentry kind="lib" path="lib/osmdroid-android-3.0.6.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:platform:/resource/Agetac-client/lib/osmdroid-android-docs-3.0.6.zip!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="lib/slf4j-android-1.6.1-RC1.jar"/>
-	<classpathentry kind="lib" path="lib/osmdroid-third-party-3.0.6.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:platform:/resource/Agetac-client/lib/osmdroid-third-party-docs-3.0.6.zip!/"/>
-		</attributes>
-	</classpathentry>
+	<classpathentry kind="lib" path="lib/osmdroid-android-3.0.6.jar"/>
 	<classpathentry kind="lib" path="lib/osmdroid-packager-3.0.6.jar"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/Agetac-model"/>
-	<classpathentry kind="lib" path="lib/org.restlet.ext.json.jar"/>
-	<classpathentry kind="lib" path="lib/jackson-mapper-asl-1.9.5.jar"/>
-	<classpathentry kind="lib" path="lib/jackson-core-asl-1.9.5.jar"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/Agetac-server"/>
+	<classpathentry kind="lib" path="lib/osmdroid-third-party-3.0.6.jar"/>
+	<classpathentry kind="lib" path="lib/slf4j-android-1.6.1-RC1.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

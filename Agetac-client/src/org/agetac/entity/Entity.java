@@ -1,17 +1,18 @@
 package org.agetac.entity;
 
-import org.agetac.common.model.impl.Action;
-import org.agetac.common.model.impl.Agent;
-import org.agetac.common.model.impl.Caserne;
-import org.agetac.common.model.impl.Cible;
-import org.agetac.common.model.impl.DemandeMoyen;
-import org.agetac.common.model.impl.Groupe;
-import org.agetac.common.model.impl.Implique;
-import org.agetac.common.model.impl.Intervention;
-import org.agetac.common.model.impl.Position;
-import org.agetac.common.model.impl.Source;
-import org.agetac.common.model.impl.Vehicule;
-import org.agetac.common.model.sign.IModel;
+
+import org.agetac.common.dto.ActionDTO;
+import org.agetac.common.dto.AgentDTO;
+import org.agetac.common.dto.BarrackDTO;
+import org.agetac.common.dto.GroupDTO;
+import org.agetac.common.dto.IModel;
+import org.agetac.common.dto.InterventionDTO;
+import org.agetac.common.dto.PositionDTO;
+import org.agetac.common.dto.SourceDTO;
+import org.agetac.common.dto.TargetDTO;
+import org.agetac.common.dto.VehicleDTO;
+import org.agetac.common.dto.VehicleDemandDTO;
+import org.agetac.common.dto.VictimDTO;
 import org.agetac.view.IPictogram;
 import org.osmdroid.api.IGeoPoint;
 import org.osmdroid.util.GeoPoint;
@@ -36,6 +37,16 @@ public class Entity implements IEntity {
 		this.model = model;
 		this.picto = picto;
 		this.state = state;
+		if (model == null) {
+			System.out.println("model == NULL");
+		} else {
+			System.out.println("model NOT NULL >> "+model.getClass().getSimpleName());
+			if (model.getPosition() == null) {
+				System.out.println("position du model == null"+model.getClass().getSimpleName());
+			} else {
+				System.out.println("position du model NON NULL"+model.getClass().getSimpleName());
+			}
+		}
 		int latE6 = (int) model.getPosition().getLatitude();
 		int longE6 = (int) model.getPosition().getLongitude();
 		this.geoP = new GeoPoint(latE6, longE6);
@@ -59,32 +70,32 @@ public class Entity implements IEntity {
 
 	@Override
 	public IEntity clone() {
-		if (model instanceof Action) {
-			return new Entity(new Action(model.getUniqueID(), new Position(model.getPosition()), ((Action) model).getActionType(), new Position(((Action) model).getOrigin()), new Position(((Action) model).getAim())), picto.clone(), state);
-		} else if (model instanceof Agent) {
+		if (model instanceof ActionDTO) {
+			return new Entity(new ActionDTO(new PositionDTO(model.getPosition()), ((ActionDTO) model).getType(), new PositionDTO(((ActionDTO) model).getOrigin()), new PositionDTO(((ActionDTO) model).getAim())), picto.clone(), state);
+		} else if (model instanceof AgentDTO) {
 			//humhum?
-			//return new Entity(new Agent(model.getUniqueID(), model.getUniqueID(), ((Agent) model).getAptitude(), ((Agent) model).getSubordonnes()), picto.clone(), state);
-		} else if (model instanceof Caserne) {
+			//return new Entity(new AgentDTO(model.getId(), model.getId(), ((AgentDTO) model).getAptitude(), ((AgentDTO) model).getSubordonnes()), picto.clone(), state);
+		} else if (model instanceof BarrackDTO) {
 			//humhum?
-			//return new Entity(new Action(model.getUniqueID(), new Position(model.getPosition()), ((Action) model).getActionType(), new Position(((Action) model).getOrigin()), new Position(((Action) model).getAim())), picto.clone(), state);
-		} else if (model instanceof Cible) {
-			return new Entity(new Cible(model.getUniqueID(), new Position(model.getPosition()), ((Cible) model).getType()), picto.clone(), state);
-		} else if (model instanceof DemandeMoyen) {
-			return new Entity(new DemandeMoyen(model.getUniqueID(), model.getName(), new Position(model.getPosition()), ((DemandeMoyen) model).getEtat(), ((DemandeMoyen) model).getGroupe()), picto.clone(), state);
-		} else if (model instanceof Groupe) {
+			//return new Entity(new ActionDTO(model.getId(), new PositionDTO(model.getPosition()), ((ActionDTO) model).getActionDTOType(), new PositionDTO(((ActionDTO) model).getOrigin()), new PositionDTO(((ActionDTO) model).getAim())), picto.clone(), state);
+		} else if (model instanceof TargetDTO) {
+			return new Entity(new TargetDTO(new PositionDTO(model.getPosition()), ((TargetDTO) model).getType()), picto.clone(), state);
+		} else if (model instanceof VehicleDemandDTO) {
+			return new Entity(new VehicleDemandDTO(model.getName(), new PositionDTO(model.getPosition()), ((VehicleDemandDTO) model).getState(), ((VehicleDemandDTO) model).getGroup()), picto.clone(), state);
+		} else if (model instanceof GroupDTO) {
 			//humhum?
-			//return new Entity(new Action(model.getUniqueID(), new Position(model.getPosition()), ((Action) model).getActionType(), new Position(((Action) model).getOrigin()), new Position(((Action) model).getAim())), picto.clone(), state);
-		} else if (model instanceof Implique) {
+			//return new Entity(new ActionDTO(model.getId(), new PositionDTO(model.getPosition()), ((ActionDTO) model).getActionDTOType(), new PositionDTO(((ActionDTO) model).getOrigin()), new PositionDTO(((ActionDTO) model).getAim())), picto.clone(), state);
+		} else if (model instanceof VictimDTO) {
 			//humhum?
-			//return new Entity(new Action(model.getUniqueID(), new Position(model.getPosition()), ((Action) model).getActionType(), new Position(((Action) model).getOrigin()), new Position(((Action) model).getAim())), picto.clone(), state);
-		} else if (model instanceof Intervention) {
+			//return new Entity(new ActionDTO(model.getId(), new PositionDTO(model.getPosition()), ((ActionDTO) model).getActionDTOType(), new PositionDTO(((ActionDTO) model).getOrigin()), new PositionDTO(((ActionDTO) model).getAim())), picto.clone(), state);
+		} else if (model instanceof InterventionDTO) {
 			//humhum?
-			//return new Entity(new Action(model.getUniqueID(), new Position(model.getPosition()), ((Action) model).getActionType(), new Position(((Action) model).getOrigin()), new Position(((Action) model).getAim())), picto.clone(), state);
-		} else if (model instanceof Source) {
-			return new Entity(new Source(model.getUniqueID(), new Position(model.getPosition()), ((Source) model).getType()), picto.clone(), state);
-		} else if (model instanceof Vehicule) {
+			//return new Entity(new ActionDTO(model.getId(), new PositionDTO(model.getPosition()), ((ActionDTO) model).getActionDTOType(), new PositionDTO(((ActionDTO) model).getOrigin()), new PositionDTO(((ActionDTO) model).getAim())), picto.clone(), state);
+		} else if (model instanceof SourceDTO) {
+			return new Entity(new SourceDTO(new PositionDTO(model.getPosition()), ((SourceDTO) model).getType()), picto.clone(), state);
+		} else if (model instanceof VehicleDTO) {
 			//not sure of that
-			return new Entity(new Vehicule(model.getUniqueID(), new Position(model.getPosition()), ((Vehicule) model).getCategorie(), ((Vehicule) model).getCaserneName(), ((Vehicule) model).getEtat(), ((Vehicule) model).getGroupe(), "Tsoin tsoin"), picto.clone(), state);
+			return new Entity(new VehicleDTO(new PositionDTO(model.getPosition()), ((VehicleDTO) model).getType(), ((VehicleDTO) model).getBarrackName(), ((VehicleDTO) model).getState(), ((VehicleDTO) model).getGroup(), "Tsoin tsoin"), picto.clone(), state);
 		}
 		return null;
 	}

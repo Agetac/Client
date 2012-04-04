@@ -1,58 +1,61 @@
 package org.agetac.handler;
 
-import org.agetac.common.api.InterventionApi;
-import org.agetac.common.exception.BadResponseException;
-import org.agetac.common.model.impl.Action;
-import org.agetac.common.model.impl.Cible;
-import org.agetac.common.model.impl.DemandeMoyen;
-import org.agetac.common.model.impl.Implique;
-import org.agetac.common.model.impl.Source;
-import org.agetac.common.model.impl.Vehicule;
+import javax.xml.transform.Source;
+
+import org.agetac.common.client.AgetacClient;
+import org.agetac.common.dto.ActionDTO;
+import org.agetac.common.dto.SourceDTO;
+import org.agetac.common.dto.TargetDTO;
+import org.agetac.common.dto.VehicleDTO;
+import org.agetac.common.dto.VehicleDemandDTO;
+import org.agetac.common.dto.VictimDTO;
 import org.agetac.entity.EntityList;
 import org.agetac.entity.IEntity;
-import org.json.JSONException;
+
 
 public class AddHandler implements IHandler {
 
 	private EntityList entities;
-	private InterventionApi iConn;
+	private AgetacClient client;
+	private int interId;
 	
-	public AddHandler(EntityList entList, InterventionApi iConn) {
+	public AddHandler(EntityList entList, AgetacClient client, int interId) {
 		this.entities = entList;
-		this.iConn = iConn;
+		this.client = client;
+		this.interId = interId;
 	}
 
 	@Override
-	public void handle(IEntity entity) throws JSONException, BadResponseException {
+	public void handle(IEntity entity) {
 		
-		if (entity.getModel() instanceof Action) {
-			Action a = (Action) entity.getModel();
-			entity.setModel(iConn.putAction(a));
+		if (entity.getModel() instanceof ActionDTO) {
+			ActionDTO a = (ActionDTO) entity.getModel();
+			entity.setModel(client.addAction(interId, a));
 			entities.add(entity);
 		
-		} else if (entity.getModel() instanceof Vehicule) {
-			Vehicule v = (Vehicule) entity.getModel();
-			entity.setModel(iConn.postVehicule(v));
+		} else if (entity.getModel() instanceof VehicleDTO) {
+			VehicleDTO v = (VehicleDTO) entity.getModel();
+			// FIXME update should return smthing or not ?
+//			entity.setModel(client.updateVehicle(v));
 		
 		} else if (entity.getModel() instanceof Source) {
-			Source s = (Source) entity.getModel();
-			entity.setModel(iConn.putSource(s));
+			SourceDTO s = (SourceDTO) entity.getModel();
+			entity.setModel(client.addSource(interId, s));
 			entities.add(entity);
 		
-		} else if (entity.getModel() instanceof Cible) {
-			Cible c = (Cible) entity.getModel();
-			entity.setModel(iConn.putCible(c));
+		} else if (entity.getModel() instanceof TargetDTO) {
+			TargetDTO t = (TargetDTO) entity.getModel();
+			entity.setModel(client.addTarget(interId, t));
 			entities.add(entity);
 		
-		} else if (entity.getModel() instanceof Implique) {
-			Implique i = (Implique) entity.getModel();
-			entity.setModel(iConn.putImplique(i));
+		} else if (entity.getModel() instanceof VictimDTO) {
+			VictimDTO v = (VictimDTO) entity.getModel();
+			entity.setModel(client.addVictim(interId, v));
 			entities.add(entity);
 			
-		} else if (entity.getModel() instanceof DemandeMoyen) {
-			DemandeMoyen dm = (DemandeMoyen) entity.getModel();
-			DemandeMoyen dmWithID = iConn.putDemandeMoyen(dm);
-			entity.setModel(dmWithID);
+		} else if (entity.getModel() instanceof VehicleDemandDTO) {
+			VehicleDemandDTO vd = (VehicleDemandDTO) entity.getModel();
+			entity.setModel(client.addVehicleDemand(interId, vd));
 			entities.add(entity);
 		}
 	}

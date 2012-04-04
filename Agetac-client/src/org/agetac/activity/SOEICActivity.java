@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Random;
 
 import org.agetac.R;
+import org.agetac.controller.Controller;
 import org.agetac.controller.Controller.ActionFlag;
 import org.agetac.entity.IEntity;
 
@@ -84,7 +85,7 @@ public class SOEICActivity extends AbstractActivity implements OnClickListener, 
 
 	@Override
 	public void update() {
-		List<IEntity> entities = controller.getInterventionEngine().getEntities();
+		List<IEntity> entities = controller.getEntities();
 		ArrayAdapter<IEntity> adapter = new ArrayAdapter<IEntity>(
 				this,
 				android.R.layout.simple_list_item_1,
