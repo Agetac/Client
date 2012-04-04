@@ -3,7 +3,6 @@ package org.agetac.common.dto;
 import java.util.Date;
 
 import org.agetac.common.dto.VehicleDTO.VehicleType;
-import org.agetac.common.dto.VehicleDemandDTO.DemandState;
 
 public class VehicleDemandDTO implements IModel {
 
@@ -22,6 +21,8 @@ public class VehicleDemandDTO implements IModel {
 	
 	public VehicleDemandDTO() {
 		this.position = new PositionDTO();
+		this.type = VehicleType.FPT;
+		this.state = DemandState.ASKED;
 	}
 	
 	public VehicleDemandDTO(DemandState s, VehicleType t, PositionDTO p, Date date) {
