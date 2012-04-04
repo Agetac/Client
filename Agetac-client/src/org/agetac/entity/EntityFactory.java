@@ -13,8 +13,6 @@ import org.agetac.common.dto.VehicleDemandDTO;
 import org.agetac.common.dto.VictimDTO;
 import org.agetac.entity.Entity.EntityState;
 
-import android.content.Context;
-
 public class EntityFactory {
 		
 	public static IEntity make(IEntity e) {
