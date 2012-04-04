@@ -118,6 +118,7 @@ public class InterventionEngine implements IInterventionEngine {
 		processUpdate(cibList, TargetDTO.class);
 		
 		List<VehicleDemandDTO> dMoyList = new ArrayList<VehicleDemandDTO>(remoteInter.getDemands());
+		System.out.println(dMoyList.toString());
 		for (int i=0; i<dMoyList.size(); i++) {
 			// traiter les demandes acceptées et les supprimers de la sitac
 			// pour les remplacers par des vehicules

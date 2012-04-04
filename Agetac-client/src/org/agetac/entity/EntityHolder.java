@@ -28,11 +28,11 @@ import android.graphics.Point;
 
 public class EntityHolder {
 
-	public static final String RED_UP = "SourceDTO de feu";
+	public static final String RED_UP = "Source de feu";
 	public static final String RED_DOWN = "red_down";
 	public static final String GREEN_UP = "green_up";
 	public static final String GREEN_DOWN = "green_down";
-	public static final String BLUE_UP = "SourceDTO d'eau";
+	public static final String BLUE_UP = "Source d'eau";
 	public static final String BLUE_DOWN = "blue_down";
 	public static final String ORANGE_UP = "Produits chimiques";
 	public static final String ORANGE_DOWN = "orange_down";
