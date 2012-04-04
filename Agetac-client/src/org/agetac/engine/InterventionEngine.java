@@ -127,6 +127,9 @@ public class InterventionEngine implements IInterventionEngine {
 				e.setModel(dMoyList.get(i));
 				// on cherche à savoir si son état est "ACCEPTE"
 				if (dMoyList.get(i).getState() == DemandState.ACCEPTED) {
+					// FIXME attention si l'état est ACCEPTED et que l'id du vehicule associe
+					// n'a pas ete definie, ça va planter ! car il sera à -1
+					
 					// la demande a ete acceptee, il faut donc supprimer
 					// la demande de la SITAC pour la remplacer par un vehicule
 					ArrayList<VehicleDTO> vList = new ArrayList<VehicleDTO>(intervention.getVehicles());

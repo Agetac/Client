@@ -58,6 +58,8 @@ public class EntityHolder {
 	public static final String LINE = "Ligne";
 	public static final String POINT = "Point";
 	public static final String ZONE = "Zone";
+	
+	public static final String UNKNOWN = "Inconnu ?";
 
 	private static EntityHolder instance;
 	private Resources res;
@@ -97,9 +99,11 @@ public class EntityHolder {
 		entities.add(new Entity(new GroupDTO(), new Pictogram(RED_GRP, BitmapFactory.decodeResource(res, R.drawable.picto_red_grp), Color.RED, State.STATE_HAPPENING, Shape.SQUARE, GraphicalOverload.GROUPE), EntityState.OFF_SITAC));
 		entities.add(new Entity(new GroupDTO(), new Pictogram(RED_COL, BitmapFactory.decodeResource(res, R.drawable.picto_red_col), Color.RED, State.STATE_HAPPENING, Shape.SQUARE, GraphicalOverload.COLONNE), EntityState.OFF_SITAC));
 		
-		entities.add(new Entity(new ActionDTO(), new LinePicto(LINE, BitmapFactory.decodeResource(res, R.drawable.picto_line), Color.BLACK, State.STATE_HAPPENING, Shape.LINEAR_SHAPE, GraphicalOverload.NONE, new Point(0,0), new Point(0,0), 1), EntityState.OFF_SITAC));
+		entities.add(new Entity(new ActionDTO(), new LinePicto(LINE, BitmapFactory.decodeResource(res, R.drawable.picto_line_black), Color.BLACK, State.STATE_HAPPENING, Shape.LINEAR_SHAPE, GraphicalOverload.NONE, new Point(0,0), new Point(0,0), 1), EntityState.OFF_SITAC));
 		entities.add(new Entity(new SourceDTO(), new Pictogram(POINT, BitmapFactory.decodeResource(res, R.drawable.picto_point), Color.BLACK, State.STATE_HAPPENING, Shape.CIRCLE, GraphicalOverload.NONE), EntityState.OFF_SITAC));
 		entities.add(new Entity(new SourceDTO(), new Pictogram(ZONE, BitmapFactory.decodeResource(res, R.drawable.picto_zone), Color.BLACK, State.STATE_HAPPENING, Shape.STAR_SHAPE, GraphicalOverload.NONE), EntityState.OFF_SITAC));
+		
+		entities.add(new Entity(new SourceDTO(), new Pictogram(UNKNOWN, BitmapFactory.decodeResource(res, R.drawable.picto_unknown), Color.BLACK, State.STATE_HAPPENING, Shape.CIRCLE, GraphicalOverload.NONE), EntityState.OFF_SITAC));
 	}
 
 	public static EntityHolder getInstance(Context context) {
@@ -175,7 +179,7 @@ public class EntityHolder {
 	
 	public IEntity generateEntity(IModel model) {
 		// default entity
-		IEntity ent = getEntity(EntityHolder.RED_ISOLE).clone();
+		IEntity ent = getEntity(EntityHolder.UNKNOWN).clone();
 		
 		if (model instanceof VehicleDTO) {
 			switch (((VehicleDTO) model).getType()) {
@@ -226,15 +230,30 @@ public class EntityHolder {
 			
 		} else if (model instanceof VehicleDemandDTO) {
 			switch (((VehicleDemandDTO) model).getType()) {
-			case FPT:
-				ent = getEntity(EntityHolder.RED_ISOLE).clone();
-				break;
-				
-			case VSAV:
-				ent = getEntity(EntityHolder.GREEN_ISOLE).clone();
-				break;
+				case FPT:
+					ent = getEntity(EntityHolder.RED_ISOLE).clone();
+					break;
+					
+				case VSAV:
+					ent = getEntity(EntityHolder.GREEN_ISOLE).clone();
+					break;
 				
 			// TODO prendre en compte les autres cas
+			}
+			
+		} else if (model instanceof ActionDTO) {
+			switch (((ActionDTO) model).getType()) {
+				case FIRE:
+					
+					break;
+					
+				case HUMAN:
+					
+					break;
+					
+				case WATER:
+					
+					break;
 			}
 		}
 		
