@@ -104,21 +104,7 @@ public class EntityFactory {
 			// TODO prendre en compte les autres cas
 			}
 			
-		} else if (model instanceof ActionDTO) {
-			switch (((ActionDTO) model).getType()) {
-				case FIRE:
-					
-					break;
-					
-				case HUMAN:
-					
-					break;
-					
-				case WATER:
-					
-					break;
-			}
-		}
+		} 
 		
 		if (model.getPosition().getLatitude() == 0 && model.getPosition().getLongitude() == 0) {
 			// alors l'item n'a pas de position definie et donc son etat est OFF_SITAC
