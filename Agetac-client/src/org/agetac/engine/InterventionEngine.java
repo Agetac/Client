@@ -1,7 +1,6 @@
 package org.agetac.engine;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Observer;
 
@@ -11,16 +10,13 @@ import org.agetac.common.dto.ActionDTO;
 import org.agetac.common.dto.IModel;
 import org.agetac.common.dto.InterventionDTO;
 import org.agetac.common.dto.MessageDTO;
-import org.agetac.common.dto.PositionDTO;
 import org.agetac.common.dto.SourceDTO;
 import org.agetac.common.dto.TargetDTO;
 import org.agetac.common.dto.VehicleDTO;
 import org.agetac.common.dto.VehicleDemandDTO;
-import org.agetac.common.dto.VehicleDTO.VehicleType;
 import org.agetac.common.dto.VehicleDemandDTO.DemandState;
 import org.agetac.common.dto.VictimDTO;
 import org.agetac.entity.EntityFactory;
-import org.agetac.entity.EntityHolder;
 import org.agetac.entity.EntityList;
 import org.agetac.entity.IEntity;
 import org.agetac.handler.AddHandler;
@@ -41,7 +37,6 @@ public class InterventionEngine implements IInterventionEngine {
 	private MyObservable observable;
 	private AgetacClient client;
 	private UpdateInterventionThread updateThread;
-	private Context context;
 	private AddHandler addHandler;
 	private DeleteHandler delHandler;
 	private UpdateHandler updateHandler;
@@ -51,7 +46,6 @@ public class InterventionEngine implements IInterventionEngine {
 	public InterventionEngine(final Context c) {
 		observable = new MyObservable();
 		entities = new EntityList();
-		this.context = c;
 		
 		String host = c.getString(R.string.host);
 		int port = Integer.valueOf(c.getString(R.string.port));
@@ -67,7 +61,7 @@ public class InterventionEngine implements IInterventionEngine {
 		// cree les handlers pour les operations REST
 		addHandler = new AddHandler(entities, client, interId);
 		delHandler = new DeleteHandler(entities, client);
-		updateHandler = new UpdateHandler(entities, client);
+		updateHandler = new UpdateHandler(client);
 
 		// thread de MAJ de l'intervention via le serveur en "temps-reel"
 		// TODO changer ça pour utiliser un système PUSH afin
@@ -105,7 +99,6 @@ public class InterventionEngine implements IInterventionEngine {
 	
 	@Override
 	public void updateIntervention() {
-		EntityHolder holder = EntityHolder.getInstance(context);
 		InterventionDTO remoteInter = client.getIntervention(interId);
 		
 		List<VehicleDTO> vehList = new ArrayList<VehicleDTO>(remoteInter.getVehicles());
@@ -170,8 +163,6 @@ public class InterventionEngine implements IInterventionEngine {
 	 * @param aClass la classe des objets de la liste
 	 */
 	private void processUpdate(List<? extends IModel> list, Class<? extends IModel> aClass) {
-		EntityHolder holder = EntityHolder.getInstance(context);
-		
 		for (int i=0; i<list.size(); i++) {
 			IEntity e = entities.find(list.get(i).getId(), aClass);
 			// si l'entitee existe deja cote client

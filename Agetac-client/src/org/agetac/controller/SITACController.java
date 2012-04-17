@@ -2,6 +2,7 @@ package org.agetac.controller;
 
 import org.agetac.activity.ITabActivity;
 import org.agetac.command.AddEntityCommand;
+import org.agetac.command.EditEntityCommand;
 import org.agetac.command.RemoveEntityCommand;
 
 public class SITACController implements ISubController {
@@ -27,6 +28,10 @@ public class SITACController implements ISubController {
 			parent.setLastEntity(act.getTouchedEntity());
 			parent.getCommands().get(RemoveEntityCommand.NAME).execute();
 			break;
+			
+		case EDIT:
+			parent.setLastEntity(act.getTouchedEntity());
+			parent.getCommands().get(EditEntityCommand.NAME).execute();
 		
 		default : 
 			android.util.Log.w(TAG, "FLAG inconnu!");

@@ -237,12 +237,8 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					
-					flag = ActionFlag.REMOVE;
-					observable.setChanged();
-					observable.notifyObservers(SITACActivity.this);
-					
 					touchedEntity.getModel().setName(nameField.getText().toString().trim());
-					flag = ActionFlag.ADD;
+					flag = ActionFlag.EDIT;
 					observable.setChanged();
 					observable.notifyObservers(SITACActivity.this);
 				}

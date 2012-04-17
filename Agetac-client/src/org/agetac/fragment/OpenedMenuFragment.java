@@ -167,18 +167,15 @@ public class OpenedMenuFragment extends Fragment implements IMenuFragment, OnCli
 	public void addOffSitacEntities(ArrayList<IEntity> entities) {
 		if (entities == null || entities.isEmpty()) {
 			if (groups.get(0).getGroupName().equals(getString(R.string.off_sitac))) {
-				android.util.Log.d(TAG, "REMOVE POSITION A DEFINIR");
 				groups.remove(0);
 			}
 			
 		} else {
 			MenuGroup grpOffSitac = null;
 			if (groups.get(0).getGroupName().equals(getString(R.string.off_sitac))) {
-				android.util.Log.d(TAG, "POSITION A DEFINIR EXISTE DEJA AJOUT D'ITEM");
 				grpOffSitac = groups.get(0);
 			
 			} else {
-				android.util.Log.d(TAG, "POSITION A DEFINIR EXISTAIT PAS ON LE CREE");
 				grpOffSitac = new MenuGroup(getString(R.string.off_sitac));
 				groups.add(0, grpOffSitac);
 			}

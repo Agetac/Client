@@ -92,10 +92,17 @@ public class Controller implements Observer {
 		act.update();
 	}
 	
+	/**
+	 * @return la dernière entitée sélectionnée dans l'application
+	 */
 	public IEntity getLastEntity() {
 		return lastEntity;
 	}
 	
+	/**
+	 * Permet de renseigner l'entitée utilisée en ce moment
+	 * @param e une entitée
+	 */
 	public void setLastEntity(IEntity e) {
 		lastEntity = e;
 	}

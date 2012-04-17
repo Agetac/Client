@@ -75,6 +75,19 @@ public class AgetacClient {
 		}
 
 	}
+	
+
+	public VehicleDTO addVehicle(long interId, VehicleDTO vehicle) {
+		ClientResource clientResource = makeClientResource(getBaseAddress()	+ "/intervention/" + interId + "/vehicle");
+		try {
+			VehicleResource vehicleResource = clientResource
+					.wrap(VehicleResource.class);
+
+			return vehicleResource.add(vehicle);
+		} finally {
+			clientResource.release();
+		}
+	}
 
 	public Collection<InterventionDTO> getInterventions() {
 		ClientResource clientResource = makeClientResource(getBaseAddress()
@@ -106,8 +119,7 @@ public class AgetacClient {
 			InterventionResource interventionResource = clientResource
 					.wrap(InterventionResource.class);
 
-			interventionResource.add(intervention);
-			return intervention;
+			return interventionResource.add(intervention);
 		} finally {
 			clientResource.release();
 		}
@@ -169,8 +181,7 @@ public class AgetacClient {
 	}
 
 	public ActionDTO addAction(long interId, ActionDTO action) {
-		ClientResource clientResource = makeClientResource(getBaseAddress()
-				+ "/intervention/" + interId + "/action");
+		ClientResource clientResource = makeClientResource(getBaseAddress()	+ "/intervention/" + interId + "/action");
 		try {
 			ActionResource resource = clientResource.wrap(ActionResource.class);
 
@@ -198,8 +209,7 @@ public class AgetacClient {
 		ClientResource clientResource = makeClientResource(getBaseAddress()
 				+ "/intervention/" + interId + "/vehicles");
 		try {
-			VehiclesResource resource = clientResource
-					.wrap(VehiclesResource.class);
+			VehiclesResource resource = clientResource.wrap(VehiclesResource.class);
 
 			return resource.retrieve();
 		} finally {
@@ -304,8 +314,7 @@ public class AgetacClient {
 	}
 
 	public void updateSource(SourceDTO source) {
-		ClientResource clientResource = makeClientResource(getBaseAddress()
-				+ "/source/" + source.getId());
+		ClientResource clientResource = makeClientResource(getBaseAddress() + "/source/" + source.getId());
 		try {
 			SourceResource resource = clientResource.wrap(SourceResource.class);
 
@@ -314,6 +323,29 @@ public class AgetacClient {
 			clientResource.release();
 		}
 
+	}
+	
+	public void updateAction(ActionDTO action) {
+		ClientResource clientResource = makeClientResource(getBaseAddress()	+ "/action/" + action.getId());
+		try {
+			ActionResource resource = clientResource.wrap(ActionResource.class);
+
+			resource.update(action);
+		} finally {
+			clientResource.release();
+		}
+
+	}
+	
+	public void updateVehicleDemand(VehicleDemandDTO vd) {
+		ClientResource clientResource = makeClientResource(getBaseAddress()	+ "/vehicleDemand/" + vd.getId());
+		try {
+			VehicleDemandResource resource = clientResource.wrap(VehicleDemandResource.class);
+
+			resource.update(vd);
+		} finally {
+			clientResource.release();
+		}
 	}
 
 	public void deleteTarget(long id) {
@@ -369,7 +401,7 @@ public class AgetacClient {
 		ClientResource clientResource = makeClientResource(getBaseAddress()
 				+ "/action/" + id);
 		try {
-			SourceResource resource = clientResource.wrap(SourceResource.class);
+			ActionResource resource = clientResource.wrap(ActionResource.class);
 
 			resource.remove();
 		} finally {

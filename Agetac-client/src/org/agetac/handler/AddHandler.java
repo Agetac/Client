@@ -15,6 +15,8 @@ import org.agetac.entity.IEntity;
 
 public class AddHandler implements IHandler {
 
+	private static final String TAG = "AddHandler";
+	
 	private EntityList entities;
 	private AgetacClient client;
 	private int interId;
@@ -35,8 +37,8 @@ public class AddHandler implements IHandler {
 		
 		} else if (entity.getModel() instanceof VehicleDTO) {
 			VehicleDTO v = (VehicleDTO) entity.getModel();
-			// FIXME update should return smthing or not ?
-//			entity.setModel(client.updateVehicle(v));
+			// FIXME le client n'est pas sensé créer des véhicules...
+			android.util.Log.d(TAG, "/!\\ trying to add a vehicle directly from the client (you are wrong, it does nothing !)");
 		
 		} else if (entity.getModel() instanceof Source) {
 			SourceDTO s = (SourceDTO) entity.getModel();
