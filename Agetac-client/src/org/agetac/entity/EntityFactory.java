@@ -14,6 +14,8 @@ import org.agetac.common.dto.VictimDTO;
 import org.agetac.entity.Entity.EntityState;
 
 public class EntityFactory {
+	
+	private static final String TAG = "EntityFactory";
 		
 	public static IEntity make(IEntity e) {
 		IModel model = e.getModel();
@@ -120,12 +122,14 @@ public class EntityFactory {
 			}
 		}
 		
-		if (model.getPosition().getLatitude() == 0 && model.getPosition().getLongitude() == 0) {
+		if (model.getPosition() == null || !model.getPosition().isKnown()) {
 			// alors l'item n'a pas de position definie et donc son etat est OFF_SITAC
 			ent.setState(EntityState.OFF_SITAC);
+			android.util.Log.d(TAG, "he says we are OFF SITAC");
 		
 		} else {
 			ent.setState(EntityState.ON_SITAC);
+			android.util.Log.d(TAG, "IM ON SITAC DUDE !");
 		}
 		
 		ent.setModel(model);

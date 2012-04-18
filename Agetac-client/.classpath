@@ -17,5 +17,6 @@
 	<classpathentry kind="lib" path="lib/osmdroid-packager-3.0.6.jar"/>
 	<classpathentry kind="lib" path="lib/osmdroid-third-party-3.0.6.jar"/>
 	<classpathentry kind="lib" path="lib/slf4j-android-1.6.1-RC1.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/Common"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

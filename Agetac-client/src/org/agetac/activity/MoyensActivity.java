@@ -202,7 +202,7 @@ public class MoyensActivity extends AbstractActivity implements OnClickListener,
 				VehicleDTO v = (VehicleDTO) entities.get(i).getModel();
 				map.put(DATA_IMG, ""+R.drawable.firetruck);
 				map.put(DATA_TYPE, v.getName());
-				map.put(DATA_CASERNE, v.getBarrackName());
+				map.put(DATA_CASERNE, v.getBarrack().getName());
 				VehicleState ev = v.getState();
 				map.put(DATA_ETAT, ev.toString());
 				map.put(DATA_GHDEM, getString(R.string.unknown)); // mapping GH non implemente sur le model

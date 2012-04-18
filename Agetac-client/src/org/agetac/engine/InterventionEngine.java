@@ -111,17 +111,18 @@ public class InterventionEngine implements IInterventionEngine {
 		processUpdate(cibList, TargetDTO.class);
 		
 		List<VehicleDemandDTO> dMoyList = new ArrayList<VehicleDemandDTO>(remoteInter.getDemands());
-		System.out.println(dMoyList.toString());
+		System.out.println("La liste de demandes de moyen récupérée via l'updateThread => "+dMoyList.toString());
 		for (int i=0; i<dMoyList.size(); i++) {
 			// traiter les demandes acceptées et les supprimers de la sitac
 			// pour les remplacers par des vehicules
 			IEntity e = entities.find(dMoyList.get(i).getId(), VehicleDemandDTO.class);
+			VehicleDemandDTO vd = dMoyList.get(i);
 			// si la demande existe deja cote client
 			if (e != null) {
 				// on met à jour le model de son entitee
-				e.setModel(dMoyList.get(i));
+				e.setModel(vd);
 				// on cherche à savoir si son état est "ACCEPTE"
-				if (dMoyList.get(i).getState() == DemandState.ACCEPTED) {
+				if (vd.getState() == DemandState.ACCEPTED) {
 					// FIXME attention si l'état est ACCEPTED et que l'id du vehicule associe
 					// n'a pas ete definie, ça va planter ! car il sera à -1
 					
@@ -129,15 +130,20 @@ public class InterventionEngine implements IInterventionEngine {
 					// la demande de la SITAC pour la remplacer par un vehicule
 					ArrayList<VehicleDTO> vList = new ArrayList<VehicleDTO>(intervention.getVehicles());
 					for (int k=0; k<vList.size(); k++) {
-						if (vList.get(k).getId() == dMoyList.get(i).getVehicleId()) {
+						// on cherche le model du véhicule associé à la demande
+						if (vList.get(k).getId() == vd.getVehicleId()) {
 							// on cree la future entitee du vehicule
 							VehicleDTO v = vList.get(k);
+							// on ajoute le nouveau vehicule aux entitées
 							entities.add(EntityFactory.make(v));
-							// on supprime la demande de la SITAC
-							entities.remove(dMoyList.get(i));
+							// on supprime la demande de vehicule
+							entities.remove(vd);
 						}
 					}
 				}
+			// si la demande n'existe pas côté client, on l'ajoute
+			} else {
+				entities.add(EntityFactory.make(vd));
 			}
 		}
 		

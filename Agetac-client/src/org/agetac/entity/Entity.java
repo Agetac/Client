@@ -37,19 +37,11 @@ public class Entity implements IEntity {
 		this.model = model;
 		this.picto = picto;
 		this.state = state;
-		if (model == null) {
-			System.out.println("model == NULL");
-		} else {
-			System.out.println("model NOT NULL >> "+model.getClass().getSimpleName());
-			if (model.getPosition() == null) {
-				System.out.println("position du model == null"+model.getClass().getSimpleName());
-			} else {
-				System.out.println("position du model NON NULL"+model.getClass().getSimpleName());
-			}
+		if (model.getPosition() != null) {
+			int latE6 = (int) model.getPosition().getLatitude();
+			int longE6 = (int) model.getPosition().getLongitude();
+			this.geoP = new GeoPoint(latE6, longE6);
 		}
-		int latE6 = (int) model.getPosition().getLatitude();
-		int longE6 = (int) model.getPosition().getLongitude();
-		this.geoP = new GeoPoint(latE6, longE6);
 	}
 	
 	@Override
@@ -95,7 +87,7 @@ public class Entity implements IEntity {
 			return new Entity(new SourceDTO(new PositionDTO(model.getPosition()), ((SourceDTO) model).getType()), picto.clone(), state);
 		} else if (model instanceof VehicleDTO) {
 			//not sure of that
-			return new Entity(new VehicleDTO(new PositionDTO(model.getPosition()), ((VehicleDTO) model).getType(), ((VehicleDTO) model).getBarrackName(), ((VehicleDTO) model).getState(), ((VehicleDTO) model).getGroup(), "Tsoin tsoin"), picto.clone(), state);
+			return new Entity(new VehicleDTO(new PositionDTO(model.getPosition()), ((VehicleDTO) model).getType(), ((VehicleDTO) model).getBarrack().getName(), ((VehicleDTO) model).getState(), ((VehicleDTO) model).getGroup(), "Tsoin tsoin"), picto.clone(), state);
 		}
 		return null;
 	}
@@ -126,12 +118,13 @@ public class Entity implements IEntity {
 	@Override
 	public void setModel(IModel model) {
 		this.model = model;
-		int latE6 = (int) model.getPosition().getLatitude();
-		int longE6 = (int) model.getPosition().getLongitude();
-		this.geoP = new GeoPoint(latE6, longE6);
-		
-		if (latE6 != 0 && longE6 != 0) {
+		if (model.getPosition() != null) {
+			int latE6 = (int) model.getPosition().getLatitude();
+			int longE6 = (int) model.getPosition().getLongitude();
+			this.geoP = new GeoPoint(latE6, longE6);
 			state = EntityState.ON_SITAC;
+		} else {
+			state = EntityState.OFF_SITAC;
 		}
 	}
 	

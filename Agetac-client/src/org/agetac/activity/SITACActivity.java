@@ -145,7 +145,9 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 			@Override
 			public void run() {
 				mapView.invalidate();
-				openedMenuFrag.addOffSitacEntities(offSitacEntities);
+				if (openedMenuFrag.isAdded()) {
+					openedMenuFrag.addOffSitacEntities(offSitacEntities);
+				}
 			}
 		});
 	}
@@ -193,6 +195,7 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 			flag = ActionFlag.ADD;
 			touchedEntity = EntityFactory.make(currentEntity);
 			touchedEntity.getModel().setPosition(p);
+			touchedEntity.getModel().getPosition().setKnown(true);
 			if (touchedEntity.getModel() instanceof VehicleDemandDTO) {
 				((VehicleDemandDTO) touchedEntity.getModel()).setState(DemandState.ASKED);
 				((VehicleDemandDTO) touchedEntity.getModel()).setType(VehicleType.FPT);
