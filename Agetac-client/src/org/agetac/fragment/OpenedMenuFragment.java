@@ -53,10 +53,10 @@ public class OpenedMenuFragment extends Fragment implements IMenuFragment, OnCli
 		});
 		showMenuAnim = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_in_left);
 		EntityHolder pHolder = EntityHolder.getInstance(getActivity());
-		pictosDangers = pHolder.getEntities(Shape.TRIANGLE_UP);
-		pictosCibles = pHolder.getEntities(Shape.TRIANGLE_DOWN);
-		pictosActions = pHolder.getEntities(Color.BLACK);
-		pictosMoyens = pHolder.getEntities(Shape.SQUARE);
+		pictosDangers = pHolder.getSourceEntities();
+		pictosCibles = pHolder.getTargetEntities();
+		pictosActions = pHolder.getActionEntities();
+		pictosMoyens = pHolder.getMoyenEntities();
 		pictosOffSitac = new ArrayList<IEntity>();
 	}
 	
@@ -137,7 +137,6 @@ public class OpenedMenuFragment extends Fragment implements IMenuFragment, OnCli
 	public boolean onChildClick(ExpandableListView p, View v, int grpIndex,
 			int childIndex, long id) {
 
-		//v.setSelected(true);
 		menuAdapter.setChildSelected(childIndex, grpIndex);
 		
 		if (listener != null) {
@@ -166,22 +165,29 @@ public class OpenedMenuFragment extends Fragment implements IMenuFragment, OnCli
 	
 	public void addOffSitacEntities(ArrayList<IEntity> entities) {
 		if (entities == null || entities.isEmpty()) {
+			System.out.println("OPENED MENU: entities empty ou null");
 			if (groups.get(0).getGroupName().equals(getString(R.string.off_sitac))) {
 				groups.remove(0);
+				System.out.println("OPENED MENU: kick position à definir");
 			}
 			
 		} else {
+			System.out.println("OPENED MENU: entities pas null ou pas vide");
 			MenuGroup grpOffSitac = null;
 			if (groups.get(0).getGroupName().equals(getString(R.string.off_sitac))) {
 				grpOffSitac = groups.get(0);
+				System.out.println("OPENED MENU: récupère l'ancien Position a definir parce qu'il existait deja");
 			
 			} else {
 				grpOffSitac = new MenuGroup(getString(R.string.off_sitac));
+				System.out.println("OPENED MENU: Position a definir existait pas donc on le crée");
 				groups.add(0, grpOffSitac);
 			}
 			
 			pictosOffSitac.clear();
-			pictosOffSitac.addAll(entities);			
+			System.out.println("OPENED MENU: pictosOffsitac vidé !");
+			pictosOffSitac.addAll(entities);
+			System.out.println("OPENED MENU: ajout de ["+entities.toString()+"] à pictosOffsitac");
 			grpOffSitac.setEntities(pictosOffSitac);
 		}
 		

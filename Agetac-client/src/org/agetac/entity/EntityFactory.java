@@ -20,21 +20,21 @@ public class EntityFactory {
 	public static IEntity make(IEntity e) {
 		IModel model = e.getModel();
 		if (e.getModel() instanceof ActionDTO) {
-			return new Entity(new ActionDTO(new PositionDTO(model.getPosition()), ((ActionDTO) model).getType(), new PositionDTO(((ActionDTO) model).getOrigin()), new PositionDTO(((ActionDTO) model).getAim())), e.getPictogram().clone(), e.getState());
+			return new Entity(new ActionDTO(new PositionDTO(model.getPosition()), ((ActionDTO) model).getType(), new PositionDTO(((ActionDTO) model).getOrigin()), new PositionDTO(((ActionDTO) model).getAim())), e.getPictogram().clone());
 		} else if (model instanceof AgentDTO) {
 			return e;
 		} else if (model instanceof BarrackDTO) {
 			return e;
 		} else if (model instanceof TargetDTO) {
-			return new Entity(new TargetDTO(new PositionDTO(model.getPosition()), ((TargetDTO) model).getType()), e.getPictogram().clone(), e.getState());
+			return new Entity(new TargetDTO(new PositionDTO(model.getPosition()), ((TargetDTO) model).getType()), e.getPictogram().clone());
 		} else if (model instanceof VehicleDemandDTO) {
-			return new Entity(new VehicleDemandDTO(model.getName(), new PositionDTO(model.getPosition()), ((VehicleDemandDTO) model).getState(), ((VehicleDemandDTO) model).getGroup()), e.getPictogram().clone(), e.getState());
+			return new Entity(new VehicleDemandDTO(model.getName(), new PositionDTO(model.getPosition()), ((VehicleDemandDTO) model).getState(), ((VehicleDemandDTO) model).getGroup()), e.getPictogram().clone());
 		} else if (model instanceof GroupDTO) {
 			return e;
 		} else if (model instanceof VictimDTO) {
 			return e;
 		} else if (model instanceof SourceDTO) {
-			return new Entity(new SourceDTO(new PositionDTO(model.getPosition()), ((SourceDTO) model).getType()), e.getPictogram().clone(), e.getState());
+			return new Entity(new SourceDTO(new PositionDTO(model.getPosition()), ((SourceDTO) model).getType()), e.getPictogram().clone());
 		} else if (model instanceof VehicleDTO) {
 			return e;		
 		}
@@ -44,7 +44,7 @@ public class EntityFactory {
 	
 	public static IEntity make(IModel model) {
 		// default entity
-		IEntity ent = make(EntityHolder.getEntity(EntityHolder.UNKNOWN));
+		IEntity ent = EntityHolder.getUnknownEntity();
 		
 		if (model instanceof VehicleDTO) {
 			switch (((VehicleDTO) model).getType()) {
@@ -55,8 +55,170 @@ public class EntityFactory {
 				case VSAV:
 					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
 					break;
+
+				case BEA:
+					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+					break;
 					
-				// TODO prendre en compte les autres cas
+				case BLS:
+					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+					break;
+					
+				case BLSP:
+					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+					break;
+					
+				case BRS:
+					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+					break;
+					
+				case CAEM:
+					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+					break;
+					
+				case CCFM:
+					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+					break;
+					
+				case CCGC:
+					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+					break;
+					
+				case CCGCLC:
+					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+					break;
+					
+				case DA:
+					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+					break;
+					
+				case EMB:
+					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+					break;
+					
+				case EPS:
+					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+					break;
+					
+				case ESPM:
+					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+					break;
+					
+				case FMOGP:
+					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+					break;
+					
+				case MPR:
+					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+					break;
+					
+				case PCM:
+					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+					break;
+					
+				case PEVSD:
+					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+					break;
+					
+				case SAC_PS:
+					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+					break;
+					
+				case UTP:
+					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+					break;
+					
+				case VAR:
+					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+					break;
+					
+				case VCYNO:
+					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+					break;
+					
+				case VICB:
+					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+					break;
+					
+				case VL:
+					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+					break;
+					
+				case VLCC:
+					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+					break;
+					
+				case VLCG:
+					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+					break;
+					
+				case VLCGD:
+					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+					break;
+					
+				case VLCS:
+					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+					break;
+					
+				case VLDP:
+					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+					break;
+					
+				case VLHR:
+					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+					break;
+					
+				case VLOS:
+					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+					break;
+					
+				case VLS:
+					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+					break;
+					
+				case VLSV:
+					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+					break;
+					
+				case VNRBC:
+					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+					break;
+					
+				case VPHV:
+					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+					break;
+					
+				case VPL:
+					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+					break;
+					
+				case VPRO:
+					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+					break;
+					
+				case VRAD:
+					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+					break;
+					
+				case VRCB:
+					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+					break;
+					
+				case VSM:
+					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+					break;
+					
+				case VSR:
+					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+					break;
+					
+				case VTP:
+					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+					break;
+					
+				case VTU:
+					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+					break;
 			}
 			
 		} else if (model instanceof SourceDTO) {
@@ -95,41 +257,194 @@ public class EntityFactory {
 			
 		} else if (model instanceof VehicleDemandDTO) {
 			switch (((VehicleDemandDTO) model).getType()) {
-				case FPT:
-					ent = make(EntityHolder.getEntity(EntityHolder.RED_ISOLE));
-					break;
-					
-				case VSAV:
-					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
-					break;
+			// FIXME les demandes devraient être affichées avec des tirets et non avec les pictos des vehicules
+			case FPT:
+				ent = make(EntityHolder.getEntity(EntityHolder.RED_ISOLE));
+				break;
 				
-			// TODO prendre en compte les autres cas
+			case VSAV:
+				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+				break;
+
+			case BEA:
+				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+				break;
+				
+			case BLS:
+				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+				break;
+				
+			case BLSP:
+				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+				break;
+				
+			case BRS:
+				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+				break;
+				
+			case CAEM:
+				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+				break;
+				
+			case CCFM:
+				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+				break;
+				
+			case CCGC:
+				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+				break;
+				
+			case CCGCLC:
+				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+				break;
+				
+			case DA:
+				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+				break;
+				
+			case EMB:
+				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+				break;
+				
+			case EPS:
+				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+				break;
+				
+			case ESPM:
+				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+				break;
+				
+			case FMOGP:
+				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+				break;
+				
+			case MPR:
+				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+				break;
+				
+			case PCM:
+				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+				break;
+				
+			case PEVSD:
+				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+				break;
+				
+			case SAC_PS:
+				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+				break;
+				
+			case UTP:
+				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+				break;
+				
+			case VAR:
+				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+				break;
+				
+			case VCYNO:
+				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+				break;
+				
+			case VICB:
+				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+				break;
+				
+			case VL:
+				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+				break;
+				
+			case VLCC:
+				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+				break;
+				
+			case VLCG:
+				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+				break;
+				
+			case VLCGD:
+				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+				break;
+				
+			case VLCS:
+				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+				break;
+				
+			case VLDP:
+				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+				break;
+				
+			case VLHR:
+				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+				break;
+				
+			case VLOS:
+				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+				break;
+				
+			case VLS:
+				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+				break;
+				
+			case VLSV:
+				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+				break;
+				
+			case VNRBC:
+				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+				break;
+				
+			case VPHV:
+				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+				break;
+				
+			case VPL:
+				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+				break;
+				
+			case VPRO:
+				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+				break;
+				
+			case VRAD:
+				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+				break;
+				
+			case VRCB:
+				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+				break;
+				
+			case VSM:
+				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+				break;
+				
+			case VSR:
+				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+				break;
+				
+			case VTP:
+				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+				break;
+				
+			case VTU:
+				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+				break;
 			}
 			
 		} else if (model instanceof ActionDTO) {
 			switch (((ActionDTO) model).getType()) {
 				case FIRE:
-					
+					ent = make(EntityHolder.getEntity(EntityHolder.LINE_RED));
 					break;
 					
 				case HUMAN:
-					
+					ent = make(EntityHolder.getEntity(EntityHolder.LINE_BLACK));
 					break;
 					
 				case WATER:
-					
+					ent = make(EntityHolder.getEntity(EntityHolder.LINE_BLUE));
 					break;
 			}
-		}
-		
-		if (model.getPosition() == null || !model.getPosition().isKnown()) {
-			// alors l'item n'a pas de position definie et donc son etat est OFF_SITAC
-			ent.setState(EntityState.OFF_SITAC);
-			android.util.Log.d(TAG, "he says we are OFF SITAC");
-		
-		} else {
-			ent.setState(EntityState.ON_SITAC);
-			android.util.Log.d(TAG, "IM ON SITAC DUDE !");
 		}
 		
 		ent.setModel(model);

@@ -16,13 +16,13 @@ import org.agetac.common.dto.VehicleDTO;
 import org.agetac.common.dto.VehicleDemandDTO;
 import org.agetac.common.dto.VehicleDemandDTO.DemandState;
 import org.agetac.common.dto.VictimDTO;
+import org.agetac.common.observer.MyObservable;
 import org.agetac.entity.EntityFactory;
 import org.agetac.entity.EntityList;
 import org.agetac.entity.IEntity;
 import org.agetac.handler.AddHandler;
 import org.agetac.handler.DeleteHandler;
 import org.agetac.handler.UpdateHandler;
-import org.agetac.observer.MyObservable;
 import org.restlet.engine.Engine;
 import org.restlet.ext.jackson.JacksonConverter;
 

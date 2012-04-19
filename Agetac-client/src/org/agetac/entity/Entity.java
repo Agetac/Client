@@ -1,6 +1,9 @@
 package org.agetac.entity;
 
 
+import java.util.Observable;
+import java.util.Observer;
+
 import org.agetac.common.dto.ActionDTO;
 import org.agetac.common.dto.AgentDTO;
 import org.agetac.common.dto.BarrackDTO;
@@ -21,27 +24,35 @@ import org.osmdroid.views.MapView;
 import android.graphics.Canvas;
 import android.graphics.Point;
 
-public class Entity implements IEntity {
+public class Entity implements IEntity, Observer {
 
 	private static final long serialVersionUID = 9102938L;
 	private static final int EARTH_RADIUS_METERS = 6378137;
 
-	public enum EntityState {ON_SITAC, OFF_SITAC}
+	/**
+	 * MENU: entitée créée par defaut pour le menu
+	 * OFF_SITAC: l'entitée a été créée par l'utilisateur mais n'a pas de position sur la SITAC
+	 * ON_SITAC: entitée créée par l'utilisateur et placée sur la SITAC
+	 */
+	public enum EntityState {MENU, OFF_SITAC, ON_SITAC}
 	
 	private IModel model;
 	private IPictogram picto;
 	private IGeoPoint geoP;
-	private EntityState state;
+	private EntityState state = EntityState.MENU;
 	
-	public Entity(IModel model, IPictogram picto, EntityState state) {
+	public Entity(IModel model, IPictogram picto) {
 		this.model = model;
 		this.picto = picto;
-		this.state = state;
-		if (model.getPosition() != null) {
+		if (model.getPosition() != null && model.getPosition().isKnown()) {
 			int latE6 = (int) model.getPosition().getLatitude();
 			int longE6 = (int) model.getPosition().getLongitude();
 			this.geoP = new GeoPoint(latE6, longE6);
+			this.state = EntityState.ON_SITAC;
+		} else {
+			this.state = EntityState.OFF_SITAC;
 		}
+		model.addObserver(this);
 	}
 	
 	@Override
@@ -63,31 +74,31 @@ public class Entity implements IEntity {
 	@Override
 	public IEntity clone() {
 		if (model instanceof ActionDTO) {
-			return new Entity(new ActionDTO(new PositionDTO(model.getPosition()), ((ActionDTO) model).getType(), new PositionDTO(((ActionDTO) model).getOrigin()), new PositionDTO(((ActionDTO) model).getAim())), picto.clone(), state);
+			return new Entity(new ActionDTO(new PositionDTO(model.getPosition()), ((ActionDTO) model).getType(), new PositionDTO(((ActionDTO) model).getOrigin()), new PositionDTO(((ActionDTO) model).getAim())), picto.clone());
 		} else if (model instanceof AgentDTO) {
 			//humhum?
-			//return new Entity(new AgentDTO(model.getId(), model.getId(), ((AgentDTO) model).getAptitude(), ((AgentDTO) model).getSubordonnes()), picto.clone(), state);
+			//return new Entity(new AgentDTO(model.getId(), model.getId(), ((AgentDTO) model).getAptitude(), ((AgentDTO) model).getSubordonnes()), picto.clone());
 		} else if (model instanceof BarrackDTO) {
 			//humhum?
-			//return new Entity(new ActionDTO(model.getId(), new PositionDTO(model.getPosition()), ((ActionDTO) model).getActionDTOType(), new PositionDTO(((ActionDTO) model).getOrigin()), new PositionDTO(((ActionDTO) model).getAim())), picto.clone(), state);
+			//return new Entity(new ActionDTO(model.getId(), new PositionDTO(model.getPosition()), ((ActionDTO) model).getActionDTOType(), new PositionDTO(((ActionDTO) model).getOrigin()), new PositionDTO(((ActionDTO) model).getAim())), picto.clone());
 		} else if (model instanceof TargetDTO) {
-			return new Entity(new TargetDTO(new PositionDTO(model.getPosition()), ((TargetDTO) model).getType()), picto.clone(), state);
+			return new Entity(new TargetDTO(new PositionDTO(model.getPosition()), ((TargetDTO) model).getType()), picto.clone());
 		} else if (model instanceof VehicleDemandDTO) {
-			return new Entity(new VehicleDemandDTO(model.getName(), new PositionDTO(model.getPosition()), ((VehicleDemandDTO) model).getState(), ((VehicleDemandDTO) model).getGroup()), picto.clone(), state);
+			return new Entity(new VehicleDemandDTO(model.getName(), new PositionDTO(model.getPosition()), ((VehicleDemandDTO) model).getState(), ((VehicleDemandDTO) model).getGroup()), picto.clone());
 		} else if (model instanceof GroupDTO) {
 			//humhum?
-			//return new Entity(new ActionDTO(model.getId(), new PositionDTO(model.getPosition()), ((ActionDTO) model).getActionDTOType(), new PositionDTO(((ActionDTO) model).getOrigin()), new PositionDTO(((ActionDTO) model).getAim())), picto.clone(), state);
+			//return new Entity(new ActionDTO(model.getId(), new PositionDTO(model.getPosition()), ((ActionDTO) model).getActionDTOType(), new PositionDTO(((ActionDTO) model).getOrigin()), new PositionDTO(((ActionDTO) model).getAim())), picto.clone());
 		} else if (model instanceof VictimDTO) {
 			//humhum?
-			//return new Entity(new ActionDTO(model.getId(), new PositionDTO(model.getPosition()), ((ActionDTO) model).getActionDTOType(), new PositionDTO(((ActionDTO) model).getOrigin()), new PositionDTO(((ActionDTO) model).getAim())), picto.clone(), state);
+			//return new Entity(new ActionDTO(model.getId(), new PositionDTO(model.getPosition()), ((ActionDTO) model).getActionDTOType(), new PositionDTO(((ActionDTO) model).getOrigin()), new PositionDTO(((ActionDTO) model).getAim())), picto.clone());
 		} else if (model instanceof InterventionDTO) {
 			//humhum?
-			//return new Entity(new ActionDTO(model.getId(), new PositionDTO(model.getPosition()), ((ActionDTO) model).getActionDTOType(), new PositionDTO(((ActionDTO) model).getOrigin()), new PositionDTO(((ActionDTO) model).getAim())), picto.clone(), state);
+			//return new Entity(new ActionDTO(model.getId(), new PositionDTO(model.getPosition()), ((ActionDTO) model).getActionDTOType(), new PositionDTO(((ActionDTO) model).getOrigin()), new PositionDTO(((ActionDTO) model).getAim())), picto.clone());
 		} else if (model instanceof SourceDTO) {
-			return new Entity(new SourceDTO(new PositionDTO(model.getPosition()), ((SourceDTO) model).getType()), picto.clone(), state);
+			return new Entity(new SourceDTO(new PositionDTO(model.getPosition()), ((SourceDTO) model).getType()), picto.clone());
 		} else if (model instanceof VehicleDTO) {
 			//not sure of that
-			return new Entity(new VehicleDTO(new PositionDTO(model.getPosition()), ((VehicleDTO) model).getType(), ((VehicleDTO) model).getBarrack().getName(), ((VehicleDTO) model).getState(), ((VehicleDTO) model).getGroup(), "Tsoin tsoin"), picto.clone(), state);
+			return new Entity(new VehicleDTO(new PositionDTO(model.getPosition()), ((VehicleDTO) model).getType(), ((VehicleDTO) model).getBarrack().getName(), ((VehicleDTO) model).getState(), ((VehicleDTO) model).getGroup(), "Tsoin tsoin"), picto.clone());
 		}
 		return null;
 	}
@@ -95,11 +106,6 @@ public class Entity implements IEntity {
 	@Override
 	public EntityState getState() {
 		return state;
-	}
-	
-	@Override
-	public void setState(EntityState state) {
-		this.state = state;
 	}
 
 	@Override
@@ -118,7 +124,7 @@ public class Entity implements IEntity {
 	@Override
 	public void setModel(IModel model) {
 		this.model = model;
-		if (model.getPosition() != null) {
+		if (model.getPosition() != null && model.getPosition().isKnown()) {
 			int latE6 = (int) model.getPosition().getLatitude();
 			int longE6 = (int) model.getPosition().getLongitude();
 			this.geoP = new GeoPoint(latE6, longE6);
@@ -126,6 +132,7 @@ public class Entity implements IEntity {
 		} else {
 			state = EntityState.OFF_SITAC;
 		}
+		this.model.addObserver(this);
 	}
 	
 	/**
@@ -169,5 +176,15 @@ public class Entity implements IEntity {
 	@Override
 	public String toString() {
 		return "["+state.name()+"] "+model.toString();
+	}
+
+	@Override
+	public void update(Observable observable, Object data) {
+		IModel model = (IModel) data;
+		if (model.getPosition().isKnown()) {
+			this.state = EntityState.ON_SITAC;
+		} else {
+			this.state = EntityState.OFF_SITAC;
+		}
 	}
 }

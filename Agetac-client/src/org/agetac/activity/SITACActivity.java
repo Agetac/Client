@@ -104,7 +104,7 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 	@Override
 	public void update() {
 		List<IEntity> entities = controller.getEntities();
-		android.util.Log.d(TAG, entities.toString());
+		android.util.Log.d(TAG, "[update SITAC] entities= "+entities.toString());
 		mapOverlay.clearEntities();
 		
 		final ArrayList<IEntity> offSitacEntities = new ArrayList<IEntity>();
@@ -128,8 +128,7 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 				
 			// si ce n'est pas une demande de moyen
 			} else {
-				// on verifie juste l'etat de l'entitee
-				// si sa position est definie
+				// on verifie juste si sa position est definie
 				if (e.getState() == EntityState.ON_SITAC) {
 					// on l'ajoute a la SITAC
 					mapOverlay.addEntity(e);
@@ -172,7 +171,7 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 	@Override
 	public void onEntitySelected(IEntity e, MenuGroup grp) {
 		this.currentEntity = e;
-		android.util.Log.d(TAG, "selected entity menu = "+e.getModel().getName()+" "+e.getModel().getId());
+		android.util.Log.d(TAG, "selected entity menu = "+e.getModel().getId()+" "+e.toString());
 	}
 
 	@Override
@@ -188,26 +187,33 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 	
 	@Override
 	public void onOverlayLongPressed(MotionEvent e, MapView mapView) {
-
 		if (currentEntity != null && currentEntity.getPictogram().getShape() != Shape.LINEAR_SHAPE) {
 			GeoPoint m = (GeoPoint) mapView.getProjection().fromPixels(e.getX(), e.getY());
 			PositionDTO p = new PositionDTO(m.getLatitudeE6(), m.getLongitudeE6());
+			
 			flag = ActionFlag.ADD;
-			touchedEntity = EntityFactory.make(currentEntity);
+			android.util.Log.d(TAG, "STATE ENTITY TOUCHED : "+touchedEntity.getState().name());
+			if (touchedEntity.getState() == EntityState.MENU) {
+				// on clone l'entitée du menu
+				touchedEntity = EntityFactory.make(currentEntity);
+			}
+			
+			// on lui défini une position
 			touchedEntity.getModel().setPosition(p);
+			// on indique au model que sa position est mainetnant connue
 			touchedEntity.getModel().getPosition().setKnown(true);
+			
+			// on effectue les traitements en fonction du model
 			if (touchedEntity.getModel() instanceof VehicleDemandDTO) {
 				((VehicleDemandDTO) touchedEntity.getModel()).setState(DemandState.ASKED);
 				((VehicleDemandDTO) touchedEntity.getModel()).setType(VehicleType.FPT);
 			}
-			touchedEntity.setState(EntityState.ON_SITAC);
 			
 			observable.setChanged();
 			observable.notifyObservers(SITACActivity.this);
 
 			// Une fois qu'on a placé l'item sur la SITAC, on le désélectionne
 			currentEntity = null;
-			//openedMenuFrag.unselectItem();
 		}
 	}
 
@@ -239,8 +245,8 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 			builder.setPositiveButton(R.string.save, new OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
-					
 					touchedEntity.getModel().setName(nameField.getText().toString().trim());
+					
 					flag = ActionFlag.EDIT;
 					observable.setChanged();
 					observable.notifyObservers(SITACActivity.this);
@@ -270,9 +276,9 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 		if (currentEntity != null && currentEntity.getPictogram().getShape()==Shape.LINEAR_SHAPE) {
 			Point start, stop;
 			GeoPoint stopGeoP = (GeoPoint) mapView.getProjection().fromPixels(end.getX(), end.getY());
-			PositionDTO lineBeginPos = new PositionDTO(lineBeginGeop.getLongitudeE6(), lineBeginGeop.getLatitudeE6());
-			PositionDTO lineEndPos = new PositionDTO(stopGeoP.getLongitudeE6(), stopGeoP.getLatitudeE6());
-			PositionDTO lineMiddlePos = new PositionDTO((lineBeginGeop.getLongitudeE6()+stopGeoP.getLongitudeE6())/2, (lineBeginGeop.getLatitudeE6()+stopGeoP.getLatitudeE6())/2);
+			PositionDTO lineBeginPos = new PositionDTO(lineBeginGeop.getLatitudeE6(), lineBeginGeop.getLongitudeE6());
+			PositionDTO lineEndPos = new PositionDTO(stopGeoP.getLatitudeE6(), stopGeoP.getLongitudeE6());
+			PositionDTO lineMiddlePos = new PositionDTO((lineBeginGeop.getLatitudeE6()+stopGeoP.getLatitudeE6())/2, (lineBeginGeop.getLongitudeE6()+stopGeoP.getLongitudeE6())/2);
 			GeoPoint lineMiddleGeoP = new GeoPoint((int)lineMiddlePos.getLatitude(), (int)lineMiddlePos.getLongitude());
 			Point lineMiddlePoint = mapView.getProjection().toMapPixels(lineMiddleGeoP, null);
 
@@ -287,13 +293,13 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 			
 			touchedEntity = EntityFactory.make(currentEntity);
 			touchedEntity.getModel().setPosition(lineMiddlePos);
-			((ActionDTO)touchedEntity.getModel()).setPosition(lineBeginPos);
-			((ActionDTO)touchedEntity.getModel()).setAim(lineEndPos);
-			((ActionDTO)touchedEntity.getModel()).setType(ActionType.FIRE);
+			touchedEntity.getModel().getPosition().setKnown(true);
+			((ActionDTO) touchedEntity.getModel()).setOrigin(lineBeginPos);
+			((ActionDTO) touchedEntity.getModel()).setAim(lineEndPos);
 			((LinePicto) touchedEntity.getPictogram()).setscaleRef(mapView.getProjection().metersToEquatorPixels(1.0f));
 			((LinePicto) touchedEntity.getPictogram()).setStart(start);
 			((LinePicto) touchedEntity.getPictogram()).setStop(stop);
-			touchedEntity.setState(EntityState.ON_SITAC);
+			
 			flag = ActionFlag.ADD;
 			observable.setChanged();
 			observable.notifyObservers(SITACActivity.this);

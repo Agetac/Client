@@ -1,9 +1,9 @@
 package org.agetac.activity;
 
+import org.agetac.common.observer.MyObservable;
 import org.agetac.controller.Controller;
 import org.agetac.controller.Controller.ActionFlag;
 import org.agetac.entity.IEntity;
-import org.agetac.observer.MyObservable;
 
 import android.app.Activity;
 import android.os.Bundle;

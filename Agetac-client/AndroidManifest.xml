@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
         
-        <activity android:name=".activity.TabsActivity" />
+        <activity android:name=".activity.TabsActivity" android:configChanges="orientation"/>
         <activity android:name=".activity.SITACActivity" />
         <activity android:name=".activity.SOEICActivity" />
         <activity android:name=".activity.MoyensActivity" />
