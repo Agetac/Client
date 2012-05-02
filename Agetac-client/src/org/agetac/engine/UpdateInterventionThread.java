@@ -17,8 +17,8 @@ public class UpdateInterventionThread extends Thread {
 		while (doRun) {
 			// TODO permettre de modifier l'intervalle de MAJ dans les prefs
 			try {
-				sleep(5000);
 				engine.updateIntervention();
+				sleep(5000);
 				
 			} catch (InterruptedException e) {
 				android.util.Log.d(TAG, e.getMessage());

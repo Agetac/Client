@@ -4,6 +4,7 @@ import javax.xml.transform.Source;
 
 import org.agetac.common.client.AgetacClient;
 import org.agetac.common.dto.ActionDTO;
+import org.agetac.common.dto.IModel;
 import org.agetac.common.dto.SourceDTO;
 import org.agetac.common.dto.TargetDTO;
 import org.agetac.common.dto.VehicleDTO;
@@ -29,34 +30,35 @@ public class AddHandler implements IHandler {
 
 	@Override
 	public void handle(IEntity entity) {
+		IModel model = entity.getModel();
 		
-		if (entity.getModel() instanceof ActionDTO) {
-			ActionDTO a = (ActionDTO) entity.getModel();
+		if (model instanceof ActionDTO) {
+			ActionDTO a = (ActionDTO) model;
 			entity.setModel(client.addAction(interId, a));
 			entities.add(entity);
 		
-		} else if (entity.getModel() instanceof VehicleDTO) {
-			VehicleDTO v = (VehicleDTO) entity.getModel();
+		} else if (model instanceof VehicleDTO) {
+			VehicleDTO v = (VehicleDTO) model;
 			// FIXME le client n'est pas sensé créer des véhicules...
 			android.util.Log.d(TAG, "/!\\ trying to add a vehicle directly from the client (you are wrong, it does nothing !)");
 		
-		} else if (entity.getModel() instanceof Source) {
-			SourceDTO s = (SourceDTO) entity.getModel();
+		} else if (model instanceof Source) {
+			SourceDTO s = (SourceDTO) model;
 			entity.setModel(client.addSource(interId, s));
 			entities.add(entity);
 		
-		} else if (entity.getModel() instanceof TargetDTO) {
-			TargetDTO t = (TargetDTO) entity.getModel();
+		} else if (model instanceof TargetDTO) {
+			TargetDTO t = (TargetDTO) model;
 			entity.setModel(client.addTarget(interId, t));
 			entities.add(entity);
 		
-		} else if (entity.getModel() instanceof VictimDTO) {
-			VictimDTO v = (VictimDTO) entity.getModel();
+		} else if (model instanceof VictimDTO) {
+			VictimDTO v = (VictimDTO) model;
 			entity.setModel(client.addVictim(interId, v));
 			entities.add(entity);
 			
-		} else if (entity.getModel() instanceof VehicleDemandDTO) {
-			VehicleDemandDTO vd = (VehicleDemandDTO) entity.getModel();
+		} else if (model instanceof VehicleDemandDTO) {
+			VehicleDemandDTO vd = (VehicleDemandDTO) model;
 			entity.setModel(client.addVehicleDemand(interId, vd));
 			entities.add(entity);
 		}

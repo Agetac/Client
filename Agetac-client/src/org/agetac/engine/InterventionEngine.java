@@ -111,10 +111,7 @@ public class InterventionEngine implements IInterventionEngine {
 		processUpdate(cibList, TargetDTO.class);
 		
 		List<VehicleDemandDTO> dMoyList = new ArrayList<VehicleDemandDTO>(remoteInter.getDemands());
-		System.out.println("La liste de demandes de moyen récupérée via l'updateThread => "+dMoyList.toString());
 		for (int i=0; i<dMoyList.size(); i++) {
-			// traiter les demandes acceptées et les supprimers de la sitac
-			// pour les remplacers par des vehicules
 			IEntity e = entities.find(dMoyList.get(i).getId(), VehicleDemandDTO.class);
 			VehicleDemandDTO vd = dMoyList.get(i);
 			// si la demande existe deja cote client
@@ -152,8 +149,6 @@ public class InterventionEngine implements IInterventionEngine {
 		
 		listMessages = new ArrayList<MessageDTO>(remoteInter.getMessages());
 		// TODO process messages differently
-		//for(int i=0; i<messList.size(); i++) {
-		//android.util.Log.d(TAG, "mess > " +  messList.get(0).toString());}
 		
 		List<SourceDTO> srcList = new ArrayList<SourceDTO>(remoteInter.getSources());
 		processUpdate(srcList, SourceDTO.class);

@@ -145,7 +145,7 @@ public class OpenedMenuFragment extends Fragment implements IMenuFragment, OnCli
 			MenuGroup grp = groups.get(grpIndex);
 			IEntity entity = grp.getEntities().get(childIndex);
 			android.util.Log.d(TAG, "MENU FRAG: clicked entity = "+entity.toString());
-			listener.onEntitySelected(entity, grp);
+			listener.onEntitySelected(entity);
 		}
 		return true;
 	}

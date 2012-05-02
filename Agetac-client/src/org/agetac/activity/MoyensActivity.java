@@ -36,14 +36,14 @@ import android.widget.SimpleAdapter;
 
 public class MoyensActivity extends AbstractActivity implements OnClickListener, OnMenuItemClickListener, OnItemClickListener {
 	
-	private static final String TAG				= "MoyensActivity";
+	private static final String TAG			= "MoyensActivity";
 	private static final String DATA_IMG		= "data_img";
 	private static final String DATA_TYPE		= "data_type";
 	private static final String DATA_CASERNE	= "data_caserne";
 	private static final String DATA_ETAT		= "data_etat";
-	private static final String DATA_GHDEM		= "data_gh_demande";
-	private static final String DATA_GHARR		= "data_gh_arrivee";
-	private static final String DATA_GHRET		= "data_gh_retour";
+	private static final String DATA_GHDEM	= "data_gh_demande";
+	private static final String DATA_GHARR	= "data_gh_arrivee";
+	private static final String DATA_GHRET	= "data_gh_retour";
 	
 	private SimpleAdapter listAdapter;
 	private ListView listView;
@@ -149,7 +149,6 @@ public class MoyensActivity extends AbstractActivity implements OnClickListener,
 	@Override
 	public boolean onMenuItemClick(MenuItem item) {
 		VehicleDemandDTO dm;
-		flag = ActionFlag.ADD;
 		
 		switch (item.getItemId()) {
 			case R.id.FPT:
@@ -174,6 +173,7 @@ public class MoyensActivity extends AbstractActivity implements OnClickListener,
 				return false;
 		}
 		
+		flag = ActionFlag.ADD;
 		touchedEntity = EntityFactory.make(dm);
 		observable.setChanged();
 		observable.notifyObservers(MoyensActivity.this);
@@ -193,18 +193,17 @@ public class MoyensActivity extends AbstractActivity implements OnClickListener,
 	public void update() {
 		List<IEntity> entities = controller.getEntities();
 		data.clear();
-		Hashtable<String, String> map;
+		
 		for (int i=0; i<entities.size(); i++) {
 			// la map pour la prochaine ligne a ajouter
-			map = new Hashtable<String, String>();
+			Hashtable<String, String> map = new Hashtable<String, String>();
 			
 			if (entities.get(i).getModel() instanceof VehicleDTO) {
 				VehicleDTO v = (VehicleDTO) entities.get(i).getModel();
 				map.put(DATA_IMG, ""+R.drawable.firetruck);
 				map.put(DATA_TYPE, v.getName());
 				map.put(DATA_CASERNE, v.getBarrack().getName());
-				VehicleState ev = v.getState();
-				map.put(DATA_ETAT, ev.toString());
+				map.put(DATA_ETAT, v.getState().name());
 				map.put(DATA_GHDEM, getString(R.string.unknown)); // mapping GH non implemente sur le model
 				map.put(DATA_GHARR, getString(R.string.unknown)); // mapping GH non implemente sur le model
 				map.put(DATA_GHRET, getString(R.string.unknown)); // mapping GH non implemente sur le model
@@ -217,7 +216,11 @@ public class MoyensActivity extends AbstractActivity implements OnClickListener,
 				// sinon ça signifie que le vehicule est deja affiche
 				if (dm.getState() != DemandState.ACCEPTED) {
 					map.put(DATA_IMG, ""+R.drawable.firetruck);
-					map.put(DATA_TYPE, dm.getType().name());
+					String type = dm.getType().name();
+					if (dm.getName() != null) {
+						type += " "+dm.getName();
+					}
+					map.put(DATA_TYPE, type);
 					map.put(DATA_CASERNE, getString(R.string.unknown));
 					map.put(DATA_ETAT, dm.getState().name());
 					map.put(DATA_GHDEM, getString(R.string.unknown)); // mapping GH non implemente sur le model

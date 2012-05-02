@@ -4,6 +4,7 @@ import javax.xml.transform.Source;
 
 import org.agetac.common.client.AgetacClient;
 import org.agetac.common.dto.ActionDTO;
+import org.agetac.common.dto.IModel;
 import org.agetac.common.dto.SourceDTO;
 import org.agetac.common.dto.TargetDTO;
 import org.agetac.common.dto.VehicleDTO;
@@ -21,29 +22,30 @@ public class UpdateHandler implements IHandler {
 
 	@Override
 	public void handle(IEntity entity) {
+		IModel model = entity.getModel();
 		
-		if (entity.getModel() instanceof ActionDTO) {
-			ActionDTO a = (ActionDTO) entity.getModel();
+		if (model instanceof ActionDTO) {
+			ActionDTO a = (ActionDTO) model;
 			client.updateAction(a);
 		
-		} else if (entity.getModel() instanceof VehicleDTO) {
-			VehicleDTO v = (VehicleDTO) entity.getModel();
+		} else if (model instanceof VehicleDTO) {
+			VehicleDTO v = (VehicleDTO) model;
 			client.updateVehicle(v);
 		
-		} else if (entity.getModel() instanceof Source) {
-			SourceDTO s = (SourceDTO) entity.getModel();
+		} else if (model instanceof Source) {
+			SourceDTO s = (SourceDTO) model;
 			client.updateSource(s);
 		
-		} else if (entity.getModel() instanceof TargetDTO) {
-			TargetDTO t = (TargetDTO) entity.getModel();
+		} else if (model instanceof TargetDTO) {
+			TargetDTO t = (TargetDTO) model;
 			client.updateTarget(t);
 		
-		} else if (entity.getModel() instanceof VictimDTO) {
-			VictimDTO v = (VictimDTO) entity.getModel();
+		} else if (model instanceof VictimDTO) {
+			VictimDTO v = (VictimDTO) model;
 			client.updateVictim(v);
 			
-		} else if (entity.getModel() instanceof VehicleDemandDTO) {
-			VehicleDemandDTO vd = (VehicleDemandDTO) entity.getModel();
+		} else if (model instanceof VehicleDemandDTO) {
+			VehicleDemandDTO vd = (VehicleDemandDTO) model;
 			client.updateVehicleDemand(vd);
 		}
 	}

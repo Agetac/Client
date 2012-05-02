@@ -104,7 +104,6 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 	public void update() {
 		List<IEntity> entities = controller.getEntities();
 		PositionDTO interPosition = controller.getInterventionEngine().getIntervention().getPosition();
-		android.util.Log.d(TAG, "INTER POS >>>> "+interPosition.getLatitude()+", "+interPosition.getLongitude());
 		final IGeoPoint geoP;
 		if (interPosition != null) {
 			geoP = new GeoPoint(interPosition.getLatitude(), interPosition.getLongitude());
@@ -113,7 +112,6 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 			geoP = new GeoPoint(48115436 ,-1638084);
 		}
 		
-		android.util.Log.d(TAG, "[update SITAC] entities= "+entities.toString());
 		mapOverlay.clearEntities();
 		
 		final ArrayList<IEntity> offSitacEntities = new ArrayList<IEntity>();
@@ -129,7 +127,8 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 					if (e.getState() == EntityState.ON_SITAC) {
 						// on l'ajoute a la SITAC
 						mapOverlay.addEntity(e);
-					} else {
+						
+					} else if (e.getState() == EntityState.OFF_SITAC) {
 						// sinon on la met dans l'onglet "position a definir"
 						offSitacEntities.add(e);
 					}
@@ -141,7 +140,8 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 				if (e.getState() == EntityState.ON_SITAC) {
 					// on l'ajoute a la SITAC
 					mapOverlay.addEntity(e);
-				} else {
+					
+				} else if (e.getState() == EntityState.OFF_SITAC) {
 					// sinon on la met dans l'onglet "position a definir"
 					offSitacEntities.add(e);
 				}
@@ -152,8 +152,10 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 		runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
-				mapCtrl.setCenter(geoP);
-				mapView.invalidate();
+				mapCtrl.setCenter(geoP); // on centre la map sur les coords de l'intervention
+				mapView.invalidate(); // on demande à la map de se dessiner
+				
+				// si le fragment est toujours affiché, on lui passe les informations
 				if (openedMenuFrag.isAdded()) {
 					openedMenuFrag.addOffSitacEntities(offSitacEntities);
 				}
@@ -179,9 +181,8 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 	}
 
 	@Override
-	public void onEntitySelected(IEntity e, MenuGroup grp) {
+	public void onEntitySelected(IEntity e) {
 		this.currentEntity = e;
-		android.util.Log.d(TAG, "selected entity menu = "+e.getModel().getId()+" "+e.toString());
 	}
 
 	@Override
@@ -201,7 +202,6 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 			GeoPoint m = (GeoPoint) mapView.getProjection().fromPixels(e.getX(), e.getY());
 			PositionDTO p = new PositionDTO(m.getLatitudeE6(), m.getLongitudeE6());
 			
-			flag = ActionFlag.ADD;
 			touchedEntity = currentEntity;
 			// on cherche à savoir si l'entitée est vide ou si elle est déjà créée
 			// vide = EntityState.MENU
@@ -209,11 +209,16 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 			if (touchedEntity.getState() == EntityState.MENU) {
 				// on clone l'entitée du menu
 				touchedEntity = EntityFactory.make(currentEntity);
+				flag = ActionFlag.ADD;
+				
+			} else {
+				// si ce n'était pas une entitée de type MENU, alors c'est une MAJ
+				flag = ActionFlag.EDIT;
 			}
 			
 			// on lui défini une position
 			touchedEntity.getModel().setPosition(p);
-			// on indique au model que sa position est mainetnant connue
+			// on indique au model que sa position est maintenant connu
 			touchedEntity.getModel().getPosition().setKnown(true);
 			
 			// on effectue les traitements en fonction du model
@@ -280,11 +285,6 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 	}
 
 	@Override
-	public boolean onTouchEvent(MotionEvent event, MapView mapView) {
-		return false;
-	}
-
-	@Override
 	public boolean onUp(MotionEvent end, MapView mapView) {
 		if (currentEntity != null && currentEntity.getPictogram().getShape()==Shape.LINEAR_SHAPE) {
 			Point start, stop;
@@ -326,7 +326,7 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 
 	@Override
 	public boolean lineBegin(MotionEvent start, MapView mapView) {
-		if (currentEntity != null && currentEntity.getPictogram().getShape()==Shape.LINEAR_SHAPE) {
+		if (currentEntity != null && currentEntity.getPictogram().getShape() == Shape.LINEAR_SHAPE) {
 			lineBeginGeop = (GeoPoint) mapView.getProjection().fromPixels(start.getX(), start.getY());
 			return true;
 		}

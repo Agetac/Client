@@ -26,6 +26,7 @@ import android.graphics.Point;
 
 public class Entity implements IEntity, Observer {
 
+	private static final String TAG = "Entity";
 	private static final long serialVersionUID = 9102938L;
 	private static final int EARTH_RADIUS_METERS = 6378137;
 
@@ -45,12 +46,16 @@ public class Entity implements IEntity, Observer {
 		this.model = model;
 		this.picto = picto;
 		if (model.getPosition() != null && model.getPosition().isKnown()) {
-			int latE6 = (int) model.getPosition().getLatitude();
-			int longE6 = (int) model.getPosition().getLongitude();
+			int latE6 = model.getPosition().getLatitude();
+			int longE6 = model.getPosition().getLongitude();
 			this.geoP = new GeoPoint(latE6, longE6);
 			this.state = EntityState.ON_SITAC;
-		} else {
+			
+		} else if (model.getPosition() != null && !model.getPosition().isKnown()) {
 			this.state = EntityState.OFF_SITAC;
+		
+		} else {
+			this.state = EntityState.MENU;
 		}
 		model.addObserver(this);
 	}
@@ -125,12 +130,16 @@ public class Entity implements IEntity, Observer {
 	public void setModel(IModel model) {
 		this.model = model;
 		if (model.getPosition() != null && model.getPosition().isKnown()) {
-			int latE6 = (int) model.getPosition().getLatitude();
-			int longE6 = (int) model.getPosition().getLongitude();
+			int latE6 = model.getPosition().getLatitude();
+			int longE6 = model.getPosition().getLongitude();
 			this.geoP = new GeoPoint(latE6, longE6);
-			state = EntityState.ON_SITAC;
+			this.state = EntityState.ON_SITAC;
+			
+		} else if (model.getPosition() != null && !model.getPosition().isKnown()) {
+			this.state = EntityState.OFF_SITAC;
+		
 		} else {
-			state = EntityState.OFF_SITAC;
+			this.state = EntityState.MENU;
 		}
 		this.model.addObserver(this);
 	}
@@ -182,7 +191,11 @@ public class Entity implements IEntity, Observer {
 	public void update(Observable observable, Object data) {
 		IModel model = (IModel) data;
 		if (model.getPosition().isKnown()) {
+			int latE6 = model.getPosition().getLatitude();
+			int longE6 = model.getPosition().getLongitude();
+			this.geoP = new GeoPoint(latE6, longE6);
 			this.state = EntityState.ON_SITAC;
+			
 		} else {
 			this.state = EntityState.OFF_SITAC;
 		}
