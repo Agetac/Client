@@ -147,72 +147,71 @@ public final class R {
         public static final int sitac_context_menu=0x7f070001;
     }
     public static final class string {
-        public static final int CCGC=0x7f060037;
-        public static final int FPT=0x7f060036;
-        public static final int Message=0x7f060028;
-        public static final int VSAV=0x7f060038;
-        public static final int actions=0x7f060011;
-        public static final int alim=0x7f060034;
-        public static final int annuler=0x7f060009;
-        public static final int app_name=0x7f060003;
-        public static final int attaque=0x7f060033;
-        public static final int cancel=0x7f06000d;
-        public static final int cibles=0x7f06000f;
-        public static final int connection=0x7f060006;
-        public static final int contextRoot=0x7f060002;
-        public static final int crm=0x7f060022;
+        public static final int CCGC=0x7f060036;
+        public static final int FPT=0x7f060035;
+        public static final int Message=0x7f060027;
+        public static final int VSAV=0x7f060037;
+        public static final int actions=0x7f060010;
+        public static final int alim=0x7f060033;
+        public static final int annuler=0x7f060008;
+        public static final int app_name=0x7f060002;
+        public static final int attaque=0x7f060032;
+        public static final int cancel=0x7f06000c;
+        public static final int cibles=0x7f06000e;
+        public static final int connection=0x7f060005;
+        public static final int crm=0x7f060021;
         /**  STRINGS OPENEDMENU FRAGMENT 
          */
-        public static final int dangers=0x7f06000e;
-        public static final int delete=0x7f06000b;
+        public static final int dangers=0x7f06000d;
+        public static final int delete=0x7f06000a;
         /**  STRINGS MOYENS ACTIVITY 
          */
-        public static final int demande_moyen=0x7f06002b;
-        public static final int dialog_confirmexit=0x7f060016;
-        public static final int dialog_deletevehicule=0x7f060018;
-        public static final int dialog_title_confirmexit=0x7f060015;
-        public static final int dialog_title_deletevehicule=0x7f060019;
-        public static final int dialog_title_edit_item=0x7f06001d;
-        public static final int dialog_title_vehicule=0x7f060017;
-        public static final int dialog_update_gh_ou_supprimer_vehicule=0x7f06001c;
-        public static final int dialog_vehicule_gerer_gh=0x7f06001b;
-        public static final int dialog_vehicule_supprimer=0x7f06001a;
-        public static final int edit=0x7f06000a;
-        public static final int empty_text=0x7f060029;
+        public static final int demande_moyen=0x7f06002a;
+        public static final int dialog_confirmexit=0x7f060015;
+        public static final int dialog_deletevehicule=0x7f060017;
+        public static final int dialog_title_confirmexit=0x7f060014;
+        public static final int dialog_title_deletevehicule=0x7f060018;
+        public static final int dialog_title_edit_item=0x7f06001c;
+        public static final int dialog_title_vehicule=0x7f060016;
+        public static final int dialog_update_gh_ou_supprimer_vehicule=0x7f06001b;
+        public static final int dialog_vehicule_gerer_gh=0x7f06001a;
+        public static final int dialog_vehicule_supprimer=0x7f060019;
+        public static final int edit=0x7f060009;
+        public static final int empty_text=0x7f060028;
         public static final int host=0x7f060000;
-        public static final int imageContentDescription=0x7f060032;
-        public static final int item2=0x7f060039;
-        public static final int je_demande=0x7f060027;
-        public static final int je_prevois=0x7f060025;
-        public static final int je_procede=0x7f060026;
-        public static final int je_suis=0x7f060023;
-        public static final int je_vois=0x7f060024;
-        public static final int login=0x7f060004;
-        public static final int menu_img_desc=0x7f06002a;
-        public static final int messages=0x7f060021;
-        public static final int moyens=0x7f060020;
-        public static final int no=0x7f060008;
-        public static final int off_sitac=0x7f060010;
-        public static final int password=0x7f060005;
+        public static final int imageContentDescription=0x7f060031;
+        public static final int item2=0x7f060038;
+        public static final int je_demande=0x7f060026;
+        public static final int je_prevois=0x7f060024;
+        public static final int je_procede=0x7f060025;
+        public static final int je_suis=0x7f060022;
+        public static final int je_vois=0x7f060023;
+        public static final int login=0x7f060003;
+        public static final int menu_img_desc=0x7f060029;
+        public static final int messages=0x7f060020;
+        public static final int moyens=0x7f06001f;
+        public static final int no=0x7f060007;
+        public static final int off_sitac=0x7f06000f;
+        public static final int password=0x7f060004;
         public static final int port=0x7f060001;
-        public static final int progress_connection=0x7f060013;
-        public static final int progress_loading=0x7f060014;
+        public static final int progress_connection=0x7f060012;
+        public static final int progress_loading=0x7f060013;
         /**  #END# STRING OPENEDMENU FRAGMENT 
          */
-        public static final int progress_title_connection=0x7f060012;
-        public static final int save=0x7f06000c;
-        public static final int secours=0x7f060035;
-        public static final int sitac=0x7f06001f;
-        public static final int soeic=0x7f06001e;
-        public static final int unknown=0x7f06003a;
-        public static final int vehicule_caserne=0x7f06002d;
-        public static final int vehicule_etat=0x7f06002e;
-        public static final int vehicule_gh_arrivee=0x7f06002f;
-        public static final int vehicule_gh_demande=0x7f060031;
-        public static final int vehicule_gh_retour=0x7f060030;
+        public static final int progress_title_connection=0x7f060011;
+        public static final int save=0x7f06000b;
+        public static final int secours=0x7f060034;
+        public static final int sitac=0x7f06001e;
+        public static final int soeic=0x7f06001d;
+        public static final int unknown=0x7f060039;
+        public static final int vehicule_caserne=0x7f06002c;
+        public static final int vehicule_etat=0x7f06002d;
+        public static final int vehicule_gh_arrivee=0x7f06002e;
+        public static final int vehicule_gh_demande=0x7f060030;
+        public static final int vehicule_gh_retour=0x7f06002f;
         /**  pour l'entete de la vue 
          */
-        public static final int vehicule_type=0x7f06002c;
-        public static final int yes=0x7f060007;
+        public static final int vehicule_type=0x7f06002b;
+        public static final int yes=0x7f060006;
     }
 }

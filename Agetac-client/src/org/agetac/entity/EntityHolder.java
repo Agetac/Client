@@ -72,6 +72,7 @@ public class EntityHolder {
 
 	private static EntityHolder instance;
 	private Resources res;
+	private static ArrayList<IEntity> entities;
 	private static ArrayList<IEntity> targetEntities;
 	private static ArrayList<IEntity> sourceEntities;
 	private static ArrayList<IEntity> moyenEntities;
@@ -122,6 +123,12 @@ public class EntityHolder {
 		actionEntities.add(new Entity(new SourceDTO(), new Pictogram(ZONE, BitmapFactory.decodeResource(res, R.drawable.picto_zone), Color.BLACK, State.STATE_HAPPENING, Shape.STAR_SHAPE, GraphicalOverload.NONE)));
 		
 		unknownEntity = new Entity(new SourceDTO(), new Pictogram(UNKNOWN, BitmapFactory.decodeResource(res, R.drawable.picto_unknown), Color.BLACK, State.STATE_HAPPENING, Shape.CIRCLE, GraphicalOverload.NONE));
+		
+		entities = new ArrayList<IEntity>();
+		entities.addAll(sourceEntities);
+		entities.addAll(targetEntities);
+		entities.addAll(actionEntities);
+		entities.addAll(moyenEntities);
 	}
 
 	public static EntityHolder getInstance(Context context) {
@@ -132,11 +139,6 @@ public class EntityHolder {
 	}
 
 	public static ArrayList<IEntity> getEntities() {
-		ArrayList<IEntity> entities = new ArrayList<IEntity>();
-		entities.addAll(actionEntities);
-		entities.addAll(targetEntities);
-		entities.addAll(sourceEntities);
-		entities.addAll(moyenEntities);
 		return entities;
 	}
 

@@ -5,12 +5,10 @@ import java.util.List;
 
 import org.agetac.R;
 import org.agetac.common.dto.ActionDTO;
-import org.agetac.common.dto.ActionDTO.ActionType;
 import org.agetac.common.dto.PositionDTO;
 import org.agetac.common.dto.VehicleDTO.VehicleType;
 import org.agetac.common.dto.VehicleDemandDTO;
 import org.agetac.common.dto.VehicleDemandDTO.DemandState;
-import org.agetac.controller.Controller;
 import org.agetac.controller.Controller.ActionFlag;
 import org.agetac.entity.Entity.EntityState;
 import org.agetac.entity.EntityFactory;
@@ -23,6 +21,7 @@ import org.agetac.view.LinePicto;
 import org.agetac.view.MapOverlay;
 import org.agetac.view.MenuGroup;
 import org.agetac.view.Shape;
+import org.osmdroid.api.IGeoPoint;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapController;
@@ -104,6 +103,16 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 	@Override
 	public void update() {
 		List<IEntity> entities = controller.getEntities();
+		PositionDTO interPosition = controller.getInterventionEngine().getIntervention().getPosition();
+		android.util.Log.d(TAG, "INTER POS >>>> "+interPosition.getLatitude()+", "+interPosition.getLongitude());
+		final IGeoPoint geoP;
+		if (interPosition != null) {
+			geoP = new GeoPoint(interPosition.getLatitude(), interPosition.getLongitude());
+			
+		} else {
+			geoP = new GeoPoint(48115436 ,-1638084);
+		}
+		
 		android.util.Log.d(TAG, "[update SITAC] entities= "+entities.toString());
 		mapOverlay.clearEntities();
 		
@@ -143,6 +152,7 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 		runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
+				mapCtrl.setCenter(geoP);
 				mapView.invalidate();
 				if (openedMenuFrag.isAdded()) {
 					openedMenuFrag.addOffSitacEntities(offSitacEntities);
@@ -192,7 +202,10 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 			PositionDTO p = new PositionDTO(m.getLatitudeE6(), m.getLongitudeE6());
 			
 			flag = ActionFlag.ADD;
-			android.util.Log.d(TAG, "STATE ENTITY TOUCHED : "+touchedEntity.getState().name());
+			touchedEntity = currentEntity;
+			// on cherche à savoir si l'entitée est vide ou si elle est déjà créée
+			// vide = EntityState.MENU
+			// deja créée = EntityState.XXX_SITAC
 			if (touchedEntity.getState() == EntityState.MENU) {
 				// on clone l'entitée du menu
 				touchedEntity = EntityFactory.make(currentEntity);
