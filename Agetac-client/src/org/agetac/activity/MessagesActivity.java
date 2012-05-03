@@ -25,6 +25,7 @@ public class MessagesActivity extends AbstractActivity implements OnClickListene
 	private SimpleAdapter listAdapter;
 	private ListView listView;
 	private List<Hashtable<String, String>> listMessages;
+	List<MessageDTO> messagesRecus; 
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +40,7 @@ public class MessagesActivity extends AbstractActivity implements OnClickListene
 
 	@Override
 	public void update() {
-		
+
 	}
 
 	@Override
@@ -76,7 +77,7 @@ public class MessagesActivity extends AbstractActivity implements OnClickListene
 				confirmSend.setMessage("Message envoye");
 				confirmSend.setNeutralButton("OK", null);
 				confirmSend.show();
-			
+
 
 			}
 
@@ -86,125 +87,138 @@ public class MessagesActivity extends AbstractActivity implements OnClickListene
 				confirmSend.setNeutralButton("Ok", null);
 				confirmSend.show();
 			}
-		
-
-		break;
 
 
-	case R.id.buttonEnvoyer :
-
-		EditText TexteJeSuis = (EditText)findViewById(R.id.edittext_je_suis);
-		String jeSuis = TexteJeSuis.getText().toString();
-		EditText TexteJeVois = (EditText)findViewById(R.id.edittext_je_vois);
-		String jeVois = TexteJeVois.getText().toString();
-		EditText TexteJePrevois = (EditText)findViewById(R.id.edittext_je_prevois);
-		String jePrevois = TexteJePrevois.getText().toString();
-		EditText TexteJeProcede = (EditText)findViewById(R.id.edittext_je_procede);
-		String jeProcede = TexteJeProcede.getText().toString();
-		EditText TexteJeDemande = (EditText)findViewById(R.id.edittext_je_demande);
-		String jeDemande = TexteJeDemande.getText().toString();
-
-		message = "Je suis : " + jeSuis + "\n" + 
-				"Je vois : " + jeVois + "\n" +
-				"Je prevois : " + jePrevois + "\n" +
-				"Je procede : " + jeProcede + "\n" +
-				"Je demande : " + jeDemande + "\n";
+			break;
 
 
+		case R.id.buttonEnvoyer :
 
-		flag = ActionFlag.SEND_MESSAGE;
+			EditText TexteJeSuis = (EditText)findViewById(R.id.edittext_je_suis);
+			String jeSuis = TexteJeSuis.getText().toString();
+			EditText TexteJeVois = (EditText)findViewById(R.id.edittext_je_vois);
+			String jeVois = TexteJeVois.getText().toString();
+			EditText TexteJePrevois = (EditText)findViewById(R.id.edittext_je_prevois);
+			String jePrevois = TexteJePrevois.getText().toString();
+			EditText TexteJeProcede = (EditText)findViewById(R.id.edittext_je_procede);
+			String jeProcede = TexteJeProcede.getText().toString();
+			EditText TexteJeDemande = (EditText)findViewById(R.id.edittext_je_demande);
+			String jeDemande = TexteJeDemande.getText().toString();
 
-		TexteJeSuis.setText("");
-		TexteJeVois.setText("");
-		TexteJePrevois.setText("");
-		TexteJeProcede.setText("");
-		TexteJeDemande.setText("");
+			message = "Je suis : " + jeSuis + "\n" + 
+					"Je vois : " + jeVois + "\n" +
+					"Je prevois : " + jePrevois + "\n" +
+					"Je procede : " + jeProcede + "\n" +
+					"Je demande : " + jeDemande + "\n";
 
-		observable.setChanged();
-		observable.notifyObservers(MessagesActivity.this);	
 
-		if(SendMessageCommand.getMessOk()){
 
-			AlertDialog.Builder confirmSend = new AlertDialog.Builder(this);
+			flag = ActionFlag.SEND_MESSAGE;
 
-			confirmSend.setMessage("Message envoye");
-			confirmSend.setNeutralButton("OK", null);
-			confirmSend.show();
+			TexteJeSuis.setText("");
+			TexteJeVois.setText("");
+			TexteJePrevois.setText("");
+			TexteJeProcede.setText("");
+			TexteJeDemande.setText("");
+
+			observable.setChanged();
+			observable.notifyObservers(MessagesActivity.this);	
+
+			if(SendMessageCommand.getMessOk()){
+
+				AlertDialog.Builder confirmSend = new AlertDialog.Builder(this);
+
+				confirmSend.setMessage("Message envoye");
+				confirmSend.setNeutralButton("OK", null);
+				confirmSend.show();
+
+			}
+
+			else {
+				AlertDialog.Builder confirmSend = new AlertDialog.Builder(this);
+				confirmSend.setMessage("Echec de l'envoi");
+				confirmSend.setNeutralButton("Ok", null);
+				confirmSend.show();
+			}
+
+			break;
+
+		case R.id.buttonAnnuler : 
+
+			EditText jeSuisA = (EditText)findViewById(R.id.edittext_je_suis);
+			jeSuisA.setText("");
+			EditText jeVoisA = (EditText)findViewById(R.id.edittext_je_vois);
+			jeVoisA.setText("");
+			EditText jePrevoisA = (EditText)findViewById(R.id.edittext_je_prevois);
+			jePrevoisA.setText("");
+			EditText jeProcedeA = (EditText)findViewById(R.id.edittext_je_procede);
+			jeProcedeA.setText("");
+			EditText jeDemandeA = (EditText)findViewById(R.id.edittext_je_demande);
+			jeDemandeA.setText("");
+
+			break;
+
+		case R.id.retMessAmb : 
+
+			setContentView(R.layout.messages);
+			findViewById(R.id.buttonEnvoyer).setOnClickListener(this);
+			findViewById(R.id.buttonAnnuler).setOnClickListener(this);
+			findViewById(R.id.buttonRetMess).setOnClickListener(this);
+			findViewById(R.id.buttonConsMess).setOnClickListener(this);
+			break;
+
+
+		case R.id.buttonRetMess : 
+
+			setContentView(R.layout.mess);
+			findViewById(R.id.messEnvoyer).setOnClickListener(this);
+			findViewById(R.id.messAnnuler).setOnClickListener(this);
+			findViewById(R.id.retMessAmb).setOnClickListener(this);
+			findViewById(R.id.buttonConsMess).setOnClickListener(this);
+			break;
+
+
+
+		case R.id.buttonConsMess : 
+
+			setContentView(R.layout.reception_mess);
+			findViewById(R.id.retMessAmb).setOnClickListener(this);
+			findViewById(R.id.buttonRetMess).setOnClickListener(this);
+
+			listView = (ListView) findViewById(R.id.listMess);
+			listMessages = new ArrayList<Hashtable<String, String>>();
+			listAdapter = new SimpleAdapter(this.getBaseContext(), listMessages, R.layout.liste_message,
+					new String[] {"titre", "description"}, new int[] {R.id.titre, R.id.description});
+
+			listView.setAdapter(listAdapter); 
+			listMessages.clear();	
+
 			
-		}
+			
 
-		else {
-			AlertDialog.Builder confirmSend = new AlertDialog.Builder(this);
-			confirmSend.setMessage("Echec de l'envoi");
-			confirmSend.setNeutralButton("Ok", null);
-			confirmSend.show();
-		}
-	
-		break;
+				messagesRecus = controller.getInterventionEngine().getListMessages();
 
-	case R.id.buttonAnnuler : 
+				Hashtable<String, String> map;
 
-		EditText jeSuisA = (EditText)findViewById(R.id.edittext_je_suis);
-		jeSuisA.setText("");
-		EditText jeVoisA = (EditText)findViewById(R.id.edittext_je_vois);
-		jeVoisA.setText("");
-		EditText jePrevoisA = (EditText)findViewById(R.id.edittext_je_prevois);
-		jePrevoisA.setText("");
-		EditText jeProcedeA = (EditText)findViewById(R.id.edittext_je_procede);
-		jeProcedeA.setText("");
-		EditText jeDemandeA = (EditText)findViewById(R.id.edittext_je_demande);
-		jeDemandeA.setText("");
+				messagesRecus.add(new MessageDTO("mess","1127"));
 
-		break;
+				for(int i=0; i<messagesRecus.size(); i++) {
+					System.out.println("step 1");
+					map = new Hashtable<String, String>();	
+					System.out.println("step 2");
+					System.out.println(messagesRecus.get(i).getId());
+					map.put("titre", messagesRecus.get(i).getDate().toString());
+					System.out.println("step 3");
+					map.put("description", messagesRecus.get(i).getText().toString());
+					System.out.println("step 5");
+					listMessages.add(map);
+					System.out.println("step 6");
+				}
 
-	case R.id.retMessAmb : 
-
-		setContentView(R.layout.messages);
-		findViewById(R.id.buttonEnvoyer).setOnClickListener(this);
-		findViewById(R.id.buttonAnnuler).setOnClickListener(this);
-		findViewById(R.id.buttonRetMess).setOnClickListener(this);
-		findViewById(R.id.buttonConsMess).setOnClickListener(this);
-		break;
-
-
-	case R.id.buttonRetMess : 
-
-		setContentView(R.layout.mess);
-		findViewById(R.id.messEnvoyer).setOnClickListener(this);
-		findViewById(R.id.messAnnuler).setOnClickListener(this);
-		findViewById(R.id.retMessAmb).setOnClickListener(this);
-		findViewById(R.id.buttonConsMess).setOnClickListener(this);
-		break;
-
-
-
-	case R.id.buttonConsMess : 
-
-		setContentView(R.layout.reception_mess);
-		findViewById(R.id.retMessAmb).setOnClickListener(this);
-		findViewById(R.id.buttonRetMess).setOnClickListener(this);
-		
-		listView = (ListView) findViewById(R.id.listMess);
-		listMessages = new ArrayList<Hashtable<String, String>>();
-		listAdapter = new SimpleAdapter(this.getBaseContext(), listMessages, R.layout.liste_message,
-	               new String[] {"titre", "description"}, new int[] {R.id.titre, R.id.description});
-	 
-		listView.setAdapter(listAdapter); 
-	    listMessages.clear();	
-	    
-		List<MessageDTO> messagesRecus = controller.getInterventionEngine().getListMessages();
-		
-	    Hashtable<String, String> map;
-	   
-	    for(int i=0; i<=messagesRecus.size(); i++) {
-			map = new Hashtable<String, String>();	
-			map.put("titre", messagesRecus.get(i).getDate().toString());
-			map.put("description", messagesRecus.get(i).getText().toString());
-			listMessages.add(map);
-		}
-		
-		
-	/*	  listView.setOnItemClickListener(new OnItemClickListener() {
+			
+			
+			
+			/*	  listView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			@SuppressWarnings("unchecked")
 			public void onItemClick(AdapterView<?> a, View v, int position, long id) {
@@ -216,11 +230,11 @@ public class MessagesActivity extends AbstractActivity implements OnClickListene
 				adb.show();
 			}		
 			}); */
-	
-		break;
 
+			break;
+
+		}
 	}
-}
 
 }
 
