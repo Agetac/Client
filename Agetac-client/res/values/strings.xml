@@ -2,7 +2,7 @@
 <resources>
     
 
-    <string name="host">192.168.0.1</string>
+    <string name="host">148.60.3.104</string>
     <string name="port">8888</string>
     
     <string name="app_name">Agetac-client</string>

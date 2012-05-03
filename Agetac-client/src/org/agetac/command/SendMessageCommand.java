@@ -27,30 +27,13 @@ public class SendMessageCommand implements IRecordableCommand {
 		return messOk;
 	}
 
-	public String getGroupeHoraire(){
-
-		Date d = new Date();
-		String res="";
-
-		int minutes = d.getMinutes();
-		int heures = d.getHours();
-
-		if(heures < 10 ) {res = "0" + heures;}
-		else {res = "" + heures;}
-
-		if (minutes < 10) {res = res +"0" + minutes;}
-		else { res = res + minutes;}
-
-		return res;
-	}
-
+	
 
 	public void sendMessage(String message)  {
 
 		
 		
-		String date = getGroupeHoraire();
-		//String id = "" + SendMessageCommand.idMessage;
+		Date date = new Date();
 		MessageDTO mess = new MessageDTO (message, date);
 		System.out.println("Message : " + message + "," + date);
 		

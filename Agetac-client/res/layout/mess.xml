@@ -38,7 +38,7 @@
      android:layout_marginBottom="30px"
      android:layout_marginTop="30px"
      android:onClick="setContentView"
-     android:text="Consulter les messages recus"
+     android:text="Consulter les messages envoyés"
      android:width="320px" />
 
 	</LinearLayout>

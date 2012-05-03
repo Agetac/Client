@@ -1,6 +1,8 @@
 package org.agetac.activity;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
 import java.util.Hashtable;
 import java.util.List;
 
@@ -48,6 +50,24 @@ public class MessagesActivity extends AbstractActivity implements OnClickListene
 		return message;
 	}
 
+	public String getGroupeHoraire(Date d){
+
+		String res="";
+
+		int minutes = d.getMinutes();
+		int heures = d.getHours();
+
+		if(heures < 10 ) {res = "0" + heures;}
+		else {res = "" + heures;}
+
+		if (minutes < 10) {res = res +"0" + minutes;}
+		else { res = res + minutes;}
+
+		return res;
+	}
+
+	
+	
 	@Override
 	public void onClick(View v) {
 
@@ -200,19 +220,22 @@ public class MessagesActivity extends AbstractActivity implements OnClickListene
 
 				Hashtable<String, String> map;
 
-				messagesRecus.add(new MessageDTO("mess","1127"));
+				
+				
+				Collections.sort(messagesRecus, new DateComparator());
 
 				for(int i=0; i<messagesRecus.size(); i++) {
-					System.out.println("step 1");
+					
 					map = new Hashtable<String, String>();	
-					System.out.println("step 2");
-					System.out.println(messagesRecus.get(i).getId());
-					map.put("titre", messagesRecus.get(i).getDate().toString());
-					System.out.println("step 3");
+					
+					String d = getGroupeHoraire(messagesRecus.get(i).getDate());
+					
+					map.put("titre",d);
+					
 					map.put("description", messagesRecus.get(i).getText().toString());
-					System.out.println("step 5");
+				
 					listMessages.add(map);
-					System.out.println("step 6");
+				
 				}
 
 			
