@@ -32,7 +32,7 @@ public class UpdateHandler implements IHandler {
 			VehicleDTO v = (VehicleDTO) model;
 			client.updateVehicle(v);
 		
-		} else if (model instanceof Source) {
+		} else if (model instanceof SourceDTO) {
 			SourceDTO s = (SourceDTO) model;
 			client.updateSource(s);
 		
