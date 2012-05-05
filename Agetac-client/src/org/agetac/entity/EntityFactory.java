@@ -11,7 +11,8 @@ import org.agetac.common.dto.TargetDTO;
 import org.agetac.common.dto.VehicleDTO;
 import org.agetac.common.dto.VehicleDemandDTO;
 import org.agetac.common.dto.VictimDTO;
-import org.agetac.entity.Entity.EntityState;
+import org.agetac.view.IPictogram;
+import org.agetac.view.LinePicto;
 
 public class EntityFactory {
 	
@@ -19,7 +20,7 @@ public class EntityFactory {
 		
 	public static IEntity make(IEntity e) {
 		IModel model = e.getModel();
-		if (e.getModel() instanceof ActionDTO) {
+		if (e.getModel() instanceof ActionDTO) {		
 			return new Entity(new ActionDTO(new PositionDTO(model.getPosition()), ((ActionDTO) model).getType(), new PositionDTO(((ActionDTO) model).getOrigin()), new PositionDTO(((ActionDTO) model).getAim())), e.getPictogram().clone());
 		} else if (model instanceof AgentDTO) {
 			return e;
@@ -445,6 +446,7 @@ public class EntityFactory {
 					ent = make(EntityHolder.getEntity(EntityHolder.LINE_BLUE));
 					break;
 			}
+			
 		}
 		
 		ent.setModel(model);

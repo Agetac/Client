@@ -17,6 +17,7 @@ import org.agetac.common.dto.VehicleDTO;
 import org.agetac.common.dto.VehicleDemandDTO;
 import org.agetac.common.dto.VictimDTO;
 import org.agetac.view.IPictogram;
+import org.agetac.view.LinePicto;
 import org.osmdroid.api.IGeoPoint;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
@@ -120,10 +121,35 @@ public class Entity implements IEntity, Observer {
 	}
 
 	@Override
-	public void draw(Canvas canvas, MapView mapV, boolean shadow) {
+	public void draw(Canvas canvas, MapView mapView, boolean shadow) {
 		Point p;
-		p = mapV.getProjection().toMapPixels(geoP, null);
-		picto.draw(canvas, p, shadow, mapV.getProjection());
+		p = mapView.getProjection().toMapPixels(geoP, null);
+		
+		// si c'est une action, on a quelques traitement à faire
+		if (model instanceof ActionDTO) {
+			ActionDTO actionModel = (ActionDTO) model;
+			Point start, stop;
+
+			IGeoPoint centerPos = new GeoPoint(actionModel.getPosition().getLatitude(), actionModel.getPosition().getLongitude());
+			IGeoPoint originPos = new GeoPoint(actionModel.getOrigin().getLatitude(), actionModel.getOrigin().getLongitude());
+			IGeoPoint aimPos = new GeoPoint(actionModel.getAim().getLatitude(), actionModel.getAim().getLongitude());
+						
+			start = mapView.getProjection().toMapPixels(originPos, null);
+			Point centerPoint = mapView.getProjection().toPixels(centerPos, null);
+			start.set(start.x-centerPoint.x, start.y-centerPoint.y);
+			
+			stop = mapView.getProjection().toMapPixels(aimPos, null);
+			stop.set(stop.x-centerPoint.x, stop.y-centerPoint.y);
+			
+			LinePicto linePicto = (LinePicto) picto;
+			linePicto.setStart(start);
+			linePicto.setStop(stop);
+			linePicto.setscaleRef(mapView.getProjection().metersToEquatorPixels(1.0f));
+			
+		}
+		
+		// on dessine le pictogramme
+		picto.draw(canvas, p, shadow, mapView.getProjection());
 	}
 
 	@Override

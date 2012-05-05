@@ -6,15 +6,13 @@ import java.util.Hashtable;
 import java.util.List;
 
 import org.agetac.R;
+import org.agetac.common.dto.IModel;
 import org.agetac.common.dto.VehicleDTO;
-import org.agetac.common.dto.VehicleDTO.VehicleState;
 import org.agetac.common.dto.VehicleDTO.VehicleType;
 import org.agetac.common.dto.VehicleDemandDTO;
 import org.agetac.common.dto.VehicleDemandDTO.DemandState;
-import org.agetac.controller.Controller;
 import org.agetac.controller.Controller.ActionFlag;
 import org.agetac.entity.EntityFactory;
-import org.agetac.entity.EntityHolder;
 import org.agetac.entity.IEntity;
 
 import android.app.AlertDialog;
@@ -195,11 +193,12 @@ public class MoyensActivity extends AbstractActivity implements OnClickListener,
 		data.clear();
 		
 		for (int i=0; i<entities.size(); i++) {
+			IModel model = entities.get(i).getModel();
 			// la map pour la prochaine ligne a ajouter
 			Hashtable<String, String> map = new Hashtable<String, String>();
 			
-			if (entities.get(i).getModel() instanceof VehicleDTO) {
-				VehicleDTO v = (VehicleDTO) entities.get(i).getModel();
+			if (model instanceof VehicleDTO) {
+				VehicleDTO v = (VehicleDTO) model;
 				map.put(DATA_IMG, ""+R.drawable.firetruck);
 				map.put(DATA_TYPE, v.getName());
 				map.put(DATA_CASERNE, v.getBarrack().getName());
@@ -210,13 +209,13 @@ public class MoyensActivity extends AbstractActivity implements OnClickListener,
 				// on ajoute la map a la liste
 				data.add(map);
 			
-			} else if (entities.get(i).getModel() instanceof VehicleDemandDTO) {
-				VehicleDemandDTO dm = (VehicleDemandDTO) entities.get(i).getModel();
+			} else if (model instanceof VehicleDemandDTO) {
+				VehicleDemandDTO dm = (VehicleDemandDTO) model;
 				// si la demande est en cours ou qu'elle a ete refusee on l'affiche
 				// sinon ça signifie que le vehicule est deja affiche
 				if (dm.getState() != DemandState.ACCEPTED) {
 					map.put(DATA_IMG, ""+R.drawable.firetruck);
-					String type = dm.getType().name();
+					String type = dm.getType().name()+" "+model.getId();
 					if (dm.getName() != null) {
 						type += " "+dm.getName();
 					}

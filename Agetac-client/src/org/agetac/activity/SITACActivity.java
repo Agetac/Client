@@ -103,6 +103,7 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 	@Override
 	public void update() {
 		List<IEntity> entities = controller.getEntities();
+		android.util.Log.d(TAG, "ENTITIES: "+entities.toString());
 		PositionDTO interPosition = controller.getInterventionEngine().getIntervention().getPosition();
 		final IGeoPoint geoP;
 		if (interPosition != null) {
@@ -136,6 +137,7 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 				
 			// si ce n'est pas une demande de moyen
 			} else {
+				
 				// on verifie juste si sa position est definie
 				if (e.getState() == EntityState.ON_SITAC) {
 					// on l'ajoute a la SITAC
@@ -287,31 +289,18 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 	@Override
 	public boolean onUp(MotionEvent end, MapView mapView) {
 		if (currentEntity != null && currentEntity.getPictogram().getShape()==Shape.LINEAR_SHAPE) {
-			Point start, stop;
 			GeoPoint stopGeoP = (GeoPoint) mapView.getProjection().fromPixels(end.getX(), end.getY());
-			PositionDTO lineBeginPos = new PositionDTO(lineBeginGeop.getLatitudeE6(), lineBeginGeop.getLongitudeE6());
-			PositionDTO lineEndPos = new PositionDTO(stopGeoP.getLatitudeE6(), stopGeoP.getLongitudeE6());
-			PositionDTO lineMiddlePos = new PositionDTO((lineBeginGeop.getLatitudeE6()+stopGeoP.getLatitudeE6())/2, (lineBeginGeop.getLongitudeE6()+stopGeoP.getLongitudeE6())/2);
-			GeoPoint lineMiddleGeoP = new GeoPoint((int)lineMiddlePos.getLatitude(), (int)lineMiddlePos.getLongitude());
-			Point lineMiddlePoint = mapView.getProjection().toMapPixels(lineMiddleGeoP, null);
-
-		
-			GeoPoint me = (GeoPoint) mapView.getProjection().fromPixels(end.getX(), end.getY());
-			stop = mapView.getProjection().toMapPixels(me, null);
-			stop.set(stop.x-lineMiddlePoint.x, stop.y-lineMiddlePoint.y);
-			
-			start = mapView.getProjection().toMapPixels(lineBeginGeop, null);
-			start.set(start.x-lineMiddlePoint.x, start.y-lineMiddlePoint.y);
-			
+			PositionDTO originPos = new PositionDTO(lineBeginGeop.getLatitudeE6(), lineBeginGeop.getLongitudeE6());
+			PositionDTO aimPos = new PositionDTO(stopGeoP.getLatitudeE6(), stopGeoP.getLongitudeE6());
+			PositionDTO centerPos = new PositionDTO((lineBeginGeop.getLatitudeE6()+stopGeoP.getLatitudeE6())/2, (lineBeginGeop.getLongitudeE6()+stopGeoP.getLongitudeE6())/2);			
 			
 			touchedEntity = EntityFactory.make(currentEntity);
-			touchedEntity.getModel().setPosition(lineMiddlePos);
+			touchedEntity.getModel().setPosition(centerPos);
 			touchedEntity.getModel().getPosition().setKnown(true);
-			((ActionDTO) touchedEntity.getModel()).setOrigin(lineBeginPos);
-			((ActionDTO) touchedEntity.getModel()).setAim(lineEndPos);
-			((LinePicto) touchedEntity.getPictogram()).setscaleRef(mapView.getProjection().metersToEquatorPixels(1.0f));
-			((LinePicto) touchedEntity.getPictogram()).setStart(start);
-			((LinePicto) touchedEntity.getPictogram()).setStop(stop);
+			((ActionDTO) touchedEntity.getModel()).setOrigin(originPos);
+			((ActionDTO) touchedEntity.getModel()).getOrigin().setKnown(true);
+			((ActionDTO) touchedEntity.getModel()).setAim(aimPos);
+			((ActionDTO) touchedEntity.getModel()).getAim().setKnown(true);
 			
 			flag = ActionFlag.ADD;
 			observable.setChanged();
