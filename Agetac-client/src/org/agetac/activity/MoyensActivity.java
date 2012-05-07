@@ -7,10 +7,12 @@ import java.util.List;
 
 import org.agetac.R;
 import org.agetac.common.dto.IModel;
+import org.agetac.common.dto.PositionDTO;
 import org.agetac.common.dto.VehicleDTO;
 import org.agetac.common.dto.VehicleDTO.VehicleType;
 import org.agetac.common.dto.VehicleDemandDTO;
 import org.agetac.common.dto.VehicleDemandDTO.DemandState;
+import org.agetac.common.util.TimeFormatter;
 import org.agetac.controller.Controller.ActionFlag;
 import org.agetac.entity.EntityFactory;
 import org.agetac.entity.IEntity;
@@ -18,7 +20,6 @@ import org.agetac.entity.IEntity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.text.format.Time;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -79,14 +80,7 @@ public class MoyensActivity extends AbstractActivity implements OnClickListener,
 	public void onClick(View v) {
 		switch (v.getId()) {
 			case R.id.btn_demande_moyens:
-				android.util.Log.d(TAG, "CLICK JE DEMANDE");
 				popupMenu.show();		
-//				flag = ActionFlag.ADD;
-//				VehicleDTO veh = genVehicleDTO();
-//		        IPictogram vehiculePicto = PictogramHolder.getInstance(this).getPictogram(PictogramHolder.RED_GRP);
-//		        touchedEntity = new Entity<VehicleDTO>(veh, vehiculePicto, EntityState.OFF_SITAC);
-//				observable.setChanged();
-//				observable.notifyObservers(MoyensActivity.this);
 				break;
 		}
 			
@@ -110,32 +104,6 @@ public class MoyensActivity extends AbstractActivity implements OnClickListener,
 						 observable.notifyObservers(MoyensActivity.this);
 					}
 				 });
-//			 confirmDelete.setNeutralButton(R.string.dialog_vehicule_gerer_gh, new
-//				 DialogInterface.OnClickListener() {
-//					 @Override
-//					 public void onClick(DialogInterface dialog, int which) {
-//						 dialog.dismiss();
-//						 AlertDialog.Builder gererGH = new AlertDialog.Builder(contx, R.layout.moyens_update_gh);
-//						 gererGH.setTitle(R.string.dialog_title_vehicule);
-//						 gererGH.setMessage(R.string.dialog_update_gh_ou_supprimer_vehicule);
-//						 gererGH.setPositiveButton(R.string.dialog_vehicule_supprimer, new
-//							 DialogInterface.OnClickListener() {
-//								 @Override
-//								 public void onClick(DialogInterface dialog, int which) {
-//									 flag = ActionFlag.REMOVE;
-//									 touchedEntity = (IEntity) entities.get(position);
-//									 observable.setChanged();
-//									 observable.notifyObservers(MoyensActivity.this);
-//								}
-//							 });
-//						 /*
-//						 flag = ActionFlag.UPDATE_GH;
-//						 touchedEntity = (IEntity) entities.get(position);
-//						 observable.setChanged();
-//						 observable.notifyObservers(MoyensActivity.this);
-//						 */
-//					}
-//				 });
 			 confirmDelete.setNegativeButton(R.string.annuler, null);
 			 confirmDelete.show();		
 		 } catch (ClassCastException e) {
@@ -173,6 +141,7 @@ public class MoyensActivity extends AbstractActivity implements OnClickListener,
 		
 		flag = ActionFlag.ADD;
 		touchedEntity = EntityFactory.make(dm);
+		android.util.Log.d(TAG, "DATA before ADDING: "+data.size());
 		observable.setChanged();
 		observable.notifyObservers(MoyensActivity.this);
 		return super.onContextItemSelected(item);
@@ -191,6 +160,7 @@ public class MoyensActivity extends AbstractActivity implements OnClickListener,
 	public void update() {
 		List<IEntity> entities = controller.getEntities();
 		data.clear();
+		android.util.Log.d(TAG, "DATA après clear: "+data.size()+ " >> "+data.toString());
 		
 		for (int i=0; i<entities.size(); i++) {
 			IModel model = entities.get(i).getModel();
@@ -222,7 +192,7 @@ public class MoyensActivity extends AbstractActivity implements OnClickListener,
 					map.put(DATA_TYPE, type);
 					map.put(DATA_CASERNE, getString(R.string.unknown));
 					map.put(DATA_ETAT, dm.getState().name());
-					map.put(DATA_GHDEM, getString(R.string.unknown)); // mapping GH non implemente sur le model
+					map.put(DATA_GHDEM, TimeFormatter.getGroupeHoraire(dm.getTimestamp())); // mapping GH non implemente sur le model
 					map.put(DATA_GHARR, getString(R.string.unknown)); // mapping GH non implemente sur le model
 					map.put(DATA_GHRET, getString(R.string.unknown)); // mapping GH non implemente sur le model
 					// on ajoute la map a la liste
@@ -245,12 +215,8 @@ public class MoyensActivity extends AbstractActivity implements OnClickListener,
 		dm.setType(type);
 		dm.setState(DemandState.ASKED);
 		dm.setTimestamp(new Date());
+		dm.setPosition(new PositionDTO());
+		dm.getPosition().setKnown(false);
 		return dm;
-	}
-
-	public String getTime(){
-		Time t = new Time();
-		t.setToNow();
-		return (String) t.toString().subSequence(9, 13);
 	}
 }

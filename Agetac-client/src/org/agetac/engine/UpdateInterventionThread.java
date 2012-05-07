@@ -21,7 +21,10 @@ public class UpdateInterventionThread extends Thread {
 				sleep(5000);
 				
 			} catch (InterruptedException e) {
-				android.util.Log.d(TAG, e.getMessage());
+				android.util.Log.e(TAG, e.getMessage());
+			
+			} catch (Exception e) {
+				android.util.Log.e(TAG, "Exception on update: "+e.getMessage());
 			}
 		}
 		android.util.Log.d(TAG, "UpdateThread stopped");

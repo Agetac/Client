@@ -2,14 +2,13 @@ package org.agetac.activity;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.Hashtable;
 import java.util.List;
 
 import org.agetac.R;
 import org.agetac.command.SendMessageCommand;
 import org.agetac.common.dto.MessageDTO;
-import org.agetac.controller.Controller;
+import org.agetac.common.util.TimeFormatter;
 import org.agetac.controller.Controller.ActionFlag;
 
 import android.app.AlertDialog;
@@ -48,25 +47,7 @@ public class MessagesActivity extends AbstractActivity implements OnClickListene
 	@Override
 	public String getMessage(){
 		return message;
-	}
-
-	public String getGroupeHoraire(Date d){
-
-		String res="";
-
-		int minutes = d.getMinutes();
-		int heures = d.getHours();
-
-		if(heures < 10 ) {res = "0" + heures;}
-		else {res = "" + heures;}
-
-		if (minutes < 10) {res = res +"0" + minutes;}
-		else { res = res + minutes;}
-
-		return res;
-	}
-
-	
+	}	
 	
 	@Override
 	public void onClick(View v) {
@@ -228,7 +209,7 @@ public class MessagesActivity extends AbstractActivity implements OnClickListene
 					
 					map = new Hashtable<String, String>();	
 					
-					String d = getGroupeHoraire(messagesRecus.get(i).getDate());
+					String d = TimeFormatter.getGroupeHoraire(messagesRecus.get(i).getDate());
 					
 					map.put("titre",d);
 					

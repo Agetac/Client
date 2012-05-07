@@ -1,6 +1,7 @@
 package org.agetac.activity;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.agetac.R;
@@ -17,9 +18,7 @@ import org.agetac.fragment.HiddenMenuFragment;
 import org.agetac.fragment.OpenedMenuFragment;
 import org.agetac.listener.IOnMenuEventListener;
 import org.agetac.listener.IOnOverlayEventListener;
-import org.agetac.view.LinePicto;
 import org.agetac.view.MapOverlay;
-import org.agetac.view.MenuGroup;
 import org.agetac.view.Shape;
 import org.osmdroid.api.IGeoPoint;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
@@ -32,7 +31,6 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
-import android.graphics.Point;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -227,6 +225,7 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 			if (touchedEntity.getModel() instanceof VehicleDemandDTO) {
 				((VehicleDemandDTO) touchedEntity.getModel()).setState(DemandState.ASKED);
 				((VehicleDemandDTO) touchedEntity.getModel()).setType(VehicleType.FPT);
+				((VehicleDemandDTO) touchedEntity.getModel()).setTimestamp(new Date());
 			}
 			
 			observable.setChanged();

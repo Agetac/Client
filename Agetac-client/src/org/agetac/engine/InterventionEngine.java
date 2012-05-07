@@ -59,7 +59,7 @@ public class InterventionEngine implements IInterventionEngine {
 		intervention = client.getIntervention(interId);
 			
 		// cree les handlers pour les operations REST
-		addHandler = new AddHandler(entities, client, interId);
+		addHandler = new AddHandler(client, interId);
 		delHandler = new DeleteHandler(entities, client);
 		updateHandler = new UpdateHandler(client);
 
@@ -82,7 +82,7 @@ public class InterventionEngine implements IInterventionEngine {
 	@Override
 	public void addEntity(IEntity entity) {		
 		addHandler.handle(entity);
-		notifyObservers();
+		updateIntervention();
 	}
 
 	@Override
@@ -94,7 +94,7 @@ public class InterventionEngine implements IInterventionEngine {
 	@Override
 	public void editEntity(IEntity entity) {
 		updateHandler.handle(entity);
-		notifyObservers();
+		updateIntervention();
 	}
 	
 	@Override
