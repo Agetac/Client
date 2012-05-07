@@ -69,7 +69,7 @@ public class MoyensActivity extends AbstractActivity implements OnClickListener,
 
 		((Button) findViewById(R.id.btn_demande_moyens)).setOnClickListener(this);
 		
-		popupMenu = new PopupMenu(MoyensActivity.this, findViewById(R.id.menu_moyens));
+		popupMenu = new PopupMenu(MoyensActivity.this, findViewById(R.id.btn_demande_moyens));
 		Menu menu = popupMenu.getMenu();
 		MenuInflater inflater = popupMenu.getMenuInflater();
 		inflater.inflate(R.menu.moyens_context_menu, menu);
