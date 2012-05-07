@@ -185,7 +185,7 @@ public class MoyensActivity extends AbstractActivity implements OnClickListener,
 				// sinon ça signifie que le vehicule est deja affiche
 				if (dm.getState() != DemandState.ACCEPTED) {
 					map.put(DATA_IMG, ""+R.drawable.firetruck);
-					String type = dm.getType().name()+" "+model.getId();
+					String type = dm.getType().name();
 					if (dm.getName() != null) {
 						type += " "+dm.getName();
 					}
