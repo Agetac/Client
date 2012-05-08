@@ -116,10 +116,43 @@ public class MoyensActivity extends AbstractActivity implements OnClickListener,
 	@Override
 	public boolean onMenuItemClick(MenuItem item) {
 		VehicleDemandDTO dm;
+		PopupMenu vehTypeMenu = new PopupMenu(MoyensActivity.this, findViewById(R.id.btn_demande_moyens));
+		Menu menu = vehTypeMenu.getMenu();
+		MenuInflater inflater = vehTypeMenu.getMenuInflater();
+		vehTypeMenu.setOnMenuItemClickListener(this);
 		
 		switch (item.getItemId()) {
+			case R.id.menu_alim:
+				inflater.inflate(R.menu.alim, menu);
+				vehTypeMenu.show();
+				return true;
+				
+			case R.id.menu_attaque:
+				inflater.inflate(R.menu.attaque, menu);
+				vehTypeMenu.show();
+				return true;
+
+			case R.id.menu_secours:
+				inflater.inflate(R.menu.secours, menu);
+				vehTypeMenu.show();
+				return true;
+				
+			case R.id.menu_risques:
+				inflater.inflate(R.menu.risques, menu);
+				vehTypeMenu.show();
+				return true;
+				
+			case R.id.menu_commandement:
+				inflater.inflate(R.menu.commandement, menu);
+				vehTypeMenu.show();
+				return true;
+				
+			case R.id.menu_cheminement:
+				inflater.inflate(R.menu.cheminement, menu);
+				vehTypeMenu.show();
+				return true;
+		
 			case R.id.FPT:
-				// TODO récupérer le nom via un formulaire
 				dm = genVehicleDemandDTO(VehicleType.FPT);
 				break;
 				

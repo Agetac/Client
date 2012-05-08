@@ -57,6 +57,7 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 	private PopupMenu popupMenu;
 	private AlertDialog editItemDialog;
 	private GeoPoint lineBeginGeop;
+	private VehicleType selectedType;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -183,6 +184,41 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 	@Override
 	public void onEntitySelected(IEntity e) {
 		this.currentEntity = e;
+
+		if (e.getState() == EntityState.MENU && e.getModel() instanceof VehicleDemandDTO) {
+			PopupMenu vehTypeMenu = new PopupMenu(SITACActivity.this, findViewById(R.id.menu_anchor));
+			Menu menu = vehTypeMenu.getMenu();
+			MenuInflater inflater = vehTypeMenu.getMenuInflater();
+			vehTypeMenu.setOnMenuItemClickListener(this);
+			
+			switch (e.getPictogram().getColor()) {
+				case BLUE:
+					inflater.inflate(R.menu.alim, menu);
+					break;
+					
+				case RED:
+					inflater.inflate(R.menu.attaque, menu);
+					break;
+					
+				case VIOLET:
+					inflater.inflate(R.menu.commandement, menu);
+					break;
+					
+				case BLACK:
+					inflater.inflate(R.menu.cheminement, menu);
+					break;
+					
+				case GREEN:
+					inflater.inflate(R.menu.secours, menu);
+					break;
+					
+				case ORANGE:
+					inflater.inflate(R.menu.risques, menu);
+					break;
+			}
+			
+			vehTypeMenu.show();
+		}
 	}
 
 	@Override
@@ -211,6 +247,13 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 				touchedEntity = EntityFactory.make(currentEntity);
 				flag = ActionFlag.ADD;
 				
+				// on effectue les traitements en fonction du model
+				if (touchedEntity.getModel() instanceof VehicleDemandDTO) {
+					((VehicleDemandDTO) touchedEntity.getModel()).setState(DemandState.ASKED);
+					((VehicleDemandDTO) touchedEntity.getModel()).setTimestamp(new Date());
+					((VehicleDemandDTO) touchedEntity.getModel()).setType(selectedType);
+				}
+				
 			} else {
 				// si ce n'était pas une entitée de type MENU, alors c'est une MAJ
 				flag = ActionFlag.EDIT;
@@ -220,13 +263,6 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 			touchedEntity.getModel().setPosition(p);
 			// on indique au model que sa position est maintenant connu
 			touchedEntity.getModel().getPosition().setKnown(true);
-			
-			// on effectue les traitements en fonction du model
-			if (touchedEntity.getModel() instanceof VehicleDemandDTO) {
-				((VehicleDemandDTO) touchedEntity.getModel()).setState(DemandState.ASKED);
-				((VehicleDemandDTO) touchedEntity.getModel()).setType(VehicleType.FPT);
-				((VehicleDemandDTO) touchedEntity.getModel()).setTimestamp(new Date());
-			}
 			
 			observable.setChanged();
 			observable.notifyObservers(SITACActivity.this);
@@ -247,6 +283,150 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 				
 			case R.id.menu_item_edit:
 				showEditItemDialog();
+				break;
+				
+			case R.id.FPT:
+				selectedType = VehicleType.FPT;
+				break;
+				
+			case R.id.VSAV:
+				selectedType = VehicleType.VSAV;
+				break;
+
+			case R.id.BEA:
+				selectedType = VehicleType.BEA;
+				break;
+				
+			case R.id.CAEM:
+				selectedType = VehicleType.CAEM;
+				break;
+				
+			case R.id.CCFM:
+				selectedType = VehicleType.CCFM;
+				break;
+				
+			case R.id.CCGC:
+				selectedType = VehicleType.CCGC;
+				break;
+				
+			case R.id.CCGCLC:
+				selectedType = VehicleType.CCGCLC;
+				break;
+				
+			case R.id.DA:
+				selectedType = VehicleType.DA;
+				break;
+				
+			case R.id.EMB:
+				selectedType = VehicleType.EMB;
+				break;
+				
+			case R.id.EPS:
+				selectedType = VehicleType.EPS;
+				break;
+				
+			case R.id.FMOGP:
+				selectedType = VehicleType.FMOGP;
+				break;
+				
+			case R.id.MPR:
+				selectedType = VehicleType.MPR;
+				break;
+				
+			case R.id.PEVSD:
+				selectedType = VehicleType.PEVSD;
+				break;
+				
+			case R.id.SAC_PS:
+				selectedType = VehicleType.SAC_PS;
+				break;
+
+			case R.id.VCYNO:
+				selectedType = VehicleType.VCYNO;
+				break;
+				
+			case R.id.VICB:
+				selectedType = VehicleType.VICB;
+				break;
+				
+			case R.id.VL:
+				selectedType = VehicleType.VL;
+				break;
+				
+			case R.id.VLCC:
+				selectedType = VehicleType.VLCC;
+				break;
+				
+			case R.id.VLCG:
+				selectedType = VehicleType.VLCG;
+				break;
+				
+			case R.id.VLCGD:
+				selectedType = VehicleType.VLCGD;
+				break;
+				
+			case R.id.VLCS:
+				selectedType = VehicleType.VLCS;
+				break;
+				
+			case R.id.VLDP:
+				selectedType = VehicleType.VLDP;
+				break;
+				
+			case R.id.VLHR:
+				selectedType = VehicleType.VLHR;
+				break;
+				
+			case R.id.VLOS:
+				selectedType = VehicleType.VLOS;
+				break;
+				
+			case R.id.VLS:
+				selectedType = VehicleType.VLS;
+				break;
+				
+			case R.id.VLSV:
+				selectedType = VehicleType.VLSV;
+				break;
+				
+			case R.id.VNRBC:
+				selectedType = VehicleType.VNRBC;
+				break;
+				
+			case R.id.VPHV:
+				selectedType = VehicleType.VPHV;
+				break;
+				
+			case R.id.VPL:
+				selectedType = VehicleType.VPL;
+				break;
+				
+			case R.id.VPRO:
+				selectedType = VehicleType.VPRO;
+				break;
+				
+			case R.id.VRAD:
+				selectedType = VehicleType.VRAD;
+				break;
+				
+			case R.id.VRCB:
+				selectedType = VehicleType.VRCB;
+				break;
+				
+			case R.id.VSM:
+				selectedType = VehicleType.VSM;
+				break;
+				
+			case R.id.VSR:
+				selectedType = VehicleType.VSR;
+				break;
+				
+			case R.id.VTP:
+				selectedType = VehicleType.VTP;
+				break;
+				
+			case R.id.VTU:
+				selectedType = VehicleType.VTU;
 				break;
 		}
 		return super.onContextItemSelected(item);

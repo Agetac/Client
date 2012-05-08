@@ -120,7 +120,7 @@ public class LinePicto implements IPictogram {
 	
 	@Override
 	public LinePicto clone() {
-		return new LinePicto(name, bmp, color, state, shape, graphicalOverload, new Point(start), new Point(stop), scaleRef);
+		return new LinePicto(id, bmp, color, state, shape, graphicalOverload, new Point(start), new Point(stop), scaleRef);
 	}
 	
 	private void handlePaint() {

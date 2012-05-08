@@ -1,69 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-	<item android:id="@+id/menu_attaque" android:title="@string/attaque">
-		<menu android:id="@+id/submenu_0">
-			<item android:id="@+id/FPT" android:title="FPT" />
-      <item android:id="@+id/BEA" android:title="BEA" />
-			<item android:id="@+id/CAEM" android:title="CAEM" />
-			<item android:id="@+id/CCFM" android:title="CCFM" />
-			<item android:id="@+id/CCGCLC" android:title="CCGCLC" />
-			<item android:id="@+id/EPS" android:title="EPS" />
-			<item android:id="@+id/FMOGP" android:title="FMOGP" />
-			<item android:id="@+id/PEVSD" android:title="PEVSD" />
-			<item android:id="@+id/VPRO" android:title="VPRO" />
-		</menu>
-	</item>
+	<item android:id="@+id/menu_attaque" android:title="@string/attaque" />
+	<item android:id="@+id/menu_alim" android:title="@string/alim" />
+	<item android:id="@+id/menu_secours" android:title="@string/secours" />
+  <item android:id="@+id/menu_commandement" android:title="@string/commandement" />
+  <item android:id="@+id/menu_risques" android:title="@string/risques" />
+  <item android:id="@+id/menu_cheminement" android:title="@string/cheminement" />
 
-	<item android:id="@+id/menu_alim" android:title="@string/alim" >
-			<menu android:id="@+id/submenu_1">
-			<item android:id="@+id/CCGC" android:title="CCGC" />
-      <item android:id="@+id/DA" android:title="DA" />
-			<item android:id="@+id/MPR" android:title="MPR" />
-		</menu>
-	</item>
-
-	<item android:id="@+id/menu_secours" android:title="@string/secours">
-		<menu android:id="@+id/submenu_3">
-			<item android:id="@+id/VSAV" android:title="VSAV" />
-      <item android:id="@+id/SAC_PS" android:title="SAC_PS" />
-			<item android:id="@+id/VLSV" android:title="VLSV" />
-			<item android:id="@+id/VLOS" android:title="VLOS" />
-			<item android:id="@+id/VLS" android:title="VLS" />
-			<item android:id="@+id/VSM" android:title="VSM" />
-			<item android:id="@+id/VSR" android:title="VSR" />
-		</menu>
-	</item>
-	
-  <item android:id="@+id/menu_commandement" android:title="@string/commandement">
-    <menu android:id="@+id/submenu_4">
-      <item android:id="@+id/VLCC" android:title="VLCC" />
-      <item android:id="@+id/VLCGD" android:title="VLCGD" />
-      <item android:id="@+id/VLCS" android:title="VLCS" />
-      <item android:id="@+id/VLCG" android:title="VLCG" />
-    </menu>
-  </item>
-  
-  <item android:id="@+id/menu_risques" android:title="@string/risques">
-    <menu android:id="@+id/submenu_5">
-      <item android:id="@+id/VRCB" android:title="VRCB" />
-      <item android:id="@+id/VICB" android:title="VICB" />
-      <item android:id="@+id/VNRBC" android:title="VNRBC" />
-      <item android:id="@+id/VRAD" android:title="VRAD" />
-    </menu>
-  </item>
-  
-  <item android:id="@+id/menu_cheminement" android:title="@string/cheminement">
-    <menu android:id="@+id/submenu_6">
-      <item android:id="@+id/EMB" android:title="EMB" />
-      <item android:id="@+id/VL" android:title="VL" />
-      <item android:id="@+id/VLDP" android:title="VLDP" />
-      <item android:id="@+id/VLHR" android:title="VLHR" />
-      <item android:id="@+id/VPL" android:title="VPL" />
-      <item android:id="@+id/VPHV" android:title="VPHV" />
-      <item android:id="@+id/VTP" android:title="VTP" />
-      <item android:id="@+id/VTU" android:title="VTU" />
-      <item android:id="@+id/VCYNO" android:title="VCYNO" />
-    </menu>
-  </item>
 </menu>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+      <item android:id="@+id/VLCC" android:title="VLCC" />
+      <item android:id="@+id/VLCGD" android:title="VLCGD" />
+      <item android:id="@+id/VLCS" android:title="VLCS" />
+      <item android:id="@+id/VLCG" android:title="VLCG" />
+</menu>

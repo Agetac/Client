@@ -48,10 +48,6 @@ public class MenuExpandableListAdapter extends BaseExpandableListAdapter {
 			convertView = inflater.inflate(R.layout.menu_sitac_childs, null);
 			childView.imgChild = (ImageView) convertView.findViewById(R.id.menu_child_img);
 			childView.textViewChild = (TextView) convertView.findViewById(R.id.menu_child_text);
-//			if (childPosition == numChildSelected && groupPosition == numGroupSelected) {
-//				convertView.setBackgroundColor(Color.WHITE);
-//				childView.textViewChild.setTextColor(Color.BLACK);
-//			}
 			
 			convertView.setTag(childView);
 		}

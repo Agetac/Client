@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+      <item android:id="@+id/VSAV" android:title="VSAV" />
+      <item android:id="@+id/SAC_PS" android:title="SAC_PS" />
+      <item android:id="@+id/VLSV" android:title="VLSV" />
+      <item android:id="@+id/VLOS" android:title="VLOS" />
+      <item android:id="@+id/VLS" android:title="VLS" />
+      <item android:id="@+id/VSM" android:title="VSM" />
+      <item android:id="@+id/VSR" android:title="VSR" />
+</menu>

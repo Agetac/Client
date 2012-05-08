@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+	  <item android:id="@+id/FPT" android:title="FPT" />
+	  <item android:id="@+id/BEA" android:title="BEA" />
+	  <item android:id="@+id/CAEM" android:title="CAEM" />
+	  <item android:id="@+id/CCFM" android:title="CCFM" />
+	  <item android:id="@+id/CCGCLC" android:title="CCGCLC" />
+	  <item android:id="@+id/EPS" android:title="EPS" />
+	  <item android:id="@+id/FMOGP" android:title="FMOGP" />
+	  <item android:id="@+id/PEVSD" android:title="PEVSD" />
+	  <item android:id="@+id/VPRO" android:title="VPRO" />
+</menu>

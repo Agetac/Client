@@ -76,10 +76,6 @@ public class OpenedMenuFragment extends Fragment implements IMenuFragment, OnCli
 		listView = (ExpandableListView) getActivity().findViewById(R.id.menu);
 		groups = new ArrayList<MenuGroup>();
 		
-		// Groupe des vehicules en attente, TODO signalitique en cas de nouveau vehicule a placer
-//		PictogramGroup waitingVehicles = new PictogramGroup("Véhicules en attente");
-//		groups.add(waitingVehicles);
-		
 		// Groupe des dangers
 		MenuGroup grpDangers = new MenuGroup(getString(R.string.dangers));
 		grpDangers.setEntities(pictosDangers);
@@ -95,10 +91,10 @@ public class OpenedMenuFragment extends Fragment implements IMenuFragment, OnCli
 		grpMoyens.setEntities(pictosMoyens);
 		groups.add(grpMoyens);
 		
-		// Groupe des mapitems
-		MenuGroup grpMapItems = new MenuGroup(getString(R.string.actions));
-		grpMapItems.setEntities(pictosActions);
-		groups.add(grpMapItems);
+		// Groupe des actions
+		MenuGroup grpActions = new MenuGroup(getString(R.string.actions));
+		grpActions.setEntities(pictosActions);
+		groups.add(grpActions);
 		
 		menuAdapter = new MenuExpandableListAdapter(getActivity(), groups);
 		listView.setAdapter(menuAdapter);
@@ -144,7 +140,6 @@ public class OpenedMenuFragment extends Fragment implements IMenuFragment, OnCli
 		if (listener != null) {
 			MenuGroup grp = groups.get(grpIndex);
 			IEntity entity = grp.getEntities().get(childIndex);
-			android.util.Log.d(TAG, "MENU FRAG: clicked entity = "+entity.toString());
 			listener.onEntitySelected(entity);
 		}
 		return true;

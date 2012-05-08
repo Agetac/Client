@@ -216,14 +216,17 @@ public class Entity implements IEntity, Observer {
 	@Override
 	public void update(Observable observable, Object data) {
 		IModel model = (IModel) data;
-		if (model.getPosition().isKnown()) {
+		if (model.getPosition() != null && model.getPosition().isKnown()) {
 			int latE6 = model.getPosition().getLatitude();
 			int longE6 = model.getPosition().getLongitude();
 			this.geoP = new GeoPoint(latE6, longE6);
 			this.state = EntityState.ON_SITAC;
 			
-		} else {
+		} else if (model.getPosition() != null && !model.getPosition().isKnown()) {
 			this.state = EntityState.OFF_SITAC;
+			
+		} else {
+			this.state = EntityState.MENU;
 		}
 	}
 }

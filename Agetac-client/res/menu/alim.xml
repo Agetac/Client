@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+	<item android:id="@+id/CCGC" android:title="CCGC" />
+	<item android:id="@+id/DA" android:title="DA" />
+	<item android:id="@+id/MPR" android:title="MPR" />
+</menu>

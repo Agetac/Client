@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+      <item android:id="@+id/VRCB" android:title="VRCB" />
+      <item android:id="@+id/VICB" android:title="VICB" />
+      <item android:id="@+id/VNRBC" android:title="VNRBC" />
+      <item android:id="@+id/VRAD" android:title="VRAD" />
+</menu>

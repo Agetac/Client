@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+      <item android:id="@+id/EMB" android:title="EMB" />
+      <item android:id="@+id/VL" android:title="VL" />
+      <item android:id="@+id/VLDP" android:title="VLDP" />
+      <item android:id="@+id/VLHR" android:title="VLHR" />
+      <item android:id="@+id/VPL" android:title="VPL" />
+      <item android:id="@+id/VPHV" android:title="VPHV" />
+      <item android:id="@+id/VTP" android:title="VTP" />
+      <item android:id="@+id/VTU" android:title="VTU" />
+      <item android:id="@+id/VCYNO" android:title="VCYNO" />
+</menu>
