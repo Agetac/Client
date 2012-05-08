@@ -4,16 +4,12 @@ import java.util.ArrayList;
 
 import org.agetac.R;
 import org.agetac.common.dto.ActionDTO;
-import org.agetac.common.dto.GroupDTO;
-import org.agetac.common.dto.IModel;
-import org.agetac.common.dto.SourceDTO;
 import org.agetac.common.dto.ActionDTO.ActionType;
+import org.agetac.common.dto.SourceDTO;
 import org.agetac.common.dto.SourceDTO.SourceType;
 import org.agetac.common.dto.TargetDTO;
 import org.agetac.common.dto.TargetDTO.TargetType;
-import org.agetac.common.dto.VehicleDTO;
 import org.agetac.common.dto.VehicleDemandDTO;
-import org.agetac.entity.Entity.EntityState;
 import org.agetac.view.Color;
 import org.agetac.view.GraphicalOverload;
 import org.agetac.view.LinePicto;
@@ -35,40 +31,56 @@ import android.graphics.Point;
  */
 public class EntityHolder {
 
-	public static final String RED_UP = "Source de feu";
-	public static final String RED_DOWN = "red_down";
-	public static final String GREEN_UP = "green_up";
-	public static final String GREEN_DOWN = "green_down";
-	public static final String BLUE_UP = "Source d'eau";
-	public static final String BLUE_DOWN = "blue_down";
-	public static final String ORANGE_UP = "Produits chimiques";
-	public static final String ORANGE_DOWN = "orange_down";
+	public static final String RED_UP = "0_Incendie";
+	public static final String GREEN_UP = "0_Personne";
+	public static final String BLUE_UP = "0_Eau";
+	public static final String ORANGE_UP = "0_Risque particulier";
 	
-	public static final String BLUE_NONE = "blue_none";
-	public static final String BLUE_GRP = "blue_grp";
-	public static final String BLUE_COL = "blue_col";
-	public static final String BLUE_ISOLE = "blue_isole";
+	public static final String RED_DOWN = "1_Matérielle";
+	public static final String GREEN_DOWN = "1_Personne";
+	public static final String BLUE_DOWN = "1_Eau";
+	public static final String ORANGE_DOWN = "1_Risque particulier";
 	
-	public static final String GREEN_NONE = "green_none";
-	public static final String GREEN_GRP = "green_grp";
-	public static final String GREEN_COL = "green_col";
-	public static final String GREEN_ISOLE = "green_isole";
+	public static final String BLUE_AGRES = "2_Eau";
+	public static final String BLUE_GRP = "3_Eau";
+	public static final String BLUE_COL_2 = "4_Eau";
+	public static final String BLUE_COL_3 = "5_Eau";
 	
-	public static final String RED_DOTTED_SINGLE = "red_dotted_single";
-	public static final String RED_DOTTED_NONE = "red_dotted_none";
+	public static final String ORANGE_AGRES = "2_Risques particuliers";
+	public static final String ORANGE_GRP = "3_Risques particuliers";
+	public static final String ORANGE_COL_2 = "4_Risques particuliers";
+	public static final String ORANGE_COL_3 = "5_Risques particuliers";
 	
-	public static final String RED_NONE = "red_none";
-	public static final String RED_GRP = "red_grp";
-	public static final String RED_COL = "red_col";
-	public static final String RED_ISOLE = "red_isole";
+	public static final String VIOLET_AGRES = "0_Commandement";
+	public static final String VIOLET_GRP = "1_Commandement";
+	public static final String VIOLET_COL_2 = "2_Commandement";
+	public static final String VIOLET_COL_3 = "3_Commandement";
 	
-	public static final String LINE_BLACK = "Commandement";
-	public static final String LINE_RED = "Action feu";
-	public static final String LINE_BLUE = "Action eau";
-	public static final String POINT = "Point";
-	public static final String ZONE = "Zone";
+	public static final String GREEN_AGRES = "2_Personnes";
+	public static final String GREEN_GRP = "3_Personnes";
+	public static final String GREEN_COL_2 = "4_Personnes";
+	public static final String GREEN_COL_3 = "5_Personnes";
 	
-	public static final String UNKNOWN = "Inconnu ?";
+	public static final String BLACK_AGRES = "0_Cheminement";
+	public static final String BLACK_GRP = "1_Cheminement";
+	public static final String BLACK_COL_2 = "2_Cheminement";
+	public static final String BLACK_COL_3 = "3_Cheminement";
+	
+	public static final String RED_AGRES = "1_Incendie";
+	public static final String RED_GRP = "2_Incendie";
+	public static final String RED_COL_2 = "3_Incendie";
+	public static final String RED_COL_3 = "4_Incendie";
+	
+	public static final String RED_DOTTED_AGRES = "5_Incendie";
+	
+	public static final String LINE_GREEN = "0_Secours personnes";
+	public static final String LINE_ORANGE = "6_Risque particulier";
+	public static final String LINE_RED = "0_Extinction";
+	public static final String LINE_BLUE = "6_Eau";
+	public static final String POINT = "_Point";
+	public static final String ZONE = "_Zone";
+	
+	public static final String UNKNOWN = "_Inconnu ?";
 
 	private static EntityHolder instance;
 	private Resources res;
@@ -97,26 +109,14 @@ public class EntityHolder {
 		sourceEntities.add(new Entity(new SourceDTO(SourceType.WATER), new Pictogram(BLUE_UP, BitmapFactory.decodeResource(res, R.drawable.picto_blue_up), Color.BLUE, State.STATE_HAPPENING, Shape.TRIANGLE_UP, GraphicalOverload.NONE)));
 		targetEntities.add(new Entity(new TargetDTO(TargetType.WATER), new Pictogram(BLUE_DOWN, BitmapFactory.decodeResource(res, R.drawable.picto_blue_down), Color.BLUE, State.STATE_HAPPENING, Shape.TRIANGLE_DOWN, GraphicalOverload.NONE)));
 		
-		moyenEntities.add(new Entity(new VehicleDemandDTO(), new Pictogram(BLUE_NONE, BitmapFactory.decodeResource(res, R.drawable.picto_blue_none), Color.BLUE, State.STATE_HAPPENING, Shape.SQUARE, GraphicalOverload.NONE)));
-		moyenEntities.add(new Entity(new VehicleDemandDTO(), new Pictogram(BLUE_ISOLE, BitmapFactory.decodeResource(res, R.drawable.picto_blue_isole), Color.BLUE, State.STATE_HAPPENING, Shape.SQUARE, GraphicalOverload.ISOLE)));
-//		moyenEntities.add(new Entity(new GroupDTO(), new Pictogram(BLUE_GRP, BitmapFactory.decodeResource(res, R.drawable.picto_blue_grp), Color.BLUE, State.STATE_HAPPENING, Shape.SQUARE, GraphicalOverload.GROUPE)));
-//		moyenEntities.add(new Entity(new GroupDTO(), new Pictogram(BLUE_COL, BitmapFactory.decodeResource(res, R.drawable.picto_blue_col), Color.BLUE, State.STATE_HAPPENING, Shape.SQUARE, GraphicalOverload.COLONNE)));
-	
+		moyenEntities.add(new Entity(new VehicleDemandDTO(), new Pictogram(BLUE_AGRES, BitmapFactory.decodeResource(res, R.drawable.picto_blue_agres), Color.BLUE, State.PLANNED, Shape.SQUARE, GraphicalOverload.AGRES)));
+		moyenEntities.add(new Entity(new VehicleDemandDTO(), new Pictogram(RED_AGRES, BitmapFactory.decodeResource(res, R.drawable.picto_red_agres), Color.RED, State.PLANNED, Shape.SQUARE, GraphicalOverload.AGRES)));
+		moyenEntities.add(new Entity(new VehicleDemandDTO(), new Pictogram(VIOLET_AGRES, BitmapFactory.decodeResource(res, R.drawable.picto_violet_agres), Color.VIOLET, State.PLANNED, Shape.SQUARE, GraphicalOverload.AGRES)));
+		moyenEntities.add(new Entity(new VehicleDemandDTO(), new Pictogram(BLACK_AGRES, BitmapFactory.decodeResource(res, R.drawable.picto_black_agres), Color.BLACK, State.PLANNED, Shape.SQUARE, GraphicalOverload.AGRES)));
+		moyenEntities.add(new Entity(new VehicleDemandDTO(), new Pictogram(GREEN_AGRES, BitmapFactory.decodeResource(res, R.drawable.picto_green_agres), Color.GREEN, State.PLANNED, Shape.SQUARE, GraphicalOverload.AGRES)));
 		
-		moyenEntities.add(new Entity(new VehicleDemandDTO(), new Pictogram(GREEN_NONE, BitmapFactory.decodeResource(res, R.drawable.picto_green_none), Color.GREEN, State.STATE_HAPPENING, Shape.SQUARE, GraphicalOverload.NONE)));
-		moyenEntities.add(new Entity(new VehicleDemandDTO(), new Pictogram(GREEN_ISOLE, BitmapFactory.decodeResource(res, R.drawable.picto_green_isole), Color.GREEN, State.STATE_HAPPENING, Shape.SQUARE, GraphicalOverload.ISOLE)));
-//		moyenEntities.add(new Entity(new GroupDTO(), new Pictogram(GREEN_GRP, BitmapFactory.decodeResource(res, R.drawable.picto_green_grp), Color.GREEN, State.STATE_HAPPENING, Shape.SQUARE, GraphicalOverload.GROUPE)));
-//		moyenEntities.add(new Entity(new GroupDTO(), new Pictogram(GREEN_COL, BitmapFactory.decodeResource(res, R.drawable.picto_green_col), Color.GREEN, State.STATE_HAPPENING, Shape.SQUARE, GraphicalOverload.COLONNE)));
-		
-		moyenEntities.add(new Entity(new VehicleDemandDTO(), new Pictogram(RED_DOTTED_SINGLE, BitmapFactory.decodeResource(res, R.drawable.picto_red_dotted_isole), Color.RED, State.STATE_HAPPENING, Shape.SQUARE, GraphicalOverload.ISOLE)));
-//		moyenEntities.add(new Entity(new GroupDTO(), new Pictogram(RED_DOTTED_NONE, BitmapFactory.decodeResource(res, R.drawable.picto_red_dotted_none), Color.RED, State.STATE_HAPPENING, Shape.SQUARE, GraphicalOverload.NONE)));
-		
-		moyenEntities.add(new Entity(new VehicleDemandDTO(), new Pictogram(RED_NONE, BitmapFactory.decodeResource(res, R.drawable.picto_red_none), Color.RED, State.STATE_HAPPENING, Shape.SQUARE, GraphicalOverload.NONE)));
-		moyenEntities.add(new Entity(new VehicleDemandDTO(), new Pictogram(RED_ISOLE, BitmapFactory.decodeResource(res, R.drawable.picto_red_isole), Color.RED, State.STATE_HAPPENING, Shape.SQUARE, GraphicalOverload.ISOLE)));
-//		moyenEntities.add(new Entity(new GroupDTO(), new Pictogram(RED_GRP, BitmapFactory.decodeResource(res, R.drawable.picto_red_grp), Color.RED, State.STATE_HAPPENING, Shape.SQUARE, GraphicalOverload.GROUPE)));
-//		moyenEntities.add(new Entity(new GroupDTO(), new Pictogram(RED_COL, BitmapFactory.decodeResource(res, R.drawable.picto_red_col), Color.RED, State.STATE_HAPPENING, Shape.SQUARE, GraphicalOverload.COLONNE)));
-		
-		actionEntities.add(new Entity(new ActionDTO(ActionType.HUMAN), new LinePicto(LINE_BLACK, BitmapFactory.decodeResource(res, R.drawable.picto_line_black), Color.BLACK, State.STATE_HAPPENING, Shape.LINEAR_SHAPE, GraphicalOverload.NONE, new Point(0,0), new Point(0,0), 1)));
+		actionEntities.add(new Entity(new ActionDTO(ActionType.HUMAN), new LinePicto(LINE_ORANGE, BitmapFactory.decodeResource(res, R.drawable.picto_line_orange), Color.ORANGE, State.STATE_HAPPENING, Shape.LINEAR_SHAPE, GraphicalOverload.NONE, new Point(0,0), new Point(0,0), 1)));
+		actionEntities.add(new Entity(new ActionDTO(ActionType.HUMAN), new LinePicto(LINE_GREEN, BitmapFactory.decodeResource(res, R.drawable.picto_line_green), Color.GREEN, State.STATE_HAPPENING, Shape.LINEAR_SHAPE, GraphicalOverload.NONE, new Point(0,0), new Point(0,0), 1)));
 		actionEntities.add(new Entity(new ActionDTO(ActionType.FIRE), new LinePicto(LINE_RED, BitmapFactory.decodeResource(res, R.drawable.picto_line_red), Color.RED, State.STATE_HAPPENING, Shape.LINEAR_SHAPE, GraphicalOverload.NONE, new Point(0,0), new Point(0,0), 1)));
 		actionEntities.add(new Entity(new ActionDTO(ActionType.WATER), new LinePicto(LINE_BLUE, BitmapFactory.decodeResource(res, R.drawable.picto_line_blue), Color.BLUE, State.STATE_HAPPENING, Shape.LINEAR_SHAPE, GraphicalOverload.NONE, new Point(0,0), new Point(0,0), 1)));
 		actionEntities.add(new Entity(new SourceDTO(), new Pictogram(POINT, BitmapFactory.decodeResource(res, R.drawable.picto_point), Color.BLACK, State.STATE_HAPPENING, Shape.CIRCLE, GraphicalOverload.NONE)));
@@ -172,7 +172,7 @@ public class EntityHolder {
 		ArrayList<IEntity> entities = EntityHolder.getEntities();
 		
 		for (int i = 0; i < entities.size(); i++) {
-			if (entities.get(i).getPictogram().getName().equals(name))
+			if (entities.get(i).getPictogram().getId().equals(name))
 				return entities.get(i);
 		}
 		return null;

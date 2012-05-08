@@ -50,175 +50,175 @@ public class EntityFactory {
 		if (model instanceof VehicleDTO) {
 			switch (((VehicleDTO) model).getType()) {
 				case FPT:
-					ent = make(EntityHolder.getEntity(EntityHolder.RED_ISOLE));
+					ent = make(EntityHolder.getEntity(EntityHolder.RED_AGRES));
 					break;
 					
 				case VSAV:
-					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_AGRES));
 					break;
 
 				case BEA:
-					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+					ent = make(EntityHolder.getEntity(EntityHolder.RED_AGRES));
 					break;
 					
 				case BLS:
-					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+					ent = make(EntityHolder.getEntity(EntityHolder.BLACK_AGRES));
 					break;
 					
 				case BLSP:
-					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+					ent = make(EntityHolder.getEntity(EntityHolder.BLACK_AGRES));
 					break;
 					
 				case BRS:
-					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+					ent = make(EntityHolder.getEntity(EntityHolder.BLACK_AGRES));
 					break;
 					
 				case CAEM:
-					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+					ent = make(EntityHolder.getEntity(EntityHolder.RED_AGRES));
 					break;
 					
 				case CCFM:
-					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+					ent = make(EntityHolder.getEntity(EntityHolder.RED_AGRES));
 					break;
 					
 				case CCGC:
-					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+					ent = make(EntityHolder.getEntity(EntityHolder.BLUE_AGRES));
 					break;
 					
 				case CCGCLC:
-					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+					ent = make(EntityHolder.getEntity(EntityHolder.RED_AGRES));
 					break;
 					
 				case DA:
-					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+					ent = make(EntityHolder.getEntity(EntityHolder.BLUE_AGRES));
 					break;
 					
 				case EMB:
-					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+					ent = make(EntityHolder.getEntity(EntityHolder.BLACK_AGRES));
 					break;
 					
 				case EPS:
-					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+					ent = make(EntityHolder.getEntity(EntityHolder.RED_AGRES));
 					break;
 					
 				case ESPM:
-					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+					ent = make(EntityHolder.getEntity(EntityHolder.BLACK_AGRES));
 					break;
 					
 				case FMOGP:
-					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+					ent = make(EntityHolder.getEntity(EntityHolder.RED_AGRES));
 					break;
 					
 				case MPR:
-					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+					ent = make(EntityHolder.getEntity(EntityHolder.BLUE_AGRES));
 					break;
 					
 				case PCM:
-					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+					ent = make(EntityHolder.getEntity(EntityHolder.VIOLET_AGRES));
 					break;
 					
 				case PEVSD:
-					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+					ent = make(EntityHolder.getEntity(EntityHolder.RED_AGRES));
 					break;
 					
 				case SAC_PS:
-					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_AGRES));
 					break;
 					
 				case UTP:
-					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+					ent = make(EntityHolder.getEntity(EntityHolder.BLACK_AGRES));
 					break;
 					
 				case VAR:
-					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+					ent = make(EntityHolder.getEntity(EntityHolder.RED_AGRES));
 					break;
 					
 				case VCYNO:
-					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+					ent = make(EntityHolder.getEntity(EntityHolder.BLACK_AGRES));
 					break;
 					
 				case VICB:
-					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+					ent = make(EntityHolder.getEntity(EntityHolder.ORANGE_AGRES));
 					break;
 					
 				case VL:
-					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+					ent = make(EntityHolder.getEntity(EntityHolder.BLACK_AGRES));
 					break;
 					
 				case VLCC:
-					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+					ent = make(EntityHolder.getEntity(EntityHolder.VIOLET_AGRES));
 					break;
 					
 				case VLCG:
-					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+					ent = make(EntityHolder.getEntity(EntityHolder.VIOLET_AGRES));
 					break;
 					
 				case VLCGD:
-					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+					ent = make(EntityHolder.getEntity(EntityHolder.VIOLET_AGRES));
 					break;
 					
 				case VLCS:
-					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+					ent = make(EntityHolder.getEntity(EntityHolder.VIOLET_AGRES));
 					break;
 					
 				case VLDP:
-					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+					ent = make(EntityHolder.getEntity(EntityHolder.BLACK_AGRES));
 					break;
 					
 				case VLHR:
-					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+					ent = make(EntityHolder.getEntity(EntityHolder.BLACK_AGRES));
 					break;
 					
 				case VLOS:
-					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_AGRES));
 					break;
 					
 				case VLS:
-					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_AGRES));
 					break;
 					
 				case VLSV:
-					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_AGRES));
 					break;
 					
 				case VNRBC:
-					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+					ent = make(EntityHolder.getEntity(EntityHolder.ORANGE_AGRES));
 					break;
 					
 				case VPHV:
-					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+					ent = make(EntityHolder.getEntity(EntityHolder.BLACK_AGRES));
 					break;
 					
 				case VPL:
-					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+					ent = make(EntityHolder.getEntity(EntityHolder.BLACK_AGRES));
 					break;
 					
 				case VPRO:
-					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+					ent = make(EntityHolder.getEntity(EntityHolder.RED_AGRES));
 					break;
 					
 				case VRAD:
-					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+					ent = make(EntityHolder.getEntity(EntityHolder.ORANGE_AGRES));
 					break;
 					
 				case VRCB:
-					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+					ent = make(EntityHolder.getEntity(EntityHolder.ORANGE_AGRES));
 					break;
 					
 				case VSM:
-					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_AGRES));
 					break;
 					
 				case VSR:
-					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_AGRES));
 					break;
 					
 				case VTP:
-					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+					ent = make(EntityHolder.getEntity(EntityHolder.BLACK_AGRES));
 					break;
 					
 				case VTU:
-					ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+					ent = make(EntityHolder.getEntity(EntityHolder.BLACK_AGRES));
 					break;
 			}
 			
@@ -260,175 +260,175 @@ public class EntityFactory {
 			switch (((VehicleDemandDTO) model).getType()) {
 			// FIXME les demandes devraient être affichées avec des tirets et non avec les pictos des vehicules
 			case FPT:
-				ent = make(EntityHolder.getEntity(EntityHolder.RED_ISOLE));
+				ent = make(EntityHolder.getEntity(EntityHolder.RED_AGRES));
 				break;
 				
 			case VSAV:
-				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_AGRES));
 				break;
 
 			case BEA:
-				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+				ent = make(EntityHolder.getEntity(EntityHolder.RED_AGRES));
 				break;
 				
 			case BLS:
-				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+				ent = make(EntityHolder.getEntity(EntityHolder.BLACK_AGRES));
 				break;
 				
 			case BLSP:
-				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+				ent = make(EntityHolder.getEntity(EntityHolder.BLACK_AGRES));
 				break;
 				
 			case BRS:
-				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+				ent = make(EntityHolder.getEntity(EntityHolder.BLACK_AGRES));
 				break;
 				
 			case CAEM:
-				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+				ent = make(EntityHolder.getEntity(EntityHolder.RED_AGRES));
 				break;
 				
 			case CCFM:
-				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+				ent = make(EntityHolder.getEntity(EntityHolder.RED_AGRES));
 				break;
 				
 			case CCGC:
-				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+				ent = make(EntityHolder.getEntity(EntityHolder.BLUE_AGRES));
 				break;
 				
 			case CCGCLC:
-				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+				ent = make(EntityHolder.getEntity(EntityHolder.RED_AGRES));
 				break;
 				
 			case DA:
-				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+				ent = make(EntityHolder.getEntity(EntityHolder.BLUE_AGRES));
 				break;
 				
 			case EMB:
-				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+				ent = make(EntityHolder.getEntity(EntityHolder.BLACK_AGRES));
 				break;
 				
 			case EPS:
-				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+				ent = make(EntityHolder.getEntity(EntityHolder.RED_AGRES));
 				break;
 				
 			case ESPM:
-				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+				ent = make(EntityHolder.getEntity(EntityHolder.BLACK_AGRES));
 				break;
 				
 			case FMOGP:
-				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+				ent = make(EntityHolder.getEntity(EntityHolder.RED_AGRES));
 				break;
 				
 			case MPR:
-				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+				ent = make(EntityHolder.getEntity(EntityHolder.BLUE_AGRES));
 				break;
 				
 			case PCM:
-				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+				ent = make(EntityHolder.getEntity(EntityHolder.VIOLET_AGRES));
 				break;
 				
 			case PEVSD:
-				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+				ent = make(EntityHolder.getEntity(EntityHolder.RED_AGRES));
 				break;
 				
 			case SAC_PS:
-				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_AGRES));
 				break;
 				
 			case UTP:
-				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+				ent = make(EntityHolder.getEntity(EntityHolder.BLACK_AGRES));
 				break;
 				
 			case VAR:
-				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+				ent = make(EntityHolder.getEntity(EntityHolder.RED_AGRES));
 				break;
 				
 			case VCYNO:
-				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+				ent = make(EntityHolder.getEntity(EntityHolder.BLACK_AGRES));
 				break;
 				
 			case VICB:
-				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+				ent = make(EntityHolder.getEntity(EntityHolder.ORANGE_AGRES));
 				break;
 				
 			case VL:
-				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+				ent = make(EntityHolder.getEntity(EntityHolder.BLACK_AGRES));
 				break;
 				
 			case VLCC:
-				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+				ent = make(EntityHolder.getEntity(EntityHolder.VIOLET_AGRES));
 				break;
 				
 			case VLCG:
-				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+				ent = make(EntityHolder.getEntity(EntityHolder.VIOLET_AGRES));
 				break;
 				
 			case VLCGD:
-				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+				ent = make(EntityHolder.getEntity(EntityHolder.VIOLET_AGRES));
 				break;
 				
 			case VLCS:
-				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+				ent = make(EntityHolder.getEntity(EntityHolder.VIOLET_AGRES));
 				break;
 				
 			case VLDP:
-				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+				ent = make(EntityHolder.getEntity(EntityHolder.BLACK_AGRES));
 				break;
 				
 			case VLHR:
-				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+				ent = make(EntityHolder.getEntity(EntityHolder.BLACK_AGRES));
 				break;
 				
 			case VLOS:
-				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_AGRES));
 				break;
 				
 			case VLS:
-				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_AGRES));
 				break;
 				
 			case VLSV:
-				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_AGRES));
 				break;
 				
 			case VNRBC:
-				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+				ent = make(EntityHolder.getEntity(EntityHolder.ORANGE_AGRES));
 				break;
 				
 			case VPHV:
-				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+				ent = make(EntityHolder.getEntity(EntityHolder.BLACK_AGRES));
 				break;
 				
 			case VPL:
-				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+				ent = make(EntityHolder.getEntity(EntityHolder.BLACK_AGRES));
 				break;
 				
 			case VPRO:
-				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+				ent = make(EntityHolder.getEntity(EntityHolder.RED_AGRES));
 				break;
 				
 			case VRAD:
-				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+				ent = make(EntityHolder.getEntity(EntityHolder.ORANGE_AGRES));
 				break;
 				
 			case VRCB:
-				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+				ent = make(EntityHolder.getEntity(EntityHolder.ORANGE_AGRES));
 				break;
 				
 			case VSM:
-				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_AGRES));
 				break;
 				
 			case VSR:
-				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_AGRES));
 				break;
 				
 			case VTP:
-				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+				ent = make(EntityHolder.getEntity(EntityHolder.BLACK_AGRES));
 				break;
 				
 			case VTU:
-				ent = make(EntityHolder.getEntity(EntityHolder.GREEN_ISOLE));
+				ent = make(EntityHolder.getEntity(EntityHolder.BLACK_AGRES));
 				break;
 			}
 			
@@ -439,11 +439,15 @@ public class EntityFactory {
 					break;
 					
 				case HUMAN:
-					ent = make(EntityHolder.getEntity(EntityHolder.LINE_BLACK));
+					ent = make(EntityHolder.getEntity(EntityHolder.LINE_GREEN));
 					break;
 					
 				case WATER:
 					ent = make(EntityHolder.getEntity(EntityHolder.LINE_BLUE));
+					break;
+					
+				case CHEM:
+					ent = make(EntityHolder.getEntity(EntityHolder.LINE_ORANGE));
 					break;
 			}
 			

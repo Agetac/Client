@@ -60,13 +60,12 @@
     <string name="vehicule_gh_retour">gh Retour</string>
     <string name="vehicule_gh_demande">gh Alerte</string>
     <string name="imageContentDescription">Image representant moyen</string>
-    <string name="attaque">Attaque du feu</string>
-    <string name="alim">Alimentation en eau</string>
-    <string name="secours">Secours aux personnes</string>
-    <string name="FPT">FPT</string>
-    <string name="CCGC">CCGC</string>
-    <string name="VSAV">VSAV</string>
-    <string name="item2">item2</string>
+    <string name="attaque">Incendie</string>
+    <string name="alim">Lié à l eau</string>
+    <string name="secours">Secours à personnes</string>
+    <string name="commandement">Commandement</string>
+    <string name="risques">Risques particuliers</string>
+    <string name="cheminement">Cheminement</string>
     <string name="unknown">Inconnue</string>
 
     <!-- fin entete -->

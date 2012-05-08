@@ -10,6 +10,7 @@ import android.graphics.Point;
 
 public class LinePicto implements IPictogram {
 	
+	private String id;
 	private Point start,stop;
 	private float scaleRef;
 	private Bitmap bmp;
@@ -20,7 +21,8 @@ public class LinePicto implements IPictogram {
 	private GraphicalOverload graphicalOverload;
 	Paint paint;
 	
-	public LinePicto(String name, Bitmap bmp, Point start, Point stop, float scaleRef) {
+	public LinePicto(String id, Bitmap bmp, Point start, Point stop, float scaleRef) {
+		this.id = id;
 		this.start = start;
 		this.stop = stop;
 		this.scaleRef = scaleRef;
@@ -28,12 +30,13 @@ public class LinePicto implements IPictogram {
 		this.state = null;
 		this.shape = null;
 		this.graphicalOverload = null;
-		this.name = name;
+		this.name = id.split("_")[1];
 		this.bmp = bmp;
 		this.paint = new Paint();
 		paint.setColor(android.graphics.Color.BLACK);
 	}
-	public LinePicto(String name, Bitmap bmp, Color color, State state, Shape shape, GraphicalOverload graphicalOverload, Point start, Point stop, float scaleRef) {
+	public LinePicto(String id, Bitmap bmp, Color color, State state, Shape shape, GraphicalOverload graphicalOverload, Point start, Point stop, float scaleRef) {
+		this.id = id;
 		this.start = start;
 		this.stop = stop;
 		this.scaleRef = scaleRef;
@@ -41,10 +44,15 @@ public class LinePicto implements IPictogram {
 		this.state = state;
 		this.shape = shape;
 		this.graphicalOverload = graphicalOverload;
-		this.name = name;
+		this.name = id.split("_")[1];
 		this.bmp = bmp;
 		this.paint = new Paint();
 		handlePaint();
+	}
+	
+	@Override
+	public String getId() {
+		return id;
 	}
 	
 	public void setStart(Point start) {

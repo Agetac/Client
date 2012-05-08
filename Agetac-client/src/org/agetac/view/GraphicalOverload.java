@@ -3,8 +3,9 @@ package org.agetac.view;
 public enum GraphicalOverload {
 	
 	NONE,
-	ISOLE,
+	AGRES,
 	GROUPE,
-	COLONNE,
+	COL_2,
+	COL_3
 
 }

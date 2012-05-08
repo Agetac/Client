@@ -15,6 +15,7 @@ import org.agetac.common.dto.VehicleDemandDTO.DemandState;
 import org.agetac.common.util.TimeFormatter;
 import org.agetac.controller.Controller.ActionFlag;
 import org.agetac.entity.EntityFactory;
+import org.agetac.entity.EntityHolder;
 import org.agetac.entity.IEntity;
 
 import android.app.AlertDialog;
@@ -121,18 +122,146 @@ public class MoyensActivity extends AbstractActivity implements OnClickListener,
 				// TODO récupérer le nom via un formulaire
 				dm = genVehicleDemandDTO(VehicleType.FPT);
 				break;
-	
-			case R.id.CCGC:
-				dm = genVehicleDemandDTO(VehicleType.CCGC);
-				break;
-	
+				
 			case R.id.VSAV:
 				dm = genVehicleDemandDTO(VehicleType.VSAV);
 				break;
+
+			case R.id.BEA:
+				dm = genVehicleDemandDTO(VehicleType.BEA);
+				break;
 				
-			case R.id.menu_attaque:
-				return false;
+			case R.id.CAEM:
+				dm = genVehicleDemandDTO(VehicleType.CAEM);
+				break;
 				
+			case R.id.CCFM:
+				dm = genVehicleDemandDTO(VehicleType.CCFM);
+				break;
+				
+			case R.id.CCGC:
+				dm = genVehicleDemandDTO(VehicleType.CCGC);
+				break;
+				
+			case R.id.CCGCLC:
+				dm = genVehicleDemandDTO(VehicleType.CCGCLC);
+				break;
+				
+			case R.id.DA:
+				dm = genVehicleDemandDTO(VehicleType.DA);
+				break;
+				
+			case R.id.EMB:
+				dm = genVehicleDemandDTO(VehicleType.EMB);
+				break;
+				
+			case R.id.EPS:
+				dm = genVehicleDemandDTO(VehicleType.EPS);
+				break;
+				
+			case R.id.FMOGP:
+				dm = genVehicleDemandDTO(VehicleType.FMOGP);
+				break;
+				
+			case R.id.MPR:
+				dm = genVehicleDemandDTO(VehicleType.MPR);
+				break;
+				
+			case R.id.PEVSD:
+				dm = genVehicleDemandDTO(VehicleType.PEVSD);
+				break;
+				
+			case R.id.SAC_PS:
+				dm = genVehicleDemandDTO(VehicleType.SAC_PS);
+				break;
+
+			case R.id.VCYNO:
+				dm = genVehicleDemandDTO(VehicleType.VCYNO);
+				break;
+				
+			case R.id.VICB:
+				dm = genVehicleDemandDTO(VehicleType.VICB);
+				break;
+				
+			case R.id.VL:
+				dm = genVehicleDemandDTO(VehicleType.VL);
+				break;
+				
+			case R.id.VLCC:
+				dm = genVehicleDemandDTO(VehicleType.VLCC);
+				break;
+				
+			case R.id.VLCG:
+				dm = genVehicleDemandDTO(VehicleType.VLCG);
+				break;
+				
+			case R.id.VLCGD:
+				dm = genVehicleDemandDTO(VehicleType.VLCGD);
+				break;
+				
+			case R.id.VLCS:
+				dm = genVehicleDemandDTO(VehicleType.VLCS);
+				break;
+				
+			case R.id.VLDP:
+				dm = genVehicleDemandDTO(VehicleType.VLDP);
+				break;
+				
+			case R.id.VLHR:
+				dm = genVehicleDemandDTO(VehicleType.VLHR);
+				break;
+				
+			case R.id.VLOS:
+				dm = genVehicleDemandDTO(VehicleType.VLOS);
+				break;
+				
+			case R.id.VLS:
+				dm = genVehicleDemandDTO(VehicleType.VLS);
+				break;
+				
+			case R.id.VLSV:
+				dm = genVehicleDemandDTO(VehicleType.VLSV);
+				break;
+				
+			case R.id.VNRBC:
+				dm = genVehicleDemandDTO(VehicleType.VNRBC);
+				break;
+				
+			case R.id.VPHV:
+				dm = genVehicleDemandDTO(VehicleType.VPHV);
+				break;
+				
+			case R.id.VPL:
+				dm = genVehicleDemandDTO(VehicleType.VPL);
+				break;
+				
+			case R.id.VPRO:
+				dm = genVehicleDemandDTO(VehicleType.VPRO);
+				break;
+				
+			case R.id.VRAD:
+				dm = genVehicleDemandDTO(VehicleType.VRAD);
+				break;
+				
+			case R.id.VRCB:
+				dm = genVehicleDemandDTO(VehicleType.VRCB);
+				break;
+				
+			case R.id.VSM:
+				dm = genVehicleDemandDTO(VehicleType.VSM);
+				break;
+				
+			case R.id.VSR:
+				dm = genVehicleDemandDTO(VehicleType.VSR);
+				break;
+				
+			case R.id.VTP:
+				dm = genVehicleDemandDTO(VehicleType.VTP);
+				break;
+				
+			case R.id.VTU:
+				dm = genVehicleDemandDTO(VehicleType.VTU);
+				break;
 				
 			default:
 				// TODO récupérer le nom via un formulaire

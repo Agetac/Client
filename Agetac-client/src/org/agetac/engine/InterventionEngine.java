@@ -57,7 +57,7 @@ public class InterventionEngine implements IInterventionEngine {
 		// intervention liee a un compte
 		interId = 0;
 		intervention = client.getIntervention(interId);
-			
+		
 		// cree les handlers pour les operations REST
 		addHandler = new AddHandler(client, interId);
 		delHandler = new DeleteHandler(entities, client);

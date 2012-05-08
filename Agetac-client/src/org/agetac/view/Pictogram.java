@@ -8,6 +8,7 @@ import android.graphics.Point;
 
 public class Pictogram implements IPictogram {
 
+	private String id;
 	private Bitmap bmp;
 	private String name;
 	private Color color;
@@ -24,13 +25,19 @@ public class Pictogram implements IPictogram {
 		this.name = name;
 		this.bmp = bmp;
 	}
-	public Pictogram(String name, Bitmap bmp, Color color, State state, Shape shape, GraphicalOverload graphicalOverload) {
+	public Pictogram(String id, Bitmap bmp, Color color, State state, Shape shape, GraphicalOverload graphicalOverload) {
+		this.id = id;
 		this.color = color;
 		this.state = state;
 		this.shape = shape;
 		this.graphicalOverload = graphicalOverload;
-		this.name = name;
+		this.name = id.split("_")[1];
 		this.bmp = bmp;
+	}
+	
+	@Override
+	public String getId() {
+		return id;
 	}
 	
 	@Override

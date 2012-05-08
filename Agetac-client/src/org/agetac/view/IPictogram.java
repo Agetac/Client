@@ -9,6 +9,8 @@ import android.graphics.Point;
 
 public interface IPictogram {
 
+	public String getId();
+	
 	public Bitmap getBitmap();
 	
 	public String getName();
