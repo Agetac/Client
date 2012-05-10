@@ -100,6 +100,8 @@ public class InterventionEngine implements IInterventionEngine {
 	@Override
 	public void updateIntervention() {
 		InterventionDTO remoteInter = client.getIntervention(interId);
+		// TODO Change zat !
+		entities.clear();
 		
 		List<VehicleDTO> vehList = new ArrayList<VehicleDTO>(remoteInter.getVehicles());
 		processUpdate(vehList, VehicleDTO.class);
@@ -111,50 +113,13 @@ public class InterventionEngine implements IInterventionEngine {
 		processUpdate(cibList, TargetDTO.class);
 		
 		List<VehicleDemandDTO> dMoyList = new ArrayList<VehicleDemandDTO>(remoteInter.getDemands());
+		List<VehicleDemandDTO> processedDMoyList = new ArrayList<VehicleDemandDTO>();
 		for (int i=0; i<dMoyList.size(); i++) {
-			IEntity e = entities.find(dMoyList.get(i).getId(), VehicleDemandDTO.class);
-			VehicleDemandDTO vd = dMoyList.get(i);
-			// si la demande existe deja cote client
-			if (e != null) {
-				// on met à jour le model de son entitee
-				e.setModel(vd);
-				// on cherche à savoir si son état est "ACCEPTE"
-				if (vd.getState() == DemandState.ACCEPTED) {
-					// FIXME attention si l'état est ACCEPTED et que l'id du vehicule associe
-					// n'a pas ete definie, ça va planter ! car il sera à -1
-					
-					// la demande a ete acceptee, il faut donc supprimer
-					// la demande de la SITAC pour la remplacer par un vehicule
-					ArrayList<VehicleDTO> vList = new ArrayList<VehicleDTO>(intervention.getVehicles());
-					for (int k=0; k<vList.size(); k++) {
-						// on cherche le model du véhicule associé à la demande
-						if (vList.get(k).getId() == vd.getVehicleId()) {
-							// si le véhicule n'est pas déjà présent côté client on l'ajoute
-							IEntity vehicule = entities.find(vd.getVehicleId(), VehicleDTO.class);
-							if (vehicule == null) {
-								// on cree la future entitee du vehicule
-								VehicleDTO v = vList.get(k);
-								// on ajoute le nouveau vehicule aux entitées
-								entities.add(EntityFactory.make(v));
-							}
-							// on supprime la demande de vehicule
-							entities.remove(vd);
-						}
-					}
-				}
-			// si la demande n'existe pas côté client
-			} else {
-				// on vérifie qu'elle n'a pas de vehicule associé
-				if (vd.getState() != DemandState.ACCEPTED) {
-					// elle n'a pas encore été acceptée, donc on l'ajoute aux entitées
-					entities.add(EntityFactory.make(vd));
-					
-				} else {
-					// la demande a été acceptée, donc un vehicule est déjà présent
-					// dans la liste des entitées
-				}
+			if (dMoyList.get(i).getState() != DemandState.ACCEPTED) {
+				processedDMoyList.add(dMoyList.get(i));
 			}
 		}
+		processUpdate(processedDMoyList, VehicleDemandDTO.class);
 		
 		List<VictimDTO> impList = new ArrayList<VictimDTO>(remoteInter.getVictims());
 		processUpdate(impList, VictimDTO.class);
