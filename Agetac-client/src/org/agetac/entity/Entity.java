@@ -1,6 +1,7 @@
 package org.agetac.entity;
 
 
+import java.util.Date;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -228,5 +229,17 @@ public class Entity implements IEntity, Observer {
 		} else {
 			this.state = EntityState.MENU;
 		}
+	}
+
+	@Override
+	public int compareTo(IEntity another) {
+		final int equal = 0;
+		final int lesser = -42;
+		final int greater = 42;
+		if (this.model.getId() > another.getModel().getId())
+			return lesser;
+		else if (this.model.getId() < another.getModel().getId())
+			return greater;
+		else return equal;
 	}
 }

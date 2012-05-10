@@ -1,7 +1,6 @@
 package org.agetac.activity;
 
 import java.util.Comparator;
-import java.util.Date;
 
 import org.agetac.common.dto.MessageDTO;
 
@@ -16,7 +15,4 @@ public class DateComparator implements Comparator<MessageDTO>{
 	
 	else {return 0;}
 	}
-	
-	
-
 }

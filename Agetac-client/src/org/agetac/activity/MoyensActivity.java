@@ -1,6 +1,7 @@
 package org.agetac.activity;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Hashtable;
 import java.util.List;
@@ -47,7 +48,7 @@ public class MoyensActivity extends AbstractActivity implements OnClickListener,
 	
 	private SimpleAdapter listAdapter;
 	private ListView listView;
-	private List<Hashtable<String, String>> data;
+	private ArrayList<Hashtable<String, String>> data;
 	private PopupMenu popupMenu;
 
 
@@ -322,7 +323,7 @@ public class MoyensActivity extends AbstractActivity implements OnClickListener,
 	public void update() {
 		List<IEntity> entities = controller.getEntities();
 		data.clear();
-		
+		Collections.sort(entities);
 		for (int i=0; i<entities.size(); i++) {
 			IModel model = entities.get(i).getModel();
 			// la map pour la prochaine ligne a ajouter

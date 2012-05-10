@@ -10,7 +10,7 @@ import org.osmdroid.views.MapView;
 
 import android.graphics.Canvas;
 
-public interface IEntity extends Serializable {
+public interface IEntity extends Serializable, Comparable<IEntity> {
 	
 	public IModel getModel();
 
