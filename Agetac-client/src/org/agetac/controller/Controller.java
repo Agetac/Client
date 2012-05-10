@@ -1,6 +1,7 @@
 package org.agetac.controller;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Hashtable;
 import java.util.Map;
 import java.util.Observable;
@@ -112,7 +113,9 @@ public class Controller implements Observer {
 	}
 	
 	public ArrayList<IEntity> getEntities() {
-		return interventionEngine.getEntities();
+		ArrayList<IEntity> entities = interventionEngine.getEntities();
+		Collections.sort(entities);
+		return entities;
 	}
 	
 	public IInterventionEngine getInterventionEngine() {

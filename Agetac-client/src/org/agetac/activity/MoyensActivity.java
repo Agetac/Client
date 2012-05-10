@@ -323,7 +323,7 @@ public class MoyensActivity extends AbstractActivity implements OnClickListener,
 	public void update() {
 		List<IEntity> entities = controller.getEntities();
 		data.clear();
-		Collections.sort(entities);
+		
 		for (int i=0; i<entities.size(); i++) {
 			IModel model = entities.get(i).getModel();
 			// la map pour la prochaine ligne a ajouter
