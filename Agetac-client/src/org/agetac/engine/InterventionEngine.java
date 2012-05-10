@@ -129,18 +129,30 @@ public class InterventionEngine implements IInterventionEngine {
 					for (int k=0; k<vList.size(); k++) {
 						// on cherche le model du véhicule associé à la demande
 						if (vList.get(k).getId() == vd.getVehicleId()) {
-							// on cree la future entitee du vehicule
-							VehicleDTO v = vList.get(k);
-							// on ajoute le nouveau vehicule aux entitées
-							entities.add(EntityFactory.make(v));
+							// si le véhicule n'est pas déjà présent côté client on l'ajoute
+							IEntity vehicule = entities.find(vd.getVehicleId(), VehicleDTO.class);
+							if (vehicule == null) {
+								// on cree la future entitee du vehicule
+								VehicleDTO v = vList.get(k);
+								// on ajoute le nouveau vehicule aux entitées
+								entities.add(EntityFactory.make(v));
+							}
 							// on supprime la demande de vehicule
 							entities.remove(vd);
 						}
 					}
 				}
-			// si la demande n'existe pas côté client, on l'ajoute
+			// si la demande n'existe pas côté client
 			} else {
-				entities.add(EntityFactory.make(vd));
+				// on vérifie qu'elle n'a pas de vehicule associé
+				if (vd.getState() != DemandState.ACCEPTED) {
+					// elle n'a pas encore été acceptée, donc on l'ajoute aux entitées
+					entities.add(EntityFactory.make(vd));
+					
+				} else {
+					// la demande a été acceptée, donc un vehicule est déjà présent
+					// dans la liste des entitées
+				}
 			}
 		}
 		

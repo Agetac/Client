@@ -250,7 +250,7 @@ public class SITACActivity extends AbstractActivity implements IOnMenuEventListe
 				// on effectue les traitements en fonction du model
 				if (touchedEntity.getModel() instanceof VehicleDemandDTO) {
 					((VehicleDemandDTO) touchedEntity.getModel()).setState(DemandState.ASKED);
-					((VehicleDemandDTO) touchedEntity.getModel()).setTimestamp(new Date());
+					((VehicleDemandDTO) touchedEntity.getModel()).setGroupeHoraire(new Date());
 					((VehicleDemandDTO) touchedEntity.getModel()).setType(selectedType);
 				}
 				

@@ -18,5 +18,6 @@
 	<classpathentry kind="lib" path="lib/osmdroid-third-party-3.0.6.jar"/>
 	<classpathentry kind="lib" path="lib/slf4j-android-1.6.1-RC1.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/Common"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

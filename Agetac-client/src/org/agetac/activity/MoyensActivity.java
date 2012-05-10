@@ -322,7 +322,6 @@ public class MoyensActivity extends AbstractActivity implements OnClickListener,
 	public void update() {
 		List<IEntity> entities = controller.getEntities();
 		data.clear();
-		android.util.Log.d(TAG, "DATA après clear: "+data.size()+ " >> "+data.toString());
 		
 		for (int i=0; i<entities.size(); i++) {
 			IModel model = entities.get(i).getModel();
@@ -332,10 +331,18 @@ public class MoyensActivity extends AbstractActivity implements OnClickListener,
 			if (model instanceof VehicleDTO) {
 				VehicleDTO v = (VehicleDTO) model;
 				map.put(DATA_IMG, ""+R.drawable.firetruck);
-				map.put(DATA_TYPE, v.getName());
-				map.put(DATA_CASERNE, v.getBarrack().getName());
+				String name = v.getType().name();
+				if (v.getName() != null) {
+					name += " "+v.getName();
+				}
+				map.put(DATA_TYPE, name);
+				String caserne = getString(R.string.unknown);
+				if (v.getBarrack().getName() != null) {
+					caserne = v.getBarrack().getName();
+				}
+				map.put(DATA_CASERNE, caserne);
 				map.put(DATA_ETAT, v.getState().name());
-				map.put(DATA_GHDEM, getString(R.string.unknown)); // mapping GH non implemente sur le model
+				map.put(DATA_GHDEM, TimeFormatter.getGroupeHoraire(v.getDemandTime())); // mapping GH non implemente sur le model
 				map.put(DATA_GHARR, getString(R.string.unknown)); // mapping GH non implemente sur le model
 				map.put(DATA_GHRET, getString(R.string.unknown)); // mapping GH non implemente sur le model
 				// on ajoute la map a la liste
@@ -354,7 +361,7 @@ public class MoyensActivity extends AbstractActivity implements OnClickListener,
 					map.put(DATA_TYPE, type);
 					map.put(DATA_CASERNE, getString(R.string.unknown));
 					map.put(DATA_ETAT, dm.getState().name());
-					map.put(DATA_GHDEM, TimeFormatter.getGroupeHoraire(dm.getTimestamp())); // mapping GH non implemente sur le model
+					map.put(DATA_GHDEM, TimeFormatter.getGroupeHoraire(dm.getGroupeHoraire())); // mapping GH non implemente sur le model
 					map.put(DATA_GHARR, getString(R.string.unknown)); // mapping GH non implemente sur le model
 					map.put(DATA_GHRET, getString(R.string.unknown)); // mapping GH non implemente sur le model
 					// on ajoute la map a la liste
@@ -376,7 +383,7 @@ public class MoyensActivity extends AbstractActivity implements OnClickListener,
 		VehicleDemandDTO dm = new VehicleDemandDTO();
 		dm.setType(type);
 		dm.setState(DemandState.ASKED);
-		dm.setTimestamp(new Date());
+		dm.setGroupeHoraire(new Date());
 		dm.setPosition(new PositionDTO());
 		dm.getPosition().setKnown(false);
 		return dm;
