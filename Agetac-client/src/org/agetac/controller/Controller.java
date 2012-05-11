@@ -23,6 +23,8 @@ import org.agetac.engine.InterventionEngine;
 import org.agetac.entity.IEntity;
 
 import android.content.Context;
+import android.os.AsyncTask;
+import android.os.StrictMode;
 
 public class Controller implements Observer {
 	
@@ -57,6 +59,9 @@ public class Controller implements Observer {
 	 * - Crée toutes les commandes concrètes
 	 */
 	private Controller(Context c) {
+		// useful for NetworkOnMainThreadException purposes
+		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+		StrictMode.setThreadPolicy(policy);
 		interventionEngine = new InterventionEngine(c);
 		
 		initCommands();

@@ -2,7 +2,7 @@
 <resources>
     
 
-    <string name="host">192.168.0.1</string>
+    <string name="host">192.168.0.13</string>
     <string name="port">8888</string>
     
     <string name="app_name">Agetac-client</string>
@@ -18,7 +18,7 @@
     <string name="cancel">Annuler</string>
 
     <!-- STRINGS OPENEDMENU FRAGMENT -->
-    <string name="dangers">Dangers</string>
+    <string name="dangers">Sources</string>
     <string name="cibles">Cibles</string>
     <string name="off_sitac">Position à définir</string>
     <string name="actions">Actions</string>
